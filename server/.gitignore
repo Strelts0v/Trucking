@@ -12,7 +12,7 @@
 /.idea
 /target
 /build
-.iml
+*.iml
 .project
 .classpath
 .c9/
