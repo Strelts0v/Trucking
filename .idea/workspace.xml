@@ -2,72 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c6c12e5-e4b6-4a2d-b8e3-0b957d4fb72a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_11.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_11.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_3_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_8_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_8_10.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_8_10.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_2_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_validation_validation_api_1_1_0_Final.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_accessors_smart_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_json_smart_2_2_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_8_5_23.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_8_5_23.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_8_5_23.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_tomcat_annotations_api_8_5_23.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_2_6_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_library_1_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_validator_5_3_5_Final.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_3_1_Final.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_1_10_19.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_0_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_skyscreamer_jsonassert_1_4_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_25.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_25.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_log4j_over_slf4j_1_7_25.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_25.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_1_5_8_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_1_5_8_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_1_5_8_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_1_5_8_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_1_5_8_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_1_5_8_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_1_5_8_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_1_5_8_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_1_5_8_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_3_12_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_3_12_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_3_12_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_4_3_12_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_3_12_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_3_12_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_4_3_12_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_4_3_12_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_17.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/runConfigurations/bin_www.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/app.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/bin/www" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/client.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/package-lock.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/public/stylesheets/style.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/routes/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/routes/users.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/views/error.jade" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/views/index.jade" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/views/layout.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/package.json" afterPath="$PROJECT_DIR$/client/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_transaction_javax_transaction_api_1_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_44.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_tomcat_jdbc_8_5_23.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_tomcat_juli_8_5_23.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_11.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_0_1_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_0_12_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_entitymanager_5_0_12_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_0_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_21_0_GA.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_0_0_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_1_5_8_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_1_5_8_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_1_5_8_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_1_13_8_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_1_11_8_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_4_3_12_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_4_3_12_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_4_3_12_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_4_3_12_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/server/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -80,42 +39,153 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$Root" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="itechart_group_db@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$Root" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="itechart_group_db@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="itechart_group_db" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="0">
-                <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                <folding />
-              </first_editor>
-              <second_editor />
+      <file leaf-file-name="itechart_group_db.sql" pinned="false" current-in-tab="true">
+        <entry file="file://D:/ITechArt/ItechArtCommandProject/itechart_group_db.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="62" column="35" lean-forward="false" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Application.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/com/itechart/Application.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="32">
-              <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GreetingController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/com/itechart/controller/GreetingController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="15" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+      <file leaf-file-name="DATABASE/df3f535a-392c-4847-8472-358f39b28a6b.SCHEMA:itechart_group_db" pinned="false" current-in-tab="false">
+        <entry file="uml://DATABASE/df3f535a-392c-4847-8472-358f39b28a6b.SCHEMA:itechart_group_db">
+          <provider selected="true" editor-type-id="UmlEditorProvider">
+            <state>
+              <ID>DATABASE</ID>
+              <OriginalElement>df3f535a-392c-4847-8472-358f39b28a6b.SCHEMA:itechart_group_db</OriginalElement>
+              <nodes>
+                <node x="1194.1634615384614" y="268.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.act_of_loss</node>
+                <node x="953.1634615384614" y="268.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.item_consignments</node>
+                <node x="212.99999999999994" y="0.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.warehouses</node>
+                <node x="817.2163461538461" y="11.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.car_park</node>
+                <node x="1073.8221153846152" y="11.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.items</node>
+                <node x="412.4999999999999" y="448.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.users</node>
+                <node x="0.0" y="22.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.clients</node>
+                <node x="714.0" y="837.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices_has_users</node>
+                <node x="352.9999999999999" y="837.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills_has_users</node>
+                <node x="337.7499999999999" y="213.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills</node>
+                <node x="489.99999999999994" y="33.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.checkpoints</node>
+                <node x="885.9134615384614" y="536.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices</node>
+              </nodes>
+              <notes />
+              <edges>
+                <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.act_of_loss" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.items">
+                  <point x="0.0" y="-37.5" />
+                  <point x="1282.1634615384614" y="193.0" />
+                  <point x="1226.0721153846152" y="193.0" />
+                  <point x="50.75" y="70.5" />
+                </edge>
+                <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.warehouses">
+                  <point x="-32.12499999999994" y="-92.5" />
+                  <point x="434.12499999999994" y="183.0" />
+                  <point x="341.49999999999994" y="183.0" />
+                  <point x="0.0" y="81.5" />
+                </edge>
+                <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills_has_users" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.users">
+                  <point x="51.00000000000006" y="-37.0" />
+                  <point x="505.99999999999994" y="812.0" />
+                  <point x="507.9999999999999" y="812.0" />
+                  <point x="-95.5" y="169.5" />
+                </edge>
+                <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices_has_users" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices">
+                  <point x="51.0" y="-37.0" />
+                  <point x="867.0" y="812.0" />
+                  <point x="1004.4134615384614" y="812.0" />
+                  <point x="0.0" y="81.5" />
+                </edge>
+                <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills">
+                  <point x="-59.25" y="-81.5" />
+                  <point x="945.1634615384614" y="423.0" />
+                  <point x="530.5" y="423.0" />
+                  <point x="64.25000000000006" y="92.5" />
+                </edge>
+                <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.item_consignments">
+                  <point x="59.25" y="-81.5" />
+                  <point x="0.0" y="37.5" />
+                </edge>
+                <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.clients">
+                  <point x="-96.37499999999994" y="-92.5" />
+                  <point x="369.87499999999994" y="193.0" />
+                  <point x="96.5" y="193.0" />
+                  <point x="0.0" y="59.5" />
+                </edge>
+                <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.item_consignments" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.items">
+                  <point x="0.0" y="-37.5" />
+                  <point x="1063.6634615384614" y="193.0" />
+                  <point x="1124.5721153846152" y="193.0" />
+                  <point x="-50.75" y="70.5" />
+                </edge>
+                <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices_has_users" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.users">
+                  <point x="-51.0" y="-37.0" />
+                  <point x="765.0" y="812.0" />
+                  <point x="698.9999999999999" y="812.0" />
+                  <point x="95.5" y="169.5" />
+                </edge>
+                <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills_has_users" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills">
+                  <point x="-50.99999999999994" y="-37.0" />
+                  <point x="403.99999999999994" y="812.0" />
+                  <point x="401.9999999999999" y="812.0" />
+                  <point x="-64.25" y="92.5" />
+                </edge>
+                <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.car_park">
+                  <point x="96.37500000000006" y="-92.5" />
+                  <point x="562.625" y="193.0" />
+                  <point x="914.7163461538461" y="193.0" />
+                  <point x="0.0" y="70.5" />
+                </edge>
+                <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.checkpoints">
+                  <point x="32.12500000000006" y="-92.5" />
+                  <point x="498.37499999999994" y="183.0" />
+                  <point x="591.0" y="183.0" />
+                  <point x="0.0" y="48.5" />
+                </edge>
+              </edges>
+              <settings layout="Hierarchic Group" zoom="0.4897959183673469" x="274.10416666666663" y="480.0" />
+              <SelectedNodes>
+                <node>df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices</node>
+              </SelectedNodes>
+              <Categories>
+                <Category>Key columns</Category>
+                <Category>Columns</Category>
+              </Categories>
             </state>
           </provider>
         </entry>
@@ -131,6 +201,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <push-targets>
+      <push-target-info target-remote="origin" target-branch="dev" repo="$PROJECT_DIR$" source="master" />
+    </push-targets>
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -159,7 +232,9 @@
     <option name="width" value="1608" />
     <option name="height" value="882" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -240,6 +315,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Trucking" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -274,37 +371,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Trucking" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="itechart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
+              <option name="myItemId" value="util" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -313,16 +380,17 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Confirmation" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/client" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.53855276" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="javascript.nodejs.core.library.configured.version" value="8.9.1" />
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -748,6 +816,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Admin\AppData\Roaming\Subversion</configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="1c6c12e5-e4b6-4a2d-b8e3-0b957d4fb72a" name="Default" comment="" />
@@ -757,40 +828,41 @@
       <updated>1510407216837</updated>
       <workItem from="1510407221522" duration="545000" />
       <workItem from="1510407807963" duration="234000" />
-      <workItem from="1510418685810" duration="4358000" />
+      <workItem from="1510418685810" duration="8773000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5137000" />
+    <option name="totallyTimeSpent" value="9552000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1608" height="882" extended-state="0" />
+    <frame x="-4" y="-4" width="1608" height="882" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5025707" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25642672" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17609255" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32806325" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21475627" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32806325" sideWeight="0.4974293" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25642672" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -836,6 +908,10 @@
     <breakpoint-manager />
     <watches-manager />
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
@@ -876,14 +952,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/com/itechart/controller/TestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/df3f535a-392c-4847-8472-358f39b28a6b/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="30" column="38" lean-forward="false" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="16" column="42" lean-forward="false" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/test/java/com/itechart/controller/GreetingControllerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-182">
+          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/com/itechart/controller/GreetingController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -897,21 +1022,125 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/com/itechart/controller/TestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/com/itechart/controller/GreetingController.java">
+    <entry file="uml://DATABASE/df3f535a-392c-4847-8472-358f39b28a6b.SCHEMA:itechart_group_db">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>DATABASE</ID>
+          <OriginalElement>df3f535a-392c-4847-8472-358f39b28a6b.SCHEMA:itechart_group_db</OriginalElement>
+          <nodes>
+            <node x="1194.1634615384614" y="268.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.act_of_loss</node>
+            <node x="953.1634615384614" y="268.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.item_consignments</node>
+            <node x="212.99999999999994" y="0.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.warehouses</node>
+            <node x="817.2163461538461" y="11.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.car_park</node>
+            <node x="1073.8221153846152" y="11.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.items</node>
+            <node x="412.4999999999999" y="448.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.users</node>
+            <node x="0.0" y="22.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.clients</node>
+            <node x="714.0" y="837.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices_has_users</node>
+            <node x="352.9999999999999" y="837.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills_has_users</node>
+            <node x="337.7499999999999" y="213.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills</node>
+            <node x="489.99999999999994" y="33.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.checkpoints</node>
+            <node x="885.9134615384614" y="536.0">df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.act_of_loss" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.items">
+              <point x="0.0" y="-37.5" />
+              <point x="1282.1634615384614" y="193.0" />
+              <point x="1226.0721153846152" y="193.0" />
+              <point x="50.75" y="70.5" />
+            </edge>
+            <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.warehouses">
+              <point x="-32.12499999999994" y="-92.5" />
+              <point x="434.12499999999994" y="183.0" />
+              <point x="341.49999999999994" y="183.0" />
+              <point x="0.0" y="81.5" />
+            </edge>
+            <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills_has_users" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.users">
+              <point x="51.00000000000006" y="-37.0" />
+              <point x="505.99999999999994" y="812.0" />
+              <point x="507.9999999999999" y="812.0" />
+              <point x="-95.5" y="169.5" />
+            </edge>
+            <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices_has_users" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices">
+              <point x="51.0" y="-37.0" />
+              <point x="867.0" y="812.0" />
+              <point x="1004.4134615384614" y="812.0" />
+              <point x="0.0" y="81.5" />
+            </edge>
+            <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills">
+              <point x="-59.25" y="-81.5" />
+              <point x="945.1634615384614" y="423.0" />
+              <point x="530.5" y="423.0" />
+              <point x="64.25000000000006" y="92.5" />
+            </edge>
+            <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.item_consignments">
+              <point x="59.25" y="-81.5" />
+              <point x="0.0" y="37.5" />
+            </edge>
+            <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.clients">
+              <point x="-96.37499999999994" y="-92.5" />
+              <point x="369.87499999999994" y="193.0" />
+              <point x="96.5" y="193.0" />
+              <point x="0.0" y="59.5" />
+            </edge>
+            <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.item_consignments" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.items">
+              <point x="0.0" y="-37.5" />
+              <point x="1063.6634615384614" y="193.0" />
+              <point x="1124.5721153846152" y="193.0" />
+              <point x="-50.75" y="70.5" />
+            </edge>
+            <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices_has_users" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.users">
+              <point x="-51.0" y="-37.0" />
+              <point x="765.0" y="812.0" />
+              <point x="698.9999999999999" y="812.0" />
+              <point x="95.5" y="169.5" />
+            </edge>
+            <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills_has_users" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills">
+              <point x="-50.99999999999994" y="-37.0" />
+              <point x="403.99999999999994" y="812.0" />
+              <point x="401.9999999999999" y="812.0" />
+              <point x="-64.25" y="92.5" />
+            </edge>
+            <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.car_park">
+              <point x="96.37500000000006" y="-92.5" />
+              <point x="562.625" y="193.0" />
+              <point x="914.7163461538461" y="193.0" />
+              <point x="0.0" y="70.5" />
+            </edge>
+            <edge source="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.waybills" target="df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.checkpoints">
+              <point x="32.12500000000006" y="-92.5" />
+              <point x="498.37499999999994" y="183.0" />
+              <point x="591.0" y="183.0" />
+              <point x="0.0" y="48.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.4897959183673469" x="274.10416666666663" y="480.0" />
+          <SelectedNodes>
+            <node>df3f535a-392c-4847-8472-358f39b28a6b.TABLE:itechart_group_db.invoices</node>
+          </SelectedNodes>
+          <Categories>
+            <Category>Key columns</Category>
+            <Category>Columns</Category>
+          </Categories>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/ITechArt/ItechArtCommandProject/itechart_group_db.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="224">
+          <caret line="62" column="35" lean-forward="false" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -936,7 +1165,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.53855276" />
               </list>
             </option>
           </splitter-proportions>
@@ -996,7 +1225,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.53855276" />
               </list>
             </option>
           </splitter-proportions>
