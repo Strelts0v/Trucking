@@ -120,11 +120,18 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`invoices` (
   `invoice_issuedate` DATE NOT NULL,
   `users_iduser_creator` INT NOT NULL,
   `users_iduser_inspector` INT NULL,
+  `waybills_idwaybill` INT NULL,
   PRIMARY KEY (`idinvoice`),
   INDEX `fk_invoices_item_consignments1_idx` (`item_consignments_iditem_consignments` ASC),
+  INDEX `fk_invoices_waybills1_idx` (`waybills_idwaybill` ASC),
   CONSTRAINT `fk_invoices_item_consignments1`
     FOREIGN KEY (`item_consignments_iditem_consignments`)
     REFERENCES `itechart_group_db`.`item_consignments` (`iditem_consignments`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_invoices_waybills1`
+    FOREIGN KEY (`waybills_idwaybill`)
+    REFERENCES `itechart_group_db`.`waybills` (`idwaybill`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -141,7 +148,6 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills` (
   `warehouses_idwarehouse_to` INT NOT NULL,
   `car_park_idcar` INT NOT NULL,
   `clients_idclients` INT NOT NULL,
-  `invoices_idinvoice` INT NOT NULL,
   `users_iduser_driver` INT NOT NULL,
   `waybills_issuedate` DATE NOT NULL,
   PRIMARY KEY (`idwaybill`, `invoices_idinvoice`),
@@ -149,7 +155,6 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills` (
   INDEX `fk_waybills_clients1_idx` (`clients_idclients` ASC),
   INDEX `fk_waybills_warehouses1_idx` (`waybill_from` ASC),
   INDEX `fk_waybills_warehouses2_idx` (`waybill_to` ASC),
-  INDEX `fk_waybills_invoices1_idx` (`invoices_idinvoice` ASC),
   CONSTRAINT `fk_waybills_car_park`
     FOREIGN KEY (`car_park_idcar`)
     REFERENCES `itechart_group_db`.`car_park` (`idcar`)
@@ -168,11 +173,6 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills` (
   CONSTRAINT `fk_waybills_warehouses2`
     FOREIGN KEY (`waybill_to`)
     REFERENCES `itechart_group_db`.`warehouses` (`idwarehouse`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_waybills_invoices1`
-    FOREIGN KEY (`invoices_idinvoice`)
-    REFERENCES `itechart_group_db`.`invoices` (`idinvoice`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -208,6 +208,29 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills_has_checkpoints` (
   CONSTRAINT `fk_waybills_has_checkpoints_checkpoints1`
     FOREIGN KEY (`checkpoints_idcheckpoints`)
     REFERENCES `itechart_group_db`.`checkpoints` (`idcheckpoints`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `itechart_group_db`.`act_of_loss`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `itechart_group_db`.`act_of_loss` (
+  `invoices_idinvoice` INT NOT NULL,
+  `items_iditem` INT NOT NULL,
+  `item_amount` INT NOT NULL,
+  PRIMARY KEY (`invoices_idinvoice`, `items_iditem`),
+  INDEX `fk_act_of_loss_invoices1_idx` (`invoices_idinvoice` ASC),
+  INDEX `fk_act_of_loss_items1_idx` (`items_iditem` ASC),
+  CONSTRAINT `fk_act_of_loss_invoices1`
+    FOREIGN KEY (`invoices_idinvoice`)
+    REFERENCES `itechart_group_db`.`invoices` (`idinvoice`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_act_of_loss_items1`
+    FOREIGN KEY (`items_iditem`)
+    REFERENCES `itechart_group_db`.`items` (`iditem`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
