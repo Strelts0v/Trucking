@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`invoices` (
   `invoice_checkdate` DATE NULL,
   `invoice_status` ENUM('I', 'C', 'D') NOT NULL DEFAULT 'I',
   `item_consignments_iditem_consignments` INT NOT NULL,
-  `invoice_issuedate` DATE NULL,
+  `invoice_issuedate` DATE NOT NULL,
   `users_iduser_creator` INT NOT NULL,
   `users_iduser_inspector` INT NULL,
   PRIMARY KEY (`idinvoice`),
