@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`invoices` (
   `idinvoice` INT NOT NULL AUTO_INCREMENT,
   `invoice_name` VARCHAR(45) NULL,
   `invoice_checkdate` DATE NULL,
-  `invoice_status` ENUM('Issued', 'Checked', 'Delivered') NULL,
+  `invoice_status` ENUM('I', 'C', 'D') NULL,
   `item_consignments_iditem_consignments` INT NOT NULL,
   `invoice_issuedate` DATE NULL,
   `users_iduser_creator` INT NOT NULL,
@@ -136,7 +136,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills` (
   `idwaybill` INT NOT NULL AUTO_INCREMENT,
   `waybill_departure_date` DATE NULL,
-  `waybill_status` ENUM('Started', 'Completed') NULL,
+  `waybill_status` ENUM('S', 'C') NULL,
   `warehouses_idwarehouse_from` INT NOT NULL,
   `warehouses_idwarehouse_to` INT NOT NULL,
   `car_park_idcar` INT NOT NULL,
