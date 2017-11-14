@@ -137,11 +137,12 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills` (
   `idwaybill` INT NOT NULL AUTO_INCREMENT,
   `waybill_departure_date` DATE NULL,
   `waybill_status` ENUM('Started', 'Completed') NULL,
-  `waybill_from` VARCHAR(45) NULL,
-  `waybill_to` VARCHAR(45) NULL,
+  `warehouses_idwarehouse_from` INT NOT NULL,
+  `warehouses_idwarehouse_to` INT NOT NULL,
   `car_park_idcar` INT NOT NULL,
   `clients_idclients` INT NOT NULL,
   `invoices_idinvoice` INT NOT NULL,
+  `users_iduser_driver` INT NOT NULL,
   PRIMARY KEY (`idwaybill`, `invoices_idinvoice`),
   INDEX `fk_waybills_car_park_idx` (`car_park_idcar` ASC),
   INDEX `fk_waybills_clients1_idx` (`clients_idclients` ASC),
@@ -186,28 +187,6 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`checkpoints` (
   `checkpoint_lat` VARCHAR(45) NULL,
   `checkpoint_lng` VARCHAR(45) NULL,
   PRIMARY KEY (`idcheckpoints`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `itechart_group_db`.`waybills_has_users`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills_has_users` (
-  `waybills_idwaybill` INT NOT NULL,
-  `users_iduser` INT NOT NULL,
-  PRIMARY KEY (`waybills_idwaybill`, `users_iduser`),
-  INDEX `fk_waybills_has_users_users1_idx` (`users_iduser` ASC),
-  INDEX `fk_waybills_has_users_waybills1_idx` (`waybills_idwaybill` ASC),
-  CONSTRAINT `fk_waybills_has_users_waybills1`
-    FOREIGN KEY (`waybills_idwaybill`)
-    REFERENCES `itechart_group_db`.`waybills` (`idwaybill`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_waybills_has_users_users1`
-    FOREIGN KEY (`users_iduser`)
-    REFERENCES `itechart_group_db`.`users` (`iduser`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
