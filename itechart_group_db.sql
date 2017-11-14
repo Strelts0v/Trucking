@@ -183,7 +183,6 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`checkpoints` (
   `idcheckpoints` INT NOT NULL AUTO_INCREMENT,
   `checkpoint_name` VARCHAR(45) NULL,
-  `checkpoint_datetime` DATETIME NULL,
   `checkpoint_lat` VARCHAR(45) NULL,
   `checkpoint_lng` VARCHAR(45) NULL,
   PRIMARY KEY (`idcheckpoints`))
@@ -196,6 +195,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills_has_checkpoints` (
   `waybills_idwaybill` INT NOT NULL,
   `checkpoints_idcheckpoints` INT NOT NULL,
+  `checkpoint_datetime` DATETIME NULL,
   PRIMARY KEY (`waybills_idwaybill`, `checkpoints_idcheckpoints`),
   INDEX `fk_waybills_has_checkpoints_checkpoints1_idx` (`checkpoints_idcheckpoints` ASC),
   INDEX `fk_waybills_has_checkpoints_waybills1_idx` (`waybills_idwaybill` ASC),
