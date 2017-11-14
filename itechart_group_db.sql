@@ -117,6 +117,9 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`invoices` (
   `invoice_checkdate` DATE NULL,
   `invoice_status` ENUM('Issued', 'Checked', 'Delivered') NULL,
   `item_consignments_iditem_consignments` INT NOT NULL,
+  `invoice_issuedate` DATE NULL,
+  `users_iduser_creator` INT NOT NULL,
+  `users_iduser_inspector` INT NULL,
   PRIMARY KEY (`idinvoice`),
   INDEX `fk_invoices_item_consignments1_idx` (`item_consignments_iditem_consignments` ASC),
   CONSTRAINT `fk_invoices_item_consignments1`
@@ -183,28 +186,6 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`checkpoints` (
   `checkpoint_lat` VARCHAR(45) NULL,
   `checkpoint_lng` VARCHAR(45) NULL,
   PRIMARY KEY (`idcheckpoints`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `itechart_group_db`.`invoices_has_users`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `itechart_group_db`.`invoices_has_users` (
-  `invoices_idinvoice` INT NOT NULL,
-  `users_iduser` INT NOT NULL,
-  PRIMARY KEY (`invoices_idinvoice`, `users_iduser`),
-  INDEX `fk_invoices_has_users_users1_idx` (`users_iduser` ASC),
-  INDEX `fk_invoices_has_users_invoices1_idx` (`invoices_idinvoice` ASC),
-  CONSTRAINT `fk_invoices_has_users_invoices1`
-    FOREIGN KEY (`invoices_idinvoice`)
-    REFERENCES `itechart_group_db`.`invoices` (`idinvoice`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_invoices_has_users_users1`
-    FOREIGN KEY (`users_iduser`)
-    REFERENCES `itechart_group_db`.`users` (`iduser`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
