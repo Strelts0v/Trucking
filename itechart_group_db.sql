@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills` (
   `clients_idclients` INT NOT NULL,
   `users_iduser_driver` INT NOT NULL,
   `waybills_issuedate` DATE NOT NULL,
-  PRIMARY KEY (`idwaybill`, `invoices_idinvoice`),
+  PRIMARY KEY (`idwaybill`),
   INDEX `fk_waybills_car_park_idx` (`car_park_idcar` ASC),
   INDEX `fk_waybills_clients1_idx` (`clients_idclients` ASC),
   INDEX `fk_waybills_warehouses1_idx` (`waybill_from` ASC),
