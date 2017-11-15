@@ -165,12 +165,12 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_waybills_warehouses1`
-    FOREIGN KEY (`waybill_from`)
+    FOREIGN KEY (`warehouses_idwarehouse_from`)
     REFERENCES `itechart_group_db`.`warehouses` (`idwarehouse`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_waybills_warehouses2`
-    FOREIGN KEY (`waybill_to`)
+    FOREIGN KEY (`warehouses_idwarehouse_to`)
     REFERENCES `itechart_group_db`.`warehouses` (`idwarehouse`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
