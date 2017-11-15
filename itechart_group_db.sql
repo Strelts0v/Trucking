@@ -219,6 +219,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`act_of_loss` (
   `invoices_idinvoice` INT NOT NULL,
   `items_iditem` INT NOT NULL,
   `item_amount` INT NOT NULL,
+  `act_of_loss_date` DATE NOT NULL,
   PRIMARY KEY (`invoices_idinvoice`, `items_iditem`),
   INDEX `fk_act_of_loss_invoices1_idx` (`invoices_idinvoice` ASC),
   INDEX `fk_act_of_loss_items1_idx` (`items_iditem` ASC),
