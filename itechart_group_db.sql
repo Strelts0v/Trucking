@@ -152,8 +152,8 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills` (
   PRIMARY KEY (`idwaybill`),
   INDEX `fk_waybills_car_park_idx` (`car_park_idcar` ASC),
   INDEX `fk_waybills_clients1_idx` (`clients_idclients` ASC),
-  INDEX `fk_waybills_warehouses1_idx` (`waybill_from` ASC),
-  INDEX `fk_waybills_warehouses2_idx` (`waybill_to` ASC),
+  INDEX `fk_waybills_warehouses1_idx` (`warehouses_idwarehouse_from` ASC),
+  INDEX `fk_waybills_warehouses2_idx` (`warehouses_idwarehouse_to` ASC),
   CONSTRAINT `fk_waybills_car_park`
     FOREIGN KEY (`car_park_idcar`)
     REFERENCES `itechart_group_db`.`car_park` (`idcar`)
