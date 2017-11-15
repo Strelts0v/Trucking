@@ -113,7 +113,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`invoices` (
   `idinvoice` INT NOT NULL AUTO_INCREMENT,
-  `invoice_name` VARCHAR(45) NULL,
   `invoice_checkdate` DATE NULL,
   `invoice_status` ENUM('I', 'C', 'D') NOT NULL DEFAULT 'I',
   `item_consignments_iditem_consignments` INT NOT NULL,
