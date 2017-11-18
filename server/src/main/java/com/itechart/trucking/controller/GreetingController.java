@@ -1,6 +1,6 @@
-package com.itechart.controller;
+package com.itechart.trucking.controller;
 
-import com.itechart.model.Greeting;
+import com.itechart.trucking.domain.Greeting;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

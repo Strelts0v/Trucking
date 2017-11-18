@@ -1,4 +1,4 @@
-package com.itechart.model;
+package com.itechart.trucking.domain;
 
 public class Greeting {
 

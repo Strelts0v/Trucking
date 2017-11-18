@@ -1,4 +1,4 @@
-package com.itechart.controller;
+package com.itechart.trucking.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
