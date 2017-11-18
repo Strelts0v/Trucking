@@ -1,5 +1,7 @@
 package com.itechart.trucking.domain;
 
+import com.itechart.trucking.util.LocalDateAttributeConverter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -24,6 +26,7 @@ public class WaybillCheckpoint implements Serializable {
     private Checkpoint checkpoint;
 
     @Column(name = "checkpoint_datetime")
+    @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate checkDate;
 
     public WaybillCheckpoint() {

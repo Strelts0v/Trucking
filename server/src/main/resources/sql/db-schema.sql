@@ -43,11 +43,25 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`users` (
   `user_street` VARCHAR(45) NULL,
   `user_house` VARCHAR(45) NULL,
   `user_apartment` INT NULL,
-  `user_role` ENUM('S', 'A', 'M', 'D', 'DR', 'O') NULL DEFAULT NULL,
   `user_login` VARCHAR(45) NOT NULL,
   `user_password` VARCHAR(45) NULL,
   `user_passport` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
+  ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `itechart_group_db`.`users_has_roles`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `itechart_group_db`.`users_has_roles` (
+  `users_id` BINARY(16) NOT NULL,
+  `user_role` ENUM('S', 'A', 'M', 'D', 'DR', 'O') NULL DEFAULT NULL,
+  INDEX `fk_users_has_roles_user1_idx` (`users_id` ASC),
+  CONSTRAINT `fk_users_has_roles_users1`
+  FOREIGN KEY (`users_id`)
+  REFERENCES `itechart_group_db`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
   ENGINE = InnoDB;
 
 
@@ -129,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`invoices` (
   `id` BINARY(16) NOT NULL,
   `version` BIGINT NULL,
   `invoice_checkdate` DATE NULL DEFAULT NULL,
-  `invoice_status` ENUM('I', 'C', 'D') NULL DEFAULT NULL,
+  `invoice_status` ENUM('I', 'C', 'D') NOT NULL DEFAULT 'I',
   `invoice_issuedate` DATE NOT NULL,
   `users_id_creator` BINARY(16) NOT NULL,
   `users_id_inspector` BINARY(16) NULL,
@@ -165,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`item_consignments` (
   `items_id` BINARY(16) NOT NULL,
   `item_amount` INT NULL,
   `item_status` ENUM('R', 'C', 'D') NULL DEFAULT NULL,
-  PRIMARY KEY (`invoice_id`, `item_id`),
+  PRIMARY KEY (`invoices_id`, `items_id`),
   INDEX `fk_item_consignments_items1_idx` (`items_id` ASC),
   INDEX `fk_item_consignments_invoices1_idx` (`invoices_id` ASC),
   CONSTRAINT `fk_item_consignments_items1`

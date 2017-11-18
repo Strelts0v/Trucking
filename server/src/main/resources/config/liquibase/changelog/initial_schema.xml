@@ -113,7 +113,9 @@
             </column>
             <column name="version" type="BIGINT"/>
             <column name="waybill_departure_date" type="DATE"/>
-            <column name="waybill_status" type="ENUM('S', 'C')"/>
+            <column name="waybill_status" type="ENUM('S', 'C')" defaultValue="S">
+                <constraints nullable="false"/>
+            </column>
             <column name="warehouses_id_from" type="${idType}">
                 <constraints nullable="false"/>
             </column>
@@ -141,24 +143,24 @@
 
 
     <changeSet id="7" author="blink7">
-        <createIndex tableName="waybills" indexName="fk_waybills_departure_date1_idx" unique="true">
+        <createIndex tableName="waybills" indexName="fk_waybills_departure_date1_idx">
             <column name="waybill_departure_date" type="DATE"/>
         </createIndex>
-        <createIndex tableName="waybills" indexName="fk_waybills_status1_idx" unique="true">
+        <createIndex tableName="waybills" indexName="fk_waybills_status1_idx">
             <column name="waybill_status" type="ENUM('S', 'C')"/>
         </createIndex>
-        <createIndex tableName="waybills" indexName="fk_waybills_warehouses1_idx" unique="true">
+        <createIndex tableName="waybills" indexName="fk_waybills_warehouses1_idx">
             <column name="warehouses_id_from" type="${idType}"/>
         </createIndex>
-        <createIndex tableName="waybills" indexName="fk_waybills_warehouses2_idx" unique="true">
+        <createIndex tableName="waybills" indexName="fk_waybills_warehouses2_idx">
             <column name="warehouses_id_to" type="${idType}"/>
         </createIndex>
-        <createIndex tableName="waybills" indexName="fk_waybills_driver1_idx" unique="true">
+        <createIndex tableName="waybills" indexName="fk_waybills_driver1_idx">
             <column name="users_id_driver" type="${idType}"/>
         </createIndex>
 
         <addForeignKeyConstraint baseTableName="waybills" baseColumnNames="car_park_id"
-                                 constraintName="fk_waybills_car_park"
+                                 constraintName="fk_waybills_car_park1"
                                  referencedTableName="car_park"
                                  referencedColumnNames="id"
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
@@ -180,16 +182,17 @@
     </changeSet>
 
 
+    <!--Invoice table-->
     <changeSet id="8" author="blink7">
         <createTable tableName="invoices">
             <column name="id" type="${idType}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="version" type="BIGINT"/>
-            <column name="invoice_checkdate" type="DATE">
+            <column name="invoice_checkdate" type="DATE"/>
+            <column name="invoice_status" type="ENUM('I', 'C', 'D')" defaultValue="I">
                 <constraints nullable="false"/>
             </column>
-            <column name="invoice_status" type="ENUM('I', 'C', 'D')"/>
             <column name="invoice_issuedate" type="DATE">
                 <constraints nullable="false"/>
             </column>
@@ -207,16 +210,16 @@
 
 
     <changeSet id="9" author="blink7">
-        <createIndex tableName="invoices" indexName="fk_invoices_checkdate1_idx" unique="true">
+        <createIndex tableName="invoices" indexName="fk_invoices_checkdate1_idx">
             <column name="invoice_checkdate" type="DATE"/>
         </createIndex>
-        <createIndex tableName="invoices" indexName="fk_invoices_status1_idx" unique="true">
+        <createIndex tableName="invoices" indexName="fk_invoices_status1_idx">
             <column name="invoice_status" type="ENUM('I', 'C', 'D')"/>
         </createIndex>
-        <createIndex tableName="invoices" indexName="fk_invoices_issuedate1_idx" unique="true">
+        <createIndex tableName="invoices" indexName="fk_invoices_issuedate1_idx">
             <column name="invoice_issuedate" type="DATE"/>
         </createIndex>
-        <createIndex tableName="invoices" indexName="fk_invoices_inspector1_idx" unique="true">
+        <createIndex tableName="invoices" indexName="fk_invoices_inspector1_idx">
             <column name="users_id_inspector" type="${idType}"/>
         </createIndex>
 
@@ -257,10 +260,10 @@
 
 
     <changeSet id="11" author="blink7">
-        <createIndex tableName="item_consignments" indexName="fk_item_consignments_items1_idx" unique="true">
+        <createIndex tableName="item_consignments" indexName="fk_item_consignments_items1_idx">
             <column name="invoices_id" type="${idType}"/>
         </createIndex>
-        <createIndex tableName="item_consignments" indexName="fk_item_consignments_invoices1_idx" unique="true">
+        <createIndex tableName="item_consignments" indexName="fk_item_consignments_invoices1_idx">
             <column name="items_id" type="${idType}"/>
         </createIndex>
 
@@ -373,6 +376,33 @@
         <addForeignKeyConstraint baseTableName="act_of_loss" baseColumnNames="items_id"
                                  constraintName="fk_act_of_loss_items1"
                                  referencedTableName="items"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+    
+    
+    <changeSet id="17" author="blink7">
+        <createTable tableName="users_has_roles">
+            <column name="users_id" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_role" type="ENUM('S', 'A', 'M', 'D', 'DR', 'O')"/>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+    
+    
+    <changeSet id="18" author="blink7">
+        <createIndex tableName="users_has_roles" indexName="fk_users_has_roles_user1_idx">
+            <column name="users_id" type="BINARY(16)"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="users_has_roles" baseColumnNames="users_id"
+                                 constraintName="fk_users_has_roles_users1"
+                                 referencedTableName="users"
                                  referencedColumnNames="id"
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
     </changeSet>

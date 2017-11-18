@@ -2,6 +2,7 @@ package com.itechart.trucking.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -36,7 +37,9 @@ public class User extends AbstractPersistentObject {
 
     @Column(name = "user_role")
     @Convert(converter = RoleConverter.class)
-    private Role role;
+    @ElementCollection(targetClass = Role.class)
+    @CollectionTable(name = "users_has_roles", joinColumns = @JoinColumn(name = "users_id"))
+    private Set<Role> roles;
 
     @Column(name = "user_login")
     private String login;
@@ -59,7 +62,7 @@ public class User extends AbstractPersistentObject {
     public User() {
     }
 
-    public User(String firtstname, String lastname, String middlename, Date birthday, String email, String city, String street, String house, int apartment, Role role, String login, String password, String passport) {
+    public User(String firtstname, String lastname, String middlename, Date birthday, String email, String city, String street, String house, int apartment, Set<Role> roles, String login, String password, String passport) {
         this.firtstname = firtstname;
         this.lastname = lastname;
         this.middlename = middlename;
@@ -69,7 +72,7 @@ public class User extends AbstractPersistentObject {
         this.street = street;
         this.house = house;
         this.apartment = apartment;
-        this.role = role;
+        this.roles = roles;
         this.login = login;
         this.password = password;
         this.passport = passport;
@@ -147,12 +150,12 @@ public class User extends AbstractPersistentObject {
         this.apartment = apartment;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public String getLogin() {
@@ -177,6 +180,25 @@ public class User extends AbstractPersistentObject {
 
     public void setPassport(String passport) {
         this.passport = passport;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firtstname='" + firtstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", middlename='" + middlename + '\'' +
+                ", birthday=" + birthday +
+                ", email='" + email + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", house='" + house + '\'' +
+                ", apartment=" + apartment +
+                ", roles=" + roles +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", passport='" + passport + '\'' +
+                '}';
     }
 
     @Convert

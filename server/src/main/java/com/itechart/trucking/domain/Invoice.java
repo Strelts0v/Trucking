@@ -24,7 +24,7 @@ public class Invoice extends AbstractPersistentObject {
 
     @Column(name = "invoice_status")
     @Convert(converter = StatusConverter.class)
-    private Status status;
+    private Status status = Status.ISSUED;
 
     @OneToOne
     @JoinColumn(name = "users_id_creator")
@@ -38,11 +38,11 @@ public class Invoice extends AbstractPersistentObject {
     @JoinColumn(name = "users_id_inspector")
     private User inspector;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "waybills_id")
     private Waybill waybill;
 
-    @OneToMany(mappedBy = "invoice")
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
     private List<LossAct> lossActs;
 
     public LocalDate getIssueDate() {

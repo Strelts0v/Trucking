@@ -48,7 +48,7 @@ public class Waybill extends AbstractPersistentObject {
 
     @Column(name = "waybill_status")
     @Convert(converter = StatusConverter.class)
-    private Status status;
+    private Status status = Status.STARTED;
 
     @Column(name = "waybills_issuedate")
     @Convert(converter = LocalDateAttributeConverter.class)
@@ -147,6 +147,22 @@ public class Waybill extends AbstractPersistentObject {
 
     public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Waybill{" +
+                "invoice=" + invoice +
+                ", client=" + client +
+                ", departureDate=" + departureDate +
+                ", driver=" + driver +
+                ", car=" + car +
+                ", from=" + from +
+                ", to=" + to +
+                ", waybillCheckpoints=" + waybillCheckpoints +
+                ", status=" + status +
+                ", issueDate=" + issueDate +
+                '}';
     }
 
     public enum Status {
