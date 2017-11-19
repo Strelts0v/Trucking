@@ -48,8 +48,11 @@ public class JpaInvoiceDaoTest {
 
     @Before
     public void setUp() {
+        creator = new User();
+        creator.setFirtstname(FIRST_NAME);
+        creator.setLastname(LAST_NAME);
         //TODO: Replace with UserDao implementation.
-        creator = em.find(User.class, 1);
+        em.persist(creator);
 
         invoice = new Invoice();
         invoice.setIssueDate(ISSUE_DATE);
