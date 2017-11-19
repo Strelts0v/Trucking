@@ -1,19 +1,10 @@
 package com.itechart.trucking.domain;
 
-
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "car_park")
-public class Car implements Serializable {
-
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "idcar")
-    private int id;
+public class Car extends AbstractPersistentObject {
 
     @Column(name = "car_name")
     private String name;
@@ -23,37 +14,25 @@ public class Car implements Serializable {
 
     @Column(name = "car_type")
     @Convert(converter = TypeConverter.class)
-    private CarType carType;
+    private Type type;
 
     @Column(name = "car_consumption")
     private int consumption;
 
-
-    public enum CarType {
-
+    public enum Type {
         CARCASE,
         FRIDGE,
         TANK
     }
 
     public Car() {
-
     }
 
-    public Car(int id, String name, String number, CarType carType, int consumption) {
-        this.id = id;
+    public Car(String name, String number, Type type, int consumption) {
         this.name = name;
         this.number = number;
-        this.carType = carType;
+        this.type = type;
         this.consumption = consumption;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -72,12 +51,12 @@ public class Car implements Serializable {
         this.number = number;
     }
 
-    public CarType getCarType() {
-        return carType;
+    public Type getType() {
+        return type;
     }
 
-    public void setCarType(CarType carType) {
-        this.carType = carType;
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public int getConsumption() {
@@ -88,46 +67,11 @@ public class Car implements Serializable {
         this.consumption = consumption;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Car carPark = (Car) o;
-
-        if (id != carPark.id) return false;
-        if (consumption != carPark.consumption) return false;
-        if (name != null ? !name.equals(carPark.name) : carPark.name != null) return false;
-        if (number != null ? !number.equals(carPark.number) : carPark.number != null) return false;
-        return carType == carPark.carType;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (number != null ? number.hashCode() : 0);
-        result = 31 * result + (carType != null ? carType.hashCode() : 0);
-        result = 31 * result + consumption;
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", number='" + number + '\'' +
-                ", carType=" + carType +
-                ", consumption=" + consumption +
-                '}';
-    }
-
     @Convert
-    public static class TypeConverter implements AttributeConverter<CarType, String> {
+    public static class TypeConverter implements AttributeConverter<Type, String> {
 
         @Override
-        public String convertToDatabaseColumn(CarType attribute) {
+        public String convertToDatabaseColumn(Type attribute) {
             switch (attribute) {
                 case CARCASE:
                     return "C";
@@ -141,18 +85,17 @@ public class Car implements Serializable {
         }
 
         @Override
-        public  CarType convertToEntityAttribute(String dbData) {
+        public Type convertToEntityAttribute(String dbData) {
             switch (dbData) {
                 case "C":
-                    return CarType.CARCASE;
+                    return Type.CARCASE;
                 case "T":
-                    return CarType.TANK;
+                    return Type.TANK;
                 case "F":
-                    return CarType.FRIDGE;
+                    return Type.FRIDGE;
                 default:
                     throw new IllegalArgumentException("Unknown " + dbData);
             }
         }
     }
-
 }

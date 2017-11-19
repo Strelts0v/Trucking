@@ -1,6 +1,6 @@
 # Trucking
 
-Trucking web app with client side based on Angular framework and server side based on Spring framework
+Trucking web app with client side based on Angular framework and server side based on Spring framework.
 
 # Used technologies
 - Spring framework 4

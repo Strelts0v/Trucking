@@ -1,26 +1,18 @@
 package com.itechart.trucking.domain;
 
-
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "iduser")
-    private int id;
+public class User extends AbstractPersistentObject {
 
     @Column(name = "user_firstname")
     private String firtstname;
 
     @Column(name = "user_lastname")
     private String lastname;
-
 
     @Column(name = "user_middlename")
     private String middlename;
@@ -41,11 +33,13 @@ public class User implements Serializable {
     private String house;
 
     @Column(name = "user_apartment")
-    private int apartment;
+    private Integer apartment;
 
     @Column(name = "user_role")
     @Convert(converter = RoleConverter.class)
-    private UserRole role;
+    @ElementCollection(targetClass = Role.class)
+    @CollectionTable(name = "users_has_roles", joinColumns = @JoinColumn(name = "users_id"))
+    private Set<Role> roles;
 
     @Column(name = "user_login")
     private String login;
@@ -56,7 +50,7 @@ public class User implements Serializable {
     @Column(name = "user_passport")
     private String passport;
 
-    public enum UserRole {
+    public enum Role {
         SYSADMIN,
         ADMIN,
         MANAGER,
@@ -68,7 +62,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String firtstname, String lastname, String middlename, Date birthday, String email, String city, String street, String house, int apartment, UserRole role, String login, String password, String passport) {
+    public User(String firtstname, String lastname, String middlename, Date birthday, String email, String city, String street, String house, Integer apartment, Set<Role> roles, String login, String password, String passport) {
         this.firtstname = firtstname;
         this.lastname = lastname;
         this.middlename = middlename;
@@ -78,18 +72,10 @@ public class User implements Serializable {
         this.street = street;
         this.house = house;
         this.apartment = apartment;
-        this.role = role;
+        this.roles = roles;
         this.login = login;
         this.password = password;
         this.passport = passport;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirtstname() {
@@ -156,20 +142,20 @@ public class User implements Serializable {
         this.house = house;
     }
 
-    public int getApartment() {
+    public Integer getApartment() {
         return apartment;
     }
 
-    public void setApartment(int apartment) {
+    public void setApartment(Integer apartment) {
         this.apartment = apartment;
     }
 
-    public UserRole getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(UserRole role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public String getLogin() {
@@ -196,54 +182,10 @@ public class User implements Serializable {
         this.passport = passport;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        if (id != user.id) return false;
-        if (apartment != user.apartment) return false;
-        if (firtstname != null ? !firtstname.equals(user.firtstname) : user.firtstname != null) return false;
-        if (lastname != null ? !lastname.equals(user.lastname) : user.lastname != null) return false;
-        if (middlename != null ? !middlename.equals(user.middlename) : user.middlename != null) return false;
-        if (birthday != null ? !birthday.equals(user.birthday) : user.birthday != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (city != null ? !city.equals(user.city) : user.city != null) return false;
-        if (street != null ? !street.equals(user.street) : user.street != null) return false;
-        if (house != null ? !house.equals(user.house) : user.house != null) return false;
-        if (role != user.role) return false;
-        if (login != null ? !login.equals(user.login) : user.login != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        return passport != null ? passport.equals(user.passport) : user.passport == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (firtstname != null ? firtstname.hashCode() : 0);
-        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-        result = 31 * result + (middlename != null ? middlename.hashCode() : 0);
-        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (city != null ? city.hashCode() : 0);
-        result = 31 * result + (street != null ? street.hashCode() : 0);
-        result = 31 * result + (house != null ? house.hashCode() : 0);
-        result = 31 * result + apartment;
-        result = 31 * result + (role != null ? role.hashCode() : 0);
-        result = 31 * result + (login != null ? login.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (passport != null ? passport.hashCode() : 0);
-        return result;
-    }
-
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", firtstname='" + firtstname + '\'' +
+                "firtstname='" + firtstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", middlename='" + middlename + '\'' +
                 ", birthday=" + birthday +
@@ -252,7 +194,7 @@ public class User implements Serializable {
                 ", street='" + street + '\'' +
                 ", house='" + house + '\'' +
                 ", apartment=" + apartment +
-                ", role=" + role +
+                ", roles=" + roles +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", passport='" + passport + '\'' +
@@ -260,10 +202,10 @@ public class User implements Serializable {
     }
 
     @Convert
-    private static class RoleConverter implements AttributeConverter<UserRole, String> {
+    public static class RoleConverter implements AttributeConverter<Role, String> {
 
         @Override
-        public  String convertToDatabaseColumn(UserRole attribute) {
+        public String convertToDatabaseColumn(Role attribute) {
             switch (attribute) {
                 case ADMIN:
                     return "A";
@@ -283,25 +225,23 @@ public class User implements Serializable {
         }
 
         @Override
-        public UserRole convertToEntityAttribute(String dbData) {
+        public Role convertToEntityAttribute(String dbData) {
             switch (dbData) {
                 case "A":
-                    return UserRole.ADMIN;
+                    return Role.ADMIN;
                 case "D":
-                    return UserRole.DISPATCHER;
+                    return Role.DISPATCHER;
                 case "DR":
-                    return UserRole.DRIVER;
+                    return Role.DRIVER;
                 case "O":
-                    return UserRole.OWNER;
+                    return Role.OWNER;
                 case "M":
-                    return UserRole.MANAGER;
+                    return Role.MANAGER;
                 case "S":
-                    return UserRole.SYSADMIN;
+                    return Role.SYSADMIN;
                 default:
                     throw new IllegalArgumentException("Unknown " + dbData);
             }
         }
     }
-
-
 }
