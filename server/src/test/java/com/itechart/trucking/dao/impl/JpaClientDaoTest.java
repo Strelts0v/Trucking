@@ -63,7 +63,7 @@ public class JpaClientDaoTest {
 
     @Test
     public void findClientsByNameShouldReturnExactClientCount() throws Exception {
-        int id = dao.addClient(client).getId();
+        dao.addClient(client).getId();
 
         Client client1 = new Client();
         client1.setName("test name");
