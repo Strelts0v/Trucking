@@ -7,7 +7,7 @@ import java.util.Optional;
 
 /**
  * @author Gleb Streltsov
- * @version 1.0
+ * @version 1.1
  * @since 2017-11-15
  */
 public interface ClientDao {
@@ -55,7 +55,7 @@ public interface ClientDao {
     void updateClient(Client client);
 
     /**
-     * deletes existed warehouse in storage
+     * deletes existed client in storage
      * @param client - existed client with id in storage
      */
     void deleteClient(Client client);
