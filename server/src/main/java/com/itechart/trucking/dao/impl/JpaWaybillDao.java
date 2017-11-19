@@ -12,7 +12,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * @author blink7
@@ -48,7 +47,7 @@ public class JpaWaybillDao implements WaybillDao {
     }
 
     @Override
-    public Optional<Waybill> findOne(UUID id) {
+    public Optional<Waybill> findOne(Integer id) {
         return Optional.ofNullable(em.find(Waybill.class, id));
     }
 

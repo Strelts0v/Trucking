@@ -41,7 +41,7 @@ public class JpaClientDaoTest {
         client.setName(CLIENT_NAME);
     }
 
-    /*@Test
+    @Test
     public void getClientByIdShouldReturnNoClientTest() throws Exception {
         final int invalidClientId = 5;
         Optional<Client> client = dao.getClientById(invalidClientId);
@@ -145,5 +145,5 @@ public class JpaClientDaoTest {
     public void deleteClientWithInvalidIdShouldThrowException() throws Exception {
         client.setId(Integer.MAX_VALUE);
         dao.deleteClient(client);
-    }*/
+    }
 }

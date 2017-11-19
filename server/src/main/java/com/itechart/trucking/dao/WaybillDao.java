@@ -4,7 +4,6 @@ import com.itechart.trucking.domain.Waybill;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * @author blink7
@@ -35,7 +34,7 @@ public interface WaybillDao {
      * @param id
      * @return the waybill with the given id or {@literal null} if none found.
      */
-    Optional<Waybill> findOne(UUID id);
+    Optional<Waybill> findOne(Integer id);
 
     /**
      * Saves a given waybill.

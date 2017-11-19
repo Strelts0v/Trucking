@@ -4,7 +4,6 @@ import com.itechart.trucking.domain.Invoice;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * @author blink7
@@ -35,7 +34,7 @@ public interface InvoiceDao {
      * @param id
      * @return the invoice with the given id or {@literal null} if none found.
      */
-    Optional<Invoice> findOne(UUID id);
+    Optional<Invoice> findOne(Integer id);
 
     /**
      * Saves a given invoice.

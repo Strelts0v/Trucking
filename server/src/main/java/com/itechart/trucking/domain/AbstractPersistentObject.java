@@ -1,11 +1,7 @@
 package com.itechart.trucking.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * @author blink7
@@ -16,19 +12,19 @@ import java.util.UUID;
 public abstract class AbstractPersistentObject implements PersistentObject, Serializable {
 
     @Id
-    @Column(columnDefinition = "BINARY(16)")
-    private UUID id = UUID.randomUUID();
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Version
     private Integer version;
 
     @Override
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -49,13 +45,13 @@ public abstract class AbstractPersistentObject implements PersistentObject, Seri
 
         PersistentObject that = (PersistentObject) o;
 
-        return id.equals(that.getId())
+        return (id != null ? id.equals(that.getId()) : that.getId() == null)
                 && (version != null ? version.equals(that.getVersion()) : that.getVersion() == null);
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = id != null ? id.hashCode() : super.hashCode();
         result = 31 * result + (version != null ? version.hashCode() : super.hashCode());
         return result;
     }

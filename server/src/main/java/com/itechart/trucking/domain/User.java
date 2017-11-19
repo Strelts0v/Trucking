@@ -33,7 +33,7 @@ public class User extends AbstractPersistentObject {
     private String house;
 
     @Column(name = "user_apartment")
-    private int apartment;
+    private Integer apartment;
 
     @Column(name = "user_role")
     @Convert(converter = RoleConverter.class)
@@ -62,7 +62,7 @@ public class User extends AbstractPersistentObject {
     public User() {
     }
 
-    public User(String firtstname, String lastname, String middlename, Date birthday, String email, String city, String street, String house, int apartment, Set<Role> roles, String login, String password, String passport) {
+    public User(String firtstname, String lastname, String middlename, Date birthday, String email, String city, String street, String house, Integer apartment, Set<Role> roles, String login, String password, String passport) {
         this.firtstname = firtstname;
         this.lastname = lastname;
         this.middlename = middlename;
@@ -142,11 +142,11 @@ public class User extends AbstractPersistentObject {
         this.house = house;
     }
 
-    public int getApartment() {
+    public Integer getApartment() {
         return apartment;
     }
 
-    public void setApartment(int apartment) {
+    public void setApartment(Integer apartment) {
         this.apartment = apartment;
     }
 

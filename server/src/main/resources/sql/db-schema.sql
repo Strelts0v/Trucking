@@ -5,7 +5,7 @@ USE `itechart_group_db` ;
 -- Table `itechart_group_db`.`car_park`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`car_park` (
-  `id` BINARY(16) NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `version` BIGINT NULL,
   `car_name` VARCHAR(45) NULL,
   `car_number` VARCHAR(45) NULL,
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`car_park` (
 -- Table `itechart_group_db`.`items`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`items` (
-  `id` BINARY(16) NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `version` BIGINT NULL,
   `item_name` VARCHAR(45) NULL,
   `item_price` INT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`items` (
 -- Table `itechart_group_db`.`users`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`users` (
-  `id` BINARY(16) NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `version` BIGINT NULL,
   `user_firstname` VARCHAR(45) NULL,
   `user_lastname` VARCHAR(45) NULL,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`users` (
 -- Table `itechart_group_db`.`users_has_roles`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`users_has_roles` (
-  `users_id` BINARY(16) NOT NULL,
+  `users_id` INT UNSIGNED NOT NULL,
   `user_role` ENUM('S', 'A', 'M', 'D', 'DR', 'O') NULL DEFAULT NULL,
   INDEX `fk_users_has_roles_user1_idx` (`users_id` ASC),
   CONSTRAINT `fk_users_has_roles_users1`
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`users_has_roles` (
 -- Table `itechart_group_db`.`warehouses`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`warehouses` (
-  `id` BINARY(16) NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `version` BIGINT NULL,
   `warehouse_name` VARCHAR(45) NULL,
   `warehouse_country` VARCHAR(45) NULL,
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`warehouses` (
 -- Table `itechart_group_db`.`clients`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`clients` (
-  `id` BINARY(16) NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `version` BIGINT NULL,
   `client_name` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
@@ -97,15 +97,15 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`clients` (
 -- Table `itechart_group_db`.`waybills`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills` (
-  `id` BINARY(16) NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `version` BIGINT NULL,
   `waybill_departure_date` DATE NULL DEFAULT NULL,
   `waybill_status` ENUM('S', 'C') NOT NULL DEFAULT 'S',
-  `warehouses_id_from` BINARY(16) NOT NULL,
-  `warehouses_id_to` BINARY(16) NOT NULL,
-  `car_park_id` BINARY(16) NOT NULL,
-  `clients_id` BINARY(16) NOT NULL,
-  `users_id_driver` BINARY(16) NOT NULL,
+  `warehouses_id_from` INT UNSIGNED NOT NULL,
+  `warehouses_id_to` INT UNSIGNED NOT NULL,
+  `car_park_id` INT UNSIGNED NOT NULL,
+  `clients_id` INT UNSIGNED NOT NULL,
+  `users_id_driver` INT UNSIGNED NOT NULL,
   `waybills_issuedate` DATE NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_waybills_departure_date1_idx` (`waybill_departure_date` ASC),
@@ -140,14 +140,14 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills` (
 -- Table `itechart_group_db`.`invoices`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`invoices` (
-  `id` BINARY(16) NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `version` BIGINT NULL,
   `invoice_checkdate` DATE NULL DEFAULT NULL,
   `invoice_status` ENUM('I', 'C', 'D') NOT NULL DEFAULT 'I',
   `invoice_issuedate` DATE NOT NULL,
-  `users_id_creator` BINARY(16) NOT NULL,
-  `users_id_inspector` BINARY(16) NULL,
-  `waybills_id` BINARY(16) NULL,
+  `users_id_creator` INT UNSIGNED NOT NULL,
+  `users_id_inspector` INT UNSIGNED NULL,
+  `waybills_id` INT UNSIGNED NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_invoices_checkdate1_idx` (`invoice_checkdate` ASC),
   INDEX `fk_invoices_status1_idx` (`invoice_status` ASC),
@@ -175,8 +175,8 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`invoices` (
 -- Table `itechart_group_db`.`item_consignments`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`item_consignments` (
-  `invoices_id` BINARY(16) NOT NULL,
-  `items_id` BINARY(16) NOT NULL,
+  `invoices_id` INT UNSIGNED NOT NULL,
+  `items_id` INT UNSIGNED NOT NULL,
   `item_amount` INT NULL,
   `item_status` ENUM('R', 'C', 'D') NULL DEFAULT NULL,
   PRIMARY KEY (`invoices_id`, `items_id`),
@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`item_consignments` (
 -- Table `itechart_group_db`.`checkpoints`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`checkpoints` (
-  `id` BINARY(16) NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `version` BIGINT NULL,
   `checkpoint_name` VARCHAR(45) NULL,
   `checkpoint_lat` VARCHAR(45) NULL,
@@ -212,8 +212,8 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`checkpoints` (
 -- Table `itechart_group_db`.`waybills_has_checkpoints`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills_has_checkpoints` (
-  `waybills_id` BINARY(16) NOT NULL,
-  `checkpoints_id` BINARY(16) NOT NULL,
+  `waybills_id` INT UNSIGNED NOT NULL,
+  `checkpoints_id` INT UNSIGNED NOT NULL,
   `checkpoint_datetime` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`waybills_id`, `checkpoints_id`),
   INDEX `fk_waybills_has_checkpoints_checkpoints1_idx` (`checkpoints_id` ASC),
@@ -235,8 +235,8 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`waybills_has_checkpoints` (
 -- Table `itechart_group_db`.`act_of_loss`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `itechart_group_db`.`act_of_loss` (
-  `invoices_id` BINARY(16) NOT NULL,
-  `items_id` BINARY(16) NOT NULL,
+  `invoices_id` INT UNSIGNED NOT NULL,
+  `items_id` INT UNSIGNED NOT NULL,
   `item_amount` INT NOT NULL,
   `act_date_issue` DATE NOT NULL,
   PRIMARY KEY (`invoices_id`, `items_id`),

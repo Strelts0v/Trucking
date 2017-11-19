@@ -41,7 +41,7 @@ public class JpaWarehouseDaoTest {
         warehouse.setName(WAREHOUSE_NAME);
     }
 
-    /*@Test
+    @Test
     public void getWarehouseyNotExistedIdShouldReturnNoWarehouseTest() throws Exception {
         final int invalidWarehouseId = 5;
         Optional<Warehouse> warehouse = dao.getWarehouseById(invalidWarehouseId);
@@ -145,5 +145,5 @@ public class JpaWarehouseDaoTest {
     public void deleteWarehouseWithInvalidIdShouldThrowException() throws Exception {
         warehouse.setId(Integer.MAX_VALUE);
         dao.deleteWarehouse(warehouse);
-    }*/
+    }
 }

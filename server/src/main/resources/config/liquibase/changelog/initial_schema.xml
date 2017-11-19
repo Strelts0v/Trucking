@@ -5,8 +5,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <property name="idType" value="BINARY(16)"/>
+    <property name="idType" value="INT UNSIGNED" dbms="mysql"/>
 
+
+    <!--Car park table-->
     <changeSet id="1" author="blink7">
         <createTable tableName="car_park">
             <column name="id" type="${idType}">
@@ -24,8 +26,13 @@
         </modifySql>
     </changeSet>
 
-
     <changeSet id="2" author="blink7">
+        <addAutoIncrement tableName="car_park" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
+
+
+    <!--Items table-->
+    <changeSet id="3" author="blink7">
         <createTable tableName="items">
             <column name="id" type="${idType}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -41,8 +48,13 @@
         </modifySql>
     </changeSet>
 
+    <changeSet id="4" author="blink7">
+        <addAutoIncrement tableName="items" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
 
-    <changeSet id="3" author="blink7">
+
+    <!--Users table-->
+    <changeSet id="5" author="blink7">
         <createTable tableName="users">
             <column name="id" type="${idType}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -68,8 +80,13 @@
         </modifySql>
     </changeSet>
 
+    <changeSet id="6" author="blink7">
+        <addAutoIncrement tableName="users" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
 
-    <changeSet id="4" author="blink7">
+
+    <!--Warehouse table-->
+    <changeSet id="7" author="blink7">
         <createTable tableName="warehouses">
             <column name="id" type="${idType}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -89,8 +106,13 @@
         </modifySql>
     </changeSet>
 
+    <changeSet id="8" author="blink7">
+        <addAutoIncrement tableName="warehouses" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
 
-    <changeSet id="5" author="blink7">
+
+    <!--Clients table-->
+    <changeSet id="9" author="blink7">
         <createTable tableName="clients">
             <column name="id" type="${idType}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -104,9 +126,13 @@
         </modifySql>
     </changeSet>
 
+    <changeSet id="10" author="blink7">
+        <addAutoIncrement tableName="clients" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
+
 
     <!--Waybills table-->
-    <changeSet id="6" author="blink7">
+    <changeSet id="11" author="blink7">
         <createTable tableName="waybills">
             <column name="id" type="${idType}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -141,8 +167,11 @@
         </modifySql>
     </changeSet>
 
+    <changeSet id="12" author="blink7">
+        <addAutoIncrement tableName="waybills" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
 
-    <changeSet id="7" author="blink7">
+    <changeSet id="13" author="blink7">
         <createIndex tableName="waybills" indexName="fk_waybills_departure_date1_idx">
             <column name="waybill_departure_date" type="DATE"/>
         </createIndex>
@@ -183,7 +212,7 @@
 
 
     <!--Invoice table-->
-    <changeSet id="8" author="blink7">
+    <changeSet id="14" author="blink7">
         <createTable tableName="invoices">
             <column name="id" type="${idType}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -208,8 +237,11 @@
         </modifySql>
     </changeSet>
 
+    <changeSet id="15" author="blink7">
+        <addAutoIncrement tableName="invoices" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
 
-    <changeSet id="9" author="blink7">
+    <changeSet id="16" author="blink7">
         <createIndex tableName="invoices" indexName="fk_invoices_checkdate1_idx">
             <column name="invoice_checkdate" type="DATE"/>
         </createIndex>
@@ -241,7 +273,7 @@
     </changeSet>
 
 
-    <changeSet id="10" author="blink7">
+    <changeSet id="17" author="blink7">
         <createTable tableName="item_consignments">
             <column name="invoices_id" type="${idType}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -258,8 +290,7 @@
         </modifySql>
     </changeSet>
 
-
-    <changeSet id="11" author="blink7">
+    <changeSet id="18" author="blink7">
         <createIndex tableName="item_consignments" indexName="fk_item_consignments_items1_idx">
             <column name="invoices_id" type="${idType}"/>
         </createIndex>
@@ -279,7 +310,9 @@
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
     </changeSet>
 
-    <changeSet id="12" author="blink7">
+
+    <!--Checkpoints table-->
+    <changeSet id="19" author="blink7">
         <createTable tableName="checkpoints">
             <column name="id" type="${idType}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -295,8 +328,12 @@
         </modifySql>
     </changeSet>
 
+    <changeSet id="20" author="blink7">
+        <addAutoIncrement tableName="checkpoints" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
 
-    <changeSet id="13" author="blink7">
+
+    <changeSet id="21" author="blink7">
         <createTable tableName="waybills_has_checkpoints">
             <column name="waybills_id" type="${idType}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -312,8 +349,7 @@
         </modifySql>
     </changeSet>
 
-
-    <changeSet id="14" author="blink7">
+    <changeSet id="22" author="blink7">
         <createIndex tableName="waybills_has_checkpoints" indexName="fk_waybills_has_checkpoints_waybills1_idx"
                      unique="true">
             <column name="waybills_id" type="${idType}"/>
@@ -336,7 +372,8 @@
     </changeSet>
 
 
-    <changeSet id="15" author="blink7">
+    <!--Act of loss table-->
+    <changeSet id="23" author="blink7">
         <createTable tableName="act_of_loss">
             <column name="invoices_id" type="${idType}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -357,8 +394,7 @@
         </modifySql>
     </changeSet>
 
-
-    <changeSet id="16" author="blink7">
+    <changeSet id="24" author="blink7">
         <createIndex tableName="act_of_loss" indexName="fk_act_of_loss_invoices1_idx"
                      unique="true">
             <column name="invoices_id" type="${idType}"/>
@@ -381,9 +417,9 @@
     </changeSet>
     
     
-    <changeSet id="17" author="blink7">
+    <changeSet id="25" author="blink7">
         <createTable tableName="users_has_roles">
-            <column name="users_id" type="BINARY(16)">
+            <column name="users_id" type="${idType}">
                 <constraints nullable="false"/>
             </column>
             <column name="user_role" type="ENUM('S', 'A', 'M', 'D', 'DR', 'O')"/>
@@ -393,11 +429,10 @@
             <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
         </modifySql>
     </changeSet>
-    
-    
-    <changeSet id="18" author="blink7">
+
+    <changeSet id="26" author="blink7">
         <createIndex tableName="users_has_roles" indexName="fk_users_has_roles_user1_idx">
-            <column name="users_id" type="BINARY(16)"/>
+            <column name="users_id" type="${idType}"/>
         </createIndex>
 
         <addForeignKeyConstraint baseTableName="users_has_roles" baseColumnNames="users_id"

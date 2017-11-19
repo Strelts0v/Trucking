@@ -5,14 +5,15 @@ import com.itechart.trucking.dao.InvoiceDao;
 import com.itechart.trucking.domain.Invoice;
 import com.itechart.trucking.domain.User;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +30,11 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @Transactional
+@ActiveProfiles("dev_blink7")
 public class JpaInvoiceDaoTest {
+
+    @Autowired
+    private EntityManager em;
 
     @Autowired
     private InvoiceDao invoiceDao;
@@ -43,9 +48,8 @@ public class JpaInvoiceDaoTest {
 
     @Before
     public void setUp() {
-        creator = new User();
-        creator.setFirtstname(FIRST_NAME);
-        creator.setLastname(LAST_NAME);
+        //TODO: Replace with UserDao implementation.
+        creator = em.find(User.class, 1);
 
         invoice = new Invoice();
         invoice.setIssueDate(ISSUE_DATE);
@@ -68,7 +72,7 @@ public class JpaInvoiceDaoTest {
 
     @Test
     public void findOneNotExistedIdShouldReturnNoObject() throws Exception {
-        Optional<Invoice> result = invoiceDao.findOne(invoice.getId());
+        Optional<Invoice> result = invoiceDao.findOne(666);
 
         assertFalse("No object expected", result.isPresent());
     }
@@ -78,7 +82,6 @@ public class JpaInvoiceDaoTest {
         invoiceDao.save(invoice);
 
         invoice.setStatus(Invoice.Status.CHECKED);
-        invoiceDao.save(invoice);
 
         Optional<Invoice> result = invoiceDao.findOne(invoice.getId());
 
@@ -86,12 +89,9 @@ public class JpaInvoiceDaoTest {
     }
 
     @Test
-    @Ignore
     public void findAllShouldReturnExactCount() throws Exception {
-        //TODO: Save the creator instance to the DB
-
         int size = 5;
-        for (int i = 1; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             Invoice invoice = new Invoice();
             invoice.setCreator(creator);
             invoice.setIssueDate(ISSUE_DATE);
