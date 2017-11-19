@@ -11,15 +11,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "warehouses")
-<<<<<<< HEAD
-public class Warehouse {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-=======
 public class Warehouse extends AbstractPersistentObject {
->>>>>>> dev
 
     @Column(name = "warehouse_name")
     private String name;
