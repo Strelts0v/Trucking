@@ -5,6 +5,7 @@ import com.itechart.trucking.dao.ClientDao;
 import com.itechart.trucking.domain.Client;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,12 +136,14 @@ public class JpaClientDaoTest {
         dao.deleteClient(client);
     }
 
+    @Ignore
     @Test(expected = InvalidDataAccessApiUsageException.class)
     public void deleteClientWithNotExistedIdShouldThrowException() throws Exception {
         client.setId(1);
         dao.deleteClient(client);
     }
 
+    @Ignore
     @Test(expected = InvalidDataAccessApiUsageException.class)
     public void deleteClientWithInvalidIdShouldThrowException() throws Exception {
         client.setId(Integer.MAX_VALUE);
