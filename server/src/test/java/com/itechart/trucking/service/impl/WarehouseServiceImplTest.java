@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -139,18 +138,6 @@ public class WarehouseServiceImplTest {
 
     @Test
     public void deleteWarehouseWithNoIdShouldNotThrowException() throws Exception {
-        service.deleteWarehouse(warehouse);
-    }
-
-    @Test(expected = InvalidDataAccessApiUsageException.class)
-    public void deleteWarehouseWithNotExistedIdShouldThrowException() throws Exception {
-        warehouse.setId(1);
-        service.deleteWarehouse(warehouse);
-    }
-
-    @Test(expected = InvalidDataAccessApiUsageException.class)
-    public void deleteWarehouseWithInvalidIdShouldThrowException() throws Exception {
-        warehouse.setId(Integer.MAX_VALUE);
         service.deleteWarehouse(warehouse);
     }
 }

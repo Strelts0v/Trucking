@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -123,18 +122,6 @@ public class ClientServiceImplTest {
 
     @Test
     public void deleteClientWithNoIdShouldNotThrowException() throws Exception {
-        service.deleteClient(client);
-    }
-
-    @Test(expected = InvalidDataAccessApiUsageException.class)
-    public void deleteClientWithNotExistedIdShouldThrowException() throws Exception {
-        client.setId(1);
-        service.deleteClient(client);
-    }
-
-    @Test(expected = InvalidDataAccessApiUsageException.class)
-    public void deleteClientWithInvalidIdShouldThrowException() throws Exception {
-        client.setId(Integer.MAX_VALUE);
         service.deleteClient(client);
     }
 }
