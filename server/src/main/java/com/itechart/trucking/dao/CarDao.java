@@ -28,5 +28,5 @@ public interface CarDao {
      * @param id - id parameter of car
      * @return Optional Car object
      */
-    Optional<Car> findOne(int id);
+    Optional<Car> findOne(Integer id);
 }
