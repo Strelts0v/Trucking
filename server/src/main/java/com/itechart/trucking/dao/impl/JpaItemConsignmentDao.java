@@ -13,10 +13,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * @author Quontico
+ * @version 1.0
+ * @since 2017-11-20
+ */
+
 public class JpaItemConsignmentDao implements ItemConsignmentDao {
 
-    @Autowired
     private EntityManager entityManager;
+
+    public JpaItemConsignmentDao(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public List<ItemConsignment> findAll() {
@@ -41,7 +50,7 @@ public class JpaItemConsignmentDao implements ItemConsignmentDao {
     }
 
     @Override
-    public Optional<ItemConsignment> findItemConsignmentById(UUID id) {
+    public Optional<ItemConsignment> findItemConsignmentById(Integer id) {
         return Optional.ofNullable(entityManager.find(ItemConsignment.class, id));
     }
 

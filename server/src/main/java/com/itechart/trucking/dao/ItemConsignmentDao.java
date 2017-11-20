@@ -6,12 +6,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * @author Quontico
+ * @version 1.0
+ * @since 2017-11-20
+ */
+
 public interface ItemConsignmentDao {
     List<ItemConsignment> findAll();
 
     List<ItemConsignment> findAllByPage(int pageNumber, int pageSize);
 
-    Optional<ItemConsignment> findItemConsignmentById(UUID id);
+    Optional<ItemConsignment> findItemConsignmentById(Integer id);
 
     //Optional<ItemConsignment> findItemInItemConsignmentByName(String name);
 

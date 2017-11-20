@@ -12,12 +12,22 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
+/**
+ * @author Quontico
+ * @version 1.0
+ * @since 2017-11-20
+ */
 
 @Repository
 public class JpaItemDao implements ItemDao{
 
-    @Autowired
     private EntityManager entityManager;
+
+    public JpaItemDao(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public List<Item> findAll() {
