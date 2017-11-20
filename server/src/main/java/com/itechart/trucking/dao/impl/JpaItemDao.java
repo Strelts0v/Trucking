@@ -23,8 +23,11 @@ import java.util.UUID;
 @Repository
 public class JpaItemDao implements ItemDao{
 
-    @Autowired
     private EntityManager entityManager;
+
+    public JpaItemDao(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public List<Item> findAll() {
