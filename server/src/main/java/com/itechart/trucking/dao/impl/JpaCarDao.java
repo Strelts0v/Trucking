@@ -3,6 +3,7 @@ package com.itechart.trucking.dao.impl;
 import com.itechart.trucking.dao.CarDao;
 import com.itechart.trucking.domain.Car;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -12,7 +13,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
-
+@Repository
 public class JpaCarDao implements CarDao {
 
     @Autowired
