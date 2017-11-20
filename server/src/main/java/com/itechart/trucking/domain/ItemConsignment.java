@@ -2,6 +2,12 @@ package com.itechart.trucking.domain;
 
 import javax.persistence.*;
 
+/**
+ * @author Quontico
+ * @version 1.0
+ * @since 2017-11-20
+ */
+
 @Entity
 @Table(name = "item_consignments")
 public class ItemConsignment extends AbstractPersistentObject {
