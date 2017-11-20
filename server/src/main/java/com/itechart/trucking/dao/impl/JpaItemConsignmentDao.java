@@ -21,8 +21,11 @@ import java.util.UUID;
 
 public class JpaItemConsignmentDao implements ItemConsignmentDao {
 
-    @Autowired
     private EntityManager entityManager;
+
+    public JpaItemConsignmentDao(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public List<ItemConsignment> findAll() {
