@@ -38,25 +38,24 @@ public class InvoiceService {
     }
 
     /**
-     * Issue a new Invoice by a Dispatcher.
+     * Register a new Invoice by a Dispatcher.
      *
      * @param invoiceDto
      * @param currentUser
      * @return the managed invoice.
      */
-    public Invoice issueInvoice(InvoiceDto invoiceDto, User currentUser) {
+    public Invoice registerInvoice(InvoiceDto invoiceDto, User currentUser) {
         Invoice newInvoice = new Invoice();
         newInvoice.setIssueDate(LocalDate.now());
         newInvoice.setCreator(currentUser);
 
         List<ItemConsignment> newItemConsignments = new ArrayList<>(invoiceDto.getConsignments().size());
         for (ItemConsignmentDto itemConsignmentDto : invoiceDto.getConsignments()) {
-            //TODO: Pass an int id.
-            itemDao.findItemById(null).ifPresent(item -> {
+            itemDao.findItemById(itemConsignmentDto.getItemDto().getId()).ifPresent(item -> {
                 ItemConsignment newItemConsignment = new ItemConsignment();
-                newItemConsignment.setIdItem(item);
+                newItemConsignment.setItem(item);
                 newItemConsignment.setAmount(itemConsignmentDto.getAmount());
-                //TODO: Insert an Enum.
+                //TODO: Insert an Enum data type.
                 newItemConsignment.setStatus("Accepted");
                 newItemConsignments.add(newItemConsignment);
             });
@@ -64,7 +63,33 @@ public class InvoiceService {
         newInvoice.setItemConsignments(newItemConsignments);
 
         invoiceDao.save(newInvoice);
-        log.debug("Issued the new Invoice by a Manager: {}", newInvoice);
+        log.debug("Registered a new Invoice: {}", newInvoice);
         return newInvoice;
+    }
+
+    /**
+     * Check the Invoice by a Manager
+     *
+     * @param invoiceDto
+     * @param currentUser
+     */
+    public void checkInvoice(InvoiceDto invoiceDto, User currentUser) {
+        invoiceDao.findOne(invoiceDto.getId()).ifPresent(invoice -> {
+            invoice.setCheckDate(LocalDate.now());
+            invoice.setInspector(currentUser);
+            invoice.setStatus(Invoice.Status.CHECKED);
+            log.debug("Checked the Invoice: {}", invoice);
+        });
+    }
+
+    /**
+     * Retrieves an invoice by its id.
+     *
+     * @param id
+     * @return the invoice or {@literal null} if none found.
+     */
+    @Transactional(readOnly = true)
+    public Invoice getInvoiceById(Integer id) {
+        return invoiceDao.findOne(id).orElse(null);
     }
 }

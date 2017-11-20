@@ -1,32 +1,34 @@
 package com.itechart.trucking.service.dto;
 
+import com.itechart.trucking.domain.ItemConsignment;
+
 /**
  * A DTO representing a consignment.
  *
  * @author blink7
- * @version 1.0
- * @since 2017-11-19
+ * @version 1.1
+ * @since 2017-11-20
  */
 public class ItemConsignmentDto {
 
-    private Integer itemId;
+    private ItemDto itemDto;
 
     private Integer amount;
 
-    public ItemConsignmentDto() {
+    public ItemConsignmentDto(ItemConsignment itemConsignment) {
     }
 
-    public ItemConsignmentDto(Integer itemId, Integer amount) {
-        this.itemId = itemId;
+    public ItemConsignmentDto(ItemDto itemDto, Integer amount) {
+        this.itemDto = itemDto;
         this.amount = amount;
     }
 
-    public Integer getItemId() {
-        return itemId;
+    public ItemDto getItemDto() {
+        return itemDto;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setItemDto(ItemDto itemDto) {
+        this.itemDto = itemDto;
     }
 
     public Integer getAmount() {

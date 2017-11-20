@@ -14,7 +14,7 @@ public class ItemConsignment extends AbstractPersistentObject {
 
     @ManyToOne
     @JoinColumn(name = "items_id")
-    private Item idItem;
+    private Item item;
 
     @ManyToOne
     @JoinColumn(name = "invoices_id")
@@ -44,11 +44,11 @@ public class ItemConsignment extends AbstractPersistentObject {
         this.invoice = invoice;
     }
 
-    public Item getIdItem() {
-        return idItem;
+    public Item getItem() {
+        return item;
     }
 
-    public void setIdItem(Item idItem) {
-        this.idItem = idItem;
+    public void setItem(Item item) {
+        this.item = item;
     }
 }

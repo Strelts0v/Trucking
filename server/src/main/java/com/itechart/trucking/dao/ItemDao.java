@@ -4,7 +4,6 @@ import com.itechart.trucking.domain.Item;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface ItemDao {
 
@@ -12,7 +11,7 @@ public interface ItemDao {
 
     List<Item> findAllByPage(int pageNumber, int pageSize);
 
-    Optional<Item> findItemById(UUID id);
+    Optional<Item> findItemById(Integer id);
 
     Optional<Item> findItemByName(String name);
 

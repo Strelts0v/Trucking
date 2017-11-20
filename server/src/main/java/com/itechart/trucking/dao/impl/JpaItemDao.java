@@ -12,7 +12,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 public class JpaItemDao implements ItemDao{
@@ -43,7 +42,7 @@ public class JpaItemDao implements ItemDao{
     }
 
     @Override
-    public Optional<Item> findItemById(UUID id) {
+    public Optional<Item> findItemById(Integer id) {
         return Optional.ofNullable(entityManager.find(Item.class, id));
     }
 
