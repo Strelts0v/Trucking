@@ -53,6 +53,12 @@
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>5.2.12.Final</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -77,6 +83,16 @@
                     <verbose>true</verbose>
                     <logging>debug</logging>
                     <dropFirst>true</dropFirst>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArguments>
+                        <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                    </compilerArguments>
                 </configuration>
             </plugin>
         </plugins>

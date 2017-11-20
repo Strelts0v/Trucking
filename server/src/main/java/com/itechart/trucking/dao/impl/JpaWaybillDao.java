@@ -2,7 +2,6 @@ package com.itechart.trucking.dao.impl;
 
 import com.itechart.trucking.dao.WaybillDao;
 import com.itechart.trucking.domain.Waybill;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -15,14 +14,17 @@ import java.util.Optional;
 
 /**
  * @author blink7
- * @version 1.0
- * @since 2017-11-18
+ * @version 1.1
+ * @since 2017-11-20
  */
 @Repository
 public class JpaWaybillDao implements WaybillDao {
 
-    @Autowired
     private EntityManager em;
+
+    public JpaWaybillDao(EntityManager em) {
+        this.em = em;
+    }
 
     @Override
     public List<Waybill> findAll() {
