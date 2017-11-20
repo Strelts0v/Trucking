@@ -43,7 +43,7 @@ public class JpaItemDao implements ItemDao{
     }
 
     @Override
-    public Optional<Item> findItemById(UUID id) {
+    public Optional<Item> findItemById(Integer id) {
         return Optional.ofNullable(entityManager.find(Item.class, id));
     }
 
