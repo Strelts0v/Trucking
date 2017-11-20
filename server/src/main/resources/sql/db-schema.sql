@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`item_consignments` (
   `iditem_consignments` INT NOT NULL AUTO_INCREMENT,
   `items_iditem` INT NOT NULL,
   `item_amount` INT NULL DEFAULT NULL,
-  `item_status` ENUM('Registered', 'Checked', 'Delivered', 'Lost', 'Spoiled') NULL DEFAULT NULL,
+  `item_status` ENUM('R', 'C', 'D', 'L') NULL DEFAULT NULL,
   PRIMARY KEY (`iditem_consignments`),
   INDEX `fk_item_consignments_items1_idx` (`items_iditem` ASC),
   CONSTRAINT `fk_item_consignments_items1`
