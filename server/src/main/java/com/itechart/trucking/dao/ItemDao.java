@@ -12,7 +12,7 @@ public interface ItemDao {
 
     List<Item> findAllByPage(int pageNumber, int pageSize);
 
-    Optional<Item> findItemById(UUID id);
+    Optional<Item> findItemById(Integer id);
 
     Optional<Item> findItemByName(String name);
 
