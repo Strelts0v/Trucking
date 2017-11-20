@@ -17,7 +17,7 @@ public interface ItemConsignmentDao {
 
     List<ItemConsignment> findAllByPage(int pageNumber, int pageSize);
 
-    Optional<ItemConsignment> findItemConsignmentById(UUID id);
+    Optional<ItemConsignment> findItemConsignmentById(Integer id);
 
     //Optional<ItemConsignment> findItemInItemConsignmentByName(String name);
 

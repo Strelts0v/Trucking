@@ -47,7 +47,7 @@ public class JpaItemConsignmentDao implements ItemConsignmentDao {
     }
 
     @Override
-    public Optional<ItemConsignment> findItemConsignmentById(UUID id) {
+    public Optional<ItemConsignment> findItemConsignmentById(Integer id) {
         return Optional.ofNullable(entityManager.find(ItemConsignment.class, id));
     }
 
