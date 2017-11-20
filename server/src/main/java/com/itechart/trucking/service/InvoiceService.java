@@ -1,8 +1,8 @@
 package com.itechart.trucking.service;
 
 import com.itechart.trucking.dao.InvoiceDao;
+import com.itechart.trucking.dao.ItemDao;
 import com.itechart.trucking.domain.Invoice;
-import com.itechart.trucking.domain.Item;
 import com.itechart.trucking.domain.ItemConsignment;
 import com.itechart.trucking.domain.User;
 import com.itechart.trucking.service.dto.InvoiceDto;
@@ -30,9 +30,11 @@ public class InvoiceService {
     private final Logger log = LoggerFactory.getLogger(InvoiceService.class);
 
     private final InvoiceDao invoiceDao;
+    private final ItemDao itemDao;
 
-    public InvoiceService(InvoiceDao invoiceDao) {
+    public InvoiceService(InvoiceDao invoiceDao, ItemDao itemDao) {
         this.invoiceDao = invoiceDao;
+        this.itemDao = itemDao;
     }
 
     /**
@@ -49,14 +51,15 @@ public class InvoiceService {
 
         List<ItemConsignment> newItemConsignments = new ArrayList<>(invoiceDto.getConsignments().size());
         for (ItemConsignmentDto itemConsignmentDto : invoiceDto.getConsignments()) {
-            //TODO: Retrieve an Item from DB by id.
-            Item item = null;
-            ItemConsignment newItemConsignment = new ItemConsignment();
-            newItemConsignment.setIdItem(item);
-            newItemConsignment.setAmount(itemConsignmentDto.getAmount());
-            //TODO: Insert an Enum.
-            newItemConsignment.setStatus("Accepted");
-            newItemConsignments.add(newItemConsignment);
+            //TODO: Pass an int id.
+            itemDao.findItemById(null).ifPresent(item -> {
+                ItemConsignment newItemConsignment = new ItemConsignment();
+                newItemConsignment.setIdItem(item);
+                newItemConsignment.setAmount(itemConsignmentDto.getAmount());
+                //TODO: Insert an Enum.
+                newItemConsignment.setStatus("Accepted");
+                newItemConsignments.add(newItemConsignment);
+            });
         }
         newInvoice.setItemConsignments(newItemConsignments);
 
