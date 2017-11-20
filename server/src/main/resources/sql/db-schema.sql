@@ -204,7 +204,9 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`checkpoints` (
   `checkpoint_name` VARCHAR(45) NULL,
   `checkpoint_lat` VARCHAR(45) NULL,
   `checkpoint_lng` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `checkpoint_name_UNIQUE`(`checkpoint_name`),
+  UNIQUE KEY `checkpoint_location_UNIQUE`(`checkpoint_lat`, `checkpoint_lng`))
   ENGINE = InnoDB;
 
 
