@@ -37,7 +37,7 @@ public class JpaCarDaoTest {
     private Car car;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         car = new Car();
         car.setName("MAZ");
         car.setConsumption(50);
@@ -60,7 +60,8 @@ public class JpaCarDaoTest {
     @Test
     public void getCarsShouldReturnNoCarTest() throws Exception {
 
-      List<Car> carList =  carDao.findAll();
-
+        List<Car> carList = carDao.findAll();
+        final String errorMessage = "Expected not empty optional car object";
+        Assert.assertTrue(errorMessage,carList.isEmpty());
     }
 }
