@@ -2,7 +2,6 @@ package com.itechart.trucking.dao.impl;
 
 import com.itechart.trucking.dao.InvoiceDao;
 import com.itechart.trucking.domain.Invoice;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -15,14 +14,17 @@ import java.util.Optional;
 
 /**
  * @author blink7
- * @version 1.0
- * @since 2017-11-18
+ * @version 1.1
+ * @since 2017-11-20
  */
 @Repository
 public class JpaInvoiceDao implements InvoiceDao {
 
-    @Autowired
     private EntityManager em;
+
+    public JpaInvoiceDao(EntityManager em) {
+        this.em = em;
+    }
 
     @Override
     public List<Invoice> findAll() {
@@ -58,7 +60,7 @@ public class JpaInvoiceDao implements InvoiceDao {
 
     @Override
     public void delete(Invoice invoice) {
-        em.remove(em.merge(invoice));
+        em.remove(invoice);
     }
 
     @Override

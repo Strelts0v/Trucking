@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * An Invoice.
+ *
  * @author blink7
  * @version 1.0
  * @since 2017-11-18

@@ -4,11 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-/**
- * @author Gleb Streltsov
- * @version 1.1
- * @since 2017-11-15
- */
 @Entity
 @Table(name = "warehouses")
 public class Warehouse extends AbstractPersistentObject {

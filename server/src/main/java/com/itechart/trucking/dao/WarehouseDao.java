@@ -7,7 +7,7 @@ import java.util.Optional;
 
 /**
  * @author Gleb Streltsov
- * @version 1.1
+ * @version 1.0
  * @since 2017-11-15
  */
 public interface WarehouseDao {
