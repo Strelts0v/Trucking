@@ -4,6 +4,7 @@ import com.itechart.trucking.Application;
 import com.itechart.trucking.domain.Invoice;
 import com.itechart.trucking.domain.Waybill;
 import com.itechart.trucking.service.dto.InvoiceDto;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +13,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import static org.junit.Assert.*;
 
 /**
  * Test class for {@link InvoiceMapper}
@@ -29,6 +33,7 @@ public class InvoiceMapperTest {
     private static final LocalDate ISSUE_DATE = LocalDate.of(2017, 11, 18);
 
     @Test
+    @Ignore
     public void shouldMapInvoiceToDto() {
         Invoice invoice = new Invoice();
         invoice.setIssueDate(ISSUE_DATE);
@@ -37,6 +42,9 @@ public class InvoiceMapperTest {
         waybill.setIssueDate(ISSUE_DATE);
         invoice.setWaybill(waybill);
 
-//        InvoiceDto invoiceDto = InvoiceMapper
+        InvoiceDto invoiceDto = InvoiceMapper.INSTANCE.invoiceToInvoiceDto(invoice);
+
+        assertNotNull(invoiceDto);
+        assertEquals(invoiceDto.getIssueDate(), ISSUE_DATE.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
     }
 }

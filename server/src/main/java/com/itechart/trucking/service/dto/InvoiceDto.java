@@ -1,34 +1,26 @@
 package com.itechart.trucking.service.dto;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
  * A DTO representing an invoice.
  *
  * @author blink7
- * @version 1.2
- * @since 2017-11-21
+ * @version 1.3
+ * @since 2017-11-22
  */
 public class InvoiceDto {
 
     private Integer id;
-
-    private LocalDate issueDate;
-
+    private String issueDate;
     private List<ItemConsignmentDto> consignments;
-
     private String status;
-
     private UserDto creator;
-
-    private LocalDate checkDate;
-
+    private String checkDate;
     private UserDto inspector;
-
     private WaybillDto waybill;
-
     private List<LossActDto> lossActs;
+    private String lossActIssueDate;
 
     public Integer getId() {
         return id;
@@ -38,11 +30,11 @@ public class InvoiceDto {
         this.id = id;
     }
 
-    public LocalDate getIssueDate() {
+    public String getIssueDate() {
         return issueDate;
     }
 
-    public void setIssueDate(LocalDate issueDate) {
+    public void setIssueDate(String issueDate) {
         this.issueDate = issueDate;
     }
 
@@ -70,11 +62,11 @@ public class InvoiceDto {
         this.creator = creator;
     }
 
-    public LocalDate getCheckDate() {
+    public String getCheckDate() {
         return checkDate;
     }
 
-    public void setCheckDate(LocalDate checkDate) {
+    public void setCheckDate(String checkDate) {
         this.checkDate = checkDate;
     }
 
@@ -100,5 +92,13 @@ public class InvoiceDto {
 
     public void setLossActs(List<LossActDto> lossActs) {
         this.lossActs = lossActs;
+    }
+
+    public String getLossActIssueDate() {
+        return lossActIssueDate;
+    }
+
+    public void setLossActIssueDate(String lossActIssueDate) {
+        this.lossActIssueDate = lossActIssueDate;
     }
 }

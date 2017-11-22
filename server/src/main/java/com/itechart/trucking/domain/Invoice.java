@@ -10,8 +10,8 @@ import java.util.List;
  * An Invoice.
  *
  * @author blink7
- * @version 1.0
- * @since 2017-11-18
+ * @version 1.1
+ * @since 2017-11-22
  */
 @Entity
 @Table(name = "invoices")
@@ -46,6 +46,10 @@ public class Invoice extends AbstractPersistentObject {
 
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
     private List<LossAct> lossActs;
+
+    @Column(name = "act_date_issue")
+    @Convert(converter = LocalDateAttributeConverter.class)
+    private LocalDate lossActIssueDate;
 
     public LocalDate getIssueDate() {
         return issueDate;
@@ -115,6 +119,14 @@ public class Invoice extends AbstractPersistentObject {
         boolean result = lossActs.remove(lossAct);
         lossAct.setInvoice(null);
         return result;
+    }
+
+    public LocalDate getLossActIssueDate() {
+        return lossActIssueDate;
+    }
+
+    public void setLossActIssueDate(LocalDate lossActIssueDate) {
+        this.lossActIssueDate = lossActIssueDate;
     }
 
     public enum Status {
