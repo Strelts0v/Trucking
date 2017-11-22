@@ -4,8 +4,8 @@ import javax.persistence.*;
 
 /**
  * @author blink7
- * @version 1.0
- * @since 2017-11-18
+ * @version 1.1
+ * @since 2017-11-20
  */
 @Entity
 @Table(name = "checkpoints")
@@ -19,6 +19,15 @@ public class Checkpoint extends AbstractPersistentObject {
 
     @Column(name = "checkpoint_lng")
     private String lng;
+
+    public Checkpoint() {
+    }
+
+    public Checkpoint(String name, String lat, String lng) {
+        this.name = name;
+        this.lat = lat;
+        this.lng = lng;
+    }
 
     public String getName() {
         return name;

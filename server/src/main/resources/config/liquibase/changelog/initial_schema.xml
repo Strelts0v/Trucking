@@ -441,4 +441,13 @@
                                  referencedColumnNames="id"
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
     </changeSet>
+
+    <changeSet id="27" author="blink7">
+        <addUniqueConstraint tableName="checkpoints"
+                             columnNames="checkpoint_name"
+                             constraintName="checkpoint_name_UNIQUE"/>
+        <addUniqueConstraint tableName="checkpoints"
+                             columnNames="checkpoint_lat, checkpoint_lng"
+                             constraintName="checkpoint_location_UNIQUE"/>
+    </changeSet>
 </databaseChangeLog>
