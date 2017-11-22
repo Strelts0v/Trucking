@@ -1,17 +1,14 @@
 package com.itechart.trucking.service.dto;
 
-import com.itechart.trucking.domain.Invoice;
-
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * A DTO representing an invoice.
  *
  * @author blink7
- * @version 1.1
- * @since 2017-11-20
+ * @version 1.2
+ * @since 2017-11-21
  */
 public class InvoiceDto {
 
@@ -21,7 +18,7 @@ public class InvoiceDto {
 
     private List<ItemConsignmentDto> consignments;
 
-    private Invoice.Status status = Invoice.Status.ISSUED;
+    private String status;
 
     private UserDto creator;
 
@@ -32,36 +29,6 @@ public class InvoiceDto {
     private WaybillDto waybill;
 
     private List<LossActDto> lossActs;
-
-    //TODO: Implement the constructor.
-    public InvoiceDto(Invoice invoice) {
-        this(invoice.getId(), invoice.getIssueDate(),
-                invoice.getItemConsignments().stream()
-                        .map(ItemConsignmentDto::new)
-                        .collect(Collectors.toList()),
-                invoice.getStatus(),
-                new UserDto(invoice.getCreator()),
-                invoice.getCheckDate(),
-                new UserDto(invoice.getInspector()),
-                null,
-                invoice.getLossActs().stream()
-                        .map(LossActDto::new)
-                        .collect(Collectors.toList()));
-    }
-
-    public InvoiceDto(Integer id, LocalDate issueDate, List<ItemConsignmentDto> consignments,
-                      Invoice.Status status, UserDto creator, LocalDate checkDate, UserDto inspector,
-                      WaybillDto waybill, List<LossActDto> lossActs) {
-        this.id = id;
-        this.issueDate = issueDate;
-        this.consignments = consignments;
-        this.status = status;
-        this.creator = creator;
-        this.checkDate = checkDate;
-        this.inspector = inspector;
-        this.waybill = waybill;
-        this.lossActs = lossActs;
-    }
 
     public Integer getId() {
         return id;
@@ -87,11 +54,11 @@ public class InvoiceDto {
         this.consignments = consignments;
     }
 
-    public Invoice.Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Invoice.Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

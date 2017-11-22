@@ -55,8 +55,7 @@ public class InvoiceService {
                 ItemConsignment newItemConsignment = new ItemConsignment();
                 newItemConsignment.setItem(item);
                 newItemConsignment.setAmount(itemConsignmentDto.getAmount());
-                //TODO: Insert an Enum data type.
-                newItemConsignment.setStatus("Accepted");
+                newItemConsignment.setStatus(ItemConsignment.Status.REGISTERED);
                 newItemConsignments.add(newItemConsignment);
             });
         }
