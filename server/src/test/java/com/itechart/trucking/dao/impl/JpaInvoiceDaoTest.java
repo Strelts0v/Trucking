@@ -24,8 +24,8 @@ import static org.junit.Assert.*;
  * Test class for {@link JpaInvoiceDao}
  *
  * @author blink7
- * @version 1.1
- * @since 2017-11-18
+ * @version 1.2
+ * @since 2017-11-20
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -36,7 +36,6 @@ public class JpaInvoiceDaoTest {
     @Autowired
     private EntityManager em;
 
-    @Autowired
     private InvoiceDao invoiceDao;
 
     private User creator;
@@ -48,6 +47,8 @@ public class JpaInvoiceDaoTest {
 
     @Before
     public void setUp() {
+        invoiceDao = new JpaInvoiceDao(em);
+
         creator = new User();
         creator.setFirtstname(FIRST_NAME);
         creator.setLastname(LAST_NAME);
@@ -61,20 +62,16 @@ public class JpaInvoiceDaoTest {
 
     @Test
     public void findOneShouldReturnCorrespondObject() throws Exception {
-        assertNull("Expected an empty version", invoice.getVersion());
-
         invoiceDao.save(invoice);
-        Optional<Invoice> result = invoiceDao.findOne(invoice.getId());
-        assertTrue("Expected an object", result.isPresent());
 
-        String errorMessage = "Expected equals objects";
-        assertEquals(errorMessage, invoice, result.orElse(new Invoice()));
-        assertEquals(errorMessage, invoice.getCreator(), result.orElse(new Invoice()).getCreator());
-        assertNotNull("Expected not null generated version number", result.orElse(new Invoice()).getVersion());
+        Optional<Invoice> result = invoiceDao.findOne(invoice.getId());
+
+        assertTrue("Expected an object", result.isPresent());
+        assertEquals("Expected equals objects", invoice, result.orElse(new Invoice()));
     }
 
     @Test
-    public void findOneNotExistedIdShouldReturnNoObject() throws Exception {
+    public void findOneNonExistentIdShouldReturnNoObject() throws Exception {
         Optional<Invoice> result = invoiceDao.findOne(666);
 
         assertFalse("No object expected", result.isPresent());
@@ -83,7 +80,6 @@ public class JpaInvoiceDaoTest {
     @Test
     public void afterUpdateFindOneShouldReturnCorrespondObject() throws Exception {
         invoiceDao.save(invoice);
-
         invoice.setStatus(Invoice.Status.CHECKED);
 
         Optional<Invoice> result = invoiceDao.findOne(invoice.getId());
@@ -92,7 +88,7 @@ public class JpaInvoiceDaoTest {
     }
 
     @Test
-    public void findAllShouldReturnExactCount() throws Exception {
+    public void findAllAndSizeShouldReturnExactCount() throws Exception {
         int size = 5;
         for (int i = 0; i < size; i++) {
             Invoice invoice = new Invoice();
@@ -102,6 +98,19 @@ public class JpaInvoiceDaoTest {
         }
 
         List<Invoice> invoices = invoiceDao.findAll();
+        int resultSize = invoiceDao.size();
         assertSame("Expected the same size of the result list", size, invoices.size());
+        assertSame("Expected the same size of the result list", size, resultSize);
+    }
+
+    @Test
+    public void deleteTest() throws Exception {
+        invoiceDao.save(invoice);
+        int id = invoice.getId();
+
+        invoiceDao.delete(invoice);
+
+        Optional<Invoice> result = invoiceDao.findOne(id);
+        assertFalse("No object expected", result.isPresent());
     }
 }
