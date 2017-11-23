@@ -5,12 +5,12 @@ import javax.persistence.*;
 /**
  * @author Quontico
  * @version 1.0
- * @since 2017-11-20
+ * @since 2017-11-23
  */
 
 @Entity
 @Table(name = "item_consignments")
-public class ItemConsignment extends AbstractPersistentObject {
+public class ItemConsignment {
 
     @Column(name = "item_amount")
     private Integer amount;
@@ -26,10 +26,12 @@ public class ItemConsignment extends AbstractPersistentObject {
         LOST
     }
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "items_id")
     private Item item;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "invoices_id")
     private Invoice invoice;

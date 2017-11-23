@@ -1,6 +1,13 @@
 package com.itechart.trucking.service.dto;
 
-public class WarehouseDto {
+/**
+ * A DTO representing a warehouse.
+ *
+ * @author blink7
+ * @version 1.0
+ * @since 2017-11-23
+ */
+public class WarehouseDto extends AbstractDto {
 
     private String name;
     private String country;

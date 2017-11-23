@@ -4,10 +4,10 @@ package com.itechart.trucking.service.dto;
  * A DTO representing a checkpoint.
  *
  * @author blink7
- * @version 1.0
- * @since 2017-11-22
+ * @version 1.1
+ * @since 2017-11-23
  */
-public class CheckpointDto {
+public class CheckpointDto extends AbstractDto {
 
     private String name;
     private String lat;

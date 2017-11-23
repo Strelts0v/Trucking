@@ -4,10 +4,10 @@ package com.itechart.trucking.service.dto;
  * A DTO representing a client.
  *
  * @author blink7
- * @version 1.0
- * @since 2017-11-22
+ * @version 1.1
+ * @since 2017-11-23
  */
-public class ClientDto {
+public class ClientDto extends AbstractDto {
 
     private String name;
 

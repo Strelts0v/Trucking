@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 /**
  * @author blink7
- * @version 1.1
- * @since 2017-11-22
+ * @version 1.2
+ * @since 2017-11-23
  */
 @Entity
 @Table(name = "act_of_loss")
@@ -23,7 +23,15 @@ public class LossAct implements Serializable {
     private Item item;
 
     @Column(name = "item_amount")
-    private int amount;
+    private Integer amount;
+
+    public LossAct() {
+    }
+
+    public LossAct(Item item, Integer amount) {
+        this.item = item;
+        this.amount = amount;
+    }
 
     public Invoice getInvoice() {
         return invoice;
@@ -41,11 +49,11 @@ public class LossAct implements Serializable {
         this.item = item;
     }
 
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 }

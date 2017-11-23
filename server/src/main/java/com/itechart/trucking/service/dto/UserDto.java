@@ -1,15 +1,17 @@
 package com.itechart.trucking.service.dto;
 
+import com.itechart.trucking.domain.User;
+
 import java.util.Set;
 
 /**
  * A DTO representing a user.
  *
  * @author blink7
- * @version 1.0
- * @since 2017-11-22
+ * @version 1.1
+ * @since 2017-11-23
  */
-public class UserDto {
+public class UserDto extends AbstractDto {
 
     private String firtstname;
     private String lastname;
@@ -20,7 +22,7 @@ public class UserDto {
     private String street;
     private String house;
     private Integer apartment;
-    private Set<String> roles;
+    private Set<User.Role> roles;
     private String login;
     private String password;
     private String passport;
@@ -97,11 +99,11 @@ public class UserDto {
         this.apartment = apartment;
     }
 
-    public Set<String> getRoles() {
+    public Set<User.Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
+    public void setRoles(Set<User.Role> roles) {
         this.roles = roles;
     }
 

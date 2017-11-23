@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author blink7
- * @version 1.0
- * @since 2017-11-18
+ * @version 1.1
+ * @since 2017-11-23
  */
 @Entity
 @Table(name = "waybills")
@@ -123,12 +123,16 @@ public class Waybill extends AbstractPersistentObject {
         return waybillCheckpoints;
     }
 
+    public void setWaybillCheckpoints(List<WaybillCheckpoint> waybillCheckpoints) {
+        this.waybillCheckpoints = waybillCheckpoints;
+    }
+
     public void addCheckpoint(Checkpoint checkpoint) {
         WaybillCheckpoint waybillCheckpoint = new WaybillCheckpoint(this, checkpoint);
         waybillCheckpoints.add(waybillCheckpoint);
     }
 
-    public void removeCheckpoint(Checkpoint checkpoint) {
+    public void removeCheckpoint(final Checkpoint checkpoint) {
         waybillCheckpoints.removeIf(waybillCheckpoint -> waybillCheckpoint.getWaybill().equals(this)
                 && waybillCheckpoint.getCheckpoint().equals(checkpoint));
     }

@@ -1,17 +1,19 @@
 package com.itechart.trucking.service.dto;
 
+import com.itechart.trucking.domain.Car;
+
 /**
  * A DTO representing a car.
  *
  * @author blink7
- * @version 1.0
- * @since 2017-11-22
+ * @version 1.1
+ * @since 2017-11-23
  */
-public class CarDto {
+public class CarDto extends AbstractDto {
 
     private String name;
     private String number;
-    private String type;
+    private Car.Type type;
     private int consumption;
 
     public String getName() {
@@ -30,11 +32,11 @@ public class CarDto {
         this.number = number;
     }
 
-    public String getType() {
+    public Car.Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Car.Type type) {
         this.type = type;
     }
 

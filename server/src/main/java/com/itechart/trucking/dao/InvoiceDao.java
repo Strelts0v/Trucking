@@ -32,7 +32,7 @@ public interface InvoiceDao {
      * Retrieves an invoice by its id.
      *
      * @param id
-     * @return the invoice or {@literal null} if none found.
+     * @return the invoice with the given id.
      */
     Optional<Invoice> findOne(Integer id);
 

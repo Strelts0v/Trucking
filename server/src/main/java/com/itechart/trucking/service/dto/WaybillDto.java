@@ -1,17 +1,20 @@
 package com.itechart.trucking.service.dto;
 
+import com.itechart.trucking.domain.Waybill;
+
 import java.util.List;
 
 /**
  * A DTO representing a waybill.
  *
  * @author blink7
- * @version 1.2
- * @since 2017-11-22
+ * @version 1.3
+ * @since 2017-11-23
  */
 public class WaybillDto {
 
-    private InvoiceDto invoice;
+    private Integer id;
+    private Integer invoiceId;
     private ClientDto client;
     private String departureDate;
     private UserDto driver;
@@ -19,15 +22,23 @@ public class WaybillDto {
     private WarehouseDto from;
     private WarehouseDto to;
     private List<WaybillCheckpointDto> waybillCheckpoints;
-    private String status;
+    private Waybill.Status status;
     private String issueDate;
 
-    public InvoiceDto getInvoice() {
-        return invoice;
+    public Integer getId() {
+        return id;
     }
 
-    public void setInvoice(InvoiceDto invoice) {
-        this.invoice = invoice;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getInvoiceId() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(Integer invoiceId) {
+        this.invoiceId = invoiceId;
     }
 
     public ClientDto getClient() {
@@ -86,11 +97,11 @@ public class WaybillDto {
         this.waybillCheckpoints = waybillCheckpoints;
     }
 
-    public String getStatus() {
+    public Waybill.Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Waybill.Status status) {
         this.status = status;
     }
 

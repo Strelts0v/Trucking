@@ -1,34 +1,27 @@
 package com.itechart.trucking.service.dto;
 
+import com.itechart.trucking.domain.Invoice;
+
 import java.util.List;
 
 /**
  * A DTO representing an invoice.
  *
  * @author blink7
- * @version 1.3
- * @since 2017-11-22
+ * @version 1.4
+ * @since 2017-11-23
  */
-public class InvoiceDto {
+public class InvoiceDto extends AbstractDto {
 
-    private Integer id;
     private String issueDate;
-    private List<ItemConsignmentDto> consignments;
-    private String status;
+    private List<ItemConsignmentDto> itemConsignments;
+    private Invoice.Status status;
     private UserDto creator;
     private String checkDate;
     private UserDto inspector;
     private WaybillDto waybill;
     private List<LossActDto> lossActs;
     private String lossActIssueDate;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getIssueDate() {
         return issueDate;
@@ -38,19 +31,19 @@ public class InvoiceDto {
         this.issueDate = issueDate;
     }
 
-    public List<ItemConsignmentDto> getConsignments() {
-        return consignments;
+    public List<ItemConsignmentDto> getItemConsignments() {
+        return itemConsignments;
     }
 
-    public void setConsignments(List<ItemConsignmentDto> consignments) {
-        this.consignments = consignments;
+    public void setItemConsignments(List<ItemConsignmentDto> itemConsignments) {
+        this.itemConsignments = itemConsignments;
     }
 
-    public String getStatus() {
+    public Invoice.Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Invoice.Status status) {
         this.status = status;
     }
 
