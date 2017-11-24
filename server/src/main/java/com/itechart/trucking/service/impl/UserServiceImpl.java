@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service("userService")
@@ -19,6 +20,8 @@ public class UserServiceImpl implements UserService {
 
     private final SecurityContextService securityContextService;
     private final UserDao userDao;
+
+    private static final int USERS_PER_PAGE = 20;
 
     @Autowired
     public UserServiceImpl(UserDao userDao,
@@ -33,5 +36,16 @@ public class UserServiceImpl implements UserService {
         final AccountStatusUserDetailsChecker detailsChecker = new AccountStatusUserDetailsChecker();
         user.ifPresent(detailsChecker::check);
         return user.orElseThrow(() -> new UsernameNotFoundException("user not found."));
+    }
+
+    @Override
+    public int getUserCount() {
+        return userDao.getUserCount();
+    }
+
+    @Override
+    public List<User> getUsers(int page) {
+        int offset = (page - 1) * USERS_PER_PAGE;
+        return userDao.getUsersByPage(offset, USERS_PER_PAGE);
     }
 }
