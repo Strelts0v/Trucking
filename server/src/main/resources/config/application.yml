@@ -12,6 +12,9 @@ spring:
 liquibase:
   enabled: true
   change-log: classpath:/config/liquibase/master.xml
+app:
+  jwt:
+    secret: qwerty
 #logging:
 #  pattern:
 #    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
