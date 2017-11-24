@@ -7,7 +7,11 @@ import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { MainComponent } from './main/main.component';
+import { MainComponent, LoginComponent } from './components/index';
+
+import { AuthService, UserService } from './services/index';
+
+import { AuthGuard } from './guards/index';
 
 @NgModule({
   imports: [
@@ -20,8 +24,14 @@ import { MainComponent } from './main/main.component';
   ],
   declarations: [
     MainComponent,
+    LoginComponent,
   ],
-  bootstrap: [ MainComponent ]
+  providers: [
+    AuthService,
+    UserService,
+    AuthGuard,
+  ],
+  bootstrap: [MainComponent]
 })
 
 export class AppModule {}
