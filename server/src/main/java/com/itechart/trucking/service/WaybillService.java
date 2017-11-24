@@ -9,6 +9,7 @@ import com.itechart.trucking.service.mapper.WaybillMapper;
 import com.itechart.trucking.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,7 @@ public class WaybillService {
 
     private final WaybillMapper waybillMapper;
 
+    @Autowired
     public WaybillService(WaybillDao waybillDao, InvoiceDao invoiceDao, ClientDao clientDao,
                           WaybillMapper waybillMapper) {
 

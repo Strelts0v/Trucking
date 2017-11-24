@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
  * Service class for managing invoices.
  *
  * @author blink7
- * @version 1.1
- * @since 2017-11-23
+ * @version 1.2
+ * @since 2017-11-24
  */
 @Service
 @Transactional
@@ -49,7 +49,7 @@ public class InvoiceService {
      *
      * @param invoiceDto
      * @param currentUser
-     * @return the managed invoice.
+     * @return registered invoice.
      */
     public Optional<InvoiceDto> registerInvoice(InvoiceDto invoiceDto, User currentUser) {
         Invoice newInvoice = new Invoice();
@@ -71,7 +71,7 @@ public class InvoiceService {
      *
      * @param invoiceDto
      * @param currentUser
-     * @return the managed invoice.
+     * @return checked invoice.
      */
     public Optional<InvoiceDto> checkInvoice(InvoiceDto invoiceDto, User currentUser) {
         return invoiceDao.findOne(invoiceDto.getId())
@@ -106,7 +106,7 @@ public class InvoiceService {
      * Update information for a specific invoice, and return the modified invoice.
      *
      * @param invoiceDto invoice to update
-     * @return updated invoice
+     * @return updated invoice.
      */
     public Optional<InvoiceDto> updateInvoice(InvoiceDto invoiceDto) {
         return invoiceDao.findOne(invoiceDto.getId()).map(invoice -> {
