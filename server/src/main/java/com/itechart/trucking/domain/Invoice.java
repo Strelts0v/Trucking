@@ -11,8 +11,8 @@ import java.util.List;
  * An Invoice.
  *
  * @author blink7
- * @version 1.2
- * @since 2017-11-23
+ * @version 1.3
+ * @since 2017-11-24
  */
 @Entity
 @Table(name = "invoices")
@@ -22,7 +22,7 @@ public class Invoice extends AbstractPersistentObject {
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate issueDate;
 
-    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
     private List<ItemConsignment> itemConsignments = new ArrayList<>();
 
     @Column(name = "invoice_status")

@@ -1,6 +1,5 @@
 package com.itechart.trucking.controller;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ public class GreetingControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    @Ignore
     public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
 
         this.mockMvc.perform(get("/greeting")).andDo(print()).andExpect(status().isOk())
@@ -31,7 +29,6 @@ public class GreetingControllerTest {
     }
 
     @Test
-    @Ignore
     public void paramGreetingShouldReturnTailoredMessage() throws Exception {
 
         this.mockMvc.perform(get("/greeting").param("name", "Spring Community"))
