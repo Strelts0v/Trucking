@@ -1,6 +1,5 @@
 package com.itechart.trucking.dao;
 
-
 import com.itechart.trucking.domain.User;
 
 import java.util.List;
@@ -11,10 +10,18 @@ public interface UserDao {
     /**
      * gets user by id from storage
      *
-     * @param id - unique id of existed client
+     * @param id - unique id of existed user
      * @return Optional user object
      */
     Optional<User> getUserById(Integer id);
+
+    /**
+     * get user by email from storage
+     *
+     * @param email - email address of existed user
+     * @return Optional user object
+     */
+    Optional<User> getUserByEmail(String email);
 
 
     /**
@@ -26,6 +33,11 @@ public interface UserDao {
      */
     List<User> getUsersByPage(int offset, int recordPerPage);
 
+    /**
+     * gets count of users in storage
+     * @return count of user objects in storage
+     */
+    int getUserCount();
 
     /**
      * adds new user to the storage
@@ -48,5 +60,5 @@ public interface UserDao {
      *
      * @param user - existed client with id in storage
      */
-    void deleteClient(User user);
+    void deleteUser(User user);
 }

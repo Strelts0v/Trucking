@@ -29,10 +29,10 @@ public interface InvoiceDao {
     List<Invoice> findAllByPage(int pageNumber, int pageSize);
 
     /**
-     * Retrieves a invoice by its id.
+     * Retrieves an invoice by its id.
      *
      * @param id
-     * @return the invoice with the given id or {@literal null} if none found.
+     * @return the invoice or {@literal null} if none found.
      */
     Optional<Invoice> findOne(Integer id);
 

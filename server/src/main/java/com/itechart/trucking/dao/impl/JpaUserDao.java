@@ -1,7 +1,7 @@
 package com.itechart.trucking.dao.impl;
 
-
 import com.itechart.trucking.dao.UserDao;
+import com.itechart.trucking.domain.Client;
 import com.itechart.trucking.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,18 +14,26 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
-
-
 @Repository
 public class JpaUserDao implements UserDao{
 
     @Autowired
     private EntityManager em;
 
-
     @Override
     public Optional<User> getUserById(Integer id) {
         return Optional.ofNullable(em.find(User.class, id));
+    }
+
+    @Override
+    public Optional<User> getUserByEmail(String email) {
+        final String jpqlQuery =
+                "select u from User u where u.email = :email";
+        TypedQuery<User> query = em.createQuery(jpqlQuery, User.class);
+        query.setParameter("email", email);
+
+        User user = query.getSingleResult();
+        return Optional.ofNullable(user);
     }
 
     @Override
@@ -41,6 +49,16 @@ public class JpaUserDao implements UserDao{
     }
 
     @Override
+    public int getUserCount() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<User> root = cq.from(User.class);
+        cq.select(cb.count(root));
+
+        return em.createQuery(cq).getSingleResult().intValue();
+    }
+
+    @Override
     public User addUser(User user) {
         em.persist(user);
         return user;
@@ -52,7 +70,7 @@ public class JpaUserDao implements UserDao{
     }
 
     @Override
-    public void deleteClient(User user) {
+    public void deleteUser(User user) {
         em.remove(user);
     }
 }

@@ -1,4 +1,4 @@
+/**
+ * Service layer beans.
+ */
 package com.itechart.trucking.service;
-
-public interface GreetingService {
-}

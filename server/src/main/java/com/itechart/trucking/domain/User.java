@@ -1,12 +1,26 @@
 package com.itechart.trucking.domain;
 
-import javax.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.AttributeConverter;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends AbstractPersistentObject {
+public class User extends AbstractPersistentObject implements UserDetails {
 
     @Column(name = "user_firstname")
     private String firtstname;
@@ -50,6 +64,9 @@ public class User extends AbstractPersistentObject {
     @Column(name = "user_passport")
     private String passport;
 
+    @Transient
+    private Set<SimpleGrantedAuthority> authorities;
+
     public enum Role {
         SYSADMIN,
         ADMIN,
@@ -76,6 +93,42 @@ public class User extends AbstractPersistentObject {
         this.login = login;
         this.password = password;
         this.passport = passport;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(authorities == null){
+            authorities = new HashSet<>(roles.size());
+            for(Role role : roles){
+                authorities.add(new SimpleGrantedAuthority(role.toString()));
+            }
+        }
+        return authorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public String getFirtstname() {
