@@ -1,18 +1,30 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
 
-import { AuthService } from '../../services/index';
+import { AuthService } from '../index';
 
 @Component({
     moduleId: module.id,
-    selector: 'app-login',
-    templateUrl: 'login.component.html'
+    selector: 'auth',
+    templateUrl: 'auth.component.html',
+    styleUrls: ['auth.component.sass']
 })
 
-export class LoginComponent implements OnInit {
+export class AuthComponent implements OnInit {
     model: any = {};
     loading = false;
     error = '';
+    
+    emailFormControl = new FormControl('', [
+        Validators.required,
+        Validators.email,
+    ]);
+    
+    passwordFormControl = new FormControl('', [
+        Validators.required,
+    ]);
 
     constructor(
         private router: Router,
