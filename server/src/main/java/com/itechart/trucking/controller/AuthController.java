@@ -3,6 +3,9 @@ package com.itechart.trucking.controller;
 import com.itechart.trucking.auth.TokenHandler;
 import com.itechart.trucking.service.SecurityContextService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import static com.itechart.trucking.auth.SecurityConstants.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -31,14 +36,16 @@ public class AuthController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public AuthResponse auth(@RequestBody AuthParams params) throws AuthenticationException {
+    public ResponseEntity<AuthResponse> auth(@RequestBody AuthParams params) throws AuthenticationException {
         final UsernamePasswordAuthenticationToken loginToken = params.toAuthenticationToken();
         final Authentication authentication = authenticationManager.authenticate(loginToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return securityContextService.currentUser().map(u -> {
             final String token = tokenHandler.createTokenForUser(u);
-            return new AuthResponse(token);
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add(HEADER_STRING, TOKEN_PREFIX + token);
+            return new ResponseEntity<>(new AuthResponse(token), httpHeaders, HttpStatus.OK);
         }).orElseThrow(RuntimeException::new); // it does not happen.
     }
 
