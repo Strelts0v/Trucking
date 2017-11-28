@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-root',
+    moduleId: module.id,
+    selector: 'main',
     templateUrl: './main.component.html',
-    styleUrls: ['./main.component.css']
+    styleUrls: ['./main.component.sass'],
 })
 
 export class MainComponent {
-    header = "Main";
+    title = 'Main page';
 }
