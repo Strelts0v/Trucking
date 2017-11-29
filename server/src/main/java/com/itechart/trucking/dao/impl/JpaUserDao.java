@@ -1,7 +1,6 @@
 package com.itechart.trucking.dao.impl;
 
 import com.itechart.trucking.dao.UserDao;
-import com.itechart.trucking.domain.Client;
 import com.itechart.trucking.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

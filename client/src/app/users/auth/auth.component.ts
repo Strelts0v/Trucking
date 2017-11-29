@@ -39,6 +39,7 @@ export class AuthComponent implements OnInit {
     this.loading = true;
     this.authService.login(this.model.username, this.model.password)
       .subscribe(result => {
+        console.log('result of auth: ' + result);
         if (result === true) {
           this.router.navigate(['/']);
         } else {

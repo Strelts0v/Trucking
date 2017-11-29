@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
 
-import { AuthService } from './index';
+import { AuthService } from './auth.service';
 import { User } from './user';
 
 
