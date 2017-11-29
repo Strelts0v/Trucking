@@ -122,4 +122,13 @@ public class JpaUserDaoTest {
     public void deleteClientWithNoIdShouldNotThrowException() throws Exception {
         dao.deleteUser(user);
     }
+
+    @Test
+    public void getUserByEmailShouldReturnCorrespondUser() throws Exception {
+        final String email = "test@gmail.com";
+        Optional<User> user = dao.getUserByEmail(email);
+
+        final String errorMessage = "Expected and actual emails are different";
+        assertEquals(email, user.orElse(new User()).getEmail());
+    }
 }
