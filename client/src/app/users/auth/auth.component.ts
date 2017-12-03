@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatInputModule } from '@angular/material/input';
 
 import { AuthService } from '../index';
+import { User } from '../user';
 
 @Component({
   moduleId: module.id,
@@ -11,23 +11,16 @@ import { AuthService } from '../index';
   templateUrl: 'auth.component.html',
   styleUrls: ['auth.component.sass']
 })
-
 export class AuthComponent implements OnInit {
-  model: any = {};
+  authForm: FormGroup;
+  user = new User();
   loading = false;
   error = '';
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-
-  passwordFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-
   constructor(private router: Router,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private fb: FormBuilder) {
+    this.createForm();
   }
 
   ngOnInit() {
@@ -36,16 +29,38 @@ export class AuthComponent implements OnInit {
   }
 
   login() {
+    this.log(`Logging data: ${JSON.stringify(this.user)}`);
+
     this.loading = true;
-    this.authService.login(this.model.username, this.model.password)
-      .subscribe(result => {
-        console.log('result of auth: ' + result);
-        if (result === true) {
+    this.authService.login(this.user.email, this.user.password)
+      .subscribe(data => {
+        if (data['token']) {
+          this.log('result of auth: ' + data['token']);
           this.router.navigate(['/']);
         } else {
-          this.error = 'Username or password is incorrect';
-          this.loading = false;
+          this.error = 'Email or password is incorrect';
+          this.log('Incorrect password or email address');
         }
+        this.loading = false;
       });
+  }
+
+  createForm() {
+    this.authForm = this.fb.group({
+      email: [Validators.required],
+      password: [Validators.required]
+    });
+  }
+
+  private log(message: string) {
+    console.log('AuthComponent: ' + message);
+  }
+
+  get username() {
+    return this.authForm.get('email');
+  }
+
+  get password() {
+    return this.authForm.get('password');
   }
 }
