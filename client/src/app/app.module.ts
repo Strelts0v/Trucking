@@ -12,6 +12,7 @@ import { AuthComponent } from './users/auth/index';
 import { MainComponent } from './main/index';
 import { AuthGuard, AuthService, UserService } from './users/index';
 import { AppRoutingModule } from './/app-routing.module';
+import { CarsComponent } from './cars/cars.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { AppRoutingModule } from './/app-routing.module';
   declarations: [
     AppComponent,
     AuthComponent,
-    MainComponent
+    MainComponent,
+    CarsComponent
   ],
   providers: [
     AuthGuard,
