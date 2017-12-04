@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthComponent } from './users/auth/auth.component';
-import { MainComponent } from './main/main.component';
-import { AuthGuard } from './users/auth.guard';
+import { AuthComponent } from './users/auth';
+import { MainComponent } from './main';
+import { AuthGuard } from './users';
+import { InvoicesComponent } from './document/invoices/invoices.component';
 
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
+  {path: 'invoices', component: InvoicesComponent},
   {path: '', component: MainComponent, canActivate: [AuthGuard]},
-
-  // otherwise redirect to home
   {path: '**', redirectTo: ''}
 ];
 
