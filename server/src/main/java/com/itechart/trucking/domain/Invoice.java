@@ -4,14 +4,15 @@ import com.itechart.trucking.util.LocalDateAttributeConverter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * An Invoice.
  *
  * @author blink7
- * @version 1.0
- * @since 2017-11-18
+ * @version 1.3
+ * @since 2017-11-24
  */
 @Entity
 @Table(name = "invoices")
@@ -21,8 +22,8 @@ public class Invoice extends AbstractPersistentObject {
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate issueDate;
 
-    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemConsignment> itemConsignments;
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
+    private List<ItemConsignment> itemConsignments = new ArrayList<>();
 
     @Column(name = "invoice_status")
     @Convert(converter = StatusConverter.class)
@@ -45,7 +46,11 @@ public class Invoice extends AbstractPersistentObject {
     private Waybill waybill;
 
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
-    private List<LossAct> lossActs;
+    private List<LossAct> lossActs = new ArrayList<>();
+
+    @Column(name = "act_date_issue")
+    @Convert(converter = LocalDateAttributeConverter.class)
+    private LocalDate lossActIssueDate;
 
     public LocalDate getIssueDate() {
         return issueDate;
@@ -61,6 +66,24 @@ public class Invoice extends AbstractPersistentObject {
 
     public void setItemConsignments(List<ItemConsignment> itemConsignments) {
         this.itemConsignments = itemConsignments;
+    }
+
+    public void addItem(Item item, Integer amount) {
+        addItem(item, amount, null);
+    }
+
+    public void addItem(Item item, Integer amount, ItemConsignment.Status status) {
+        ItemConsignment itemConsignment = new ItemConsignment();
+        itemConsignment.setItem(item);
+        itemConsignment.setAmount(amount);
+        itemConsignment.setStatus(status != null ? status : ItemConsignment.Status.REGISTERED);
+        itemConsignment.setInvoice(this);
+        itemConsignments.add(itemConsignment);
+    }
+
+    public void removeItem(final Item item) {
+        itemConsignments.removeIf(itemConsignment -> itemConsignment.getInvoice().equals(this)
+                && itemConsignment.getItem().equals(item));
     }
 
     public Status getStatus() {
@@ -111,10 +134,23 @@ public class Invoice extends AbstractPersistentObject {
         this.lossActs = lossActs;
     }
 
+    public void addLossAct(LossAct lossAct) {
+        lossAct.setInvoice(this);
+        lossActs.add(lossAct);
+    }
+
     public boolean removeLossAct(LossAct lossAct) {
         boolean result = lossActs.remove(lossAct);
         lossAct.setInvoice(null);
         return result;
+    }
+
+    public LocalDate getLossActIssueDate() {
+        return lossActIssueDate;
+    }
+
+    public void setLossActIssueDate(LocalDate lossActIssueDate) {
+        this.lossActIssueDate = lossActIssueDate;
     }
 
     public enum Status {

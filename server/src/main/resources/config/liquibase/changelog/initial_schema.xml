@@ -430,6 +430,7 @@
         </modifySql>
     </changeSet>
 
+
     <changeSet id="26" author="blink7">
         <createIndex tableName="users_has_roles" indexName="fk_users_has_roles_user1_idx">
             <column name="users_id" type="${idType}"/>
@@ -442,6 +443,7 @@
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
     </changeSet>
 
+
     <changeSet id="27" author="blink7">
         <addUniqueConstraint tableName="checkpoints"
                              columnNames="checkpoint_name"
@@ -449,5 +451,14 @@
         <addUniqueConstraint tableName="checkpoints"
                              columnNames="checkpoint_lat, checkpoint_lng"
                              constraintName="checkpoint_location_UNIQUE"/>
+    </changeSet>
+
+
+    <changeSet id="28" author="blink7">
+        <dropColumn tableName="act_of_loss" columnName="act_date_issue"/>
+
+        <addColumn tableName="invoices">
+            <column name="act_date_issue" type="DATE"/>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>

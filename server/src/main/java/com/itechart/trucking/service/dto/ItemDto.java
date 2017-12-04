@@ -6,26 +6,14 @@ import com.itechart.trucking.domain.Item;
  * A DTO representing a item.
  *
  * @author blink7
- * @version 1.0
- * @since 2017-11-20
+ * @version 1.1
+ * @since 2017-11-23
  */
-public class ItemDto {
-
-    private Integer id;
+public class ItemDto extends AbstractDto {
 
     private String name;
-
     private Integer price;
-
     private Item.Type type;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

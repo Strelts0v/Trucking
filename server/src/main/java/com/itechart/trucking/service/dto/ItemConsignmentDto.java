@@ -6,29 +6,21 @@ import com.itechart.trucking.domain.ItemConsignment;
  * A DTO representing a consignment.
  *
  * @author blink7
- * @version 1.1
- * @since 2017-11-20
+ * @version 1.2
+ * @since 2017-11-23
  */
 public class ItemConsignmentDto {
 
-    private ItemDto itemDto;
-
+    private ItemDto item;
     private Integer amount;
+    private ItemConsignment.Status status;
 
-    public ItemConsignmentDto(ItemConsignment itemConsignment) {
+    public ItemDto getItem() {
+        return item;
     }
 
-    public ItemConsignmentDto(ItemDto itemDto, Integer amount) {
-        this.itemDto = itemDto;
-        this.amount = amount;
-    }
-
-    public ItemDto getItemDto() {
-        return itemDto;
-    }
-
-    public void setItemDto(ItemDto itemDto) {
-        this.itemDto = itemDto;
+    public void setItem(ItemDto item) {
+        this.item = item;
     }
 
     public Integer getAmount() {
@@ -37,5 +29,13 @@ public class ItemConsignmentDto {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public ItemConsignment.Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(ItemConsignment.Status status) {
+        this.status = status;
     }
 }

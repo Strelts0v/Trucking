@@ -32,7 +32,7 @@ public interface WaybillDao {
      * Retrieves a waybill by its id.
      *
      * @param id
-     * @return the waybill with the given id or {@literal null} if none found.
+     * @return the waybill with the given id.
      */
     Optional<Waybill> findOne(Integer id);
 

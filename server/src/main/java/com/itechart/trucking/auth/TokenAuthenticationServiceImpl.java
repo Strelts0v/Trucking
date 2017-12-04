@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.itechart.trucking.auth.SecurityConstants.*;
+
 @Service
 class TokenAuthenticationServiceImpl implements TokenAuthenticationService {
 
@@ -17,11 +19,11 @@ class TokenAuthenticationServiceImpl implements TokenAuthenticationService {
     }
 
     public Authentication getAuthentication(HttpServletRequest request) {
-        final String authHeader = request.getHeader("authorization");
+        final String authHeader = request.getHeader(HEADER_STRING);
         if (authHeader == null) return null;
-        if (!authHeader.startsWith("Bearer")) return null;
+        if (!authHeader.startsWith(TOKEN_PREFIX)) return null;
 
-        final String jwt = authHeader.substring(7);
+        final String jwt = authHeader.substring(TOKEN_PREFIX.length());
         if (jwt.isEmpty()) return null;
 
         return tokenHandler
