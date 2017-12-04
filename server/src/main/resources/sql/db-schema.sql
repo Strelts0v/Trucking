@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `itechart_group_db`.`users` (
   `user_house` VARCHAR(45) NULL,
   `user_apartment` INT NULL,
   `user_login` VARCHAR(45) NOT NULL,
-  `user_password` VARCHAR(45) NULL,
+  `user_password` VARCHAR(64) NULL,
   `user_passport` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
   ENGINE = InnoDB;

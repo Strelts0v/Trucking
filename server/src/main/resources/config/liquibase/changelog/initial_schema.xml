@@ -461,4 +461,8 @@
             <column name="act_date_issue" type="DATE"/>
         </addColumn>
     </changeSet>
+
+    <changeSet id="29" author="blink7">
+        <modifyDataType tableName="users" columnName="user_password" newDataType="VARCHAR(64)"/>
+    </changeSet>
 </databaseChangeLog>
