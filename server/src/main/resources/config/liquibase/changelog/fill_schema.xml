@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <property name="idType" value="INT UNSIGNED" dbms="mysql"/>
+    
+    <changeSet id="1" author="blink7">
+        <loadData tableName="users" file="config/liquibase/users.csv" separator=";">
+            <column name="id" type="NUMERIC"/>
+            <column name="user_firstname" type="STRING"/>
+            <column name="user_middlename" type="STRING"/>
+            <column name="user_lastname" type="STRING"/>
+            <column name="user_birthday" type="DATE"/>
+            <column name="user_email" type="STRING"/>
+            <column name="user_city" type="STRING"/>
+            <column name="user_street" type="STRING"/>
+            <column name="user_house" type="STRING"/>
+            <column name="user_apartment" type="NUMERIC"/>
+            <column name="user_login" type="STRING"/>
+            <column name="user_password" type="STRING"/>
+            <column name="user_passport" type="STRING"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

@@ -462,10 +462,15 @@
         </addColumn>
     </changeSet>
 
+<<<<<<< HEAD
     <changeSet id="29" author="Gleb Streltsov">
         <loadData encoding="UTF-8"
                   file="config/liquibase/users.csv"
                   separator=";"
                   tableName="users"/>
+=======
+    <changeSet id="29" author="blink7">
+        <modifyDataType tableName="users" columnName="user_password" newDataType="VARCHAR(64)"/>
+>>>>>>> 2779a581ca7999a816d6c9605d20e4eab9a989f1
     </changeSet>
 </databaseChangeLog>
