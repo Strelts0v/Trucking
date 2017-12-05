@@ -34,6 +34,7 @@ import { InvoicesComponent } from './document/invoices/invoices.component';
 import { WaybillComponent } from './document/waybill/waybill.component';
 import { LossActComponent } from './document/lossact/lossact.component';
 import { InvoiceService } from './document/invoice.service';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   imports: [
@@ -73,10 +74,12 @@ import { InvoiceService } from './document/invoice.service';
     InvoiceDetailComponent,
     InvoicesComponent,
     WaybillComponent,
-    LossActComponent
+    LossActComponent,
+    ConfirmDialogComponent
   ],
   entryComponents: [
-    DocumentComponent
+    DocumentComponent,
+    ConfirmDialogComponent
   ],
   providers: [
     AuthGuard,

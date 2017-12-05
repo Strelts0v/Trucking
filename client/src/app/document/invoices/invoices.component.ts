@@ -4,6 +4,7 @@ import { MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
 import { Invoice } from '../entity/invoice';
 import { InvoiceService } from '../invoice.service';
 import { DocumentComponent } from '../document.component';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-invoices',
@@ -26,6 +27,7 @@ export class InvoicesComponent implements OnInit {
 
   openInvoiceDetail(id?: number) {
     const dialogRef = this.dialog.open(DocumentComponent, {
+      panelClass: 'app-document',
       data: {
         type: 'invoice',
         id: id
