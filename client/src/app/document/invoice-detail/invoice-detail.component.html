@@ -1,10 +1,10 @@
 <div class="card-body">
   <div class="card-header">
-    <div class="header-cell header-sidebar-left">
+    <div class="header-sidebar-left">
       <mat-icon mat-card-avatar class="card-header-icon">assignment</mat-icon>
     </div>
 
-    <div class="header-cell header-middle">
+    <div class="header-middle">
       <div class="header-title">
         <span *ngIf="!id">New </span>
         Consignment Note
@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div class="header-cell header-sidebar-right">
+    <div class="header-sidebar-right">
       <button mat-icon-button matTooltip="Edit invoice" (click)="toggleEdit()" *ngIf="!edit">
         <mat-icon>edit</mat-icon>
       </button>
