@@ -1,4 +1,4 @@
-<div>
+<div class="paginated-table">
   <mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
@@ -34,9 +34,12 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openInvoiceDetail(row.id)"></mat-row>
   </mat-table>
 
-  <app-new-button (_click)="openInvoiceDetail()"></app-new-button>
+  <button mat-fab color="accent" class="add-fab-btn" (click)="openInvoiceDetail()">
+    <mat-icon>add</mat-icon>
+  </button>
 
-  <mat-paginator [length]="length"
+  <mat-paginator class="paginator"
+                 [length]="length"
                  [pageSize]="pageSize"
                  [pageSizeOptions]="[3, 5]"
                  (page)="pageEvent = loadInvoices($event)">
