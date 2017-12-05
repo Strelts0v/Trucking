@@ -21,7 +21,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
+
   }
 
   /**

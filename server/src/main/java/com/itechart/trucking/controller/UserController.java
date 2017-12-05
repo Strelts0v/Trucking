@@ -29,8 +29,8 @@ public class UserController {
         return service.getUsers(pageNumber);
     }
 
-    @RequestMapping("/get_users")
-    public List<User> getAllUsers(){
-        return service.getAllUsers();
-    }
+//    @RequestMapping("/get_users")
+//    public List<User> getAllUsers(){
+//        return service.getAllUsers();
+//    }
 }

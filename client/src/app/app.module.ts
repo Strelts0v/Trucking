@@ -3,19 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-<<<<<<< HEAD
-import { MatInputModule, MatButtonModule, MatCardModule, MatProgressSpinnerModule } from '@angular/material';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { JwtModule } from '@auth0/angular-jwt';
 
-import { AppComponent } from './app.component';
-import { AuthComponent } from './users/auth/index';
-import { UserListComponent } from './users/user-list/index';
-import { MainComponent } from './main/index';
-import { AuthGuard, AuthService, UserService } from './users/index';
-import { AppRoutingModule } from './app-routing.module';
-=======
 import {
   MatInputModule,
   MatButtonModule,
@@ -35,6 +23,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './users/auth';
 import { MainComponent } from './main';
+import { UserListComponent } from './users/user-list/index';
 
 import { AuthGuard, AuthService, UserService } from './users';
 import { AppRoutingModule } from './app-routing.module';
@@ -45,7 +34,6 @@ import { WaybillComponent } from './document/waybill/waybill.component';
 import { LossActComponent } from './document/lossact/lossact.component';
 import { InvoiceService } from './document/invoice.service';
 import { NewButtonComponent } from './new-button/new-button.component';
->>>>>>> 2779a581ca7999a816d6c9605d20e4eab9a989f1
 
 @NgModule({
   imports: [
@@ -58,11 +46,9 @@ import { NewButtonComponent } from './new-button/new-button.component';
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
-<<<<<<< HEAD
     MatTableModule,
     MatPaginatorModule,
     AppRoutingModule,
-=======
     MatTabsModule,
     MatIconModule,
     MatTableModule,
@@ -70,7 +56,6 @@ import { NewButtonComponent } from './new-button/new-button.component';
     MatAutocompleteModule,
     MatPaginatorModule,
     MatDialogModule,
->>>>>>> 2779a581ca7999a816d6c9605d20e4eab9a989f1
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -84,9 +69,7 @@ import { NewButtonComponent } from './new-button/new-button.component';
     AppComponent,
     AuthComponent,
     MainComponent,
-<<<<<<< HEAD
     UserListComponent,
-=======
     DocumentComponent,
     InvoiceDetailComponent,
     InvoicesComponent,
@@ -96,7 +79,7 @@ import { NewButtonComponent } from './new-button/new-button.component';
   ],
   entryComponents: [
     DocumentComponent
->>>>>>> 2779a581ca7999a816d6c9605d20e4eab9a989f1
+
   ],
   providers: [
     AuthGuard,
