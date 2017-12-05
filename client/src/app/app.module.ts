@@ -5,13 +5,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule, MatButtonModule, MatCardModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { AuthComponent } from './users/auth/index';
+import { UserListComponent } from './users/user-list/index';
 import { MainComponent } from './main/index';
 import { AuthGuard, AuthService, UserService } from './users/index';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   imports: [
@@ -24,6 +27,8 @@ import { AppRoutingModule } from './/app-routing.module';
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatTableModule,
+    MatPaginatorModule,
     AppRoutingModule,
     JwtModule.forRoot({
       config: {
@@ -36,7 +41,8 @@ import { AppRoutingModule } from './/app-routing.module';
   declarations: [
     AppComponent,
     AuthComponent,
-    MainComponent
+    MainComponent,
+    UserListComponent,
   ],
   providers: [
     AuthGuard,

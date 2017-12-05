@@ -11,6 +11,7 @@ import { User } from '../user';
   templateUrl: 'auth.component.html',
   styleUrls: ['auth.component.sass']
 })
+
 export class AuthComponent implements OnInit {
   authForm: FormGroup;
   user = new User();

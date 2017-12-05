@@ -4,10 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './users/auth/auth.component';
 import { MainComponent } from './main/main.component';
 import { AuthGuard } from './users/auth.guard';
+import { UserListComponent } from './users/user-list/index';
 
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
   {path: '', component: MainComponent, canActivate: [AuthGuard]},
+  {path: 'users', component: UserListComponent},
 
   // otherwise redirect to home
   {path: '**', redirectTo: ''}

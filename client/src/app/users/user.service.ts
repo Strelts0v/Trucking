@@ -17,7 +17,11 @@ export class UserService {
               private authService: AuthService) {
   }
 
-  getUsers(): Observable<User[]> {
+  getUsers(page: number): Observable<User[]> {
+    if (page <= 0) {
+      return;
+    }
+
     const httpOptions = {
       headers: new HttpHeaders({
         // add authorization header with jwt token
@@ -26,7 +30,7 @@ export class UserService {
     };
 
     // get users from api
-    return this.http.get<User[]>(this.userUrl + '/get_users?page=1', httpOptions)
+    return this.http.get<User[]>(this.userUrl + `/get_users?page=${page}`, httpOptions)
       .pipe(
         tap(users => this.log(`fetched users`)),
         catchError(this.handleError('getUsers', []))
