@@ -28,4 +28,9 @@ public class UserController {
         int pageNumber = Integer.parseInt(page);
         return service.getUsers(pageNumber);
     }
+
+    @RequestMapping("/get_users")
+    public List<User> getAllUsers(){
+        return service.getAllUsers();
+    }
 }

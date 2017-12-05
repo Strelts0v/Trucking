@@ -1,6 +1,7 @@
 package com.itechart.trucking.dao.impl;
 
 import com.itechart.trucking.dao.UserDao;
+import com.itechart.trucking.domain.Item;
 import com.itechart.trucking.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -45,6 +46,16 @@ public class JpaUserDao implements UserDao{
         q.setFirstResult((offset - 1) * recordPerPage);
         q.setMaxResults(recordPerPage);
         return q.getResultList();
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+        Root<User> root = criteriaQuery.from(User.class);
+        criteriaQuery.select(root);
+        TypedQuery<User> typedQuery = em.createQuery(criteriaQuery);
+        return typedQuery.getResultList();
     }
 
     @Override

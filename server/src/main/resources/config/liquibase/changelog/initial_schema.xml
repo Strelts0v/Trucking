@@ -461,4 +461,11 @@
             <column name="act_date_issue" type="DATE"/>
         </addColumn>
     </changeSet>
+
+    <changeSet id="29" author="Gleb Streltsov">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/users.csv"
+                  separator=";"
+                  tableName="users"/>
+    </changeSet>
 </databaseChangeLog>
