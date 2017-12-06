@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
 
-import { Invoice } from '../entity/invoice';
+import { Invoice, InvoiceStatus } from '../invoice';
 import { InvoiceService } from '../invoice.service';
-import { DocumentComponent } from '../document.component';
-import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
 
 @Component({
-  selector: 'app-invoices',
-  templateUrl: './invoices.component.html',
-  styleUrls: ['./invoices.component.sass']
+  selector: 'app-invoice-list',
+  templateUrl: './invoice-list.component.html',
+  styleUrls: ['./invoice-list.component.sass']
 })
-export class InvoicesComponent implements OnInit {
+export class InvoiceListComponent implements OnInit {
+
+  invoiceStatus = InvoiceStatus;
 
   displayedColumns = ['id', 'client', 'issue_date', 'check_date', 'status', 'inspector'];
   dataSource = new MatTableDataSource<Invoice>();
@@ -22,11 +23,11 @@ export class InvoicesComponent implements OnInit {
   pageEvent: PageEvent;
 
   constructor(private invoiceService: InvoiceService,
-              public dialog: MatDialog) {
+              private dialog: MatDialog) {
   }
 
   openInvoiceDetail(id?: number) {
-    const dialogRef = this.dialog.open(DocumentComponent, {
+    const dialogRef = this.dialog.open(DocHolderComponent, {
       panelClass: 'app-document',
       data: {
         type: 'invoice',

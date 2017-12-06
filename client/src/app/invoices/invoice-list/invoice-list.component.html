@@ -27,14 +27,16 @@
 
     <ng-container matColumnDef="inspector">
       <mat-header-cell *matHeaderCellDef>Inspector</mat-header-cell>
-      <mat-cell *matCellDef="let invoice">{{invoice.inspector}}</mat-cell>
+      <mat-cell *matCellDef="let invoice">{{invoice.inspector | userFullName}}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openInvoiceDetail(row.id)"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openInvoiceDetail(row.id)"
+             [ngClass]="{'mat-row--issued': row.status === invoiceStatus.ISSUED, 'mat-row--checked': row.status === invoiceStatus.CHECKED}">
+    </mat-row>
   </mat-table>
 
-  <button mat-fab color="accent" class="add-fab-btn" (click)="openInvoiceDetail()">
+  <button mat-fab color="accent" matTooltip="Add new note" class="add-fab-btn" (click)="openInvoiceDetail()">
     <mat-icon>add</mat-icon>
   </button>
 

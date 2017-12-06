@@ -1,13 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog, MatIconRegistry } from '@angular/material';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { Item, ItemUnit } from '../entity/item';
-import { Consignment, ConsignmentStatus } from '../entity/consignment';
-import { Invoice } from '../entity/invoice';
+import { Item, ItemUnit } from '../../item';
+import { Consignment, ConsignmentStatus } from '../consignment';
+import { Invoice } from '../invoice';
 import { InvoiceService } from '../invoice.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
+import { User } from '../../users';
 
 @Component({
   selector: 'app-invoice-detail',
@@ -18,6 +20,7 @@ export class InvoiceDetailComponent implements OnInit {
 
   @Input() id: number;
   invoice: Invoice;
+  user: User;
 
   edit: boolean;
 
@@ -41,7 +44,8 @@ export class InvoiceDetailComponent implements OnInit {
               private invoiceService: InvoiceService,
               private iconRegistry: MatIconRegistry,
               private sanitizer: DomSanitizer,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private parentDialogRef: MatDialogRef<DocHolderComponent>) {
 
     iconRegistry.addSvgIcon(
       'package_variant',
@@ -53,7 +57,9 @@ export class InvoiceDetailComponent implements OnInit {
       this.edit = true;
 
       this.consignments.controls
-        .forEach(control => this.edit ? control.enable() : control.disable());
+        .forEach(control => control.enable());
+
+      this.client.enable();
     }
   }
 
@@ -68,7 +74,10 @@ export class InvoiceDetailComponent implements OnInit {
   }
 
   submit() {
+    this.parentDialogRef.close();
+
     console.log('Invoice saved');
+    this.invoice.client = this.cForm.value.client;
     this.invoice.consignments = this.cForm.value.consignments;
     console.log(JSON.stringify(this.invoice));
   }
@@ -77,8 +86,12 @@ export class InvoiceDetailComponent implements OnInit {
     console.log('Invoice canceled');
   }
 
+  get client(): FormControl {
+    return this.cForm.controls.client as FormControl;
+  }
+
   get consignments(): FormArray {
-    return this.cForm.get('consignments') as FormArray;
+    return this.cForm.controls.consignments as FormArray;
   }
 
   addItem(consignment?: Consignment) {
@@ -111,6 +124,8 @@ export class InvoiceDetailComponent implements OnInit {
           this.addItem();
           this.toggleEdit();
         }
+
+        this.client.setValue(invoice.client);
       });
   }
 
@@ -131,6 +146,7 @@ export class InvoiceDetailComponent implements OnInit {
 
   ngOnInit() {
     this.cForm = this.fb.group({
+      client: [{value: '', disabled: true}, Validators.required],
       consignments: this.fb.array([])
     });
 

@@ -28,13 +28,16 @@ import { MainComponent } from './main';
 
 import { AuthGuard, AuthService, UserService } from './users';
 import { AppRoutingModule } from './app-routing.module';
-import { DocumentComponent } from './document/document.component';
-import { InvoiceDetailComponent } from './document/invoice-detail/invoice-detail.component';
-import { InvoicesComponent } from './document/invoices/invoices.component';
-import { WaybillComponent } from './document/waybill/waybill.component';
-import { LossActComponent } from './document/lossact/lossact.component';
-import { InvoiceService } from './document/invoice.service';
+import { DocHolderComponent } from './doc-holder/doc-holder.component';
+import { InvoiceDetailComponent } from './invoices/invoice-detail/invoice-detail.component';
+import { InvoiceListComponent } from './invoices/invoice-list/invoice-list.component';
+import { InvoiceService } from './invoices/invoice.service';
+import { WaybillDetailComponent } from './waybills/waybill-detail/waybill-detail.component';
+import { LossActDetailComponent } from './invoices/lossact-detail/lossact-detail.component';
+import { WaybillListComponent } from './waybills/waybill-list/waybill-list.component';
+import { WaybillService } from './waybills/waybill.service';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { UserFullNamePipe } from './users/user-full-name.pipe';
 
 @NgModule({
   imports: [
@@ -70,22 +73,25 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     AppComponent,
     AuthComponent,
     MainComponent,
-    DocumentComponent,
+    DocHolderComponent,
     InvoiceDetailComponent,
-    InvoicesComponent,
-    WaybillComponent,
-    LossActComponent,
-    ConfirmDialogComponent
+    InvoiceListComponent,
+    WaybillDetailComponent,
+    LossActDetailComponent,
+    ConfirmDialogComponent,
+    WaybillListComponent,
+    UserFullNamePipe
   ],
   entryComponents: [
-    DocumentComponent,
+    DocHolderComponent,
     ConfirmDialogComponent
   ],
   providers: [
     AuthGuard,
     AuthService,
     UserService,
-    InvoiceService
+    InvoiceService,
+    WaybillService
   ],
   bootstrap: [AppComponent]
 })

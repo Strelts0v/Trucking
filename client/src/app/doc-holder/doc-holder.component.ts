@@ -3,10 +3,10 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-document',
-  templateUrl: './document.component.html',
-  styleUrls: ['./document.component.sass']
+  templateUrl: './doc-holder.component.html',
+  styleUrls: ['./doc-holder.component.sass']
 })
-export class DocumentComponent implements OnInit {
+export class DocHolderComponent implements OnInit {
 
   selectedTab: number;
 

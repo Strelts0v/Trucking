@@ -3,6 +3,7 @@ $secondary-text-color: #666
 $text-color--gray-600: #757575
 $text-color--gray: rgba(0,0,0,.54)
 $background-color--gray: #f7f7f7
+$line-color: rgba(0,0,0,.12)
 
 =mat-icon-size($size: 24px)
   font-size: $size
@@ -17,20 +18,24 @@ $background-color--gray: #f7f7f7
 .mat-icon
   color: $text-color--gray-600
 
+.mat-form-field
+  width: 100%
+
 .row
   display: flex
   flex-flow: row wrap
   align-items: center
   margin: 8px 0
 
-.mat-form-field
-  width: 100%
-
 .col-1
   padding: 0 16px
   text-align: right
+
 .col-2
   padding: 0 16px
+
+.flex-start
+  align-self: flex-start
 
 @media all
   .col-2
@@ -47,8 +52,8 @@ $background-color--gray: #f7f7f7
   color: $text-color--gray-600
 
   td
-    border-top: 1px solid rgba(0,0,0,.12)
-    border-bottom: 1px solid rgba(0,0,0,.12)
+    border-top: 1px solid $line-color
+    //border-bottom: 1px solid $line-color
     box-sizing: border-box
 
   th, td
@@ -84,6 +89,28 @@ $background-color--gray: #f7f7f7
 
   .mat-icon
     font-size: 20px
+
+hr
+  margin: 10px 0
+  border-top: 1px solid $line-color
+
+.signs-table
+  width: 100%
+  padding: 0 40px 0
+
+  tr
+    td
+      padding: 6px 0
+
+    td:first-child
+      width: 24%
+
+    td:nth-child(n+3)
+      text-align: right
+      width: 16%
+
+    td:nth-child(odd)
+      color: $text-color--gray
 
 .mat-dialog-actions
   margin-bottom: 0

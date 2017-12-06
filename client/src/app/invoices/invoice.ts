@@ -1,4 +1,5 @@
 import { Consignment } from './consignment';
+import { User } from '../users';
 
 export class Invoice {
   id: number;
@@ -6,7 +7,8 @@ export class Invoice {
   consignments: Consignment[] = [];
   status: InvoiceStatus;
   checkDate: string;
-  inspector: string;
+  creator: User;
+  inspector: User;
   client: string;
 }
 

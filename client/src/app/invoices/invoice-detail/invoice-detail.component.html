@@ -32,26 +32,27 @@
   </div>
 
   <mat-card-content>
-    <div class="row">
-      <div class="col-1">
-        <mat-icon class="label-icon">person</mat-icon>
+    <form id="cForm" [formGroup]="cForm" (ngSubmit)="cForm.valid && submit()">
+      <div class="row">
+        <div class="col-1">
+          <mat-icon class="label-icon">person</mat-icon>
+        </div>
+        <div class="col-2">
+          <mat-form-field floatPlaceholder="never">
+            <mat-select formControlName="client" placeholder="Client" required>
+              <mat-option *ngFor="let client of clients" [value]="client">{{client}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
-      <div class="col-2">
-        <mat-form-field floatPlaceholder="never">
-          <mat-select [(ngModel)]="invoice.client" placeholder="Client" required [disabled]="!edit">
-            <mat-option *ngFor="let client of clients" [value]="client">{{client}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-1">
-        <mat-icon class="label-icon" svgIcon="package_variant"></mat-icon>
-        <p>Consignment:</p>
-      </div>
-      <div class="col-2">
-        <form [formGroup]="cForm">
+      <div class="row">
+        <div class="col-1 flex-start">
+          <mat-icon class="label-icon" svgIcon="package_variant"></mat-icon>
+          <p>Consignment:</p>
+        </div>
+        <div class="col-2">
+
           <table class="consignment-table" formArrayName="consignments">
             <thead>
             <tr>
@@ -105,20 +106,34 @@
             </tr>
             </tbody>
           </table>
-        </form>
+        </div>
+        <!--<pre>{{cForm.value | json}}</pre>-->
       </div>
-      <pre>{{cForm.value | json}}</pre>
-    </div>
+    </form>
 
-    <div>
-      <b>Registered by:</b>     Name Naaaameee Naaamee				<b>Date:</b>	     12/2/2017
-      <p></p>
-      <b>Checked by:</b>        Name Naaaameee Naaamee				<b>Date:</b>	     12/2/2017
-    </div>
+    <hr>
+
+    <table class="signs-table">
+      <tbody>
+      <tr *ngIf="invoice.creator">
+        <td>Registered by:</td>
+        <td>{{invoice.creator | userFullName}}</td>
+        <td>Date:</td>
+        <td>{{invoice.issueDate}}</td>
+      </tr>
+
+      <tr *ngIf="invoice.inspector">
+        <td>Checked by:</td>
+        <td>{{invoice.inspector | userFullName}}</td>
+        <td>Date:</td>
+        <td>{{invoice.checkDate}}</td>
+      </tr>
+      </tbody>
+    </table>
   </mat-card-content>
 </div>
 
 <mat-dialog-actions>
   <button mat-button color="primary" mat-dialog-close (click)="cancel()">CANCEL</button>
-  <button mat-button mat-dialog-close (click)="submit()">APPLY</button>
+  <button mat-button color="primary" type="submit" form="cForm" [disabled]="!edit">APPLY</button>
 </mat-dialog-actions>

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WaybillComponent } from './waybill.component';
+import { LossActDetailComponent } from './lossact-detail.component';
 
-describe('WaybillComponent', () => {
-  let component: WaybillComponent;
-  let fixture: ComponentFixture<WaybillComponent>;
+describe('LossActDetailComponent', () => {
+  let component: LossActDetailComponent;
+  let fixture: ComponentFixture<LossActDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WaybillComponent ]
+      declarations: [ LossActDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WaybillComponent);
+    fixture = TestBed.createComponent(LossActDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

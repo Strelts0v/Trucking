@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { Invoice, InvoiceStatus } from './entity/invoice';
-import { ConsignmentStatus } from './entity/consignment';
-import { ItemUnit } from './entity/item';
+import { Invoice, InvoiceStatus } from './invoice';
+import { ConsignmentStatus } from './consignment';
+import { ItemUnit } from '../item';
 
 @Injectable()
 export class InvoiceService {
@@ -48,7 +48,8 @@ const INVOICE_DATA: Invoice[] = [
       }],
     status: InvoiceStatus.CHECKED,
     checkDate: '2.12.2017',
-    inspector: 'Oliver',
+    creator: {username: '', password: '', firstName: 'Oliver', lastName: 'Lastname'},
+    inspector: {username: '', password: '', firstName: 'Oliver', lastName: 'Lastname'},
     client: 'State Grid'
   },
   {
@@ -61,7 +62,8 @@ const INVOICE_DATA: Invoice[] = [
     }],
     status: null,
     checkDate: '4.12.2017',
-    inspector: 'Amelia',
+    creator: null,
+    inspector: null,
     client: 'China National Petroleum'
   },
   {
@@ -74,11 +76,12 @@ const INVOICE_DATA: Invoice[] = [
     }],
     status: InvoiceStatus.ISSUED,
     checkDate: '6.12.2017',
-    inspector: 'James',
+    creator: {username: '', password: '', firstName: 'Grace', lastName: 'Lastname'},
+    inspector: null,
     client: 'Industrial & Commercial Bank of China'
   },
   {
-    id: 4,
+    id: 7,
     issueDate: '7.12.2017',
     consignments: [{
       item: {id: 33, name: 'Random stuff', price: 0, type: ItemUnit.LITER},
@@ -87,11 +90,12 @@ const INVOICE_DATA: Invoice[] = [
     }],
     status: InvoiceStatus.CHECKED,
     checkDate: '8.12.2017',
-    inspector: 'Jacob',
+    creator: {username: '', password: '', firstName: 'Adalyn', lastName: 'Lastname'},
+    inspector: {username: '', password: '', firstName: 'Jacob', lastName: 'Lastname'},
     client: 'CVS Health'
   },
   {
-    id: 5,
+    id: 12,
     issueDate: '9.12.2017',
     consignments: [{
       item: {id: 33, name: 'Random stuff', price: 0, type: ItemUnit.LITER},
@@ -100,7 +104,8 @@ const INVOICE_DATA: Invoice[] = [
     }],
     status: null,
     checkDate: '10.12.2017',
-    inspector: 'Emily',
+    creator: {username: '', password: '', firstName: 'Eliana', lastName: 'Lastname'},
+    inspector: {username: '', password: '', firstName: 'Emily', lastName: 'Lastname'},
     client: 'Amazon'
   }
 ];
