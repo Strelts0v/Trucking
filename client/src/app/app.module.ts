@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
 import {
   MatInputModule,
   MatButtonModule,
@@ -25,6 +26,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './users/auth';
 import { MainComponent } from './main';
+import { UserListComponent } from './users/user-list';
 
 import { AuthGuard, AuthService, UserService } from './users';
 import { AppRoutingModule } from './app-routing.module';
@@ -73,6 +75,7 @@ import { UserFullNamePipe } from './users/user-full-name.pipe';
     AppComponent,
     AuthComponent,
     MainComponent,
+    UserListComponent,
     DocHolderComponent,
     InvoiceDetailComponent,
     InvoiceListComponent,

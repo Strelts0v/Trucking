@@ -10,4 +10,6 @@ public interface UserService extends UserDetailsService {
     int getUserCount();
 
     List<User> getUsers(int page);
+
+    List<User> getAllUsers();
 }

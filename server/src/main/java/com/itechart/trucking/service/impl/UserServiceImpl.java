@@ -48,4 +48,9 @@ public class UserServiceImpl implements UserService {
         int offset = (page - 1) * USERS_PER_PAGE;
         return userDao.getUsersByPage(offset, USERS_PER_PAGE);
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
+    }
 }

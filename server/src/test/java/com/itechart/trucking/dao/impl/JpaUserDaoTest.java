@@ -87,10 +87,10 @@ public class JpaUserDaoTest {
         dao.addUser(user1);
 
         final int page = 1;
-        final int pageSize = 20;
+        final int pageSize = 5;
         List<User> userList = dao.getUsersByPage(page, pageSize);
 
-        final int expectedClientCount = 2;
+        final int expectedClientCount = 5;
         final String errorMessage = "Expected and actual user size are different";
         assertEquals(errorMessage, expectedClientCount, userList.size());
     }

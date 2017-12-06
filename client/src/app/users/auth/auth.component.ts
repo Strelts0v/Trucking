@@ -11,6 +11,7 @@ import { User } from '../user';
   templateUrl: 'auth.component.html',
   styleUrls: ['auth.component.sass']
 })
+
 export class AuthComponent implements OnInit {
   authForm: FormGroup;
   user = new User();
@@ -20,7 +21,6 @@ export class AuthComponent implements OnInit {
   constructor(private router: Router,
               private authService: AuthService,
               private fb: FormBuilder) {
-
     this.createForm();
   }
 
@@ -30,30 +30,35 @@ export class AuthComponent implements OnInit {
   }
 
   login() {
-    console.log(`>> Logging data: ${JSON.stringify(this.user)}`);
+    this.log(`Logging data: ${JSON.stringify(this.user)}`);
 
     this.loading = true;
-    this.authService.login(this.user.username, this.user.password)
-      .subscribe(result => {
-        console.log('result of auth: ' + result);
-        if (result === true) {
+    this.authService.login(this.user.email, this.user.password)
+      .subscribe(data => {
+        if (data['token']) {
+          this.log('result of auth: ' + data['token']);
           this.router.navigate(['/']);
         } else {
-          this.error = 'Username or password is incorrect';
-          this.loading = false;
+          this.error = 'Email or password is incorrect';
+          this.log('Incorrect password or email address');
         }
+        this.loading = false;
       });
   }
 
   createForm() {
     this.authForm = this.fb.group({
-      username: [Validators.required],
+      email: [Validators.required],
       password: [Validators.required]
     });
   }
 
+  private log(message: string) {
+    console.log('AuthComponent: ' + message);
+  }
+
   get username() {
-    return this.authForm.get('username');
+    return this.authForm.get('email');
   }
 
   get password() {
