@@ -1,6 +1,7 @@
 $primary-text-color: rgba(0,0,0,.87)
 $secondary-text-color: #666
 $text-color--gray-600: #757575
+$text-color--gray: rgba(0,0,0,.54)
 $background-color--gray: #f7f7f7
 
 =mat-icon-size($size: 24px)
@@ -15,17 +16,6 @@ $background-color--gray: #f7f7f7
 
 .mat-icon
   color: $text-color--gray-600
-
-$card-margin: 16px
-
-.card-header-icon
-  text-align: center
-  font-size: 44px
-  padding: 0 36px 0 36px - $card-margin
-
-.card-header
-  background: $background-color--gray
-  padding: $card-margin 0 0 $card-margin
 
 .row
   display: flex
@@ -92,5 +82,10 @@ $card-margin: 16px
   align-items: center
   align-content: flex-start
 
-  mat-icon
+  .mat-icon
     font-size: 20px
+
+.mat-dialog-actions
+  margin-bottom: 0
+  padding-right: 24px
+  justify-content: flex-end

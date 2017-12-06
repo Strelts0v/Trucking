@@ -1,17 +1,13 @@
 <mat-card class="mat-card--no-margin mat-elevation-z8">
   <mat-tab-group #tabs [selectedIndex]="selectedTab">
     <mat-tab label="Consignment Note">
-      <app-invoice-detail #invoice [id]="data.id"></app-invoice-detail>
+      <app-invoice-detail [id]="data.id"></app-invoice-detail>
     </mat-tab>
     <mat-tab label="Waybill">
-      <app-waybill #waybill></app-waybill>
+      <app-waybill></app-waybill>
     </mat-tab>
     <mat-tab label="Act of Loss">
-      <app-lossact #lossact></app-lossact>
+      <app-lossact></app-lossact>
     </mat-tab>
   </mat-tab-group>
-  <div class="card-actions">
-    <button mat-button color="primary" [mat-dialog-close] (click)="cancel()">CANCEL</button>
-    <button mat-button [mat-dialog-close] (click)="submit()">APPLY</button>
-  </div>
 </mat-card>

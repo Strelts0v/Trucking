@@ -1,12 +1,36 @@
 <div class="card-body">
-  <mat-card-header class="card-header">
-    <mat-icon mat-card-avatar class="card-header-icon">assignment</mat-icon>
-    <mat-card-title>
-      <span *ngIf="!id">New </span>
-      Consignment Note
-    </mat-card-title>
-    <mat-card-subtitle>№{{id}}&emsp;{{invoice.status}}</mat-card-subtitle>
-  </mat-card-header>
+  <div class="card-header">
+    <div class="header-sidebar-left">
+      <mat-icon mat-card-avatar class="card-header-icon">assignment</mat-icon>
+    </div>
+
+    <div class="header-middle">
+      <div class="header-title">
+        <span *ngIf="!id">New </span>
+        Consignment Note
+      </div>
+      <div class="header-subtitle" *ngIf="id">
+        №{{id}}&emsp;{{invoice.status}}
+      </div>
+    </div>
+
+    <div class="header-sidebar-right">
+      <button mat-icon-button matTooltip="Edit invoice" (click)="toggleEdit()" *ngIf="!edit">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
+        <button mat-menu-item>Create waybill</button>
+        <button mat-menu-item (click)="deleteInvoice()">Delete note</button>
+      </mat-menu>
+      <button mat-icon-button matTooltip="Close" [mat-dialog-close]>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
   <mat-card-content>
     <div class="row">
       <div class="col-1">
@@ -14,7 +38,7 @@
       </div>
       <div class="col-2">
         <mat-form-field floatPlaceholder="never">
-          <mat-select [(ngModel)]="invoice.client" placeholder="Client" required>
+          <mat-select [(ngModel)]="invoice.client" placeholder="Client" required [disabled]="!edit">
             <mat-option *ngFor="let client of clients" [value]="client">{{client}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -37,9 +61,13 @@
               <th>Status</th>
             </tr>
             </thead>
+
             <tbody>
             <tr *ngFor="let consignment of consignments.controls; index as i" [formGroupName]="i">
-              <td>{{displayItemNumber(consignment.controls.item.value)}}</td>
+              <td>
+                {{consignment.controls.item.value && consignment.controls.item.value.id}}
+              </td>
+
               <td>
                 <mat-form-field class="item-field">
                   <mat-select formControlName="item" [compareWith]="compareItem">
@@ -47,12 +75,14 @@
                   </mat-select>
                 </mat-form-field>
               </td>
+
               <td>
                 <mat-form-field class="amount-field">
                   <input matInput type="number" min="0" formControlName="amount">
                   <span matSuffix>{{consignment.controls.item.value && consignment.controls.item.value.type}}</span>
                 </mat-form-field>
               </td>
+
               <td>
                 <mat-form-field class="status-field">
                   <mat-select formControlName="status">
@@ -60,12 +90,14 @@
                   </mat-select>
                 </mat-form-field>
               </td>
+
               <td>
                 <div class="consignment-btn-row">
-                  <button class="delete-btn" mat-icon-button (click)="deleteItem(i)" *ngIf="consignments.controls.length > 1">
+                  <button class="remove-btn" mat-icon-button (click)="deleteItem(i)" *ngIf="shouldShowRemoveBtn()">
                     <mat-icon>remove_circle</mat-icon>
                   </button>
-                  <button class="add-btn" mat-icon-button (click)="addEmptyItem()" *ngIf="i === (consignments.controls.length - 1) && consignment.controls.item.value !== null">
+
+                  <button class="add-btn" mat-icon-button (click)="addItem()" *ngIf="shouldShowAddBtn(i)">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                 </div>
@@ -85,3 +117,8 @@
     </div>
   </mat-card-content>
 </div>
+
+<mat-dialog-actions>
+  <button mat-button color="primary" mat-dialog-close (click)="cancel()">CANCEL</button>
+  <button mat-button mat-dialog-close (click)="submit()">APPLY</button>
+</mat-dialog-actions>

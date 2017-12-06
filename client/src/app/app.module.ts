@@ -14,7 +14,10 @@ import {
   MatSelectModule,
   MatAutocompleteModule,
   MatPaginatorModule,
-  MatDialogModule
+  MatDialogModule,
+  MatTooltipModule,
+  MatMenuModule,
+  MatCheckboxModule
 } from '@angular/material';
 
 import { JwtModule } from '@auth0/angular-jwt';
@@ -30,7 +33,7 @@ import { InvoicesComponent } from './document/invoices/invoices.component';
 import { WaybillComponent } from './document/waybill/waybill.component';
 import { LossActComponent } from './document/lossact/lossact.component';
 import { InvoiceService } from './document/invoice.service';
-import { NewButtonComponent } from './new-button/new-button.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   imports: [
@@ -50,6 +53,9 @@ import { NewButtonComponent } from './new-button/new-button.component';
     MatAutocompleteModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatTooltipModule,
+    MatMenuModule,
+    MatCheckboxModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -70,10 +76,11 @@ import { NewButtonComponent } from './new-button/new-button.component';
     InvoicesComponent,
     WaybillComponent,
     LossActComponent,
-    NewButtonComponent
+    ConfirmDialogComponent
   ],
   entryComponents: [
-    DocumentComponent
+    DocumentComponent,
+    ConfirmDialogComponent
   ],
   providers: [
     AuthGuard,
