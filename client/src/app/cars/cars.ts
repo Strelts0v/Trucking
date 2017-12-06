@@ -6,7 +6,7 @@ export class Cars {
   consumption: number;
 }
 
-enum CarsType {
+export enum CarsType {
   CARCASE = 'CARCASE',
   FRIDGE = 'FRIDGE',
   TANK = 'TANK'

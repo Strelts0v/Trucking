@@ -5,12 +5,14 @@ import { AuthComponent } from './users/auth';
 import { MainComponent } from './main';
 import { AuthGuard } from './users';
 import { InvoicesComponent } from './document/invoices/invoices.component';
+import {CarsComponent} from './cars/cars.component';
 
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
   {path: 'invoices', component: InvoicesComponent},
   {path: '', component: MainComponent, canActivate: [AuthGuard]},
-  {path: '**', redirectTo: ''}
+  {path: '**', redirectTo: ''},
+  {path: 'cars', component : CarsComponent}
 ];
 
 @NgModule({
