@@ -18,7 +18,8 @@ import {
   MatDialogModule,
   MatTooltipModule,
   MatMenuModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatToolbarModule
 } from '@angular/material';
 
 import { JwtModule } from '@auth0/angular-jwt';
@@ -62,6 +63,7 @@ import { UserFullNamePipe } from './users/user-full-name.pipe';
     MatTooltipModule,
     MatMenuModule,
     MatCheckboxModule,
+    MatToolbarModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
