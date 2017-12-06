@@ -34,6 +34,11 @@ public interface UserDao {
     List<User> getUsersByPage(int offset, int recordPerPage);
 
     /**
+     * returns all users from the storage
+     */
+    List<User> getAllUsers();
+
+    /**
      * gets count of users in storage
      * @return count of user objects in storage
      */

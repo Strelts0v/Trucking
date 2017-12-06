@@ -1,0 +1,50 @@
+<div class="paginated-table">
+  <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="client">
+      <mat-header-cell *matHeaderCellDef>Client</mat-header-cell>
+      <mat-cell *matCellDef="let waybill">{{invoice.client}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="departure_date">
+      <mat-header-cell *matHeaderCellDef>Departure date</mat-header-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.departureDate}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.status}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="from">
+      <mat-header-cell *matHeaderCellDef>From</mat-header-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.from}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="to">
+      <mat-header-cell *matHeaderCellDef>To</mat-header-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.to}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="driver">
+      <mat-header-cell *matHeaderCellDef>Driver</mat-header-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.driver | userFullName}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openWaybillDetail(row.id)"
+             [ngClass]="{'mat-row--idle': !row.status, 'mat-row--started': row.status === waybillStatus.STARTED}">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator class="paginator"
+                 [length]="length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[3, 5]"
+                 (page)="pageEvent = loadInvoices($event)">
+  </mat-paginator>
+</div>

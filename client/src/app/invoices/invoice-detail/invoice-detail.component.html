@@ -1,0 +1,139 @@
+<div class="card-body">
+  <div class="card-header">
+    <div class="header-sidebar-left">
+      <mat-icon mat-card-avatar class="card-header-icon">assignment</mat-icon>
+    </div>
+
+    <div class="header-middle">
+      <div class="header-title">
+        <span *ngIf="!id">New </span>
+        Consignment Note
+      </div>
+      <div class="header-subtitle" *ngIf="id">
+        №{{id}}&emsp;{{invoice.status}}
+      </div>
+    </div>
+
+    <div class="header-sidebar-right">
+      <button mat-icon-button matTooltip="Edit invoice" (click)="toggleEdit()" *ngIf="!edit">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
+        <button mat-menu-item>Create waybill</button>
+        <button mat-menu-item (click)="deleteInvoice()">Delete note</button>
+      </mat-menu>
+      <button mat-icon-button matTooltip="Close" [mat-dialog-close]>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <mat-card-content>
+    <form id="cForm" [formGroup]="cForm" (ngSubmit)="cForm.valid && submit()">
+      <div class="row">
+        <div class="col-1">
+          <mat-icon class="label-icon">person</mat-icon>
+        </div>
+        <div class="col-2">
+          <mat-form-field floatPlaceholder="never">
+            <mat-select formControlName="client" placeholder="Client" required>
+              <mat-option *ngFor="let client of clients" [value]="client">{{client}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-1 flex-start">
+          <mat-icon class="label-icon" svgIcon="package_variant"></mat-icon>
+          <p>Consignment:</p>
+        </div>
+        <div class="col-2">
+
+          <table class="consignment-table" formArrayName="consignments">
+            <thead>
+            <tr>
+              <th class="id-field">Product code</th>
+              <th>Product name</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let consignment of consignments.controls; index as i" [formGroupName]="i">
+              <td>
+                {{consignment.controls.item.value && consignment.controls.item.value.id}}
+              </td>
+
+              <td>
+                <mat-form-field class="item-field">
+                  <mat-select formControlName="item" [compareWith]="compareItem">
+                    <mat-option *ngFor="let item of items" [value]="item">{{item.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-form-field class="amount-field">
+                  <input matInput type="number" min="0" formControlName="amount">
+                  <span matSuffix>{{consignment.controls.item.value && consignment.controls.item.value.type}}</span>
+                </mat-form-field>
+              </td>
+
+              <td>
+                <mat-form-field class="status-field">
+                  <mat-select formControlName="status">
+                    <mat-option *ngFor="let status of getConsignmentStatuses()" [value]="status">{{status}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+
+              <td>
+                <div class="consignment-btn-row">
+                  <button class="remove-btn" mat-icon-button (click)="deleteItem(i)" *ngIf="shouldShowRemoveBtn()">
+                    <mat-icon>remove_circle</mat-icon>
+                  </button>
+
+                  <button class="add-btn" mat-icon-button (click)="addItem()" *ngIf="shouldShowAddBtn(i)">
+                    <mat-icon>add_circle</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--<pre>{{cForm.value | json}}</pre>-->
+      </div>
+    </form>
+
+    <hr>
+
+    <table class="signs-table">
+      <tbody>
+      <tr *ngIf="invoice.creator">
+        <td>Registered by:</td>
+        <td>{{invoice.creator | userFullName}}</td>
+        <td>Date:</td>
+        <td>{{invoice.issueDate}}</td>
+      </tr>
+
+      <tr *ngIf="invoice.inspector">
+        <td>Checked by:</td>
+        <td>{{invoice.inspector | userFullName}}</td>
+        <td>Date:</td>
+        <td>{{invoice.checkDate}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+</div>
+
+<mat-dialog-actions>
+  <button mat-button color="primary" mat-dialog-close (click)="cancel()">CANCEL</button>
+  <button mat-button color="primary" type="submit" form="cForm" [disabled]="!edit">APPLY</button>
+</mat-dialog-actions>

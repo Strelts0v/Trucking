@@ -1,8 +1,9 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 import {
   MatInputModule,
   MatButtonModule,
@@ -20,21 +21,27 @@ import {
   MatCheckboxModule
 } from '@angular/material';
 
-import {JwtModule} from '@auth0/angular-jwt';
-import {AppComponent} from './app.component';
-import {CarsComponent} from './cars/cars.component';
-import {AuthComponent} from './users/auth';
-import {MainComponent} from './main';
-import {AuthGuard, AuthService, UserService} from './users';
-import {AppRoutingModule} from './app-routing.module';
-import {DocumentComponent} from './document/document.component';
-import {InvoiceDetailComponent} from './document/invoice-detail/invoice-detail.component';
-import {InvoicesComponent} from './document/invoices/invoices.component';
-import {WaybillComponent} from './document/waybill/waybill.component';
-import {LossActComponent} from './document/lossact/lossact.component';
-import {InvoiceService} from './document/invoice.service';
-import {ConfirmDialogComponent} from './confirm-dialog/confirm-dialog.component';
+import { JwtModule } from '@auth0/angular-jwt';
+
+import { AppComponent } from './app.component';
+import { AuthComponent } from './users/auth';
+import { MainComponent } from './main';
+import { UserListComponent } from './users/user-list';
+
+import { AuthGuard, AuthService, UserService } from './users';
+import { AppRoutingModule } from './app-routing.module';
+import { DocHolderComponent } from './doc-holder/doc-holder.component';
+import { InvoiceDetailComponent } from './invoices/invoice-detail/invoice-detail.component';
+import { InvoiceListComponent } from './invoices/invoice-list/invoice-list.component';
+import { InvoiceService } from './invoices/invoice.service';
+import { WaybillDetailComponent } from './waybills/waybill-detail/waybill-detail.component';
+import { LossActDetailComponent } from './invoices/lossact-detail/lossact-detail.component';
+import { WaybillListComponent } from './waybills/waybill-list/waybill-list.component';
+import { WaybillService } from './waybills/waybill.service';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { UserFullNamePipe } from './users/user-full-name.pipe';
 import {CarsService} from './cars/cars.service';
+import {CarsComponent} from './cars/cars.component';
 
 @NgModule({
   imports: [
@@ -71,22 +78,26 @@ import {CarsService} from './cars/cars.service';
     AuthComponent,
     MainComponent,
     CarsComponent,
-    MainComponent,
-    DocumentComponent,
+    UserListComponent,
+    DocHolderComponent,
     InvoiceDetailComponent,
-    InvoicesComponent,
-    WaybillComponent,
-    LossActComponent,
-    ConfirmDialogComponent
+    InvoiceListComponent,
+    WaybillDetailComponent,
+    LossActDetailComponent,
+    ConfirmDialogComponent,
+    WaybillListComponent,
+    UserFullNamePipe
   ],
   entryComponents: [
-    DocumentComponent,
+    DocHolderComponent,
     ConfirmDialogComponent
   ],
   providers: [
     AuthGuard,
     AuthService,
     UserService,
+    InvoiceService,
+    WaybillService,
     InvoiceService,
     CarsService
   ],
