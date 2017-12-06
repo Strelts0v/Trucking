@@ -32,7 +32,7 @@ public class ItemConsignment extends AbstractPersistentObject {
 
     @ManyToOne
     @JoinColumn(name = "invoices_id")
-    private Invoice invoice;
+    //private Invoice invoice;
 
     public Integer getAmount() {
         return amount;
@@ -50,13 +50,13 @@ public class ItemConsignment extends AbstractPersistentObject {
         this.status = status;
     }
 
-    public Invoice getInvoice() {
+    /*public Invoice getInvoice() {
         return invoice;
-    }
+    }*/
 
-    public void setInvoice(Invoice invoice) {
+    /*public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
-    }
+    }*/
 
     public Item getItem() {
         return item;

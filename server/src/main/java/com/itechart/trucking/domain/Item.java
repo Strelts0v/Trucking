@@ -27,6 +27,15 @@ public class Item extends AbstractPersistentObject {
         VOLUME
     }
 
+    public Item() {
+    }
+
+    public Item(String name, Integer price, Type type) {
+        this.name = name;
+        this.price = price;
+        this.type = type;
+    }
+
     public String getName() {
         return name;
     }
