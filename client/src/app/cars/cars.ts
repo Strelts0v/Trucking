@@ -2,11 +2,11 @@ export class Cars {
   id: number;
   name: string;
   number: string;
-  type: Type;
+  type: CarsType;
   consumption: number;
 }
 
-enum Type {
+enum CarsType {
   CARCASE = 'CARCASE',
   FRIDGE = 'FRIDGE',
   TANK = 'TANK'
