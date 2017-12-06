@@ -62,6 +62,22 @@ public class JpaItemDao implements ItemDao{
     }
 
     @Override
+    public int getItemCount() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+        Root<Item> root = criteriaQuery.from(Item.class);
+        criteriaQuery.select(criteriaBuilder.count(root));
+
+        return entityManager.createQuery(criteriaQuery).getSingleResult().intValue();
+    }
+
+    @Override
+    public Item addItem(Item item) {
+        entityManager.persist(item);
+        return item;
+    }
+
+    @Override
     public void editItem(Item item) {
         entityManager.merge(item);
     }

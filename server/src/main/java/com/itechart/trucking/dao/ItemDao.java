@@ -22,6 +22,10 @@ public interface ItemDao {
 
     Optional<Item> findItemByName(String name);
 
+    int getItemCount();
+
+    Item addItem(Item item);
+
     void editItem(Item item);
 
     void saveItem(Item item);
