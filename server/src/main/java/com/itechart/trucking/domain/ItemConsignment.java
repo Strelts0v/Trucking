@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 /**
  * @author Quontico
- * @version 1.0
- * @since 2017-11-24
+ * @version 1.1
+ * @since 2017-12-07
  */
 
 @Entity
@@ -35,7 +35,7 @@ public class ItemConsignment implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "invoices_id")
-    //private Invoice invoice;
+    private Invoice invoice;
 
     public Integer getAmount() {
         return amount;
@@ -53,13 +53,13 @@ public class ItemConsignment implements Serializable {
         this.status = status;
     }
 
-    /*public Invoice getInvoice() {
+    public Invoice getInvoice() {
         return invoice;
-    }*/
+    }
 
-    /*public void setInvoice(Invoice invoice) {
+    public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
-    }*/
+    }
 
     public Item getItem() {
         return item;
