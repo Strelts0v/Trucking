@@ -12,7 +12,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * @author Quontico
@@ -59,6 +58,22 @@ public class JpaItemDao implements ItemDao{
     @Override
     public Optional<Item> findItemByName(String name) {
         return Optional.ofNullable(entityManager.find(Item.class, name));
+    }
+
+    @Override
+    public int getItemCount() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+        Root<Item> root = criteriaQuery.from(Item.class);
+        criteriaQuery.select(criteriaBuilder.count(root));
+
+        return entityManager.createQuery(criteriaQuery).getSingleResult().intValue();
+    }
+
+    @Override
+    public Item addItem(Item item) {
+        entityManager.persist(item);
+        return item;
     }
 
     @Override

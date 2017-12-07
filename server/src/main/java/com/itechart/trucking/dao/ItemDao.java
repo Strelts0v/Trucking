@@ -4,7 +4,6 @@ import com.itechart.trucking.domain.Item;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * @author Quontico
@@ -21,6 +20,10 @@ public interface ItemDao {
     Optional<Item> findItemById(Integer id);
 
     Optional<Item> findItemByName(String name);
+
+    int getItemCount();
+
+    Item addItem(Item item);
 
     void editItem(Item item);
 
