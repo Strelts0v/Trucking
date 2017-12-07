@@ -1,6 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
+import { Invoice } from '../invoices/invoice';
+import { InvoiceService } from '../invoices/invoice.service';
+import { DocDataService } from './doc-data.service';
+
 @Component({
   selector: 'app-document',
   templateUrl: './doc-holder.component.html',
@@ -9,8 +13,11 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 export class DocHolderComponent implements OnInit {
 
   selectedTab: number;
+  invoice: Invoice;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              private invoiceService: InvoiceService,
+              private invoiceDataService: DocDataService) {
   }
 
   selectTab() {
@@ -29,6 +36,15 @@ export class DocHolderComponent implements OnInit {
 
   ngOnInit() {
     this.selectTab();
+
+    if (this.data.id) {
+      this.invoiceService.getInvoice(this.data.id)
+        .subscribe(invoice => {
+          setTimeout(() => {
+            this.invoiceDataService.changeInvoice(invoice);
+          }, 1000);
+        });
+    }
   }
 
 }

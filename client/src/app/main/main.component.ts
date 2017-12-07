@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   moduleId: module.id,
@@ -9,17 +10,19 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class MainComponent implements OnInit {
-  title = 'Trucking';
-  subtitle = 'Users';
+  title: string;
+  subtitle: string;
 
   matches: boolean;
   navLinks = [
-    {label: 'Users', path: 'users'},
-    {label: 'Consignment notes', path: 'invoices'},
-    {label: 'Waybills', path: 'waybills'}
+    {label: 'Users', path: '/users'},
+    {label: 'Consignment notes', path: '/invoices'},
+    {label: 'Waybills', path: '/waybills'}
   ];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private titleService: Title,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   @HostListener('window:resize')
@@ -27,7 +30,25 @@ export class MainComponent implements OnInit {
     this.matches = window.innerWidth <= 600;
   }
 
+  setTitle() {
+    this.title = this.route.snapshot.data.title;
+    if (this.route.firstChild) {
+      this.subtitle = this.route.firstChild.snapshot.data.title;
+      this.titleService.setTitle(`${this.subtitle} - ${this.title}`);
+    } else {
+      this.titleService.setTitle(this.title);
+      this.subtitle = '';
+    }
+  }
+
   ngOnInit() {
-    this.matches = window.innerWidth <= 600;
+    this.onResize();
+
+    this.setTitle();
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.setTitle();
+      }
+    });
   }
 }

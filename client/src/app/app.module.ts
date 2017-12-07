@@ -43,6 +43,7 @@ import { WaybillListComponent } from './waybills/waybill-list/waybill-list.compo
 import { WaybillService } from './waybills/waybill.service';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { UserFullNamePipe } from './users/user-full-name.pipe';
+import { DocDataService } from './doc-holder/doc-data.service';
 
 @NgModule({
   imports: [
@@ -100,7 +101,8 @@ import { UserFullNamePipe } from './users/user-full-name.pipe';
     AuthService,
     UserService,
     InvoiceService,
-    WaybillService
+    WaybillService,
+    DocDataService
   ],
   bootstrap: [AppComponent]
 })

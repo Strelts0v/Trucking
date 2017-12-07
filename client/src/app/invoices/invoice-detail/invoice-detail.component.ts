@@ -10,6 +10,8 @@ import { InvoiceService } from '../invoice.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
 import { User } from '../../users';
+import { DocDataService } from '../../doc-holder/doc-data.service';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-invoice-detail',
@@ -18,13 +20,15 @@ import { User } from '../../users';
 })
 export class InvoiceDetailComponent implements OnInit {
 
+  cForm: FormGroup;
+
   @Input() id: number;
-  invoice: Invoice;
+  observInvoice = new Subject<Invoice>();
+
+  invoice = new Invoice();
   user: User;
 
   edit: boolean;
-
-  cForm: FormGroup;
 
   items: Item[] = [
     {id: 1, name: 'Some product', price: 0, type: ItemUnit.KILOGRAM},
@@ -45,7 +49,8 @@ export class InvoiceDetailComponent implements OnInit {
               private iconRegistry: MatIconRegistry,
               private sanitizer: DomSanitizer,
               private dialog: MatDialog,
-              private parentDialogRef: MatDialogRef<DocHolderComponent>) {
+              private parentDialogRef: MatDialogRef<DocHolderComponent>,
+              private invoiceDataService: DocDataService) {
 
     iconRegistry.addSvgIcon(
       'package_variant',
@@ -113,22 +118,6 @@ export class InvoiceDetailComponent implements OnInit {
       .map(key => ConsignmentStatus[key]);
   }
 
-  getInvoice() {
-    this.invoiceService.getInvoice(this.id)
-      .subscribe(invoice => {
-        this.invoice = invoice;
-
-        if (invoice.consignments.length) {
-          this.invoice.consignments.forEach(consignment => this.addItem(consignment));
-        } else {
-          this.addItem();
-          this.toggleEdit();
-        }
-
-        this.client.setValue(invoice.client);
-      });
-  }
-
   compareItem(item1: Item, item2: Item) {
     return item1 && item2 && item1.id === item2.id;
   }
@@ -150,7 +139,17 @@ export class InvoiceDetailComponent implements OnInit {
       consignments: this.fb.array([])
     });
 
-    this.getInvoice();
+    if (this.id) {
+      this.invoiceDataService.currentInvoice
+        .subscribe(invoice => {
+          this.invoice = invoice;
+          this.invoice.consignments.forEach(consignment => this.addItem(consignment));
+          this.client.setValue(this.invoice.client);
+        });
+    } else {
+      this.addItem();
+      this.toggleEdit();
+    }
   }
 
 }

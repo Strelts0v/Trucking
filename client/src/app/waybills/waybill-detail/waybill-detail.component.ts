@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WaybillDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
+
+  loadData() {
+  }
 
   ngOnInit() {
   }
