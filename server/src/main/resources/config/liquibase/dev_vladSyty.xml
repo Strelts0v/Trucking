@@ -5,10 +5,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <changeSet id="1" author="Gleb Streltsov">
-        <loadData file="config/liquibase/users.csv"
-                  separator=";"
-                  tableName="users"/>
-    </changeSet>
-
+    <include file="config/liquibase/changelog/initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/fill_schema_vlad.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

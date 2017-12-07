@@ -5,10 +5,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <changeSet id="1" author="Gleb Streltsov">
-        <loadData file="config/liquibase/users.csv"
+
+    <changeSet id="2" author="Vlad Sytyi">
+        <loadData file="config/liquibase/cars.csv"
                   separator=";"
-                  tableName="users"/>
+                  tableName="car_park">
+        </loadData>
     </changeSet>
 
 </databaseChangeLog>
