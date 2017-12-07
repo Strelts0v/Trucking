@@ -10,10 +10,12 @@ import { WaybillListComponent } from './waybills/waybill-list/waybill-list.compo
 
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
-  {path: 'users', component: UserListComponent},
-  {path: 'invoices', component: InvoiceListComponent},
-  {path: 'waybills', component: WaybillListComponent},
-  {path: '', component: MainComponent, canActivate: [AuthGuard]},
+  {path: '', /*component: MainComponent, canActivate: [AuthGuard]*/redirectTo: 'lists/users', pathMatch: 'full'},
+  {path: 'lists', component: MainComponent, children: [
+      {path: 'users', component: UserListComponent, data: [{subtitle: 'Users'}]},
+      {path: 'invoices', component: InvoiceListComponent, data: [{subtitle: 'Invoices'}]},
+      {path: 'waybills', component: WaybillListComponent, data: [{subtitle: 'Waybills'}]},
+    ]},
   {path: '**', redirectTo: ''}
 ];
 
