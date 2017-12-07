@@ -18,7 +18,8 @@ import {
   MatDialogModule,
   MatTooltipModule,
   MatMenuModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatToolbarModule
 } from '@angular/material';
 
 import { JwtModule } from '@auth0/angular-jwt';
@@ -27,7 +28,6 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './users/auth';
 import { MainComponent } from './main';
 import { UserListComponent } from './users/user-list';
-
 import { AuthGuard, AuthService, UserService } from './users';
 import { AppRoutingModule } from './app-routing.module';
 import { DocHolderComponent } from './doc-holder/doc-holder.component';
@@ -40,8 +40,9 @@ import { WaybillListComponent } from './waybills/waybill-list/waybill-list.compo
 import { WaybillService } from './waybills/waybill.service';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { UserFullNamePipe } from './users/user-full-name.pipe';
-import {CarsService} from './cars/cars.service';
-import {CarsComponent} from './cars/cars.component';
+import {CarService} from './cars/car.service';
+import {CarListComponent} from './cars/car-list/car-list.component';
+import {CarDetailComponent} from './cars/car-detail/car-detail.component';
 
 @NgModule({
   imports: [
@@ -64,6 +65,7 @@ import {CarsComponent} from './cars/cars.component';
     MatTooltipModule,
     MatMenuModule,
     MatCheckboxModule,
+    MatToolbarModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -77,7 +79,6 @@ import {CarsComponent} from './cars/cars.component';
     AppComponent,
     AuthComponent,
     MainComponent,
-    CarsComponent,
     UserListComponent,
     DocHolderComponent,
     InvoiceDetailComponent,
@@ -86,7 +87,11 @@ import {CarsComponent} from './cars/cars.component';
     LossActDetailComponent,
     ConfirmDialogComponent,
     WaybillListComponent,
-    UserFullNamePipe
+    UserFullNamePipe,
+    CarListComponent,
+    CarDetailComponent
+
+
   ],
   entryComponents: [
     DocHolderComponent,
@@ -96,10 +101,9 @@ import {CarsComponent} from './cars/cars.component';
     AuthGuard,
     AuthService,
     UserService,
+    CarService,
     InvoiceService,
-    WaybillService,
-    InvoiceService,
-    CarsService
+    WaybillService
   ],
   bootstrap: [AppComponent]
 })

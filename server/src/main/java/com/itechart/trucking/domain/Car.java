@@ -2,6 +2,7 @@ package com.itechart.trucking.domain;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "car_park")
 public class Car extends AbstractPersistentObject {
