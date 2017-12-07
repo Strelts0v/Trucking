@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @Transactional
-@ActiveProfiles("dev_blink7")
+@ActiveProfiles("test")
 public class InvoiceMapperTest {
 
     @Autowired

@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @Transactional
-@ActiveProfiles("dev_Quontico")
+@ActiveProfiles("test")
 public class JpaItemDaoTest {
 
     @Autowired
