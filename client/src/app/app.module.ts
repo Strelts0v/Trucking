@@ -42,7 +42,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { UserFullNamePipe } from './users/user-full-name.pipe';
 import {CarService} from './cars/car.service';
 import {CarListComponent} from './cars/car-list/car-list.component';
-import {CarDetailComponent} from './cars/car-detail/car-detail.component';
+
 
 @NgModule({
   imports: [
@@ -88,8 +88,7 @@ import {CarDetailComponent} from './cars/car-detail/car-detail.component';
     ConfirmDialogComponent,
     WaybillListComponent,
     UserFullNamePipe,
-    CarListComponent,
-    CarDetailComponent
+    CarListComponent
 
 
   ],
