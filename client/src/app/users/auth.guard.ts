@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
 
     canActivate() {
       this.log(localStorage.getItem('currentUser'));
-      if (localStorage.getItem('currentUser')) {
+      if (localStorage.getItem('currentUser') && localStorage.getItem('token')) {
         this.log('User is singed in');
         // logged in so return true
         return true;

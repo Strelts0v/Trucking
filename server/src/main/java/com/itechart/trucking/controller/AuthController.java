@@ -1,6 +1,7 @@
 package com.itechart.trucking.controller;
 
 import com.itechart.trucking.auth.TokenHandler;
+import com.itechart.trucking.domain.User;
 import com.itechart.trucking.service.SecurityContextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.itechart.trucking.auth.SecurityConstants.*;
+import static com.itechart.trucking.auth.SecurityConstants.HEADER_STRING;
+import static com.itechart.trucking.auth.SecurityConstants.TOKEN_PREFIX;
 
 @RestController
 @RequestMapping("/auth")
@@ -45,7 +47,7 @@ public class AuthController {
             final String token = tokenHandler.createTokenForUser(u);
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add(HEADER_STRING, TOKEN_PREFIX + token);
-            return new ResponseEntity<>(new AuthResponse(token), httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>(new AuthResponse(token, u), httpHeaders, HttpStatus.OK);
         }).orElseThrow(RuntimeException::new); // it does not happen.
     }
 
@@ -83,13 +85,17 @@ public class AuthController {
     }
 
     private static final class AuthResponse {
+
         private String token;
+
+        private User user;
 
         public AuthResponse() {
         }
 
-        public AuthResponse(String token) {
+        public AuthResponse(String token, User user) {
             this.token = token;
+            this.user = user;
         }
 
         public String getToken() {
@@ -99,6 +105,13 @@ public class AuthController {
         public void setToken(String token) {
             this.token = token;
         }
-    }
 
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+    }
 }

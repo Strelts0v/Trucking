@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
+import { User } from './user';
 
 @Injectable()
 export class AuthService {
@@ -10,11 +11,14 @@ export class AuthService {
   private authUrl = 'http://localhost:8080/auth';
 
   public token: string;
+  private currentUser: User;
 
   constructor(private http: HttpClient) {
     // set token if saved in local storage
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.token = currentUser && currentUser.token;
+    if (localStorage.getItem('token') && localStorage.getItem('currentUser')) {
+      this.token = JSON.parse(localStorage.getItem('token'));
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    }
   }
 
   login(email: string, password: string): Observable<string> {
@@ -24,9 +28,11 @@ export class AuthService {
           tap(data => {
             if (data['token']) {
               this.log(`fetched token: ${data['token']}`);
+              this.log(`fetched user: ${JSON.stringify(data['user'])}`);
               this.token = data['token'];
               this.log(JSON.stringify({ email: email, token: this.token}));
-              localStorage.setItem('currentUser', JSON.stringify({ email: email, token: this.token}));
+              localStorage.setItem('token', this.token);
+              localStorage.setItem('currentUser', JSON.stringify(data['user']));
               return this.token;
             }
           }),
@@ -37,6 +43,7 @@ export class AuthService {
   logout(): void {
     // clear token remove user from local storage to log user out
     this.token = null;
+    localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
   }
 

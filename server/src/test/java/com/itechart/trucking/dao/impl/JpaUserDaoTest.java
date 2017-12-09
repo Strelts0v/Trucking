@@ -13,8 +13,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -92,13 +94,13 @@ public class JpaUserDaoTest {
         final int pageSize = 5;
         List<User> userList = dao.getUsersByPage(page, pageSize);
 
-        final int expectedClientCount = 5;
+        final int expectedClientCount = 2;
         final String errorMessage = "Expected and actual user size are different";
         assertEquals(errorMessage, expectedClientCount, userList.size());
     }
 
     @Test
-    public void afterUpdateClientGetClientByIdShouldReturnCorrespondClient() throws Exception {
+    public void afterUpdateUserGetClientByIdShouldReturnCorrespondClient() throws Exception {
         dao.addUser(user);
         user.setEmail("new test name");
         dao.updateUser(user);
@@ -110,7 +112,7 @@ public class JpaUserDaoTest {
     }
 
     @Test
-    public void afterDeleteClientGetClientCountShouldReturnCorrespondClientCount() throws Exception {
+    public void afterDeleteUserGetClientCountShouldReturnCorrespondClientCount() throws Exception {
         dao.addUser(user);
         dao.deleteUser(user);
         final int expectedClientCount = 0;
@@ -121,16 +123,58 @@ public class JpaUserDaoTest {
     }
 
     @Test
-    public void deleteClientWithNoIdShouldNotThrowException() throws Exception {
+    public void deleteUserWithNoIdShouldNotThrowException() throws Exception {
         dao.deleteUser(user);
     }
 
     @Test
     public void getUserByEmailShouldReturnCorrespondUser() throws Exception {
         final String email = "test@gmail.com";
+        User testUser = new User();
+        testUser.setEmail(email);
+        dao.addUser(testUser);
+
         Optional<User> user = dao.getUserByEmail(email);
 
         final String errorMessage = "Expected and actual emails are different";
         assertEquals(email, user.orElse(new User()).getEmail());
+    }
+
+    @Test
+    public void afterCreateUserWithOneRoleShouldReturnCorrespondUserTest() throws Exception {
+        User testUser = new User();
+        final String testUserEmail = "test@mail.ru";
+
+        testUser.setEmail(testUserEmail);
+
+        Set<User.Role> roles = new HashSet<>();
+        roles.add(User.Role.ADMIN);
+        testUser.setRoles(roles);
+
+        dao.addUser(testUser);
+        Optional<User> resultUser = dao.getUserByEmail(testUserEmail);
+
+        final String errorMessage = "Expected and actual users are different";
+        assertEquals(errorMessage, testUser, resultUser.orElse(new User()));
+    }
+
+    @Test
+    public void afterCreateUserWithMultipleRolesShouldReturnCorrespondUserTest() throws Exception {
+        User testUser = new User();
+        final String testUserEmail = "test@mail.ru";
+
+        testUser.setEmail(testUserEmail);
+
+        Set<User.Role> roles = new HashSet<>();
+        roles.add(User.Role.ADMIN);
+        roles.add(User.Role.SYSADMIN);
+        roles.add(User.Role.MANAGER);
+        testUser.setRoles(roles);
+
+        dao.addUser(testUser);
+        Optional<User> resultUser = dao.getUserByEmail(testUserEmail);
+
+        final String errorMessage = "Expected and actual users are different";
+        assertEquals(errorMessage, testUser, resultUser.orElse(new User()));
     }
 }
