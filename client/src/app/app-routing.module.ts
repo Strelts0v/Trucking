@@ -1,19 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthComponent } from './users/auth/auth.component';
-import { MainComponent } from './main/main.component';
-import { AuthGuard } from './users/auth.guard';
-import { UserListComponent } from './users/user-list/index';
-import { InvoicesComponent } from './document/invoices/invoices.component';
+import { AuthComponent } from './users/auth';
+import { MainComponent } from './main';
+import { AuthGuard } from './users';
+import { UserListComponent } from './users/user-list';
+import { InvoiceListComponent } from './invoices/invoice-list/invoice-list.component';
+import { WaybillListComponent } from './waybills/waybill-list/waybill-list.component';
 
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
-  {path: '', component: MainComponent, canActivate: [AuthGuard]},
-  {path: 'invoices', component: InvoicesComponent},
-  {path: 'users', component: UserListComponent },
-
-  // otherwise redirect to home
+  {
+    path: '', component: MainComponent, data: {title: 'Trucking'}, children: [
+      {path: 'users', component: UserListComponent, data: {title: 'Users'}},
+      {path: 'invoices', component: InvoiceListComponent, data: {title: 'Consignment notes'}},
+      {path: 'waybills', component: WaybillListComponent, data: {title: 'Waybills'}},
+    ]
+  },
   {path: '**', redirectTo: ''}
 ];
 

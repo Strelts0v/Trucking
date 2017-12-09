@@ -15,7 +15,13 @@ import {
   MatSelectModule,
   MatAutocompleteModule,
   MatPaginatorModule,
-  MatDialogModule
+  MatDialogModule,
+  MatTooltipModule,
+  MatMenuModule,
+  MatCheckboxModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatListModule
 } from '@angular/material';
 
 import { JwtModule } from '@auth0/angular-jwt';
@@ -23,17 +29,21 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './users/auth';
 import { MainComponent } from './main';
-import { UserListComponent } from './users/user-list/index';
+import { UserListComponent } from './users/user-list';
 
 import { AuthGuard, AuthService, UserService } from './users';
 import { AppRoutingModule } from './app-routing.module';
-import { DocumentComponent } from './document/document.component';
-import { InvoiceDetailComponent } from './document/invoice-detail/invoice-detail.component';
-import { InvoicesComponent } from './document/invoices/invoices.component';
-import { WaybillComponent } from './document/waybill/waybill.component';
-import { LossActComponent } from './document/lossact/lossact.component';
-import { InvoiceService } from './document/invoice.service';
-import { NewButtonComponent } from './new-button/new-button.component';
+import { DocHolderComponent } from './doc-holder/doc-holder.component';
+import { InvoiceDetailComponent } from './invoices/invoice-detail/invoice-detail.component';
+import { InvoiceListComponent } from './invoices/invoice-list/invoice-list.component';
+import { InvoiceService } from './invoices/invoice.service';
+import { WaybillDetailComponent } from './waybills/waybill-detail/waybill-detail.component';
+import { LossActDetailComponent } from './invoices/lossact-detail/lossact-detail.component';
+import { WaybillListComponent } from './waybills/waybill-list/waybill-list.component';
+import { WaybillService } from './waybills/waybill.service';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { UserFullNamePipe } from './users/user-full-name.pipe';
+import { DocDataService } from './doc-holder/doc-data.service';
 
 @NgModule({
   imports: [
@@ -46,9 +56,6 @@ import { NewButtonComponent } from './new-button/new-button.component';
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatTableModule,
-    MatPaginatorModule,
-    AppRoutingModule,
     MatTabsModule,
     MatIconModule,
     MatTableModule,
@@ -56,6 +63,12 @@ import { NewButtonComponent } from './new-button/new-button.component';
     MatAutocompleteModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatTooltipModule,
+    MatMenuModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -70,22 +83,26 @@ import { NewButtonComponent } from './new-button/new-button.component';
     AuthComponent,
     MainComponent,
     UserListComponent,
-    DocumentComponent,
+    DocHolderComponent,
     InvoiceDetailComponent,
-    InvoicesComponent,
-    WaybillComponent,
-    LossActComponent,
-    NewButtonComponent
+    InvoiceListComponent,
+    WaybillDetailComponent,
+    LossActDetailComponent,
+    ConfirmDialogComponent,
+    WaybillListComponent,
+    UserFullNamePipe
   ],
   entryComponents: [
-    DocumentComponent
-
+    DocHolderComponent,
+    ConfirmDialogComponent
   ],
   providers: [
     AuthGuard,
     AuthService,
     UserService,
-    InvoiceService
+    InvoiceService,
+    WaybillService,
+    DocDataService
   ],
   bootstrap: [AppComponent]
 })

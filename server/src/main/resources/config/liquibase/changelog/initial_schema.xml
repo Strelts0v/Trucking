@@ -465,11 +465,4 @@
     <changeSet id="29" author="blink7">
         <modifyDataType tableName="users" columnName="user_password" newDataType="VARCHAR(64)"/>
     </changeSet>
-
-    <changeSet id="29" author="Gleb Streltsov">
-        <loadData encoding="UTF-8"
-                  file="config/liquibase/users.csv"
-                  separator=";"
-                  tableName="users"/>
-    </changeSet>
 </databaseChangeLog>

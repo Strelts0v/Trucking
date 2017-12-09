@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 /**
  * @author Quontico
- * @version 1.0
- * @since 2017-11-24
+ * @version 1.1
+ * @since 2017-12-07
  */
 
 @Entity

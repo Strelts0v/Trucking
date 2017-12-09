@@ -1,8 +1,81 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'
-
-@import '~primeng/resources/primeng.min.css';
+@import '~primeng/resources/primeng.min.css'
 
 body
-  font-family: 'Roboto','Helvetica','Arial',sans-serif
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif
   font-weight: 400
   line-height: 20px
+  margin: 0
+
+.card-header
+  height: 72px
+  width: 100%
+  display: flex
+  flex-flow: row wrap
+  justify-content: space-between
+  align-items: center
+  background: #f7f7f7
+
+  .header-title
+    color: rgba(0, 0, 0, .87)
+    font-size: 16px
+    text-transform: uppercase
+
+  .header-subtitle
+    color: rgba(0, 0, 0, .54)
+    font-size: 14px
+    font-weight: 400
+    line-height: 20px
+    margin-top: 10px
+
+  .header-sidebar-right
+    margin: 0 28px
+
+    .mat-icon-button
+      margin-right: -8px
+
+  .header-sidebar-left
+    width: 100px
+    text-align: center
+
+    .mat-icon
+      vertical-align: middle
+      font-size: 44px
+
+  .header-middle
+    flex: 1
+
+@keyframes slideInFromBottom
+  0%
+    transform: translateY(150%)
+  100%
+    transform: translateY(0)
+
+.add-fab-btn
+  z-index: 2
+  position: fixed !important
+  bottom: 0
+  right: 0
+  margin-right: 24px !important
+  margin-bottom: 80px !important
+  animation: slideInFromBottom .400s ease 0s 1
+
+  .mat-icon
+    font-size: 26px
+    padding-right: 2px
+    font-weight: bold
+
+.paginated-table
+  margin-bottom: 56px
+
+  .mat-row:hover
+    background-color: #f7f7f7
+    transition-duration: .28s
+    transition-timing-function: cubic-bezier(.4,0,.2,1)
+    transition-property: background-color
+    cursor: pointer
+
+  .paginator
+    position: fixed
+    bottom: 0
+    right: 24px
