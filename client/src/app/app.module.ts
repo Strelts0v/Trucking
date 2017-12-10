@@ -31,7 +31,7 @@ import { AuthComponent } from './users/auth';
 import { MainComponent } from './main';
 import { UserListComponent } from './users/user-list';
 
-import { AuthGuard, AuthService, UserService } from './users';
+import { AuthGuard, RoleGuard, AuthService, UserService } from './users';
 import { AppRoutingModule } from './app-routing.module';
 import { DocHolderComponent } from './doc-holder/doc-holder.component';
 import { InvoiceDetailComponent } from './invoices/invoice-detail/invoice-detail.component';
@@ -98,6 +98,7 @@ import { DocDataService } from './doc-holder/doc-data.service';
   ],
   providers: [
     AuthGuard,
+    RoleGuard,
     AuthService,
     UserService,
     InvoiceService,

@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { AuthService } from './../users/index';
 
 @Component({
   moduleId: module.id,
@@ -22,7 +23,8 @@ export class MainComponent implements OnInit {
 
   constructor(private titleService: Title,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private authService: AuthService) {
   }
 
   @HostListener('window:resize')
@@ -50,5 +52,10 @@ export class MainComponent implements OnInit {
         this.setTitle();
       }
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/auth']);
   }
 }

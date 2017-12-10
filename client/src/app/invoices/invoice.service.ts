@@ -58,7 +58,7 @@ const INVOICE_DATA: Invoice[] = [
       street: '',
       house: '',
       apartment: '',
-      roles: '',
+      roles: [''],
       login: '',
       password: '',
       passport: ''
@@ -73,7 +73,7 @@ const INVOICE_DATA: Invoice[] = [
       street: '',
       house: '',
       apartment: '',
-      roles: '',
+      roles: [''],
       login: '',
       password: '',
       passport: ''
@@ -114,7 +114,7 @@ const INVOICE_DATA: Invoice[] = [
       street: '',
       house: '',
       apartment: '',
-      roles: '',
+      roles: [''],
       login: '',
       password: '',
       passport: ''
@@ -142,7 +142,7 @@ const INVOICE_DATA: Invoice[] = [
       street: '',
       house: '',
       apartment: '',
-      roles: '',
+      roles: [''],
       login: '',
       password: '',
       passport: ''
@@ -157,7 +157,7 @@ const INVOICE_DATA: Invoice[] = [
       street: '',
       house: '',
       apartment: '',
-      roles: '',
+      roles: [''],
       login: '',
       password: '',
       passport: ''
@@ -184,7 +184,7 @@ const INVOICE_DATA: Invoice[] = [
       street: '',
       house: '',
       apartment: '',
-      roles: '',
+      roles: [''],
       login: '',
       password: '',
       passport: ''
@@ -199,7 +199,7 @@ const INVOICE_DATA: Invoice[] = [
       street: '',
       house: '',
       apartment: '',
-      roles: '',
+      roles: [''],
       login: '',
       password: '',
       passport: ''
