@@ -2,6 +2,9 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatDialog } from '@angular/material';
+import { DocHolderComponent } from '../doc-holder/doc-holder.component';
+import { BithdayCongratulationComponent } from '../bithday-congratulation/bithday-congratulation.component';
 
 @Component({
   moduleId: module.id,
@@ -45,7 +48,8 @@ export class MainComponent implements OnInit {
 
   constructor(private titleService: Title,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private dialog: MatDialog) {
   }
 
   @HostListener('window:resize')
@@ -62,6 +66,10 @@ export class MainComponent implements OnInit {
       this.titleService.setTitle(this.title);
       this.subtitle = '';
     }
+  }
+
+  openTemplate() {
+    const dialogRef = this.dialog.open(BithdayCongratulationComponent);
   }
 
   ngOnInit() {

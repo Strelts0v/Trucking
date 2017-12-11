@@ -3,13 +3,14 @@ import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {catchError, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 import {Car, CarType} from './car';
 
 @Injectable()
 export class CarService {
 
-  private carUrl = 'http://localhost:8080/api/cars';
+  private carUrl = `${environment.apiUrl}/cars`;
 
   constructor(private http: HttpClient) {
   }

@@ -5,12 +5,15 @@
       <span>{{title}}<span class="title-separator" *ngIf="subtitle">&#x2500;</span>{{subtitle}}</span>
     </h1>
     <span class="toolbar-spacer"></span>
-    <button mat-icon-button>
+    <button mat-icon-button matTooltip="Search">
       <mat-icon>search</mat-icon>
     </button>
-    <button mat-icon-button>
+    <button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
     </button>
+    <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
+      <button mat-menu-item (click)="openTemplate()">Template</button>
+    </mat-menu>
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="matches ? 56 : 0">

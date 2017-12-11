@@ -9,7 +9,6 @@ import { InvoiceListComponent } from './invoices/invoice-list/invoice-list.compo
 import { WaybillListComponent } from './waybills/waybill-list/waybill-list.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { CarListComponent } from './cars/car-list/car-list.component';
-import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
 
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
@@ -19,8 +18,7 @@ const routes: Routes = [
       {path: 'users', component: UserListComponent, data: {title: 'Users'}},
       {path: 'invoices', component: InvoiceListComponent, data: {title: 'Consignment notes'}},
       {path: 'waybills', component: WaybillListComponent, data: {title: 'Waybills'}},
-      {path: 'cars', component: CarListComponent, data: {title: 'Cars'}},
-      {path: 'templates', component: BithdayCongratulationComponent}
+      {path: 'cars', component: CarListComponent, data: {title: 'Cars'}}
     ]
   },
   {path: '**', redirectTo: ''}

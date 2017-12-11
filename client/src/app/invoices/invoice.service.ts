@@ -20,7 +20,7 @@ export class InvoiceService {
     const url = `${environment.apiUrl}/${this.invoiceUrl}/${id}`;
     return this.http.get<Invoice>(url)
       .pipe(
-        tap(_ => console.log(`fetched invoice id=${id}`)),
+        tap(_ => this.log(`fetched invoice id=${id}`)),
         catchError(this.handleError<Invoice>(`get invoice id=${id}`))
       );
   }
@@ -29,7 +29,7 @@ export class InvoiceService {
     const url = `${environment.apiUrl}/${this.invoicesUrl}/${pageNumber}/${pageSize}`;
     return this.http.get<Invoice[]>(url)
       .pipe(
-        tap(invoices => console.log('fetched invoices')),
+        tap(invoices => this.log('fetched invoices')),
         catchError(this.handleError('getInvoices', []))
       );
   }
@@ -38,7 +38,7 @@ export class InvoiceService {
     const url = `${environment.apiUrl}/${this.invoicesUrl}/size`;
     return this.http.get<number>(url)
       .pipe(
-        tap(size => console.log(`fetched invoices size=${size}`)),
+        tap(size => this.log(`fetched invoices size=${size}`)),
         catchError(this.handleError('invoices size', 0))
       );
   }
@@ -46,9 +46,12 @@ export class InvoiceService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
-      console.log(`${operation} failed: ${error.message}`);
+      this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
   }
 
+  private log(message: string) {
+    console.log('InvoiceService: ' + message);
+  }
 }
