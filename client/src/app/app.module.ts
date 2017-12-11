@@ -107,7 +107,8 @@ import { BithdayCongratulationComponent } from './bithday-congratulation/bithday
   ],
   entryComponents: [
     DocHolderComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    BithdayCongratulationComponent
   ],
   providers: [
     AuthGuard,
