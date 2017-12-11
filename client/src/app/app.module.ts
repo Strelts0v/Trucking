@@ -47,6 +47,7 @@ import { AgmCoreModule } from '@agm/core';
 import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pipe';
 import { CarService } from './cars/car.service';
 import { CarListComponent } from './cars/car-list/car-list.component';
+import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
 
 @NgModule({
   imports: [
@@ -101,7 +102,8 @@ import { CarListComponent } from './cars/car-list/car-list.component';
     UserFullNamePipe,
     WelcomeComponent,
     WarehouseFullAddressPipe,
-    CarListComponent
+    CarListComponent,
+    BithdayCongratulationComponent
   ],
   entryComponents: [
     DocHolderComponent,

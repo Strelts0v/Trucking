@@ -12,5 +12,25 @@
                   tableName="car_park">
         </loadData>
     </changeSet>
+    
+    <changeSet id="101220172119" author="Vlad Sytyi">
+        <createTable tableName="congragulation_letter">
+            <column name="id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="text" type="TEXT">
+            </column>
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="10" author="Vlad Sytyi">
+        <addAutoIncrement tableName="congragulation_letter" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
+
+
 
 </databaseChangeLog>

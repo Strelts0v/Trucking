@@ -4,7 +4,6 @@ package com.itechart.trucking.dao.impl;
 import com.itechart.trucking.Application;
 import com.itechart.trucking.dao.CarDao;
 import com.itechart.trucking.domain.Car;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,8 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
 import java.util.Optional;
 
 import static org.junit.Assert.*;

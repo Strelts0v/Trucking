@@ -7,4 +7,5 @@
 
     <include file="config/liquibase/changelog/initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/fill_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/fill_schema_vlad.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
