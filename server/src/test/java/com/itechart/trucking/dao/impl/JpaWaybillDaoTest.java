@@ -23,8 +23,8 @@ import static org.junit.Assert.*;
  * Test class for {@link JpaWaybillDao}
  *
  * @author blink7
- * @version 1.0
- * @since 2017-11-20
+ * @version 1.1
+ * @since 2017-12-11
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -38,7 +38,6 @@ public class JpaWaybillDaoTest {
     private WaybillDao waybillDao;
 
     private Waybill waybill;
-    private Client client;
     private User driver;
     private Car car;
     private Warehouse from;
@@ -52,10 +51,6 @@ public class JpaWaybillDaoTest {
 
         waybill = new Waybill();
         waybill.setIssueDate(ISSUE_DATE);
-
-        client = new Client();
-        em.persist(client);
-        waybill.setClient(client);
 
         driver = new User();
         em.persist(driver);
@@ -108,7 +103,6 @@ public class JpaWaybillDaoTest {
         for (int i = 0; i < size; i++) {
             Waybill waybill = new Waybill();
             waybill.setIssueDate(ISSUE_DATE);
-            waybill.setClient(client);
             waybill.setDriver(driver);
             waybill.setCar(car);
             waybill.setFrom(from);

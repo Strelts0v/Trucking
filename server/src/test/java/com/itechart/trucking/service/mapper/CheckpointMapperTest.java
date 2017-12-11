@@ -30,8 +30,8 @@ public class CheckpointMapperTest {
     private CheckpointMapper checkpointMapper;
 
     private static final String NAME = "City";
-    private static final String LAT = "37.4224764";
-    private static final String LNG = "-122.0842499";
+    private static final Double LAT = 37.4224764;
+    private static final Double LNG = -122.0842499;
     private static final Integer ID = 666;
 
     @Test

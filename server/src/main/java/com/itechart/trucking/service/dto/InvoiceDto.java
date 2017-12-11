@@ -9,12 +9,13 @@ import java.util.List;
  *
  * @author blink7
  * @version 1.4
- * @since 2017-11-23
+ * @since 2017-12-11
  */
 public class InvoiceDto extends AbstractDto {
 
+    private ClientDto client;
     private String issueDate;
-    private List<ItemConsignmentDto> itemConsignments;
+    private List<ItemConsignmentDto> consignments;
     private Invoice.Status status;
     private UserDto creator;
     private String checkDate;
@@ -22,6 +23,14 @@ public class InvoiceDto extends AbstractDto {
     private WaybillDto waybill;
     private List<LossActDto> lossActs;
     private String lossActIssueDate;
+
+    public ClientDto getClient() {
+        return client;
+    }
+
+    public void setClient(ClientDto client) {
+        this.client = client;
+    }
 
     public String getIssueDate() {
         return issueDate;
@@ -31,12 +40,12 @@ public class InvoiceDto extends AbstractDto {
         this.issueDate = issueDate;
     }
 
-    public List<ItemConsignmentDto> getItemConsignments() {
-        return itemConsignments;
+    public List<ItemConsignmentDto> getConsignments() {
+        return consignments;
     }
 
-    public void setItemConsignments(List<ItemConsignmentDto> itemConsignments) {
-        this.itemConsignments = itemConsignments;
+    public void setConsignments(List<ItemConsignmentDto> consignments) {
+        this.consignments = consignments;
     }
 
     public Invoice.Status getStatus() {

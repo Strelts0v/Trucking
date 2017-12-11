@@ -21,8 +21,8 @@ import static org.junit.Assert.*;
  * Test class for {@link WaybillMapper}
  *
  * @author blink7
- * @version 1.0
- * @since 2017-11-23
+ * @version 1.1
+ * @since 2017-12-11
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -34,7 +34,6 @@ public class WaybillMapperTest {
     private WaybillMapper waybillMapper;
 
     private static final Integer INVOICE_ID = 666;
-    private static final String CLIENT_NAME = "Client";
     private static final LocalDate DEPARTURE_DATE = LocalDate.of(2017, 11, 18);
     private static final String DRIVER_NAME = "Driver";
     private static final String CAR_NAME = "Car";
@@ -46,7 +45,6 @@ public class WaybillMapperTest {
     public void shouldMapWaybillToWaybillDto() {
         // Preparation
         Waybill waybill = new Waybill();
-        waybill.setClient(new Client(CLIENT_NAME));
         waybill.setDepartureDate(DEPARTURE_DATE);
 
         Invoice invoice = new Invoice();
@@ -54,7 +52,7 @@ public class WaybillMapperTest {
         waybill.setInvoice(invoice);
 
         User driver = new User();
-        driver.setFirtstname(DRIVER_NAME);
+        driver.setFirstName(DRIVER_NAME);
         waybill.setDriver(driver);
 
         Car car = new Car();
@@ -76,10 +74,6 @@ public class WaybillMapperTest {
         // Tests
         assertNotNull("Expected the converted waybill", waybillDto);
 
-        assertNotNull("Expected the converted client within the waybill", waybillDto.getClient());
-        assertEquals("Expected the same name of the client after converting",
-                CLIENT_NAME, waybillDto.getClient().getName());
-
         assertEquals("Expected the same string representation of the date",
                 DEPARTURE_DATE.format(DateTimeFormatter.ofPattern(Constants.DATE_FORMAT)),
                 waybillDto.getDepartureDate());
@@ -88,7 +82,7 @@ public class WaybillMapperTest {
 
         assertNotNull("Expected the converted user (driver)", waybillDto.getDriver());
         assertEquals("Expected the same first name of the user(driver) after converting",
-                DRIVER_NAME, waybillDto.getDriver().getFirtstname());
+                DRIVER_NAME, waybillDto.getDriver().getFirstName());
 
         assertNotNull("Expected the converted car", waybillDto.getCar());
         assertEquals("Expected the same name of the car after converting",

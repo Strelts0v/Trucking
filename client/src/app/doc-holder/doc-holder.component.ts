@@ -1,23 +1,24 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
-import { Invoice } from '../invoices/invoice';
+import { Invoice, InvoiceStatus } from '../invoices/invoice';
 import { InvoiceService } from '../invoices/invoice.service';
-import { DocDataService } from './doc-data.service';
 
 @Component({
-  selector: 'app-document',
+  selector: 'app-doc-holder',
   templateUrl: './doc-holder.component.html',
   styleUrls: ['./doc-holder.component.sass']
 })
 export class DocHolderComponent implements OnInit {
 
   selectedTab: number;
+  isLoaded: boolean;
+  isTabDisabled = true;
+
   invoice: Invoice;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              private invoiceService: InvoiceService,
-              private invoiceDataService: DocDataService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any,
+              private invoiceService: InvoiceService) {
   }
 
   selectTab() {
@@ -28,23 +29,32 @@ export class DocHolderComponent implements OnInit {
       case 'waybill':
         this.selectedTab = 1;
         break;
-      case 'lossact':
-        this.selectedTab = 3;
-        break;
+    }
+  }
+
+  loadData() {
+    if (this.data.id) {
+      this.invoiceService.getInvoice(this.data.id)
+        .subscribe(invoice => {
+          this.invoice = invoice;
+          this.isLoaded = true;
+          this.isTabDisabled = this.invoice.status !== (InvoiceStatus.CHECKED || InvoiceStatus.DELIVERED);
+        });
+    } else {
+      this.invoice = new Invoice();
+      this.isLoaded = true;
     }
   }
 
   ngOnInit() {
     this.selectTab();
-
-    if (this.data.id) {
-      this.invoiceService.getInvoice(this.data.id)
-        .subscribe(invoice => {
-          setTimeout(() => {
-            this.invoiceDataService.changeInvoice(invoice);
-          }, 1000);
-        });
-    }
+    this.loadData();
   }
+}
 
+@Component({
+  selector: 'app-doc-holder-placeholder',
+  templateUrl: 'doc-holder-placeholder.html'
+})
+export class DocHolderPlaceholderComponent {
 }

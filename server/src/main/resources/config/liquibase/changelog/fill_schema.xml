@@ -10,4 +10,49 @@
                   separator=";"
                   tableName="users"/>
     </changeSet>
+
+    <changeSet id="101220171035" author="blink7">
+        <loadData tableName="checkpoints"
+                  file="config/liquibase/checkpoints.csv"
+                  separator=";"/>
+
+        <loadData tableName="warehouses"
+                  file="config/liquibase/warehouses.csv"
+                  separator=";"/>
+
+        <loadData tableName="item_unit_codes"
+                  file="config/liquibase/item_unit_codes.csv"
+                  separator=";"/>
+
+        <loadData tableName="items"
+                  file="config/liquibase/items.csv"
+                  separator=";"/>
+
+        <loadData tableName="car_park"
+                  file="config/liquibase/cars.csv"
+                  separator=";"/>
+
+        <loadData tableName="clients"
+                  file="config/liquibase/clients.csv"
+                  separator=";"/>
+
+        <loadData tableName="waybills"
+                  file="config/liquibase/waybills.csv"
+                  separator=";"/>
+
+        <loadData tableName="waybills_has_checkpoints"
+                  file="config/liquibase/waybills_has_checkpoints.csv"
+                  separator=";">
+
+            <column name="checkpoint_checked" type="BOOLEAN"/>
+        </loadData>
+
+        <loadData tableName="invoices"
+                  file="config/liquibase/invoices.csv"
+                  separator=";"/>
+
+        <loadData tableName="item_consignments"
+                  file="config/liquibase/item_consignments.csv"
+                  separator=";"/>
+    </changeSet>
 </databaseChangeLog>

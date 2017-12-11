@@ -24,17 +24,17 @@ public class Warehouse extends AbstractPersistentObject {
     private String house;
 
     @Column(name = "warehouse_lat")
-    private String lat;
+    private Double lat;
 
     @Column(name = "warehouse_lng")
-    private String lng;
+    private Double lng;
 
     public Warehouse() {
     }
 
     public Warehouse(
             String name, String country, String city, String street,
-            String house, String lat, String lng) {
+            String house, Double lat, Double lng) {
         this.name = name;
         this.country = country;
         this.city = city;
@@ -84,19 +84,19 @@ public class Warehouse extends AbstractPersistentObject {
         this.house = house;
     }
 
-    public String getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
-    public String getLng() {
+    public Double getLng() {
         return lng;
     }
 
-    public void setLng(String lng) {
+    public void setLng(Double lng) {
         this.lng = lng;
     }
 }

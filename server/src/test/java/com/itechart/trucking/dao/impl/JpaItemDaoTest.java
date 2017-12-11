@@ -1,8 +1,8 @@
 package com.itechart.trucking.dao.impl;
 
 import com.itechart.trucking.Application;
-import com.itechart.trucking.dao.impl.JpaItemDao;
 import com.itechart.trucking.domain.Item;
+import com.itechart.trucking.domain.ItemUnit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -38,12 +38,12 @@ public class JpaItemDaoTest {
 
     private static final Integer PRICE= 15;
 
-    private static final Item.Type TYPE = Item.Type.COUNT;
+    private static final ItemUnit UNIT = new ItemUnit("PCS");
 
     @Before
     public void setItem() {
         //itemDao = new JpaItemDao(entityManager);
-        item = new Item(NAME, PRICE, TYPE);
+        item = new Item(NAME, PRICE, UNIT);
     }
 
     @Test

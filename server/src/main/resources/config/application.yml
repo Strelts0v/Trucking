@@ -6,7 +6,7 @@ spring:
   jpa:
     properties:
       hibernate:
-        show_sql: true
+        show_sql: false
         use_sql_comments: true
         format_sql: true
 liquibase:
@@ -15,7 +15,9 @@ liquibase:
 app:
   jwt:
     secret: qwerty
-#logging:
+logging:
+  level:
+    com.itechart.trucking: DEBUG
 #  pattern:
 #    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 #  file: ${catalina.home}/logs/trucking.log

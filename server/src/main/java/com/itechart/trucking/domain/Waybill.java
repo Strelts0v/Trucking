@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author blink7
- * @version 1.1
- * @since 2017-11-23
+ * @version 1.2
+ * @since 2017-12-11
  */
 @Entity
 @Table(name = "waybills")
@@ -18,10 +18,6 @@ public class Waybill extends AbstractPersistentObject {
 
     @OneToOne(mappedBy = "waybill", fetch = FetchType.EAGER)
     private Invoice invoice;
-
-    @OneToOne
-    @JoinColumn(name = "clients_id")
-    private Client client;
 
     @Column(name = "waybill_departure_date")
     @Convert(converter = LocalDateAttributeConverter.class)
@@ -60,14 +56,6 @@ public class Waybill extends AbstractPersistentObject {
 
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
 
     public LocalDate getDepartureDate() {
@@ -157,7 +145,6 @@ public class Waybill extends AbstractPersistentObject {
     public String toString() {
         return "Waybill{" +
                 "invoice=" + invoice +
-                ", client=" + client +
                 ", departureDate=" + departureDate +
                 ", driver=" + driver +
                 ", car=" + car +

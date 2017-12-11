@@ -1,5 +1,8 @@
 export class Checkpoint {
+  id: number;
   name: string;
-  lat: string;
-  lng: string;
+  addition: string;
+  place_id: string;
+  lat: number;
+  lng: number;
 }

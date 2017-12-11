@@ -1,19 +1,17 @@
 package com.itechart.trucking.service.dto;
 
-import com.itechart.trucking.domain.Item;
-
 /**
  * A DTO representing a item.
  *
  * @author blink7
- * @version 1.1
- * @since 2017-11-23
+ * @version 1.2
+ * @since 2017-12-11
  */
 public class ItemDto extends AbstractDto {
 
     private String name;
     private Integer price;
-    private Item.Type type;
+    private String unitCode;
 
     public String getName() {
         return name;
@@ -31,11 +29,11 @@ public class ItemDto extends AbstractDto {
         this.price = price;
     }
 
-    public Item.Type getType() {
-        return type;
+    public String getUnitCode() {
+        return unitCode;
     }
 
-    public void setType(Item.Type type) {
-        this.type = type;
+    public void setUnitCode(String unitCode) {
+        this.unitCode = unitCode;
     }
 }

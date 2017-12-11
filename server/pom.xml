@@ -20,6 +20,24 @@
         <hibernate.jpamodelgen.version>5.2.12.Final</hibernate.jpamodelgen.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>prod</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <liquibase.properties.path>src/main/resources/config/liquibase/liquibase.yml</liquibase.properties.path>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <liquibase.properties.path>src/main/resources/config/liquibase/liquibase-test.yml</liquibase.properties.path>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -90,17 +108,7 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>${liquibase.version}</version>
                 <configuration>
-                    <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
-                    <diffChangeLogFile>src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
-                    <driver>com.mysql.jdbc.Driver</driver>
-                    <url>jdbc:mysql://localhost:3306/itechart_group_db?autoReconnect=true&amp;useSSL=false</url>
-                    <defaultSchemaName>itechart_group_db</defaultSchemaName>
-                    <username>root</username>
-                    <emptyPassword>true</emptyPassword>
-                    <referenceUrl>hibernate:spring:com.itechart.domain?dialect=org.hibernate.dialect.MySQL5InnoDBDialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
-                    <verbose>true</verbose>
-                    <logging>debug</logging>
-                    <dropFirst>true</dropFirst>
+                    <propertyFile>${liquibase.properties.path}</propertyFile>
                 </configuration>
             </plugin>
 

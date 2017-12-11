@@ -11,7 +11,7 @@ import { UserService } from './../index';
 
 export class UserListComponent implements OnInit, AfterViewInit {
 
-  header = 'User list';
+  header = 'Place list';
   displayedColumns = ['name', 'login', 'role'];
   dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
 

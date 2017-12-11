@@ -11,12 +11,16 @@ import java.util.List;
  * An Invoice.
  *
  * @author blink7
- * @version 1.3
- * @since 2017-11-24
+ * @version 1.4
+ * @since 2017-12-11
  */
 @Entity
 @Table(name = "invoices")
 public class Invoice extends AbstractPersistentObject {
+
+    @OneToOne
+    @JoinColumn(name = "clients_id")
+    private Client client;
 
     @Column(name = "invoice_issuedate")
     @Convert(converter = LocalDateAttributeConverter.class)
@@ -51,6 +55,14 @@ public class Invoice extends AbstractPersistentObject {
     @Column(name = "act_date_issue")
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate lossActIssueDate;
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     public LocalDate getIssueDate() {
         return issueDate;

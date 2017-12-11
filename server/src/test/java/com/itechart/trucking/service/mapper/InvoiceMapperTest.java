@@ -71,12 +71,12 @@ public class InvoiceMapperTest {
         assertEquals("Expected the same string representation of the date",
                 ISSUE_DATE.format(DateTimeFormatter.ofPattern(Constants.DATE_FORMAT)), invoiceDto.getIssueDate());
 
-        assertNotNull("Expected non null ItemConsignment list", invoiceDto.getItemConsignments());
-        assertFalse("Expected non empty ItemConsignment list", invoiceDto.getItemConsignments().isEmpty());
+        assertNotNull("Expected non null ItemConsignment list", invoiceDto.getConsignments());
+        assertFalse("Expected non empty ItemConsignment list", invoiceDto.getConsignments().isEmpty());
         assertEquals("Expected the same name of the item after converting",
-                ITEM_NAME, invoiceDto.getItemConsignments().get(0).getItem().getName());
+                ITEM_NAME, invoiceDto.getConsignments().get(0).getItem().getName());
         assertEquals("Expected the same amount of the items after converting",
-                ITEM_AMOUNT, invoiceDto.getItemConsignments().get(0).getAmount());
+                ITEM_AMOUNT, invoiceDto.getConsignments().get(0).getAmount());
 
         assertEquals("Expected the same string representation of the date",
                 CHECK_DATE.format(DateTimeFormatter.ofPattern(Constants.DATE_FORMAT)), invoiceDto.getCheckDate());

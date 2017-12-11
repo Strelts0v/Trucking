@@ -2,38 +2,53 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { animate, group, state, style, transition, trigger } from '@angular/animations';
 
-import { Item, ItemUnit } from '../../item';
+import { Item } from '../../items/item';
 import { Consignment, ConsignmentStatus } from '../consignment';
 import { Invoice } from '../invoice';
 import { InvoiceService } from '../invoice.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
 import { User } from '../../users';
-import { DocDataService } from '../../doc-holder/doc-data.service';
-import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-invoice-detail',
   templateUrl: './invoice-detail.component.html',
-  styleUrls: ['./invoice-detail.component.sass']
+  styleUrls: ['./invoice-detail.component.sass'],
+  animations: [
+    trigger('shrinkIn', [
+      state('in', style({height: 'auto', transform: 'translateY(0)', opacity: 1})),
+      transition('void => *', [
+        style({height: 10, transform: 'translateY(-50px)', opacity: 0}),
+        group([
+          animate('0.3s ease', style({
+            transform: 'translateY(0)',
+            height: 'auto'
+          })),
+          animate('0.3s ease', style({
+            opacity: 1
+          }))
+        ])
+      ])
+    ])
+  ]
 })
 export class InvoiceDetailComponent implements OnInit {
 
   cForm: FormGroup;
 
-  @Input() id: number;
-  observInvoice = new Subject<Invoice>();
-
-  invoice = new Invoice();
+  @Input() invoice: Invoice;
   user: User;
 
   edit: boolean;
 
   items: Item[] = [
-    {id: 1, name: 'Some product', price: 0, type: ItemUnit.KILOGRAM},
-    {id: 33, name: 'Random stuff', price: 0, type: ItemUnit.LITER},
-    {id: 7, name: 'RAB product', price: 0, type: ItemUnit.PIECE},
+    {id: 1, name: 'Cabbage', price: 0, unitCode: 'BA'},
+    {id: 2, name: 'Wheat vodka', price: 0, unitCode: 'BOX'},
+    {id: 3, name: 'Canned fish', price: 0, unitCode: 'BOX'},
+    {id: 4, name: 'Tablet computer', price: 0, unitCode: 'PCS'},
+    {id: 5, name: 'Laptop', price: 0, unitCode: 'PCS'},
   ];
 
   clients: string[] = [
@@ -49,8 +64,7 @@ export class InvoiceDetailComponent implements OnInit {
               private iconRegistry: MatIconRegistry,
               private sanitizer: DomSanitizer,
               private dialog: MatDialog,
-              private parentDialogRef: MatDialogRef<DocHolderComponent>,
-              private invoiceDataService: DocDataService) {
+              private parentDialogRef: MatDialogRef<DocHolderComponent>) {
 
     iconRegistry.addSvgIcon(
       'package_variant',
@@ -61,9 +75,7 @@ export class InvoiceDetailComponent implements OnInit {
     if (!this.edit) {
       this.edit = true;
 
-      this.consignments.controls
-        .forEach(control => control.enable());
-
+      this.consignments.controls.forEach(control => control.enable());
       this.client.enable();
     }
   }
@@ -79,8 +91,6 @@ export class InvoiceDetailComponent implements OnInit {
   }
 
   submit() {
-    this.parentDialogRef.close();
-
     console.log('Invoice saved');
     this.invoice.client = this.cForm.value.client;
     this.invoice.consignments = this.cForm.value.consignments;
@@ -89,28 +99,6 @@ export class InvoiceDetailComponent implements OnInit {
 
   cancel() {
     console.log('Invoice canceled');
-  }
-
-  get client(): FormControl {
-    return this.cForm.controls.client as FormControl;
-  }
-
-  get consignments(): FormArray {
-    return this.cForm.controls.consignments as FormArray;
-  }
-
-  addItem(consignment?: Consignment) {
-    this.consignments.push(
-      this.fb.group({
-        item: [{value: consignment && consignment.item, disabled: !this.edit}],
-        amount: [{value: consignment && consignment.amount, disabled: !this.edit}],
-        status: [{value: consignment && consignment.status, disabled: !this.edit}]
-      })
-    );
-  }
-
-  deleteItem(index: number) {
-    this.consignments.removeAt(index);
   }
 
   getConsignmentStatuses(): ConsignmentStatus[] {
@@ -133,19 +121,42 @@ export class InvoiceDetailComponent implements OnInit {
       && this.edit;
   }
 
-  ngOnInit() {
+  get client(): FormControl {
+    return this.cForm.controls.client as FormControl;
+  }
+
+  get consignments(): FormArray {
+    return this.cForm.controls.consignments as FormArray;
+  }
+
+  addItem(consignment?: Consignment) {
+    this.consignments.push(
+      this.fb.group({
+        item: [{value: consignment && consignment.item, disabled: !this.edit}, Validators.required],
+        amount: [{value: consignment && consignment.amount, disabled: !this.edit}, [Validators.required, Validators.min(0)]],
+        status: [{value: consignment && consignment.status, disabled: !this.edit}, Validators.required]
+      })
+    );
+  }
+
+  deleteItem(index: number) {
+    this.consignments.removeAt(index);
+  }
+
+  initForm() {
     this.cForm = this.fb.group({
       client: [{value: '', disabled: true}, Validators.required],
       consignments: this.fb.array([])
     });
+  }
 
-    if (this.id) {
-      this.invoiceDataService.currentInvoice
-        .subscribe(invoice => {
-          this.invoice = invoice;
-          this.invoice.consignments.forEach(consignment => this.addItem(consignment));
-          this.client.setValue(this.invoice.client);
-        });
+  ngOnInit() {
+    this.initForm();
+
+    if (this.invoice.id) {
+      console.log(this.invoice);
+      this.invoice.consignments.forEach(consignment => this.addItem(consignment));
+      this.client.setValue(this.invoice.client);
     } else {
       this.addItem();
       this.toggleEdit();

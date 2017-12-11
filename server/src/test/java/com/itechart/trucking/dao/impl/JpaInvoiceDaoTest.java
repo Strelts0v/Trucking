@@ -50,8 +50,8 @@ public class JpaInvoiceDaoTest {
         invoiceDao = new JpaInvoiceDao(em);
 
         creator = new User();
-        creator.setFirtstname(FIRST_NAME);
-        creator.setLastname(LAST_NAME);
+        creator.setFirstName(FIRST_NAME);
+        creator.setLastName(LAST_NAME);
         //TODO: Replace with UserDao implementation.
         em.persist(creator);
 

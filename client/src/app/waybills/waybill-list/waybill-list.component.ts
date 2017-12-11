@@ -3,7 +3,6 @@ import { MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
 
 import { Waybill, WaybillStatus } from '../waybill';
 import { WaybillService } from '../waybill.service';
-import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
 
 @Component({
   selector: 'app-waybill-list',
@@ -14,7 +13,7 @@ export class WaybillListComponent implements OnInit {
 
   waybillStatus = WaybillStatus;
 
-  displayedColumns = ['id', 'departure_date', 'status', 'from', 'to', 'driver'];
+  displayedColumns = ['from', 'to', 'car_number', 'invoice_id', 'issue_date'];
   dataSource = new MatTableDataSource<Waybill>();
   pageNumber = 1;
   pageSize = 3;
@@ -26,7 +25,7 @@ export class WaybillListComponent implements OnInit {
               private dialog: MatDialog) {
   }
 
-  openWaybillDetail(id?: number) {
+  openWaybillDetail(id: number) {
   }
 
   getWaybills() {

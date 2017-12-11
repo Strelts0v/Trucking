@@ -17,7 +17,7 @@ public class Car extends AbstractPersistentObject {
     private Type type;
 
     @Column(name = "car_consumption")
-    private int consumption;
+    private Integer consumption;
 
     public enum Type {
         CARCASE,
@@ -28,7 +28,7 @@ public class Car extends AbstractPersistentObject {
     public Car() {
     }
 
-    public Car(String name, String number, Type type, int consumption) {
+    public Car(String name, String number, Type type, Integer consumption) {
         this.name = name;
         this.number = number;
         this.type = type;
@@ -59,11 +59,11 @@ public class Car extends AbstractPersistentObject {
         this.type = type;
     }
 
-    public int getConsumption() {
+    public Integer getConsumption() {
         return consumption;
     }
 
-    public void setConsumption(int consumption) {
+    public void setConsumption(Integer consumption) {
         this.consumption = consumption;
     }
 

@@ -15,3 +15,6 @@ liquibase:
 app:
   jwt:
     secret: qwerty
+logging:
+  level:
+    com.itechart.trucking: DEBUG

@@ -1,0 +1,8 @@
+waybills_id;checkpoints_id;checkpoint_datetime;checkpoint_checked
+1;1;2017-12-5;true
+1;2;null;0
+1;3;null;0
+2;1;2017-12-7;true
+2;2;2017-12-8;true
+2;4;null;0
+2;5;null;0

@@ -1,5 +1,5 @@
 <div class="container" [class.is-mobile]="matches">
-  <mat-toolbar color="primary" class="toolbar mat-elevation-z6">
+  <mat-toolbar color="primary" class="toolbar mat-elevation-z6" [@flyInFromTop]="'in'">
     <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
     <h1 class="app-name">
       <span>{{title}}<span class="title-separator" *ngIf="subtitle">&#x2500;</span>{{subtitle}}</span>
@@ -14,7 +14,7 @@
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="matches ? 'over' : 'side'" [fixedInViewport]="matches" fixedTopGap="56" [opened]="!matches">
+    <mat-sidenav #snav [mode]="matches ? 'over' : 'side'" [fixedInViewport]="matches" fixedTopGap="56" [opened]="!matches" [@flyInFromLeft]="'in'">
       <mat-nav-list>
         <a mat-list-item [routerLink]="link.path" *ngFor="let link of navLinks" routerLinkActive="active">
           <span class="nav-item">{{link.label}}</span>

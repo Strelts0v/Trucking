@@ -1,4 +1,4 @@
-import { Item } from '../item';
+import { Item } from '../items/item';
 
 export class Consignment {
   item: Item;
@@ -7,8 +7,8 @@ export class Consignment {
 }
 
 export enum ConsignmentStatus {
-  REGISTERED = 'Registered',
-  CHECKED = 'Checked',
-  DELIVERED = 'Delivered',
-  LOST = 'Lost'
+  REGISTERED = 'REGISTERED',
+  CHECKED = 'CHECKED',
+  DELIVERED = 'DELIVERED',
+  LOST = 'LOST'
 }

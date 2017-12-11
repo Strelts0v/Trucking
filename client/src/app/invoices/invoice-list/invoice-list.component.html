@@ -7,7 +7,7 @@
 
     <ng-container matColumnDef="client">
       <mat-header-cell *matHeaderCellDef>Client</mat-header-cell>
-      <mat-cell *matCellDef="let invoice">{{invoice.client}}</mat-cell>
+      <mat-cell *matCellDef="let invoice">{{invoice.client.name}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="issue_date">
@@ -36,7 +36,7 @@
     </mat-row>
   </mat-table>
 
-  <button mat-fab color="accent" matTooltip="Add new note" class="add-fab-btn" (click)="openInvoiceDetail()">
+  <button mat-fab color="accent" matTooltip="Add new note" class="add-fab-btn" (click)="openInvoiceDetail()" [@flyInFromBottom]="'in'">
     <mat-icon>add</mat-icon>
   </button>
 

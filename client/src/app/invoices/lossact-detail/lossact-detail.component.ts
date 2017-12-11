@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { Invoice } from '../invoice';
 
 @Component({
   selector: 'app-lossact',
@@ -7,10 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LossActDetailComponent implements OnInit {
 
-  constructor() {
-  }
+  @Input() invoice: Invoice;
 
-  loadData() {
+  constructor() {
   }
 
   ngOnInit() {

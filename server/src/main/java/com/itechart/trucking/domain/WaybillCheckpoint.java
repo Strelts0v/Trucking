@@ -8,8 +8,8 @@ import java.time.LocalDate;
 
 /**
  * @author blink7
- * @version 1.0
- * @since 2017-11-18
+ * @version 1.1
+ * @since 2017-12-11
  */
 @Entity
 @Table(name = "waybills_has_checkpoints")
@@ -28,6 +28,9 @@ public class WaybillCheckpoint implements Serializable {
     @Column(name = "checkpoint_datetime")
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate checkDate;
+
+    @Column(name = "checkpoint_checked")
+    private Boolean checked;
 
     public WaybillCheckpoint() {
     }
@@ -59,5 +62,13 @@ public class WaybillCheckpoint implements Serializable {
 
     public void setCheckDate(LocalDate checkDate) {
         this.checkDate = checkDate;
+    }
+
+    public Boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
     }
 }

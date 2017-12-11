@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
+import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 
 import { Invoice, InvoiceStatus } from '../invoice';
 import { InvoiceService } from '../invoice.service';
@@ -8,7 +9,19 @@ import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
 @Component({
   selector: 'app-invoice-list',
   templateUrl: './invoice-list.component.html',
-  styleUrls: ['./invoice-list.component.sass']
+  styleUrls: ['./invoice-list.component.sass'],
+  animations: [
+    trigger('flyInFromBottom', [
+      state('in', style({opacity: 1, transform: 'translateY(0)'})),
+      transition('void => *', [
+        animate(400, keyframes([
+          style({opacity: 0, transform: 'translateY(80%)', offset: 0}),
+          style({opacity: 1, transform: 'translateY(-20px)', offset: 0.3}),
+          style({opacity: 1, transform: 'translateY(0)', offset: 1.0})
+        ]))
+      ])
+    ])
+  ]
 })
 export class InvoiceListComponent implements OnInit {
 
@@ -28,7 +41,7 @@ export class InvoiceListComponent implements OnInit {
 
   openInvoiceDetail(id?: number) {
     const dialogRef = this.dialog.open(DocHolderComponent, {
-      panelClass: 'app-document',
+      panelClass: 'app-doc-holder',
       data: {
         type: 'invoice',
         id: id
@@ -54,8 +67,8 @@ export class InvoiceListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getInvoices();
     this.size();
+    this.getInvoices();
   }
 
 }

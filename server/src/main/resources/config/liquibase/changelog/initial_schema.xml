@@ -465,4 +465,84 @@
     <changeSet id="29" author="blink7">
         <modifyDataType tableName="users" columnName="user_password" newDataType="VARCHAR(64)"/>
     </changeSet>
+
+
+    <changeSet id="101220171026" author="blink7">
+        <createTable tableName="item_unit_codes">
+            <column name="id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="unit_code" type="VARCHAR(8)"/>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+
+    <changeSet id="111220171026" author="blink7">
+        <dropForeignKeyConstraint baseTableName="waybills_has_checkpoints" constraintName="fk_waybills_has_checkpoints_waybills1"/>
+        <dropForeignKeyConstraint baseTableName="waybills_has_checkpoints" constraintName="fk_waybills_has_checkpoints_checkpoints1"/>
+        <dropIndex tableName="waybills_has_checkpoints" indexName="fk_waybills_has_checkpoints_waybills1_idx"/>
+        <dropIndex tableName="waybills_has_checkpoints" indexName="fk_waybills_has_checkpoints_checkpoints1"/>
+
+        <createIndex tableName="waybills_has_checkpoints" indexName="fk_waybills_has_checkpoints_waybills1_idx">
+            <column name="waybills_id" type="${idType}"/>
+        </createIndex>
+        <createIndex tableName="waybills_has_checkpoints" indexName="fk_waybills_has_checkpoints_checkpoints1_idx">
+            <column name="checkpoints_id" type="${idType}"/>
+        </createIndex>
+        <addForeignKeyConstraint baseTableName="waybills_has_checkpoints" baseColumnNames="waybills_id"
+                                 constraintName="fk_waybills_has_checkpoints_waybills1"
+                                 referencedTableName="waybills"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="waybills_has_checkpoints" baseColumnNames="checkpoints_id"
+                                 constraintName="fk_waybills_has_checkpoints_checkpoints1"
+                                 referencedTableName="checkpoints"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+
+        <modifyDataType tableName="warehouses" columnName="warehouse_lat" newDataType="DOUBLE"/>
+        <modifyDataType tableName="warehouses" columnName="warehouse_lng" newDataType="DOUBLE"/>
+
+        <dropColumn tableName="items" columnName="item_type"/>
+        <addColumn tableName="items">
+            <column name="unit_id" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="items" baseColumnNames="unit_id"
+                                 constraintName="fk_items_units1"
+                                 referencedTableName="item_unit_codes"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+
+        <modifyDataType tableName="checkpoints" columnName="checkpoint_lat" newDataType="DOUBLE"/>
+        <modifyDataType tableName="checkpoints" columnName="checkpoint_lng" newDataType="DOUBLE"/>
+        <addColumn tableName="checkpoints">
+            <column name="checkpoint_addition_name" type="VARCHAR(45)"/>
+            <column name="checkpoint_place_id" type="VARCHAR(45)"/>
+        </addColumn>
+
+        <addColumn tableName="waybills_has_checkpoints">
+            <column name="checkpoint_checked" type="BOOLEAN"/>
+        </addColumn>
+
+        <dropForeignKeyConstraint baseTableName="waybills" constraintName="fk_waybills_clients1"/>
+        <dropColumn tableName="waybills" columnName="clients_id"/>
+
+        <addColumn tableName="invoices">
+            <column name="clients_id" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="invoices" baseColumnNames="clients_id"
+                                 constraintName="fk_invoices_clients1"
+                                 referencedTableName="clients"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
 </databaseChangeLog>

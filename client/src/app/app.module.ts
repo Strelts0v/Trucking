@@ -33,7 +33,7 @@ import { UserListComponent } from './users/user-list';
 
 import { AuthGuard, AuthService, UserService } from './users';
 import { AppRoutingModule } from './app-routing.module';
-import { DocHolderComponent } from './doc-holder/doc-holder.component';
+import { DocHolderComponent, DocHolderPlaceholderComponent } from './doc-holder/doc-holder.component';
 import { InvoiceDetailComponent } from './invoices/invoice-detail/invoice-detail.component';
 import { InvoiceListComponent } from './invoices/invoice-list/invoice-list.component';
 import { InvoiceService } from './invoices/invoice.service';
@@ -43,7 +43,9 @@ import { WaybillListComponent } from './waybills/waybill-list/waybill-list.compo
 import { WaybillService } from './waybills/waybill.service';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { UserFullNamePipe } from './users/user-full-name.pipe';
-import { DocDataService } from './doc-holder/doc-data.service';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { AgmCoreModule } from '@agm/core';
+import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pipe';
 
 @NgModule({
   imports: [
@@ -76,6 +78,10 @@ import { DocDataService } from './doc-holder/doc-data.service';
         }
       }
     }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCILO4xoPNpMG4_cD50p0JNjh0eMUjaXGo',
+      libraries: ['places']
+    }),
     AppRoutingModule
   ],
   declarations: [
@@ -84,13 +90,16 @@ import { DocDataService } from './doc-holder/doc-data.service';
     MainComponent,
     UserListComponent,
     DocHolderComponent,
+    DocHolderPlaceholderComponent,
     InvoiceDetailComponent,
     InvoiceListComponent,
     WaybillDetailComponent,
     LossActDetailComponent,
     ConfirmDialogComponent,
     WaybillListComponent,
-    UserFullNamePipe
+    UserFullNamePipe,
+    WelcomeComponent,
+    WarehouseFullAddressPipe
   ],
   entryComponents: [
     DocHolderComponent,
@@ -101,8 +110,7 @@ import { DocDataService } from './doc-holder/doc-data.service';
     AuthService,
     UserService,
     InvoiceService,
-    WaybillService,
-    DocDataService
+    WaybillService
   ],
   bootstrap: [AppComponent]
 })

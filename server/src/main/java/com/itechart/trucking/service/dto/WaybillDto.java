@@ -8,14 +8,13 @@ import java.util.List;
  * A DTO representing a waybill.
  *
  * @author blink7
- * @version 1.3
- * @since 2017-11-23
+ * @version 1.4
+ * @since 2017-12-11
  */
 public class WaybillDto {
 
     private Integer id;
     private Integer invoiceId;
-    private ClientDto client;
     private String departureDate;
     private UserDto driver;
     private CarDto car;
@@ -39,14 +38,6 @@ public class WaybillDto {
 
     public void setInvoiceId(Integer invoiceId) {
         this.invoiceId = invoiceId;
-    }
-
-    public ClientDto getClient() {
-        return client;
-    }
-
-    public void setClient(ClientDto client) {
-        this.client = client;
     }
 
     public String getDepartureDate() {

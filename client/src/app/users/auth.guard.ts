@@ -11,13 +11,13 @@ export class AuthGuard implements CanActivate {
     canActivate() {
       this.log(localStorage.getItem('currentUser'));
       if (localStorage.getItem('currentUser')) {
-        this.log('User is singed in');
+        this.log('Place is singed in');
         // logged in so return true
         return true;
       }
 
       // not logged in so redirect to login page
-      this.log('User isn\'t singed in');
+      this.log('Place isn\'t singed in');
       this.router.navigate(['/auth']);
       return false;
     }

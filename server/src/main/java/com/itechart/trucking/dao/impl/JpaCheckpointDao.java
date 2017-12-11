@@ -16,8 +16,8 @@ import java.util.Optional;
 
 /**
  * @author blink7
- * @version 1.0
- * @since 2017-11-20
+ * @version 1.1
+ * @since 2017-12-11
  */
 @Repository
 public class JpaCheckpointDao implements CheckpointDao {
@@ -55,7 +55,7 @@ public class JpaCheckpointDao implements CheckpointDao {
     }
 
     @Override
-    public Optional<Checkpoint> findOneByLocation(String lat, String lng) {
+    public Optional<Checkpoint> findOneByLocation(Double lat, Double lng) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Checkpoint> cq = cb.createQuery(Checkpoint.class);
         Root<Checkpoint> root = cq.from(Checkpoint.class);

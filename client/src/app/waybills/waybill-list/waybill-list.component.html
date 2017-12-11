@@ -1,25 +1,5 @@
 <div class="paginated-table">
   <mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
-      <mat-cell *matCellDef="let waybill">{{waybill.id}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="client">
-      <mat-header-cell *matHeaderCellDef>Client</mat-header-cell>
-      <mat-cell *matCellDef="let waybill">{{invoice.client}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="departure_date">
-      <mat-header-cell *matHeaderCellDef>Departure date</mat-header-cell>
-      <mat-cell *matCellDef="let waybill">{{waybill.departureDate}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-      <mat-cell *matCellDef="let waybill">{{waybill.status}}</mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="from">
       <mat-header-cell *matHeaderCellDef>From</mat-header-cell>
       <mat-cell *matCellDef="let waybill">{{waybill.from}}</mat-cell>
@@ -30,9 +10,19 @@
       <mat-cell *matCellDef="let waybill">{{waybill.to}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="driver">
-      <mat-header-cell *matHeaderCellDef>Driver</mat-header-cell>
-      <mat-cell *matCellDef="let waybill">{{waybill.driver | userFullName}}</mat-cell>
+    <ng-container matColumnDef="car_number">
+      <mat-header-cell *matHeaderCellDef>Car number</mat-header-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.car}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="invoice_id">
+      <mat-header-cell *matHeaderCellDef>Invoice number</mat-header-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.invoiceId}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="issue_date">
+      <mat-header-cell *matHeaderCellDef>Issue date</mat-header-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.issueDate}}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

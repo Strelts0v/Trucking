@@ -23,13 +23,13 @@ import java.util.Set;
 public class User extends AbstractPersistentObject implements UserDetails {
 
     @Column(name = "user_firstname")
-    private String firtstname;
+    private String firstName;
 
     @Column(name = "user_lastname")
-    private String lastname;
+    private String lastName;
 
     @Column(name = "user_middlename")
-    private String middlename;
+    private String middleName;
 
     @Column(name = "user_birthday")
     private Date birthday;
@@ -79,10 +79,10 @@ public class User extends AbstractPersistentObject implements UserDetails {
     public User() {
     }
 
-    public User(String firtstname, String lastname, String middlename, Date birthday, String email, String city, String street, String house, Integer apartment, Set<Role> roles, String login, String password, String passport) {
-        this.firtstname = firtstname;
-        this.lastname = lastname;
-        this.middlename = middlename;
+    public User(String firstName, String lastName, String middleName, Date birthday, String email, String city, String street, String house, Integer apartment, Set<Role> roles, String login, String password, String passport) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
         this.birthday = birthday;
         this.email = email;
         this.city = city;
@@ -131,28 +131,28 @@ public class User extends AbstractPersistentObject implements UserDetails {
         return true;
     }
 
-    public String getFirtstname() {
-        return firtstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirtstname(String firtstname) {
-        this.firtstname = firtstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getMiddlename() {
-        return middlename;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public Date getBirthday() {
@@ -238,9 +238,9 @@ public class User extends AbstractPersistentObject implements UserDetails {
     @Override
     public String toString() {
         return "User{" +
-                "firtstname='" + firtstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", middlename='" + middlename + '\'' +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
                 ", birthday=" + birthday +
                 ", email='" + email + '\'' +
                 ", city='" + city + '\'' +

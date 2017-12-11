@@ -8,14 +8,14 @@ import java.util.Set;
  * A DTO representing a user.
  *
  * @author blink7
- * @version 1.1
- * @since 2017-11-23
+ * @version 1.2
+ * @since 2017-12-11
  */
 public class UserDto extends AbstractDto {
 
-    private String firtstname;
-    private String lastname;
-    private String middlename;
+    private String firstName;
+    private String lastName;
+    private String middleName;
     private String birthday;
     private String email;
     private String city;
@@ -27,28 +27,28 @@ public class UserDto extends AbstractDto {
     private String password;
     private String passport;
 
-    public String getFirtstname() {
-        return firtstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirtstname(String firtstname) {
-        this.firtstname = firtstname;
+    public void setFirstName(String firtstname) {
+        this.firstName = firtstname;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastname) {
+        this.lastName = lastname;
     }
 
-    public String getMiddlename() {
-        return middlename;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
+    public void setMiddleName(String middlename) {
+        this.middleName = middlename;
     }
 
     public String getBirthday() {

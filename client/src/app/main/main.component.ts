@@ -1,12 +1,35 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   moduleId: module.id,
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.sass'],
+  animations: [
+    trigger('flyInFromLeft', [
+      state('in', style({opacity: 1, transform: 'translateX(0)'})),
+      transition('void => *', [
+        style({
+          opacity: 0,
+          transform: 'translateX(-100%)'
+        }),
+        animate('0.3s ease-in')
+      ])
+    ]),
+    trigger('flyInFromTop', [
+      state('in', style({opacity: 1, transform: 'translateY(0)'})),
+      transition('void => *', [
+        style({
+          opacity: 0,
+          transform: 'translateY(-100%)'
+        }),
+        animate('0.3s ease-in')
+      ])
+    ])
+  ]
 })
 
 export class MainComponent implements OnInit {

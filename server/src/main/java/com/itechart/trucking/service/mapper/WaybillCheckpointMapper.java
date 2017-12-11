@@ -11,10 +11,10 @@ import org.mapstruct.factory.Mappers;
  * Mapper for the entity {@link WaybillCheckpoint} and its DTO called {@link WaybillCheckpointDto}.
  *
  * @author blink7
- * @version 1.1
- * @since 2017-11-23
+ * @version 1.2
+ * @since 2017-12-11
  */
-@Mapper
+@Mapper(uses = {UserMapper.class, CarMapper.class, WarehouseMapper.class})
 public interface WaybillCheckpointMapper {
 
     WaybillCheckpointMapper INSTANCE = Mappers.getMapper(WaybillCheckpointMapper.class);

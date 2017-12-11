@@ -4,14 +4,12 @@ import com.itechart.trucking.Application;
 import com.itechart.trucking.dao.InvoiceDao;
 import com.itechart.trucking.dao.ItemDao;
 import com.itechart.trucking.dao.UserDao;
-import com.itechart.trucking.domain.Invoice;
-import com.itechart.trucking.domain.Item;
-import com.itechart.trucking.domain.ItemConsignment;
-import com.itechart.trucking.domain.User;
+import com.itechart.trucking.domain.*;
 import com.itechart.trucking.service.dto.InvoiceDto;
 import com.itechart.trucking.service.dto.ItemConsignmentDto;
 import com.itechart.trucking.service.dto.ItemDto;
 import com.itechart.trucking.service.dto.UserDto;
+import com.itechart.trucking.service.impl.InvoiceServiceImpl;
 import com.itechart.trucking.service.mapper.ItemMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,11 +30,11 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 /**
- * Test class for {@link InvoiceService}
+ * Test class for {@link InvoiceServiceImpl}
  *
  * @author blink7
- * @version 1.0
- * @since 2017-11-24
+ * @version 1.1
+ * @since 2017-12-11
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -44,7 +43,10 @@ import static org.junit.Assert.*;
 public class InvoiceServiceTest {
 
     @Autowired
-    private InvoiceService invoiceService;
+    private EntityManager entityManager;
+
+    @Autowired
+    private InvoiceServiceImpl invoiceService;
 
     @Autowired
     private InvoiceDao invoiceDao;
@@ -57,6 +59,8 @@ public class InvoiceServiceTest {
 
     private User user;
 
+    private ItemUnit itemUnit;
+
     @Autowired
     private ItemMapper itemMapper;
 
@@ -68,12 +72,15 @@ public class InvoiceServiceTest {
     @Before
     public void setUp() {
         user = new User();
-        user.setFirtstname(USER_NAME);
+        user.setFirstName(USER_NAME);
         userDao.addUser(user);
+
+        itemUnit = new ItemUnit("PCS");
+        entityManager.persist(itemUnit);
 
         Item item = new Item();
         item.setName(ITEM_NAME);
-        item.setType(Item.Type.COUNT);
+        item.setUnit(itemUnit);
         itemDao.saveItem(item);
 
         invoiceDto = new InvoiceDto();
@@ -88,7 +95,7 @@ public class InvoiceServiceTest {
         ItemConsignmentDto itemConsignmentDto = new ItemConsignmentDto();
         itemConsignmentDto.setItem(itemDto);
         itemConsignmentDto.setAmount(ITEM_AMOUNT);
-        invoiceDto.setItemConsignments(Collections.singletonList(itemConsignmentDto));
+        invoiceDto.setConsignments(Collections.singletonList(itemConsignmentDto));
     }
 
     @Test
@@ -100,23 +107,23 @@ public class InvoiceServiceTest {
         assertNotNull("Expected some id value", result.get().getId());
 
         assertNotNull("Expected the containing user", result.get().getCreator());
-        assertEquals("Expected the same user name", USER_NAME, result.get().getCreator().getFirtstname());
+        assertEquals("Expected the same user name", USER_NAME, result.get().getCreator().getFirstName());
 
         assertEquals("Expected correct status", Invoice.Status.ISSUED, result.get().getStatus());
 
-        assertNotNull("Expected non null ItemConsignment list", result.get().getItemConsignments());
+        assertNotNull("Expected non null ItemConsignment list", result.get().getConsignments());
         assertEquals("Expected the ItemConsignment list with size = 1",
                 1,
-                result.get().getItemConsignments().size());
+                result.get().getConsignments().size());
         assertEquals("Expected the same item name",
                 ITEM_NAME,
-                result.get().getItemConsignments().get(0).getItem().getName());
+                result.get().getConsignments().get(0).getItem().getName());
         assertEquals("Expected the same item amount",
                 ITEM_AMOUNT,
-                result.get().getItemConsignments().get(0).getAmount());
+                result.get().getConsignments().get(0).getAmount());
         assertEquals("Expected correct status",
                 ItemConsignment.Status.REGISTERED,
-                result.get().getItemConsignments().get(0).getStatus());
+                result.get().getConsignments().get(0).getStatus());
     }
 
     @Test
@@ -131,7 +138,7 @@ public class InvoiceServiceTest {
         Optional<InvoiceDto> result = invoiceService.checkInvoice(invoiceDto, user);
 
         assertTrue("Expected the checked invoice", result.isPresent());
-        assertEquals("Expected the same user name", USER_NAME, result.get().getInspector().getFirtstname());
+        assertEquals("Expected the same user name", USER_NAME, result.get().getInspector().getFirstName());
         assertEquals("Expected correct status", Invoice.Status.CHECKED, result.get().getStatus());
     }
 
@@ -199,14 +206,14 @@ public class InvoiceServiceTest {
         for (int i = 0; i < size; i++) {
             Item item = new Item();
             item.setName(ITEM_NAME + " #" + i);
-            item.setType(Item.Type.COUNT);
+            item.setUnit(itemUnit);
             itemDao.saveItem(item);
 
             ItemConsignmentDto itemConsignmentDto = new ItemConsignmentDto();
             itemConsignmentDto.setItem(itemMapper.itemToItemDto(item));
             itemConsignmentDtos.add(itemConsignmentDto);
         }
-        invoiceDto.setItemConsignments(itemConsignmentDtos);
+        invoiceDto.setConsignments(itemConsignmentDtos);
 
         invoiceDto.setStatus(NEW_INVOICE_STATUS);
 
@@ -216,11 +223,11 @@ public class InvoiceServiceTest {
 
         assertEquals("Expected the same size of the ItemConsignment list",
                 size,
-                result.get().getItemConsignments().size());
+                result.get().getConsignments().size());
         for (int i = 0; i < size; i++) {
             assertEquals("Expected the same item name",
                     ITEM_NAME + " #" + i,
-                    result.get().getItemConsignments().get(i).getItem().getName());
+                    result.get().getConsignments().get(i).getItem().getName());
         }
 
         assertEquals("Expected the new status value", NEW_INVOICE_STATUS, result.get().getStatus());

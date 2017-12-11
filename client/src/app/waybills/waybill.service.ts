@@ -32,9 +32,10 @@ const WAYBILL_DATA: Waybill[] = [
   {
     id: 1,
     invoiceId: 1,
-    departureDate: '6.12.2017',
+    departureDate: '9.12.2017',
     driver: {
-      firstName: 'Oliver',
+      id: 1,
+      firstName: 'Grace',
       lastName: 'Lastname',
       middleName: '',
       birthday: '',
@@ -48,20 +49,25 @@ const WAYBILL_DATA: Waybill[] = [
       password: '',
       passport: ''
     },
-    car: 'Lexus RX 350',
+    car: 'МАЗ 13-33 BY',
     from: 'Minsk',
-    to: 'Grodno',
+    to: 'Moscow',
     waybillCheckpoints: [
       {
-        checkpoint: {name: 'Lida', lat: '53.903044', lng: '25.2589413'},
-        checkDate: ''
-      },
-      {
-        checkpoint: {name: 'Skydzyel', lat: '53.582869', lng: '24.2148433'},
-        checkDate: ''
+        checkpoint:
+          {
+            id: 1,
+            name: 'New York',
+            addition: 'Gag',
+            place_id: 'fag1234',
+            lat: 533553,
+            lng: 533553
+          },
+        checked: true,
+        checkDate: '5.12.2017'
       }
     ],
     status: WaybillStatus.STARTED,
-    issueDate: '6.12.2017'
+    issueDate: '5.12.2017'
   }
 ];

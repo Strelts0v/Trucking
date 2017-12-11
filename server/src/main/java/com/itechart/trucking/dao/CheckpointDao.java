@@ -7,8 +7,8 @@ import java.util.Optional;
 
 /**
  * @author blink7
- * @version 1.0
- * @since 2017-11-20
+ * @version 1.1
+ * @since 2017-12-11
  */
 public interface CheckpointDao {
 
@@ -34,7 +34,7 @@ public interface CheckpointDao {
      * @param lng the geocoded longitude value
      * @return the checkpoint or {@literal null} if none found.
      */
-    Optional<Checkpoint> findOneByLocation(String lat, String lng);
+    Optional<Checkpoint> findOneByLocation(Double lat, Double lng);
 
     /**
      * Saves a given checkpoint.

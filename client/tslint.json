@@ -63,7 +63,7 @@
     ],
     "no-misused-new": true,
     "no-non-null-assertion": true,
-    "no-shadowed-variable": true,
+    "no-shadowed-variable": false,
     "no-string-literal": false,
     "no-string-throw": true,
     "no-switch-case-fall-through": true,
@@ -119,7 +119,7 @@
       true,
       "attribute",
       "app",
-      "camelCase"
+      "kebab-case"
     ],
     "component-selector": [
       true,

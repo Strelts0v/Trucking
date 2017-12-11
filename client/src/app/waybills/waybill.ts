@@ -9,7 +9,7 @@ export class Waybill {
   car: any;
   from: any;
   to: any;
-  waybillCheckpoints: WaybillCheckpoint[];
+  waybillCheckpoints: WaybillCheckpoint[] = [];
   status: WaybillStatus;
   issueDate: string;
 }
