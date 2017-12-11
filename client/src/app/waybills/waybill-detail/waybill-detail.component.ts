@@ -10,6 +10,8 @@ import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
 import DirectionsWaypoint = google.maps.DirectionsWaypoint;
 import MapOptions = google.maps.MapOptions;
+import PredictionSubstring = google.maps.places.PredictionSubstring;
+import PredictionTerm = google.maps.places.PredictionTerm;
 
 import { Invoice } from '../../invoices/invoice';
 import { Waybill } from '../waybill';
@@ -70,7 +72,7 @@ export class WaybillDetailComponent implements OnInit {
       street: '',
       house: '',
       apartment: '',
-      roles: '',
+      roles: [],
       login: '',
       password: '',
       passport: ''
@@ -86,7 +88,7 @@ export class WaybillDetailComponent implements OnInit {
       street: '',
       house: '',
       apartment: '',
-      roles: '',
+      roles: [],
       login: '',
       password: '',
       passport: ''
@@ -256,8 +258,8 @@ export class WaybillDetailComponent implements OnInit {
           this.filteredCheckpoints = result.map(prediction => {
             const checkpoint = new Checkpoint();
             checkpoint.place_id = prediction.place_id;
-            checkpoint.name = prediction.structured_formatting.main_text;
-            checkpoint.addition = prediction.structured_formatting.secondary_text;
+            checkpoint.name = (prediction as AutocompletePrediction).structured_formatting.main_text;
+            checkpoint.addition = (prediction as AutocompletePrediction).structured_formatting.secondary_text;
 
             const geocoder = new google.maps.Geocoder();
             geocoder.geocode({placeId: checkpoint.place_id}, (result, status) => {
@@ -364,4 +366,20 @@ export class WaybillDetailComponent implements OnInit {
 
     this.initMap();
   }
+}
+
+export interface AutocompletePrediction {
+  description: string;
+  matched_substrings: PredictionSubstring[];
+  place_id: string;
+  reference: string;
+  structured_formatting: AutocompleteStructuredFormatting;
+  terms: PredictionTerm[];
+  types: string[];
+}
+
+export interface AutocompleteStructuredFormatting {
+  main_text: string;
+  main_text_matched_substrings: PredictionSubstring[];
+  secondary_text: string;
 }
