@@ -9,12 +9,39 @@ spring:
         show_sql: true
         use_sql_comments: true
         format_sql: true
+  freemarker:
+    suffix: .ftl
+    template-loader-path: classpath:/templates
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: projectjavalab2017@gmail.com
+    password: 123456789ewqdsacxz
+    protocol: smtp
+    default-encoding: UTF-8
+    test-connection: false
+    properties:
+          mail:
+            smtp:
+              auth: true
+              starttls:
+                enable: true
+
+
+
+
 liquibase:
   enabled: true
   change-log: classpath:/config/liquibase/master.xml
+
+
 app:
   jwt:
     secret: qwerty
+
+
+
+
 #logging:
 #  pattern:
 #    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
