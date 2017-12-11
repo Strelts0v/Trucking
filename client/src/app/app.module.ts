@@ -45,9 +45,8 @@ import { UserFullNamePipe } from './users/user-full-name.pipe';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AgmCoreModule } from '@agm/core';
 import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pipe';
-import {CarService} from './cars/car.service';
-import {CarListComponent} from './cars/car-list/car-list.component';
-import {CarDetailComponent} from './cars/car-detail/car-detail.component';
+import { CarService } from './cars/car.service';
+import { CarListComponent } from './cars/car-list/car-list.component';
 
 @NgModule({
   imports: [
@@ -102,8 +101,7 @@ import {CarDetailComponent} from './cars/car-detail/car-detail.component';
     UserFullNamePipe,
     WelcomeComponent,
     WarehouseFullAddressPipe,
-    CarListComponent,
-    CarDetailComponent
+    CarListComponent
   ],
   entryComponents: [
     DocHolderComponent,

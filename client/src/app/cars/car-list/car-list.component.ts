@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Car, CarsType} from '../car';
-import {MatDialog, MatTableDataSource, PageEvent} from '@angular/material';
-import {CarService} from '../car.service';
+import { Component, OnInit } from '@angular/core';
+import { Car } from '../car';
+import { MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
+import { CarService } from '../car.service';
 
 @Component({
   selector: 'app-car-list',
@@ -10,14 +10,12 @@ import {CarService} from '../car.service';
 })
 export class CarListComponent implements OnInit {
 
-
   displayedColumns = ['id', 'name', 'consumption', 'number', 'type'];
   dataSource = new MatTableDataSource<Car>();
   pageNumber = 1;
   pageSize = 3;
   length: number;
   pageEvent: PageEvent;
-
 
   constructor(private carSerivce: CarService,
               private dialog: MatDialog) {

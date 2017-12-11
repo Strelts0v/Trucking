@@ -29,10 +29,8 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @Transactional
-@ActiveProfiles("test")
+@ActiveProfiles("test_vladSyty")
 public class JpaCarDaoTest {
-
-
 
     @Autowired
     private CarDao carDao;

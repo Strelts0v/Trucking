@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
-import {Car, CarsType} from './car';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { Car, CarType } from './car';
 
 @Injectable()
 export class CarService {
@@ -36,7 +36,7 @@ const CARS_DATA: Car[] = [
     id: 1,
     name: 'MaZ 31056',
     consumption: 15,
-    type: CarsType.TANK,
+    type: CarType.TANK,
     number: '1234AE-5'
 
   },
@@ -44,7 +44,7 @@ const CARS_DATA: Car[] = [
     id: 2,
     name: 'DAF 4404',
     consumption: 10,
-    type: CarsType.FRIDGE,
+    type: CarType.FRIDGE,
     number: '1334AE-5'
 
   },
@@ -52,7 +52,7 @@ const CARS_DATA: Car[] = [
     id: 3,
     name: 'Scania AR262',
     consumption: 11,
-    type: CarsType.CARCASE,
+    type: CarType.CARCASE,
     number: '1234AK-5'
 
   },
@@ -60,7 +60,7 @@ const CARS_DATA: Car[] = [
     id: 4,
     name: 'KAMAZ 31056',
     consumption: 15,
-    type: CarsType.FRIDGE,
+    type: CarType.FRIDGE,
     number: '1234BE-5'
 
   },
@@ -68,7 +68,7 @@ const CARS_DATA: Car[] = [
     id: 5,
     name: 'MaZ 31056',
     consumption: 15,
-    type: CarsType.TANK,
+    type: CarType.TANK,
     number: '1236AE-5'
 
   },
@@ -76,7 +76,7 @@ const CARS_DATA: Car[] = [
     id: 6,
     name: 'MaZ 31056',
     consumption: 15,
-    type: CarsType.TANK,
+    type: CarType.TANK,
     number: '1224AE-5'
 
   },
@@ -84,7 +84,7 @@ const CARS_DATA: Car[] = [
     id: 7,
     name: 'MaZ 31056',
     consumption: 15,
-    type: CarsType.TANK,
+    type: CarType.TANK,
     number: '1294AE-5'
 
   },
@@ -92,7 +92,7 @@ const CARS_DATA: Car[] = [
     id: 8,
     name: 'MaZ 31056',
     consumption: 15,
-    type: CarsType.TANK,
+    type: CarType.TANK,
     number: '1235AE-5'
 
   }
