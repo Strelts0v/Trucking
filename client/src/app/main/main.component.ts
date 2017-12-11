@@ -73,6 +73,11 @@ export class MainComponent implements OnInit {
     const dialogRef = this.dialog.open(BithdayCongratulationComponent);
   }
 
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/auth']);
+  }
+
   ngOnInit() {
     this.onResize();
 
@@ -82,10 +87,5 @@ export class MainComponent implements OnInit {
         this.setTitle();
       }
     });
-  }
-
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/auth']);
   }
 }

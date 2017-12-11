@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { User } from './user';
 
@@ -24,20 +24,20 @@ export class AuthService {
   login(email: string, password: string): Observable<string> {
     return this.http
       .post<string>(this.authUrl, {email: email, password: password})
-        .pipe(
-          tap(data => {
-            if (data['token']) {
-              this.log(`fetched token: ${data['token']}`);
-              this.log(`fetched user: ${JSON.stringify(data['user'])}`);
-              this.token = data['token'];
-              this.log(JSON.stringify({ email: email, token: this.token}));
-              localStorage.setItem('token', this.token);
-              localStorage.setItem('currentUser', JSON.stringify(data['user']));
-              return this.token;
-            }
-          }),
-          catchError(this.handleError('login', ''))
-        );
+      .pipe(
+        tap(data => {
+          if (data['token']) {
+            this.log(`fetched token: ${data['token']}`);
+            this.log(`fetched user: ${JSON.stringify(data['user'])}`);
+            this.token = data['token'];
+            this.log(JSON.stringify({email: email, token: this.token}));
+            localStorage.setItem('token', this.token);
+            localStorage.setItem('currentUser', JSON.stringify(data['user']));
+            return this.token;
+          }
+        }),
+        catchError(this.handleError('login', ''))
+      );
   }
 
   logout(): void {
@@ -57,7 +57,7 @@ export class AuthService {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  private handleError<T> (operation = 'operation', result?: T) {
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
       this.logError(error); // log to console instead

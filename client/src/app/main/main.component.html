@@ -5,11 +5,11 @@
       <span>{{title}}<span class="title-separator" *ngIf="subtitle">&#x2500;</span>{{subtitle}}</span>
     </h1>
     <span class="toolbar-spacer"></span>
-    <button mat-icon-button (click)="logout()">
-      <mat-icon>exit_to_app</mat-icon>
-    </button>
     <button mat-icon-button matTooltip="Search">
       <mat-icon>search</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Logout" (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
     </button>
     <button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>

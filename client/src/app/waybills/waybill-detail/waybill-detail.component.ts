@@ -20,6 +20,7 @@ import { Checkpoint } from '../checkpoint';
 import { User } from '../../users';
 import { Warehouse } from '../../warehouses/warehouse';
 import { Car, CarType } from '../../cars/car';
+import { CarService } from '../../cars/car.service';
 
 @Component({
   selector: 'app-waybill-detail',
@@ -92,10 +93,7 @@ export class WaybillDetailComponent implements OnInit {
     }
   ];
 
-  cars: Car[] = [
-    {id: 1, name: 'MAN', number: '32-66 BY', type: CarType.CARCASE, consumption: 0},
-    {id: 2, name: 'МАЗ', number: '13-33 BY', type: CarType.CARCASE, consumption: 0}
-  ];
+  cars: Car[];
 
   warehouses: Warehouse[] = [
     {id: 1, name: 'Warehouse #1', country: 'Belarus', city: 'Minsk', street: 'Jasienina', house: 25, lat: 53.8393172, lng: 27.4090443},
@@ -120,7 +118,8 @@ export class WaybillDetailComponent implements OnInit {
               private sanitizer: DomSanitizer,
               private dialog: MatDialog,
               private parentDialogRef: MatDialogRef<DocHolderComponent>,
-              private mapsAPILoader: MapsAPILoader) {
+              private mapsAPILoader: MapsAPILoader,
+              private carService: CarService) {
 
     iconRegistry.addSvgIcon(
       'routes',
@@ -277,6 +276,11 @@ export class WaybillDetailComponent implements OnInit {
     });
   }
 
+  getCars(): void {
+    this.carService.getCars()
+      .subscribe(cars => this.cars = cars);
+  }
+
   initForm() {
     this.wForm = this.fb.group({
       driver: [{value: '', disabled: true}, Validators.required],
@@ -344,6 +348,8 @@ export class WaybillDetailComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+
+    this.getCars();
 
     if (!this.invoice.waybill) {
       this.addCheckpoint();
