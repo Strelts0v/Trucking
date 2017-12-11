@@ -9,7 +9,7 @@ export class User {
   street: string;
   house: string;
   apartment: string;
-  roles: string;
+  roles: string[];
   login: string;
   password: string;
   passport: string;

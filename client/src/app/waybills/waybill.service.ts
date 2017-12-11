@@ -44,7 +44,7 @@ const WAYBILL_DATA: Waybill[] = [
       street: '',
       house: '',
       apartment: '',
-      roles: '',
+      roles: [''],
       login: '',
       password: '',
       passport: ''

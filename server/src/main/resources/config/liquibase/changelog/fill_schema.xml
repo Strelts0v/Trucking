@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- format for new changeSet id (data + time): ddmmgggghhmm-->
+
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <changeSet id="1" author="Gleb Streltsov">
+    <changeSet id="91220171502" author="Gleb Streltsov">
         <loadData file="config/liquibase/users.csv"
                   separator=";"
                   tableName="users"/>
+    </changeSet>
+
+    <changeSet id="91220171508" author="Gleb Streltsov">
+        <loadData file="config/liquibase/users_has_roles.csv"
+                  separator=";"
+                  tableName="users_has_roles"/>
     </changeSet>
 
     <changeSet id="101220171035" author="blink7">
