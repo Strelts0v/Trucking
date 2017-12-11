@@ -71,7 +71,7 @@
             <column name="user_apartment" type="INT"/>
             <column name="user_role" type="ENUM('S', 'A', 'M', 'D', 'DR', 'O')"/>
             <column name="user_login" type="VARCHAR(50)"/>
-            <column name="user_password" type="VARCHAR(60)"/>
+            <column name="user_password" type="VARCHAR(70)"/>
             <column name="user_passport" type="VARCHAR(45)"/>
         </createTable>
 

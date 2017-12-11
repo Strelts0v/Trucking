@@ -30,7 +30,6 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './users/auth';
 import { MainComponent } from './main';
 import { UserListComponent } from './users/user-list';
-
 import { AuthGuard, AuthService, UserService } from './users';
 import { AppRoutingModule } from './app-routing.module';
 import { DocHolderComponent, DocHolderPlaceholderComponent } from './doc-holder/doc-holder.component';
@@ -46,6 +45,9 @@ import { UserFullNamePipe } from './users/user-full-name.pipe';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AgmCoreModule } from '@agm/core';
 import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pipe';
+import {CarService} from './cars/car.service';
+import {CarListComponent} from './cars/car-list/car-list.component';
+import {CarDetailComponent} from './cars/car-detail/car-detail.component';
 
 @NgModule({
   imports: [
@@ -99,7 +101,9 @@ import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pi
     WaybillListComponent,
     UserFullNamePipe,
     WelcomeComponent,
-    WarehouseFullAddressPipe
+    WarehouseFullAddressPipe,
+    CarListComponent,
+    CarDetailComponent
   ],
   entryComponents: [
     DocHolderComponent,
@@ -109,6 +113,7 @@ import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pi
     AuthGuard,
     AuthService,
     UserService,
+    CarService,
     InvoiceService,
     WaybillService
   ],

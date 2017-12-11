@@ -12,3 +12,9 @@ spring:
 liquibase:
   enabled: true
   change-log: classpath:/config/liquibase/dev_vladSyty.xml
+app:
+  jwt:
+    secret: qwerty
+logging:
+  level:
+    com.itechart.trucking: DEBUG
