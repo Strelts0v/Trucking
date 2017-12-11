@@ -3,31 +3,48 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {Car, CarsType} from './car';
+import {catchError, tap} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class CarService {
 
   private carUrl = 'http://localhost:8080/api/cars';
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
-  getCar(id: number): Observable<Car> {
-    if (id) {
-      return of(CARS_DATA.find(car => car.id === id));
-    } else {
-      return of(new Car());
-    }
+  // getCar(id: number): Observable<Car> {
+  //   if (id) {
+  //     return of(CARS_DATA.find(car => car.id === id));
+  //   } else {
+  //     return of(new Car());
+  //   }
+  // }
+
+  getCars(): Observable<Car[]> {
+    return this.http.get<Car[]>(this.carUrl + `/get_cars` )
+      .pipe(
+        tap(cars => this.log(`fetched users`)),
+        catchError(this.handleError('getCars', []))
+      );
   }
 
-  getCars(pageNumber: number, pageSize: number): Observable<Car[]> {
-    const offset = (pageNumber - 1) * pageSize;
-    return of(CARS_DATA.slice(offset, offset + pageSize));
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      this.log(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    };
   }
 
-  size(): Observable<number> {
-    return of(CARS_DATA.length);
+  private log(message: string) {
+    console.log('UserService: ' + message);
   }
+
+  // size(): Observable<number> {
+  //   return of(CARS_DATA.length);
+  // }
 
 
 }

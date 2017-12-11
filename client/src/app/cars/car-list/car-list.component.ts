@@ -13,7 +13,6 @@ export class CarListComponent implements OnInit {
 
   displayedColumns = ['id', 'name', 'consumption', 'number', 'type'];
   dataSource = new MatTableDataSource<Car>();
-  pageNumber = 1;
   pageSize = 3;
   length: number;
   pageEvent: PageEvent;
@@ -24,26 +23,12 @@ export class CarListComponent implements OnInit {
   }
 
   getCars() {
-    this.carSerivce.getCars(this.pageNumber, this.pageSize)
+    this.carSerivce.getCars()
       .subscribe(cars => this.dataSource.data = cars);
   }
 
-  size() {
-    this.carSerivce.size()
-      .subscribe(length => this.length = length);
-  }
-
-  loadCars(event?: PageEvent) {
-    this.pageNumber = event.pageIndex + 1;
-    this.pageSize = event.pageSize;
-    this.getCars();
-    this.size();
-  }
-
-
   ngOnInit() {
     this.getCars();
-    this.size();
   }
 
 }

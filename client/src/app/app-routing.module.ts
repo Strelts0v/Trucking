@@ -8,6 +8,7 @@ import {UserListComponent} from './users/user-list/user-list.component';
 import {InvoiceListComponent} from './invoices/invoice-list/invoice-list.component';
 import {WaybillListComponent} from './waybills/waybill-list/waybill-list.component';
 import {CarListComponent} from './cars/car-list/car-list.component';
+import {BithdayCongratulationComponent} from './bithday-congratulation/bithday-congratulation.component';
 
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'waybills', component: WaybillListComponent},
   {path: 'cars', component: CarListComponent},
   {path: '', component: MainComponent, canActivate: [AuthGuard]},
-  {path: '**', redirectTo: ''}
+  {path: '**', redirectTo: ''},
+  {path: 'templates', component: BithdayCongratulationComponent}
 ];
 
 @NgModule({
