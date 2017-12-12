@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { ClientService } from './../client.service';
+import { ClientService } from '../client.service';
 
 @Component({
   moduleId: module.id,

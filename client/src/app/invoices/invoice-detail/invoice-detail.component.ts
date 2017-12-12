@@ -11,6 +11,7 @@ import { InvoiceService } from '../invoice.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
 import { User } from '../../users';
+import { Client, ClientService } from '../../clients';
 
 @Component({
   selector: 'app-invoice-detail',
@@ -36,7 +37,7 @@ import { User } from '../../users';
 })
 export class InvoiceDetailComponent implements OnInit {
 
-  lForm: FormGroup;
+  iForm: FormGroup;
 
   @Input() invoice: Invoice;
   user: User;
@@ -51,12 +52,9 @@ export class InvoiceDetailComponent implements OnInit {
     {id: 5, name: 'Laptop', price: 0, unitCode: 'PCS'},
   ];
 
-  clients: string[] = [
-    'State Grid',
-    'China National Petroleum',
-    'Industrial & Commercial Bank of China',
-    'CVS Health',
-    'Amazon'
+  clients: Client[] = [
+    {id: 1, name: 'Торговая сила'},
+    {id: 2, name: 'IBM'}
   ];
 
   constructor(private fb: FormBuilder,
@@ -64,14 +62,15 @@ export class InvoiceDetailComponent implements OnInit {
               private iconRegistry: MatIconRegistry,
               private sanitizer: DomSanitizer,
               private dialog: MatDialog,
-              private parentDialogRef: MatDialogRef<DocHolderComponent>) {
+              private parentDialogRef: MatDialogRef<DocHolderComponent>,
+              private clientService: ClientService) {
 
     iconRegistry.addSvgIcon(
       'package_variant',
       sanitizer.bypassSecurityTrustResourceUrl('assets/icon/package-variant.svg'));
   }
 
-  toggleEdit() {
+  toggleEdit(): void {
     if (!this.edit) {
       this.edit = true;
 
@@ -90,20 +89,24 @@ export class InvoiceDetailComponent implements OnInit {
     });
   }
 
-  submit() {
+  submit(): void {
     console.log('Invoice saved');
-    this.invoice.client = this.lForm.value.client;
-    this.invoice.consignments = this.lForm.value.consignments;
+    this.invoice.client = this.iForm.value.client;
+    this.invoice.consignments = this.iForm.value.consignments;
     console.log(JSON.stringify(this.invoice));
   }
 
-  cancel() {
+  cancel(): void {
     console.log('Invoice canceled');
   }
 
   getConsignmentStatuses(): ConsignmentStatus[] {
     return Object.keys(ConsignmentStatus)
       .map(key => ConsignmentStatus[key]);
+  }
+
+  compareClient(client1: Client, client2: Client) {
+    return client1 && client2 && client1.id === client2.id;
   }
 
   compareItem(item1: Item, item2: Item) {
@@ -121,15 +124,20 @@ export class InvoiceDetailComponent implements OnInit {
       && this.edit;
   }
 
+  getClients(): void {
+    this.clientService.getClients(1)
+      .subscribe(clients => this.clients = clients);
+  }
+
   get client(): FormControl {
-    return this.lForm.controls.client as FormControl;
+    return this.iForm.controls.client as FormControl;
   }
 
   get consignments(): FormArray {
-    return this.lForm.controls.consignments as FormArray;
+    return this.iForm.controls.consignments as FormArray;
   }
 
-  addItem(consignment?: Consignment) {
+  addItem(consignment?: Consignment): void {
     this.consignments.push(
       this.fb.group({
         item: [{value: consignment && consignment.item, disabled: !this.edit}, Validators.required],
@@ -143,18 +151,19 @@ export class InvoiceDetailComponent implements OnInit {
     this.consignments.removeAt(index);
   }
 
-  initForm() {
-    this.lForm = this.fb.group({
+  initForm(): void {
+    this.iForm = this.fb.group({
       client: [{value: '', disabled: true}, Validators.required],
       consignments: this.fb.array([])
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initForm();
 
+    // this.getClients();
+
     if (this.invoice.id) {
-      console.log(this.invoice);
       this.invoice.consignments.forEach(consignment => this.addItem(consignment));
       this.client.setValue(this.invoice.client);
     } else {

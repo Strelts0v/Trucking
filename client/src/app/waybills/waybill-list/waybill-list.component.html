@@ -2,17 +2,17 @@
   <mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="from">
       <mat-header-cell *matHeaderCellDef>From</mat-header-cell>
-      <mat-cell *matCellDef="let waybill">{{waybill.from}}</mat-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.from.name}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="to">
       <mat-header-cell *matHeaderCellDef>To</mat-header-cell>
-      <mat-cell *matCellDef="let waybill">{{waybill.to}}</mat-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.to.name}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="car_number">
       <mat-header-cell *matHeaderCellDef>Car number</mat-header-cell>
-      <mat-cell *matCellDef="let waybill">{{waybill.car}}</mat-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.car.name}} {{waybill.car.number}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="invoice_id">
@@ -35,6 +35,6 @@
                  [length]="length"
                  [pageSize]="pageSize"
                  [pageSizeOptions]="[3, 5]"
-                 (page)="pageEvent = loadInvoices($event)">
+                 (page)="pageEvent = loadWaybills($event)">
   </mat-paginator>
 </div>

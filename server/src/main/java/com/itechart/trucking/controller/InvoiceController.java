@@ -21,8 +21,8 @@ import static com.itechart.trucking.util.Constants.*;
  * REST controller for managing invoices.
  *
  * @author blink7
- * @version 1.0
- * @since 2017-12-11
+ * @version 1.1
+ * @since 2017-12-12
  */
 @RestController
 @RequestMapping("/api")
@@ -42,14 +42,12 @@ public class InvoiceController {
     @GetMapping("/invoice/{id:" + NUMBER_REGEX + "}")
     public ResponseEntity<InvoiceDto> getInvoice(@PathVariable int id) {
         log.debug("REST request to get an Invoice for id: {}", id);
-
         return ResponseUtil.wrapOrNotFound(invoiceService.getInvoiceById(id));
     }
 
     @GetMapping("/invoices/{page:" + NUMBER_REGEX + "}/{size:" + NUMBER_REGEX + "}")
     public ResponseEntity<List<InvoiceDto>> getAllInvoices(@PathVariable int page, @PathVariable int size) {
         log.debug("REST request to get all Invoices for page: {} and size: {}", page, size);
-
         final List<InvoiceDto> invoices = invoiceService.getAllInvoices(page, size);
         return new ResponseEntity<>(invoices, HttpStatus.OK);
     }
@@ -57,6 +55,7 @@ public class InvoiceController {
     @GetMapping("/invoices/size")
     public ResponseEntity<Integer> getTotalInvoicesSize() {
         final int size = invoiceDao.size();
+        log.debug("REST request to get total Invoices size: {}", size);
         return new ResponseEntity<>(size, HttpStatus.OK);
     }
 }

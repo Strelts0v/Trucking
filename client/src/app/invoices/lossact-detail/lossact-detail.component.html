@@ -12,15 +12,14 @@
     </div>
 
     <div class="header-sidebar-right">
-      <button mat-icon-button matTooltip="Edit invoice" (click)="toggleEdit()" *ngIf="!edit">
+      <button mat-icon-button matTooltip="Edit act" (click)="toggleEdit()" *ngIf="!edit">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
-        <button mat-menu-item>Create waybill</button>
-        <button mat-menu-item (click)="deleteInvoice()">Delete note</button>
+        <button mat-menu-item (click)="deleteLossAct()">Delete act</button>
       </mat-menu>
       <button mat-icon-button matTooltip="Close" [mat-dialog-close]>
         <mat-icon>close</mat-icon>
@@ -29,7 +28,7 @@
   </div>
 
   <mat-card-content>
-    <form id="cForm" [formGroup]="lForm" (ngSubmit)="lForm.valid && submit()">
+    <form id="lForm" [formGroup]="lForm" (ngSubmit)="lForm.valid && submit()">
       <div class="row">
         <div class="col-1">
           <p>Lost items:</p>
@@ -86,6 +85,6 @@
 
 <mat-dialog-actions>
   <button mat-button color="primary" mat-dialog-close (click)="cancel()">CANCEL</button>
-  <button mat-button color="primary" type="submit" form="cForm" [disabled]="!edit">APPLY</button>
+  <button mat-button color="primary" type="submit" form="lForm" [disabled]="!edit">APPLY</button>
 </mat-dialog-actions>
 -->

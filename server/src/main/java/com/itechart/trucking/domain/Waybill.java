@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author blink7
- * @version 1.2
- * @since 2017-12-11
+ * @version 1.3
+ * @since 2017-12-12
  */
 @Entity
 @Table(name = "waybills")
@@ -39,7 +39,7 @@ public class Waybill extends AbstractPersistentObject {
     @JoinColumn(name = "warehouses_id_to")
     private Warehouse to;
 
-    @OneToMany(mappedBy = "waybill", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "waybill", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<WaybillCheckpoint> waybillCheckpoints = new ArrayList<>();
 
     @Column(name = "waybill_status")

@@ -1,73 +1,58 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Waybill, WaybillStatus } from './waybill';
 import { of, } from 'rxjs/observable/of';
+import { catchError, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
+import { Waybill } from './waybill';
 
 @Injectable()
 export class WaybillService {
 
-  constructor() {
+  private waybillsUrl = 'waybills';
+  private waybillUrl = 'waybill';
+
+  constructor(private http: HttpClient) {
   }
 
   getWaybill(id: number): Observable<Waybill> {
-    if (id) {
-      return of(WAYBILL_DATA.find(waybill => waybill.id === id));
-    } else {
-      return of(new Waybill());
-    }
+    const url = `${environment.apiUrl}/${this.waybillUrl}/${id}`;
+    return this.http.get<Waybill>(url)
+      .pipe(
+        tap(_ => this.log(`fetched waybill id=${id}`)),
+        catchError(this.handleError<Waybill>(`get waybill id=${id}`))
+      );
   }
 
   getWaybills(pageNumber: number, pageSize: number): Observable<Waybill[]> {
-    const offset = (pageNumber - 1) * pageSize;
-    return of(WAYBILL_DATA.slice(offset, offset + pageSize));
+    const url = `${environment.apiUrl}/${this.waybillsUrl}/${pageNumber}/${pageSize}`;
+    return this.http.get<Waybill[]>(url)
+      .pipe(
+        tap(waybills => this.log('fetched waybills')),
+        catchError(this.handleError('getWaybills', []))
+      );
   }
 
   size(): Observable<number> {
-    return of(WAYBILL_DATA.length);
+    const url = `${environment.apiUrl}/${this.waybillsUrl}/size`;
+    return this.http.get<number>(url)
+      .pipe(
+        tap(size => this.log(`fetched waybills size=${size}`)),
+        catchError(this.handleError('waybills size', 0))
+      );
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      this.log(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    };
+  }
+
+  private log(message: string) {
+    console.log('WaybillService: ' + message);
   }
 
 }
-
-const WAYBILL_DATA: Waybill[] = [
-  {
-    id: 1,
-    invoiceId: 1,
-    departureDate: '9.12.2017',
-    driver: {
-      id: 1,
-      firstName: 'Grace',
-      lastName: 'Lastname',
-      middleName: '',
-      birthday: '',
-      email: '',
-      city: '',
-      street: '',
-      house: '',
-      apartment: '',
-      roles: [''],
-      login: '',
-      password: '',
-      passport: ''
-    },
-    car: 'МАЗ 13-33 BY',
-    from: 'Minsk',
-    to: 'Moscow',
-    waybillCheckpoints: [
-      {
-        checkpoint:
-          {
-            id: 1,
-            name: 'New York',
-            addition: 'Gag',
-            place_id: 'fag1234',
-            lat: 533553,
-            lng: 533553
-          },
-        checked: true,
-        checkDate: '5.12.2017'
-      }
-    ],
-    status: WaybillStatus.STARTED,
-    issueDate: '5.12.2017'
-  }
-];

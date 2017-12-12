@@ -42,9 +42,9 @@ export class MainComponent implements OnInit {
   matches: boolean;
   navLinks = [
     {label: 'Users', path: '/users'},
-    {label: 'Consignment notes', path: '/invoices'},
-    {label: 'Waybills', path: '/waybills'},
     {label: 'Clients', path: '/clients'},
+    {label: 'Consignment notes', path: '/invoices'},
+    {label: 'Waybills', path: '/waybills'}
   ];
 
   constructor(private titleService: Title,

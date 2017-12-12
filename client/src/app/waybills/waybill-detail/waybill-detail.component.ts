@@ -2,10 +2,8 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
-import { map, startWith, tap } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { animate, group, state, style, transition, trigger } from '@angular/animations';
-
-import { MapsAPILoader } from '@agm/core';
 
 import {} from '@types/googlemaps';
 import DirectionsWaypoint = google.maps.DirectionsWaypoint;
@@ -21,7 +19,7 @@ import { WaybillCheckpoint } from '../waybill-checkpoint';
 import { Checkpoint } from '../checkpoint';
 import { User } from '../../users';
 import { Warehouse } from '../../warehouses/warehouse';
-import { Car, CarType } from '../../cars/car';
+import { Car } from '../../cars/car';
 import { CarService } from '../../cars/car.service';
 
 @Component({
@@ -120,7 +118,6 @@ export class WaybillDetailComponent implements OnInit {
               private sanitizer: DomSanitizer,
               private dialog: MatDialog,
               private parentDialogRef: MatDialogRef<DocHolderComponent>,
-              private mapsAPILoader: MapsAPILoader,
               private carService: CarService) {
 
     iconRegistry.addSvgIcon(
@@ -251,30 +248,28 @@ export class WaybillDetailComponent implements OnInit {
   }
 
   searchPlace(term: string) {
-    this.mapsAPILoader.load().then(() => {
-      const service = new google.maps.places.AutocompleteService();
-      service.getPlacePredictions({input: term, types: ['(cities)']}, (result, status) => {
-        if (status.toString() === 'OK') {
-          this.filteredCheckpoints = result.map(prediction => {
-            const checkpoint = new Checkpoint();
-            checkpoint.place_id = prediction.place_id;
-            checkpoint.name = (prediction as AutocompletePrediction).structured_formatting.main_text;
-            checkpoint.addition = (prediction as AutocompletePrediction).structured_formatting.secondary_text;
+    const service = new google.maps.places.AutocompleteService();
+    service.getPlacePredictions({input: term, types: ['(cities)']}, (result, status) => {
+      if (status.toString() === 'OK') {
+        this.filteredCheckpoints = result.map(prediction => {
+          const checkpoint = new Checkpoint();
+          checkpoint.place_id = prediction.place_id;
+          checkpoint.name = (prediction as AutocompletePrediction).structured_formatting.main_text;
+          checkpoint.addition = (prediction as AutocompletePrediction).structured_formatting.secondary_text;
 
-            const geocoder = new google.maps.Geocoder();
-            geocoder.geocode({placeId: checkpoint.place_id}, (result, status) => {
-              if (status.toString() === 'OK') {
-                checkpoint.lat = result[0].geometry.location.lat();
-                checkpoint.lng = result[0].geometry.location.lng();
-              }
-            });
-
-            return checkpoint;
+          const geocoder = new google.maps.Geocoder();
+          geocoder.geocode({placeId: checkpoint.place_id}, (result, status) => {
+            if (status.toString() === 'OK') {
+              checkpoint.lat = result[0].geometry.location.lat();
+              checkpoint.lng = result[0].geometry.location.lng();
+            }
           });
 
-          console.log(this.filteredCheckpoints);
-        }
-      });
+          return checkpoint;
+        });
+
+        console.log(this.filteredCheckpoints);
+      }
     });
   }
 
@@ -291,21 +286,6 @@ export class WaybillDetailComponent implements OnInit {
       waybillCheckpoints: this.fb.array([]),
       to: [{value: '', disabled: true}, Validators.required],
       status: [{value: '', disabled: true}]
-    });
-  }
-
-  initMap() {
-    if (this.map) {
-      return;
-    }
-
-    this.mapsAPILoader.load().then(() => {
-      const mapProp: MapOptions = {
-        zoom: 5,
-        center: {lat: 53.6960092, lng: 25.7356085},
-        gestureHandling: 'cooperative'
-      };
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapProp);
     });
   }
 
@@ -348,6 +328,15 @@ export class WaybillDetailComponent implements OnInit {
     });
   }
 
+  setMap(event) {
+    this.map = event.map;
+
+    const mapOptions: MapOptions = {
+      gestureHandling: 'cooperative'
+    };
+    this.map.setOptions(mapOptions);
+  }
+
   ngOnInit() {
     this.initForm();
 
@@ -363,8 +352,6 @@ export class WaybillDetailComponent implements OnInit {
       this.waybill.waybillCheckpoints.forEach(waybillCheckpoint => this.addCheckpoint(waybillCheckpoint));
       this.to.setValue(this.waybill.to);
     }
-
-    this.initMap();
   }
 }
 

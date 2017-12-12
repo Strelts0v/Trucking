@@ -3,6 +3,7 @@ import { MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
 
 import { Waybill, WaybillStatus } from '../waybill';
 import { WaybillService } from '../waybill.service';
+import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
 
 @Component({
   selector: 'app-waybill-list',
@@ -26,6 +27,13 @@ export class WaybillListComponent implements OnInit {
   }
 
   openWaybillDetail(id: number) {
+    const dialogRef = this.dialog.open(DocHolderComponent, {
+      panelClass: 'app-doc-holder',
+      data: {
+        type: 'waybill',
+        id: id
+      }
+    });
   }
 
   getWaybills() {
@@ -46,8 +54,8 @@ export class WaybillListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getWaybills();
     this.size();
+    this.getWaybills();
   }
 
 }

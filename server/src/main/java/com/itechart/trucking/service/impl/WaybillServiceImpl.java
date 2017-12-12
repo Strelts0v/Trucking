@@ -4,6 +4,7 @@ import com.itechart.trucking.dao.ClientDao;
 import com.itechart.trucking.dao.InvoiceDao;
 import com.itechart.trucking.dao.WaybillDao;
 import com.itechart.trucking.domain.Waybill;
+import com.itechart.trucking.service.WaybillService;
 import com.itechart.trucking.service.dto.WaybillDto;
 import com.itechart.trucking.service.mapper.WaybillMapper;
 import com.itechart.trucking.util.Constants;
@@ -15,18 +16,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service class for managing waybills.
  *
  * @author blink7
- * @version 0.2
- * @since 2017-12-11
+ * @version 0.3
+ * @since 2017-12-12
  */
 @Service
 @Transactional
-public class WaybillServiceImpl {
+public class WaybillServiceImpl implements WaybillService {
 
     private final Logger log = LoggerFactory.getLogger(WaybillServiceImpl.class);
 
@@ -53,5 +56,19 @@ public class WaybillServiceImpl {
                 DateTimeFormatter.ofPattern(Constants.DATE_FORMAT)));
 
         return null;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<WaybillDto> getAllWaybills(int pageNumber, int pageSize) {
+        return waybillDao.findAllByPage(pageNumber, pageSize).stream()
+                .map(waybillMapper::waybillToWaybillDtoForList)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<WaybillDto> getWaybillById(Integer id) {
+        return waybillDao.findOne(id).map(waybillMapper::waybillToWaybillDto);
     }
 }

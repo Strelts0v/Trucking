@@ -1,35 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
-import { AuthService } from './../users/index';
 import { Client } from './client';
-
 
 @Injectable()
 export class ClientService {
 
-  private clientsUrl = 'http://localhost:8080/api/clients';
+  private clientsUrl = 'clients';
 
   constructor (private http: HttpClient) {
   }
 
   getClients(page: number): Observable<Client[]> {
-    if (page <= 0) {
-      return;
-    }
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        // add authorization header with jwt token
-        'Authorization': `Bearer ${AuthService.token}`
-      })
-    };
-
-    // get users from api
-    return this.http.get<Client[]>(this.clientsUrl + `/get_clients?page=${page}`, httpOptions)
+    const url = `${environment.apiUrl}/${this.clientsUrl}/get_clients?page=${page}`;
+    return this.http.get<Client[]>(url)
       .pipe(
         tap(clients => this.log(`fetched clients`)),
         catchError(this.handleError('getClients', []))

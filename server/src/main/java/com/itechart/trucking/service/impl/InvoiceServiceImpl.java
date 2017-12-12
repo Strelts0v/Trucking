@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
  * Service class for managing invoices.
  *
  * @author blink7
- * @version 1.2
- * @since 2017-11-24
+ * @version 1.3
+ * @since 2017-12-12
  */
 @Service
 @Transactional
@@ -103,7 +103,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Transactional(readOnly = true)
     public List<InvoiceDto> getAllInvoices(int pageNumber, int pageSize) {
         return invoiceDao.findAllByPage(pageNumber, pageSize).stream()
-                .map(invoiceMapper::invoiceToInvoiceDto)
+                .map(invoiceMapper::invoiceToInvoiceDtoForList)
                 .collect(Collectors.toList());
     }
 

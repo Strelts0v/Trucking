@@ -12,7 +12,9 @@ import { InvoiceService } from '../invoices/invoice.service';
 export class DocHolderComponent implements OnInit {
 
   selectedTab: number;
-  isLoaded: boolean;
+  isInvoiceLoaded: boolean;
+  isWaybillLoaded: boolean;
+  isLossActLoaded: boolean;
   isTabDisabled = true;
 
   invoice: Invoice;
@@ -37,12 +39,20 @@ export class DocHolderComponent implements OnInit {
       this.invoiceService.getInvoice(this.data.id)
         .subscribe(invoice => {
           this.invoice = invoice;
-          this.isLoaded = true;
+
+          this.isInvoiceLoaded = true;
+          if (this.invoice.waybill) {
+            this.isWaybillLoaded = true;
+          }
+          if (this.invoice.lossActs.length) {
+            this.isLossActLoaded = true;
+          }
+
           this.isTabDisabled = this.invoice.status !== (InvoiceStatus.CHECKED || InvoiceStatus.DELIVERED);
         });
     } else {
       this.invoice = new Invoice();
-      this.isLoaded = true;
+      this.isInvoiceLoaded = true;
     }
   }
 

@@ -32,7 +32,7 @@
   </div>
 
   <mat-card-content>
-    <form id="cForm" [formGroup]="lForm" (ngSubmit)="lForm.valid && submit()">
+    <form id="iForm" [formGroup]="iForm" (ngSubmit)="iForm.valid && submit()">
       <div class="row">
         <div class="col-1">
           <mat-icon class="label-icon">person</mat-icon>
@@ -40,8 +40,8 @@
 
         <div class="col-2">
           <mat-form-field floatPlaceholder="never">
-            <mat-select formControlName="client" placeholder="Client" required>
-              <mat-option *ngFor="let client of clients" [value]="client">{{client}}</mat-option>
+            <mat-select formControlName="client" placeholder="Client" [compareWith]="compareClient" required>
+              <mat-option *ngFor="let client of clients" [value]="client">{{client.name}}</mat-option>
             </mat-select>
             <mat-error *ngIf="client.hasError('required')">Field is required</mat-error>
           </mat-form-field>
@@ -140,5 +140,5 @@
 
 <mat-dialog-actions>
   <button mat-button color="primary" mat-dialog-close (click)="cancel()">CANCEL</button>
-  <button mat-button color="primary" type="submit" form="cForm" [disabled]="!edit">APPLY</button>
+  <button mat-button color="primary" type="submit" form="iForm" [disabled]="!edit">APPLY</button>
 </mat-dialog-actions>
