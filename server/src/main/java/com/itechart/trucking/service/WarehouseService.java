@@ -1,6 +1,7 @@
 package com.itechart.trucking.service;
 
 import com.itechart.trucking.domain.Warehouse;
+import com.itechart.trucking.service.dto.WarehouseDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,14 +18,14 @@ public interface WarehouseService {
      * @param id - unique id of existed warehouse
      * @return Optional warehouse object
      */
-    Optional<Warehouse> getWarehouse(Integer id);
+    Optional<WarehouseDto> getWarehouse(Integer id);
 
     /**
      * gets list of warehouses
      * @param namePattern - part of warehouse name for searching
      * @return list of found warehouse objects
      */
-    List<Warehouse> getWarehousesByName(String namePattern);
+    List<WarehouseDto> getWarehousesByName(String namePattern);
 
     /**
      * Returns all instances of the {@link Warehouse} by the given page number and size.
@@ -32,7 +33,7 @@ public interface WarehouseService {
      * @param pageSize - count of instances in page
      * @return list of warehouse objects per page
      */
-    List<Warehouse> getWarehousesByPage(int pageNumber, int pageSize);
+    List<WarehouseDto> getWarehousesByPage(int pageNumber, int pageSize);
 
     /**
      * gets count of warehouses
