@@ -27,9 +27,8 @@ import {
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
-import { AuthComponent } from './users/auth';
+import { AuthComponent, UserDetailComponent, UserListComponent } from './users/index';
 import { MainComponent } from './main';
-import { UserListComponent } from './users/user-list';
 
 import { AuthGuard, RoleGuard, AuthService, UserService } from './users';
 import { AppRoutingModule } from './app-routing.module';
@@ -44,6 +43,7 @@ import { WaybillService } from './waybills/waybill.service';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { UserFullNamePipe } from './users/user-full-name.pipe';
 import { DocDataService } from './doc-holder/doc-data.service';
+import { ClientListComponent, ClientService } from './clients/index';
 
 @NgModule({
   imports: [
@@ -90,7 +90,9 @@ import { DocDataService } from './doc-holder/doc-data.service';
     LossActDetailComponent,
     ConfirmDialogComponent,
     WaybillListComponent,
-    UserFullNamePipe
+    UserFullNamePipe,
+    ClientListComponent,
+    UserDetailComponent
   ],
   entryComponents: [
     DocHolderComponent,
@@ -103,7 +105,8 @@ import { DocDataService } from './doc-holder/doc-data.service';
     UserService,
     InvoiceService,
     WaybillService,
-    DocDataService
+    DocDataService,
+    ClientService
   ],
   bootstrap: [AppComponent]
 })

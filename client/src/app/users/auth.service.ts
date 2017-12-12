@@ -8,20 +8,31 @@ import { User } from './user';
 @Injectable()
 export class AuthService {
 
+  public static token: string;
+  public static currentUser: User;
+
   private authUrl = 'http://localhost:8080/auth';
 
-  public token: string;
-  private currentUser: User;
+  public static logout(): void {
+    // clear token remove user from local storage to log user out
+    AuthService.token = null;
+    localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
+  }
+
+  public static getToken(): string {
+    return AuthService.token;
+  }
 
   constructor(private http: HttpClient) {
     // set token if saved in local storage
     if (localStorage.getItem('token') && localStorage.getItem('currentUser')) {
-      this.token = JSON.parse(localStorage.getItem('token'));
-      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      AuthService.token = JSON.parse(localStorage.getItem('token'));
+      AuthService.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
   }
 
-  login(email: string, password: string): Observable<string> {
+  login (email: string, password: string): Observable<string> {
     return this.http
       .post<string>(this.authUrl, {email: email, password: password})
         .pipe(
@@ -29,26 +40,15 @@ export class AuthService {
             if (data['token']) {
               this.log(`fetched token: ${data['token']}`);
               this.log(`fetched user: ${JSON.stringify(data['user'])}`);
-              this.token = data['token'];
-              this.log(JSON.stringify({ email: email, token: this.token}));
-              localStorage.setItem('token', this.token);
+              AuthService.token = data['token'];
+              this.log(JSON.stringify({ email: email, token:  AuthService.token}));
+              localStorage.setItem('token',  AuthService.token);
               localStorage.setItem('currentUser', JSON.stringify(data['user']));
-              return this.token;
+              return AuthService.token;
             }
           }),
           catchError(this.handleError('login', ''))
         );
-  }
-
-  logout(): void {
-    // clear token remove user from local storage to log user out
-    this.token = null;
-    localStorage.removeItem('token');
-    localStorage.removeItem('currentUser');
-  }
-
-  getToken(): string {
-    return this.token;
   }
 
   /**

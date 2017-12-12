@@ -18,13 +18,13 @@ export class MainComponent implements OnInit {
   navLinks = [
     {label: 'Users', path: '/users'},
     {label: 'Consignment notes', path: '/invoices'},
-    {label: 'Waybills', path: '/waybills'}
+    {label: 'Waybills', path: '/waybills'},
+    {label: 'Clients', path: '/clients'},
   ];
 
   constructor(private titleService: Title,
               private router: Router,
-              private route: ActivatedRoute,
-              private authService: AuthService) {
+              private route: ActivatedRoute) {
   }
 
   @HostListener('window:resize')
@@ -55,7 +55,7 @@ export class MainComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
+    AuthService.logout();
     this.router.navigate(['/auth']);
   }
 }

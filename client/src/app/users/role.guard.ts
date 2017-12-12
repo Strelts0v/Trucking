@@ -14,7 +14,6 @@ export class RoleGuard implements CanActivate {
     private static readonly OWNER_ROLE = 'OWNER';
 
     constructor(private router: Router) {
-      localStorage.removeItem('currentUser');
     }
 
     canActivate (
@@ -43,13 +42,16 @@ export class RoleGuard implements CanActivate {
       this.log(`Routing state snapshot: ${state.url}`);
       switch (state.url) {
         case '/users': {
-            hasPermissions = this.checkRole (user.roles, RoleGuard.SYSADMIN_ROLE); break;
+          hasPermissions = this.checkRole (user.roles, RoleGuard.SYSADMIN_ROLE); break;
         }
         case '/waybills': {
-            hasPermissions = this.checkRole (user.roles, RoleGuard.MANAGER_ROLE); break;
+          hasPermissions = this.checkRole (user.roles, RoleGuard.MANAGER_ROLE); break;
         }
         case '/invoices': {
-            hasPermissions = this.checkRole (user.roles, RoleGuard.DISPATCHER_ROLE); break;
+          hasPermissions = this.checkRole (user.roles, RoleGuard.DISPATCHER_ROLE); break;
+        }
+        case '/clients': {
+          hasPermissions = this.checkRole (user.roles, RoleGuard.ADMIN_ROLE); break;
         }
       }
       return hasPermissions;
