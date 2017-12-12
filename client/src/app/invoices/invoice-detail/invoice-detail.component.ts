@@ -36,7 +36,7 @@ import { User } from '../../users';
 })
 export class InvoiceDetailComponent implements OnInit {
 
-  cForm: FormGroup;
+  lForm: FormGroup;
 
   @Input() invoice: Invoice;
   user: User;
@@ -92,8 +92,8 @@ export class InvoiceDetailComponent implements OnInit {
 
   submit() {
     console.log('Invoice saved');
-    this.invoice.client = this.cForm.value.client;
-    this.invoice.consignments = this.cForm.value.consignments;
+    this.invoice.client = this.lForm.value.client;
+    this.invoice.consignments = this.lForm.value.consignments;
     console.log(JSON.stringify(this.invoice));
   }
 
@@ -122,11 +122,11 @@ export class InvoiceDetailComponent implements OnInit {
   }
 
   get client(): FormControl {
-    return this.cForm.controls.client as FormControl;
+    return this.lForm.controls.client as FormControl;
   }
 
   get consignments(): FormArray {
-    return this.cForm.controls.consignments as FormArray;
+    return this.lForm.controls.consignments as FormArray;
   }
 
   addItem(consignment?: Consignment) {
@@ -144,7 +144,7 @@ export class InvoiceDetailComponent implements OnInit {
   }
 
   initForm() {
-    this.cForm = this.fb.group({
+    this.lForm = this.fb.group({
       client: [{value: '', disabled: true}, Validators.required],
       consignments: this.fb.array([])
     });

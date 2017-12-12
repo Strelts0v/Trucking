@@ -548,4 +548,11 @@
                                  referencedColumnNames="id"
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
     </changeSet>
+
+    
+    <changeSet id="121220171545" author="blink7">
+        <addColumn tableName="users">
+            <column name="busy" type="BOOLEAN"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

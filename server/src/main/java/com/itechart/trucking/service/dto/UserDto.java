@@ -26,6 +26,7 @@ public class UserDto extends AbstractDto {
     private String login;
     private String password;
     private String passport;
+    private Boolean busy;
 
     public String getFirstName() {
         return firstName;
@@ -129,5 +130,13 @@ public class UserDto extends AbstractDto {
 
     public void setPassport(String passport) {
         this.passport = passport;
+    }
+
+    public Boolean getBusy() {
+        return busy;
+    }
+
+    public void setBusy(Boolean busy) {
+        this.busy = busy;
     }
 }
