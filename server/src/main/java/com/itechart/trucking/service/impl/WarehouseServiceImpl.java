@@ -5,6 +5,7 @@ import com.itechart.trucking.domain.Warehouse;
 import com.itechart.trucking.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.Optional;
  * @since 2017-11-19
  */
 @Service
+@Transactional
 public class WarehouseServiceImpl implements WarehouseService {
 
     @Autowired

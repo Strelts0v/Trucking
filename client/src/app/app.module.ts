@@ -76,7 +76,7 @@ import { BithdayCongratulationComponent } from './bithday-congratulation/bithday
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
-          return localStorage.getItem('authenticationToken');
+          return localStorage.getItem('token');
         }
       }
     }),

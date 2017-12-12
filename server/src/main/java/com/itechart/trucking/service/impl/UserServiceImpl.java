@@ -21,8 +21,6 @@ public class UserServiceImpl implements UserService {
     private final SecurityContextService securityContextService;
     private final UserDao userDao;
 
-    private static final int USERS_PER_PAGE = 20;
-
     @Autowired
     public UserServiceImpl(UserDao userDao,
                            SecurityContextService securityContextService) {
@@ -44,13 +42,42 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsers(int page) {
-        int offset = (page - 1) * USERS_PER_PAGE;
-        return userDao.getUsersByPage(offset, USERS_PER_PAGE);
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+    public List<User> getUsers(int page, int pageSize) {
+        return userDao.getUsersByPage(page, pageSize);
+    }
+
+    @Override
+    public Optional<User> getUserById(Integer id) {
+        return userDao.getUserById(id);
+    }
+
+    @Override
+    public Optional<User> getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
+    }
+
+    @Override
+    public User addUser(User user) {
+        return userDao.addUser(user);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userDao.updateUser(user);
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        userDao.deleteUser(user);
+    }
+
+    @Override
+    public List<User> getUsersByRole(User.Role role) {
+        return userDao.getUsersByRole(role);
     }
 }

@@ -177,4 +177,30 @@ public class JpaUserDaoTest {
         final String errorMessage = "Expected and actual users are different";
         assertEquals(errorMessage, testUser, resultUser.orElse(new User()));
     }
+
+    @Test
+    public void getUsersByRoleShouldReturnCorrespondUserList() throws Exception {
+        User user1 = new User();
+        Set<User.Role> roles1 = new HashSet<>();
+        roles1.add(User.Role.DRIVER);
+        user1.setRoles(roles1);
+        dao.addUser(user1);
+
+        User user2 = new User();
+        Set<User.Role> roles2 = new HashSet<>();
+        roles2.add(User.Role.SYSADMIN);
+        user2.setRoles(roles2);
+        dao.addUser(user2);
+
+        User user3 = new User();
+        Set<User.Role> roles3 = new HashSet<>();
+        roles3.add(User.Role.DRIVER);
+        user3.setRoles(roles3);
+        dao.addUser(user3);
+
+        List<User> resultList = dao.getUsersByRole(User.Role.DRIVER);
+        final int expectedListSize = 2;
+        final String errorMessage = "Expected and actual user list size are different";
+        assertEquals(errorMessage, expectedListSize, resultList.size());
+    }
 }

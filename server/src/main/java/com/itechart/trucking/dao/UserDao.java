@@ -66,4 +66,12 @@ public interface UserDao {
      * @param user - existed client with id in storage
      */
     void deleteUser(User user);
+
+    /**
+     * get all users by specified role
+     *
+     * @param role - role of user
+     * @return list of user instances
+     */
+    List<User> getUsersByRole(User.Role role);
 }

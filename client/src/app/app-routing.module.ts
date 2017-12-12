@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: '', component: MainComponent, data: {title: 'Trucking'}, canActivate: [AuthGuard],
     children: [
-      {path: '', component: WelcomeComponent, data: {title: 'Welcome'}, canActivate: [RoleGuard]},
+      {path: '', component: WelcomeComponent, data: {title: 'Welcome'}, canActivate: [AuthGuard]},
       {path: 'users', component: UserListComponent, data: {title: 'Users'}, canActivate: [RoleGuard]},
       {path: 'invoices', component: InvoiceListComponent, data: {title: 'Consignment notes'}, canActivate: [RoleGuard]},
       {path: 'waybills', component: WaybillListComponent, data: {title: 'Waybills'}, canActivate: [RoleGuard]},
