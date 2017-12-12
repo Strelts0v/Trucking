@@ -27,9 +27,8 @@ import {
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
-import { AuthComponent } from './users/auth';
+import { AuthComponent, UserDetailComponent, UserListComponent } from './users/index';
 import { MainComponent } from './main';
-import { UserListComponent } from './users/user-list';
 import { AuthGuard, RoleGuard, AuthService, UserService } from './users';
 import { AppRoutingModule } from './app-routing.module';
 import { DocHolderComponent, DocHolderPlaceholderComponent } from './doc-holder/doc-holder.component';
@@ -42,6 +41,7 @@ import { WaybillListComponent } from './waybills/waybill-list/waybill-list.compo
 import { WaybillService } from './waybills/waybill.service';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { UserFullNamePipe } from './users/user-full-name.pipe';
+import { ClientListComponent, ClientService } from './clients/index';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AgmCoreModule } from '@agm/core';
 import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pipe';
@@ -103,7 +103,10 @@ import { BithdayCongratulationComponent } from './bithday-congratulation/bithday
     WelcomeComponent,
     WarehouseFullAddressPipe,
     CarListComponent,
-    BithdayCongratulationComponent
+    BithdayCongratulationComponent,
+    UserFullNamePipe,
+    ClientListComponent,
+    UserDetailComponent
   ],
   entryComponents: [
     DocHolderComponent,
@@ -117,7 +120,8 @@ import { BithdayCongratulationComponent } from './bithday-congratulation/bithday
     UserService,
     CarService,
     InvoiceService,
-    WaybillService
+    WaybillService,
+    ClientService
   ],
   bootstrap: [AppComponent]
 })

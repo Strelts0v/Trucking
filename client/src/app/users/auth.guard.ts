@@ -5,7 +5,6 @@ import { Router, CanActivate } from '@angular/router';
 export class AuthGuard implements CanActivate {
 
     constructor(private router: Router) {
-      localStorage.removeItem('currentUser');
     }
 
     canActivate() {

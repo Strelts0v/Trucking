@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../index';
+import { AuthService } from '../auth.service';
 import { User } from '../user';
 
 @Component({
@@ -12,7 +12,7 @@ import { User } from '../user';
   styleUrls: ['auth.component.sass']
 })
 
-export class AuthComponent implements OnInit {
+export class AuthComponent {
   authForm: FormGroup;
   user = new User();
   loading = false;
@@ -24,10 +24,10 @@ export class AuthComponent implements OnInit {
     this.createForm();
   }
 
-  ngOnInit() {
-    // reset login status
-    this.authService.logout();
-  }
+  // ngOnInit() {
+  //   // reset login status
+  //   AuthService.logout();
+  // }
 
   login() {
     this.log(`Logging data: ${JSON.stringify(this.user)}`);
