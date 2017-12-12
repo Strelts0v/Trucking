@@ -70,7 +70,11 @@ export class MainComponent implements OnInit {
   }
 
   openTemplate() {
-    const dialogRef = this.dialog.open(BithdayCongratulationComponent);
+    const dialogRef = this.dialog.open(BithdayCongratulationComponent,{
+      height: '80%',
+      width: '50%',
+
+    });
   }
 
   logout() {

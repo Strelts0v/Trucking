@@ -10,19 +10,21 @@ import { InvoiceListComponent } from './invoices/invoice-list/invoice-list.compo
 import { WaybillListComponent } from './waybills/waybill-list/waybill-list.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { CarListComponent } from './cars/car-list/car-list.component';
+import {BithdayCongratulationComponent} from './bithday-congratulation/bithday-congratulation.component';
 
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
   {
-    path: '', component: MainComponent, canActivate: [AuthGuard], data: {title: 'Trucking'}, children: [
+    path: '', component: MainComponent,  data: {title: 'Trucking'}, children: [
       {path: '', component: WelcomeComponent, data: {title: 'Welcome'}},
-      {path: 'users', component: UserListComponent, canActivate: [RoleGuard], data: {title: 'Users'}},
-      {path: 'invoices', component: InvoiceListComponent, canActivate: [RoleGuard], data: {title: 'Consignment notes'}},
-      {path: 'waybills', component: WaybillListComponent, canActivate: [RoleGuard], data: {title: 'Waybills'}},
+      {path: 'users', component: UserListComponent,  data: {title: 'Users'}},
+      {path: 'invoices', component: InvoiceListComponent,  data: {title: 'Consignment notes'}},
+      {path: 'waybills', component: WaybillListComponent, data: {title: 'Waybills'}},
       {path: 'cars', component: CarListComponent, data: {title: 'Cars'}}
     ]
   },
-  {path: '**', redirectTo: ''}
+  {path: '**', redirectTo: ''},
+  {path: 'template' , component: BithdayCongratulationComponent }
 ];
 
 @NgModule({

@@ -50,10 +50,7 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
         <dependency>
