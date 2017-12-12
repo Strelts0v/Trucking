@@ -22,6 +22,7 @@ import java.util.Optional;
 @Repository
 public class JpaItemDao implements ItemDao{
 
+    @Autowired
     private EntityManager entityManager;
 
     public JpaItemDao(EntityManager entityManager) {
@@ -29,7 +30,7 @@ public class JpaItemDao implements ItemDao{
     }
 
     @Override
-    public List<Item> findAll() {
+    public List<Item> findAllItems() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Item> criteriaQuery = criteriaBuilder.createQuery(Item.class);
         Root<Item> root = criteriaQuery.from(Item.class);
@@ -39,7 +40,7 @@ public class JpaItemDao implements ItemDao{
     }
 
     @Override
-    public List<Item> findAllByPage(int pageNumber, int pageSize) {
+    public List<Item> findAllItemsByPage(int pageNumber, int pageSize) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Item> criteriaQuery = criteriaBuilder.createQuery(Item.class);
         Root<Item> root = criteriaQuery.from(Item.class);
@@ -89,13 +90,5 @@ public class JpaItemDao implements ItemDao{
     @Override
     public void deleteItem(Item item) {
         entityManager.remove(entityManager.merge(item));
-    }
-
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
-    public EntityManager getEntityManager() {
-        return entityManager;
     }
 }

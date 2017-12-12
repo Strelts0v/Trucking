@@ -13,9 +13,9 @@ import java.util.Optional;
 
 public interface ItemDao {
 
-    List<Item> findAll();
+    List<Item> findAllItems();
 
-    List<Item> findAllByPage(int pageNumber, int pageSize);
+    List<Item> findAllItemsByPage(int pageNumber, int pageSize);
 
     Optional<Item> findItemById(Integer id);
 
