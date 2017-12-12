@@ -4,19 +4,19 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
 
-import { AuthService } from './auth.service';
-import { User } from './user';
+import { AuthService } from './../users/index';
+import { Client } from './client';
 
 
 @Injectable()
-export class UserService {
+export class ClientService {
 
-  private userUrl = 'http://localhost:8080/api/users';
+  private clientsUrl = 'http://localhost:8080/api/clients';
 
-  constructor(private http: HttpClient) {
+  constructor (private http: HttpClient) {
   }
 
-  getUsers(page: number): Observable<User[]> {
+  getClients(page: number): Observable<Client[]> {
     if (page <= 0) {
       return;
     }
@@ -29,10 +29,10 @@ export class UserService {
     };
 
     // get users from api
-    return this.http.get<User[]>(this.userUrl + `/get_users?page=${page}`, httpOptions)
+    return this.http.get<Client[]>(this.clientsUrl + `/get_clients?page=${page}`, httpOptions)
       .pipe(
-        tap(users => this.log(`fetched users`)),
-        catchError(this.handleError('getUsers', []))
+        tap(clients => this.log(`fetched clients`)),
+        catchError(this.handleError('getClients', []))
       );
   }
 
@@ -45,6 +45,6 @@ export class UserService {
   }
 
   private log(message: string) {
-    console.log('UserService: ' + message);
+    console.log('ClientService: ' + message);
   }
 }
