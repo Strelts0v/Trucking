@@ -32,6 +32,19 @@ export class RoleGuard implements CanActivate {
       return false;
     }
 
+    isManager() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this.log(currentUser);
+      if (currentUser) {
+        return this.checkRole(currentUser.roles, RoleGuard.MANAGER_ROLE);
+      }
+
+      // not logged in so redirect to login page
+      this.log('User isn\'t singed in');
+      this.router.navigate(['/auth']);
+      return false;
+    }
+
     private log(message: string) {
       console.log('AuthGuard: ' + message);
     }
