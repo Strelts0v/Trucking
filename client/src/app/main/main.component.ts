@@ -45,6 +45,7 @@ export class MainComponent implements OnInit {
     {label: 'Consignment notes', path: '/invoices'},
     {label: 'Waybills', path: '/waybills'},
     {label: 'Clients', path: '/clients'},
+    {label: 'Warehouses', path: '/warehouses'}
   ];
 
   constructor(private titleService: Title,
