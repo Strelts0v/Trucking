@@ -5,6 +5,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatDialog } from '@angular/material';
 import { BithdayCongratulationComponent } from '../bithday-congratulation/bithday-congratulation.component';
 import { AuthService, RoleGuard } from '../users';
+import { User } from '../users/index';
 
 @Component({
   moduleId: module.id,
@@ -38,6 +39,7 @@ import { AuthService, RoleGuard } from '../users';
 export class MainComponent implements OnInit {
   title: string;
   subtitle: string;
+  user: User;
 
   matches: boolean;
   navLinks = [];
@@ -47,6 +49,12 @@ export class MainComponent implements OnInit {
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private roleGuard: RoleGuard) {
+
+    if (localStorage.getItem('currentUser')) {
+      this.user = JSON.parse(localStorage.getItem('currentUser'));
+    } else {
+      this.user = new User();
+    }
   }
 
   @HostListener('window:resize')

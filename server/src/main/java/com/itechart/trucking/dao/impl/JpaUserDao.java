@@ -1,12 +1,12 @@
 package com.itechart.trucking.dao.impl;
 
 import com.itechart.trucking.dao.UserDao;
-import com.itechart.trucking.domain.Item;
 import com.itechart.trucking.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -82,5 +82,15 @@ public class JpaUserDao implements UserDao{
     @Override
     public void deleteUser(User user) {
         em.remove(user);
+    }
+
+    @Override
+    public List<User> getUsersByRole(User.Role role) {
+        final String sqlQuery =
+                "SELECT * FROM users u RIGHT JOIN users_has_roles ur" +
+                " ON u.id = ur.users_id WHERE ur.user_role = 'DR'";
+
+        Query query = em.createNativeQuery(sqlQuery, User.class);
+        return query.getResultList();
     }
 }

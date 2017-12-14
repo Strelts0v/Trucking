@@ -4,12 +4,16 @@
         <!-- Position Column -->
         <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            <mat-cell *matCellDef="let client"> {{client.name}} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openClientDetail(row.name, row)"></mat-row>
     </mat-table>
+
+    <button mat-fab color="accent" matTooltip="Add new note" class="add-fab-btn" (click)="openClientDetail()">
+       <mat-icon>add</mat-icon>
+   </button>
 
     <mat-paginator class="paginator" #paginator
         [pageSize]="10"

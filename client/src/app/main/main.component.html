@@ -5,6 +5,7 @@
       <span>{{title}}<span class="title-separator" *ngIf="subtitle">&#x2500;</span>{{subtitle}}</span>
     </h1>
     <span class="toolbar-spacer"></span>
+    <div class="logged-in-message">Нi, {{user.firstName}}! You're logged in as {{user.roles}}</div>
     <button mat-icon-button matTooltip="Search">
       <mat-icon>search</mat-icon>
     </button>

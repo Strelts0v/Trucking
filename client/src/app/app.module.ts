@@ -22,7 +22,9 @@ import {
   MatToolbarModule,
   MatSidenavModule,
   MatListModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 } from '@angular/material';
 
 import { JwtModule } from '@auth0/angular-jwt';
@@ -50,6 +52,7 @@ import { CarService } from './cars/car.service';
 import { CarListComponent } from './cars/car-list/car-list.component';
 import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
 import { ItemService } from './items/item.service';
+import { ClientDetailComponent } from './clients/index';
 
 @NgModule({
   imports: [
@@ -76,6 +79,8 @@ import { ItemService } from './items/item.service';
     MatSidenavModule,
     MatListModule,
     MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -107,12 +112,15 @@ import { ItemService } from './items/item.service';
     BithdayCongratulationComponent,
     UserFullNamePipe,
     ClientListComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    ClientDetailComponent
   ],
   entryComponents: [
     DocHolderComponent,
     ConfirmDialogComponent,
-    BithdayCongratulationComponent
+    BithdayCongratulationComponent,
+    UserDetailComponent,
+    ClientDetailComponent
   ],
   providers: [
     AuthGuard,

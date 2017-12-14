@@ -5,6 +5,7 @@ import com.itechart.trucking.domain.Client;
 import com.itechart.trucking.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.Optional;
  * @since 2017-11-19
  */
 @Service
+@Transactional
 public class ClientServiceImpl implements ClientService {
 
     @Autowired
