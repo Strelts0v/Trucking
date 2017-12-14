@@ -42,7 +42,8 @@ public class UserController {
     }
 
     @RequestMapping("/add_user")
-    public ResponseEntity<User> addUser(@RequestParam(value="user") User user){
+    public ResponseEntity<User> addUser(@RequestParam(value="userDto") Object userDto){
+        User user = new User();
         User userWithId = service.addUser(user);
         log.info("added user: " + userWithId);
         return new ResponseEntity<>(userWithId, HttpStatus.OK);

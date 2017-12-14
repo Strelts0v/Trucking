@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import { UserService } from './../user.service';
-import { UserDetailComponent } from '../index';
+import { UserDetailComponent } from '../user-detail/user-detail.component';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { User } from './../index';
 
 @Component({
   moduleId: module.id,
@@ -12,22 +14,41 @@ import { UserDetailComponent } from '../index';
 
 export class UserListComponent implements OnInit, AfterViewInit {
 
-  header = 'Place list';
-  displayedColumns = ['name', 'login', 'role'];
-  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-
-  name: string;
-  animal: string;
+  displayedColumns = ['name', 'login', 'available_roles'];
+  dataSource = new MatTableDataSource<User>();
+  pageNumber = 1;
+  pageSize = 10;
+  length: number;
+  pageEvent: PageEvent;
 
   constructor(
-    userService: UserService,
-    dialog: MatDialog) {
+    private userService: UserService,
+    private dialog: MatDialog) {
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit(): void {
+    this.size();
+    this.getUsers();
+  }
 
+  getUsers() {
+    this.userService.getUsers(this.pageNumber, this.pageSize)
+      .subscribe(users => this.dataSource.data = users);
+  }
+
+  size() {
+    this.userService.size()
+      .subscribe(length => this.length = length);
+  }
+
+  loadUsers(event?: PageEvent) {
+    this.pageNumber = event.pageIndex + 1;
+    this.paginator.nextPage();
+    this.pageSize = event.pageSize;
+    this.getUsers();
+    this.size();
   }
 
   /**
@@ -38,48 +59,52 @@ export class UserListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  openUserDetailDialog() {
-    // const dialogRef = this.dialog.open(UserDetailComponent, {
-    //   width: '250px',
-    //   data: { name: this.name, animal: this.animal }
-    // });
+  openUserDetail(id?: number, user?: User) {
+    let isEditable = false;
+    if (user != null) {
+      isEditable = true;
+    }
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   this.animal = result;
-    // });
+    this.log(JSON.stringify(user));
+    if (user == null) {
+      user = new User();
+      this.log(JSON.stringify(user));
+    }
+    const dialogRef = this.dialog.open(UserDetailComponent, {
+      width: '600px',
+      data: { user: user }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      user = <User> result.user;
+      this.log(JSON.stringify(user));
+
+      let originalUser;
+      if (isEditable) {
+        this.log(`EDIT ${JSON.stringify(user)}`);
+        originalUser = this.getUserById(id);
+        let users = this.dataSource.data;
+        users = users.filter(user => user !== originalUser);
+        user.id = originalUser.id;
+        users.push(user);
+      } else {
+        const users = this.dataSource.data;
+        this.log(`ADD ${JSON.stringify(user)}`);
+        users.push(user);
+        this.dataSource.data = users;
+        // this.userService.addUser(user)
+        //   .subscribe(user => this.dataSource.data.push(user));
+      }
+    });
+  }
+
+  private getUserById(id: number): User {
+    const users = this.dataSource.data;
+    return users.filter(user => user.id = id)[0];
+  }
+
+  private log(message: string) {
+    console.log('UserListComponent: ' + message);
   }
 }
-
-export interface Element {
-  name: string;
-  login: string;
-  role: string;
-}
-
-const ELEMENT_DATA: Element[] = [
-  { name: 'Test name1', login: 'Test login1', role: 'SYSADMIN'},
-  { name: 'Test name2', login: 'Test login2', role: 'DISPATCHER'},
-  { name: 'Test name3', login: 'Test login3', role: 'ADMIN'},
-  { name: 'Test name4', login: 'Test login4', role: 'MANAGER'},
-  { name: 'Test name5', login: 'Test login5', role: 'SYSADMIN'},
-  { name: 'Test name6', login: 'Test login6', role: 'SYSADMIN'},
-  { name: 'Test name7', login: 'Test login7', role: 'DRIVER'},
-  { name: 'Test name8', login: 'Test login8', role: 'MANAGER'},
-  { name: 'Test name9', login: 'Test login9', role: 'DISPATCHER'},
-  { name: 'Test name10', login: 'Test login10', role: 'OWNER'},
-  { name: 'Test name11', login: 'Test login11', role: 'SYSADMIN'},
-  { name: 'Test name12', login: 'Test login12', role: 'ADMIN'},
-  { name: 'Test name13', login: 'Test login13', role: 'DRIVER'},
-  { name: 'Test name14', login: 'Test login14', role: 'SYSADMIN'},
-  { name: 'Test name15', login: 'Test login15', role: 'DRIVER'},
-  { name: 'Test name16', login: 'Test login16', role: 'MANAGER'},
-  { name: 'Test name17', login: 'Test login17', role: 'DISPATCHER'},
-  { name: 'Test name18', login: 'Test login18', role: 'ADMIN'},
-  { name: 'Test name19', login: 'Test login19', role: 'OWNER'},
-  { name: 'Test name20', login: 'Test login20', role: 'SYSADMIN'},
-  { name: 'Test name21', login: 'Test login21', role: 'OWNER'},
-  { name: 'Test name22', login: 'Test login22', role: 'DISPATCHER'},
-  { name: 'Test name23', login: 'Test login23', role: 'MANAGER'},
-  { name: 'Test name24', login: 'Test login24', role: 'OWNER'},
-];

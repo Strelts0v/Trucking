@@ -21,7 +21,9 @@ import {
   MatCheckboxModule,
   MatToolbarModule,
   MatSidenavModule,
-  MatListModule
+  MatListModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 } from '@angular/material';
 
 import { JwtModule } from '@auth0/angular-jwt';
@@ -73,11 +75,14 @@ import { BithdayCongratulationComponent } from './bithday-congratulation/bithday
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
           return localStorage.getItem('token');
-        }
+        },
+        whitelistedDomains: ['localhost:8080']
       }
     }),
     AgmCoreModule.forRoot({
@@ -111,7 +116,8 @@ import { BithdayCongratulationComponent } from './bithday-congratulation/bithday
   entryComponents: [
     DocHolderComponent,
     ConfirmDialogComponent,
-    BithdayCongratulationComponent
+    BithdayCongratulationComponent,
+    UserDetailComponent,
   ],
   providers: [
     AuthGuard,

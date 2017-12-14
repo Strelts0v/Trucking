@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,12 +21,15 @@ public class UserServiceImpl implements UserService {
 
     private final SecurityContextService securityContextService;
     private final UserDao userDao;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserDao userDao,
-                           SecurityContextService securityContextService) {
+                           SecurityContextService securityContextService,
+                           PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
         this.securityContextService = securityContextService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -63,6 +67,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userDao.addUser(user);
     }
 

@@ -92,6 +92,5 @@ public class JpaUserDao implements UserDao{
 
         Query query = em.createNativeQuery(sqlQuery, User.class);
         return query.getResultList();
-
     }
 }
