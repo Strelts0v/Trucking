@@ -48,9 +48,11 @@ import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pi
 import { CarService } from './cars/car.service';
 import { CarListComponent } from './cars/car-list/car-list.component';
 import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
+import { BackgroundDirective } from './bithday-congratulation/directive/directive.background';
 
 @NgModule({
   imports: [
+
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -84,7 +86,8 @@ import { BithdayCongratulationComponent } from './bithday-congratulation/bithday
       apiKey: 'AIzaSyCILO4xoPNpMG4_cD50p0JNjh0eMUjaXGo',
       libraries: ['places']
     }),
-    AppRoutingModule
+    AppRoutingModule,
+
   ],
   declarations: [
     AppComponent,
@@ -106,6 +109,7 @@ import { BithdayCongratulationComponent } from './bithday-congratulation/bithday
     BithdayCongratulationComponent,
     UserFullNamePipe,
     ClientListComponent,
+    BackgroundDirective,
     UserDetailComponent
   ],
   entryComponents: [
