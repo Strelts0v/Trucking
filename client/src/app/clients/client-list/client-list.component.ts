@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
-import { ClientService } from './../client.service';
-import { Client } from './../client';
+import { ClientService } from '../client.service';
+import { Client } from '../client';
 import { ClientDetailComponent } from './../client-detail/client-detail.component';
 
 @Component({
@@ -87,8 +87,8 @@ export class ClientListComponent implements OnInit, AfterViewInit {
 }
 
 const CLIENT_DATA: Client[] = [
-  { name: 'IBM' },
-  { name: 'ROS Innovations' },
-  { name: 'Amazon' },
-  { name: 'Google' },
+  { id: 1, name: 'IBM' },
+  { id: 2, name: 'ROS Innovations' },
+  { id: 3, name: 'Amazon' },
+  { id: 4, name: 'Google' },
 ];

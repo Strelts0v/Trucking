@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
-import { UserService } from './../user.service';
+import { UserService } from '../user.service';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { User } from './../index';
+import { User } from '../user';
 
 @Component({
   moduleId: module.id,

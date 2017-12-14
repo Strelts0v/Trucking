@@ -31,9 +31,16 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { GMapModule } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
-import { AuthComponent, UserDetailComponent, UserListComponent } from './users';
 import { MainComponent } from './main';
-import { AuthGuard, RoleGuard, AuthService, UserService } from './users';
+import {
+  AuthGuard,
+  RoleGuard,
+  AuthService,
+  UserService,
+  AuthComponent,
+  UserDetailComponent,
+  UserListComponent
+} from './users';
 import { AppRoutingModule } from './app-routing.module';
 import { DocHolderComponent, DocHolderPlaceholderComponent } from './doc-holder/doc-holder.component';
 import { InvoiceDetailComponent } from './invoices/invoice-detail/invoice-detail.component';
@@ -45,14 +52,17 @@ import { WaybillListComponent } from './waybills/waybill-list/waybill-list.compo
 import { WaybillService } from './waybills/waybill.service';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { UserFullNamePipe } from './users/user-full-name.pipe';
-import { ClientListComponent, ClientService } from './clients';
+import {
+  ClientListComponent,
+  ClientDetailComponent,
+  ClientService
+} from './clients';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pipe';
 import { CarService } from './cars/car.service';
 import { CarListComponent } from './cars/car-list/car-list.component';
 import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
 import { ItemService } from './items/item.service';
-import { ClientDetailComponent } from './clients/index';
 
 @NgModule({
   imports: [
