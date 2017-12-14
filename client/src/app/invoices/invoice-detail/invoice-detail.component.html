@@ -137,7 +137,7 @@
   </mat-card-content>
 </div>
 
-<mat-dialog-actions *ngIf="editAvailability">
+<mat-dialog-actions>
   <button mat-button color="primary" mat-dialog-close (click)="cancel()">CANCEL</button>
-  <button mat-button color="primary" type="submit" form="iForm" [disabled]="!edit">{{saveBtnName | uppercase}}</button>
+  <button mat-button color="primary" type="submit" form="iForm" [disabled]="!edit || !editAvailability">{{saveBtnName | uppercase}}</button>
 </mat-dialog-actions>

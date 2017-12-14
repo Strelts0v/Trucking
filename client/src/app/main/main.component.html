@@ -12,7 +12,7 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
-      <button mat-menu-item (click)="openTemplate()">Template</button>
+      <button mat-menu-item (click)="openTemplate()" *ngIf="templateAvailability()">Template</button>
       <button mat-menu-item (click)="logout()">Logout</button>
     </mat-menu>
   </mat-toolbar>
@@ -20,20 +20,8 @@
   <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="matches ? 56 : 0">
     <mat-sidenav #snav [mode]="matches ? 'over' : 'side'" [fixedInViewport]="matches" fixedTopGap="56" [opened]="!matches" [@flyInFromLeft]="'in'">
       <mat-nav-list>
-        <!--<a mat-list-item [routerLink]="link.path" *ngFor="let link of navLinks" routerLinkActive="active">
+        <a mat-list-item [routerLink]="link.path" *ngFor="let link of navLinks" routerLinkActive="active">
           <span class="nav-item">{{link.label}}</span>
-        </a>-->
-        <a mat-list-item routerLink="/users" routerLinkActive="active" *ngIf="roleGuard.isOwner() || roleGuard.isSysAdmin() || roleGuard.isAdmin()">
-          <span class="nav-item">Users</span>
-        </a>
-        <a mat-list-item routerLink="/clients" routerLinkActive="active" *ngIf="roleGuard.isOwner() || roleGuard.isSysAdmin() || roleGuard.isAdmin() || roleGuard.isDispatcher()">
-          <span class="nav-item">Clients</span>
-        </a>
-        <a mat-list-item routerLink="/invoices" routerLinkActive="active" *ngIf="roleGuard.isOwner() || roleGuard.isDispatcher() || roleGuard.isManager()">
-          <span class="nav-item">Consignment notes</span>
-        </a>
-        <a mat-list-item routerLink="/waybills" routerLinkActive="active" *ngIf="roleGuard.isOwner() || roleGuard.isDriver()">
-          <span class="nav-item">Waybills</span>
         </a>
       </mat-nav-list>
     </mat-sidenav>

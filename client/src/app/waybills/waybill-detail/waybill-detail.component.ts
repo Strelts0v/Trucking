@@ -357,7 +357,7 @@ export class WaybillDetailComponent implements OnInit {
     directionService.route({
       origin: {lat: currentWaybill.from.lat, lng: currentWaybill.from.lng},
       destination: {lat: currentWaybill.to.lat, lng: currentWaybill.to.lng},
-      waypoints: waypoints,
+      waypoints: [],
       optimizeWaypoints: true,
       travelMode: google.maps.TravelMode.DRIVING
     }, (result, status) => {

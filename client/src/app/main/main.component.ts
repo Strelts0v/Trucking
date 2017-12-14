@@ -40,18 +40,13 @@ export class MainComponent implements OnInit {
   subtitle: string;
 
   matches: boolean;
-  /*navLinks = [
-    {label: 'Users', path: '/users'},
-    {label: 'Clients', path: '/clients'},
-    {label: 'Consignment notes', path: '/invoices'},
-    {label: 'Waybills', path: '/waybills'}
-  ];*/
+  navLinks = [];
 
   constructor(private titleService: Title,
               private router: Router,
               private route: ActivatedRoute,
               private dialog: MatDialog,
-              public roleGuard: RoleGuard) {
+              private roleGuard: RoleGuard) {
   }
 
   @HostListener('window:resize')
@@ -79,6 +74,39 @@ export class MainComponent implements OnInit {
     this.router.navigate(['/auth']);
   }
 
+  templateAvailability(): boolean {
+    return this.roleGuard.isOwner() || this.roleGuard.isSysAdmin() || this.roleGuard.isAdmin();
+  }
+
+  populateLinks(): void {
+    if (this.roleGuard.isOwner()) {
+      this.navLinks = [
+        {label: 'Users', path: '/users'},
+        {label: 'Clients', path: '/clients'},
+        {label: 'Consignment notes', path: '/invoices'},
+        {label: 'Waybills', path: '/waybills'}
+      ];
+    } else if (this.roleGuard.isSysAdmin() || this.roleGuard.isAdmin()) {
+      this.navLinks = [
+        {label: 'Users', path: '/users'},
+        {label: 'Clients', path: '/clients'}
+      ];
+    } else if (this.roleGuard.isDispatcher()) {
+      this.navLinks = [
+        {label: 'Clients', path: '/clients'},
+        {label: 'Consignment notes', path: '/invoices'}
+      ];
+    } else if (this.roleGuard.isManager()) {
+      this.navLinks = [
+        {label: 'Consignment notes', path: '/invoices'}
+      ];
+    } else if (this.roleGuard.isDriver()) {
+      this.navLinks = [
+        {label: 'Waybills', path: '/waybills'}
+      ];
+    }
+  }
+
   ngOnInit(): void {
     this.onResize();
 
@@ -88,5 +116,7 @@ export class MainComponent implements OnInit {
         this.setTitle();
       }
     });
+
+    this.populateLinks();
   }
 }
