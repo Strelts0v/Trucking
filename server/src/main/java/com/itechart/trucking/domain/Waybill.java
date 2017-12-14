@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author blink7
- * @version 1.3
- * @since 2017-12-12
+ * @version 1.4
+ * @since 2017-12-13
  */
 @Entity
 @Table(name = "waybills")
@@ -144,8 +144,7 @@ public class Waybill extends AbstractPersistentObject {
     @Override
     public String toString() {
         return "Waybill{" +
-                "invoice=" + invoice +
-                ", departureDate=" + departureDate +
+                "departureDate=" + departureDate +
                 ", driver=" + driver +
                 ", car=" + car +
                 ", from=" + from +

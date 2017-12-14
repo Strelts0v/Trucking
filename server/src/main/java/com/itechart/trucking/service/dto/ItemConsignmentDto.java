@@ -6,8 +6,8 @@ import com.itechart.trucking.domain.ItemConsignment;
  * A DTO representing a consignment.
  *
  * @author blink7
- * @version 1.2
- * @since 2017-11-23
+ * @version 1.3
+ * @since 2017-12-13
  */
 public class ItemConsignmentDto {
 
@@ -37,5 +37,14 @@ public class ItemConsignmentDto {
 
     public void setStatus(ItemConsignment.Status status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemConsignmentDto{" +
+                "item=" + item +
+                ", amount=" + amount +
+                ", status=" + status +
+                '}';
     }
 }

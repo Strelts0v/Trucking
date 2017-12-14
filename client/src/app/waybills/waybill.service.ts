@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 import { Waybill } from './waybill';
+import { Invoice } from '../invoices/invoice';
 
 @Injectable()
 export class WaybillService {
@@ -40,6 +41,24 @@ export class WaybillService {
       .pipe(
         tap(size => this.log(`fetched waybills size=${size}`)),
         catchError(this.handleError('waybills size', 0))
+      );
+  }
+
+  registerWaybill(waybill: Waybill): Observable<Waybill> {
+    const url = `${environment.apiUrl}/${this.waybillUrl}/register`;
+    return this.http.post<Waybill>(url, waybill)
+      .pipe(
+        tap((waybill: Waybill) => this.log(`registered waybill id=${waybill.id}`)),
+        catchError(this.handleError<Waybill>('registerWaybill'))
+      );
+  }
+
+  checkWaybill(waybill: Waybill): Observable<Waybill> {
+    const url = `${environment.apiUrl}/${this.waybillUrl}/check`;
+    return this.http.put<Waybill>(url, waybill)
+      .pipe(
+        tap((waybill: Waybill) => this.log(`check waybill id=${waybill.id}`)),
+        catchError(this.handleError<Waybill>('checkWaybill'))
       );
   }
 

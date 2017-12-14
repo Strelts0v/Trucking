@@ -1,11 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { animate, group, state, style, transition, trigger } from '@angular/animations';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
-import { Invoice } from '../invoice';
+import { Invoice, InvoiceStatus } from '../invoice';
 import { Item } from '../../items/item';
 import { InvoiceService } from '../invoice.service';
 import { LossAct } from '../lossact';
+import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-lossact',
@@ -36,17 +38,46 @@ export class LossActDetailComponent implements OnInit {
   @Input() invoice: Invoice;
 
   edit: boolean;
+  editAvailability: boolean;
 
-  items: Item[] = [
-    {id: 1, name: 'Cabbage', price: 0, unitCode: 'BA'},
-    {id: 2, name: 'Wheat vodka', price: 0, unitCode: 'BOX'},
-    {id: 3, name: 'Canned fish', price: 0, unitCode: 'BOX'},
-    {id: 4, name: 'Tablet computer', price: 0, unitCode: 'PCS'},
-    {id: 5, name: 'Laptop', price: 0, unitCode: 'PCS'},
-  ];
+  items: Item[] = [];
 
   constructor(private fb: FormBuilder,
-              private invoiceService: InvoiceService) {
+              private invoiceService: InvoiceService,
+              private parentDialogRef: MatDialogRef<DocHolderComponent>) {
+  }
+
+  toggleEdit(): void {
+    if (!this.edit) {
+      this.edit = true;
+
+      this.lossActs.controls.forEach(control => control.enable());
+    }
+  }
+
+  submit(): void {
+    this.invoice.lossActs = this.lForm.value.lossActs;
+    this.invoiceService.createLossAct(this.invoice)
+      .subscribe(invoice => this.parentDialogRef.close(invoice));
+  }
+
+  compareItem(item1: Item, item2: Item): boolean {
+    return item1 && item2 && item1.id === item2.id;
+  }
+
+  shouldShowAddBtn(index: number): boolean {
+    return index === (this.lossActs.controls.length - 1)
+      && this.lossActs.controls[index].get('item').value
+      && this.edit;
+  }
+
+  shouldShowRemoveBtn(): boolean {
+    return this.lossActs.controls.length > 1
+      && this.edit;
+  }
+
+  getItems(): void {
+    this.invoice.consignments.forEach(consignment => this.items.push(consignment.item));
   }
 
   get lossActs(): FormArray {
@@ -56,8 +87,8 @@ export class LossActDetailComponent implements OnInit {
   addItem(lossAct?: LossAct): void {
     this.lossActs.push(
       this.fb.group({
-        item: [{value: lossAct && lossAct.item, disabled: !this.edit}],
-        amount: [{value: lossAct && lossAct.amount, disabled: !this.edit}, Validators.min(0)]
+        item: [{value: lossAct && lossAct.item, disabled: !this.edit}, Validators.required],
+        amount: [{value: lossAct && lossAct.amount, disabled: !this.edit}, [Validators.required, Validators.min(0)]]
       })
     );
   }
@@ -68,11 +99,17 @@ export class LossActDetailComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initForm();
 
-    if (this.invoice.id) {
+    this.getItems();
+
+    if (this.invoice.lossActs.length) {
       this.invoice.lossActs.forEach(lossAct => this.addItem(lossAct));
+    } else {
+      this.addItem();
     }
+
+    this.editAvailability = this.invoice.lossActs.length === 0;
   }
 }

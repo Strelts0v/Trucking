@@ -21,7 +21,8 @@ import {
   MatCheckboxModule,
   MatToolbarModule,
   MatSidenavModule,
-  MatListModule
+  MatListModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { JwtModule } from '@auth0/angular-jwt';
@@ -48,6 +49,7 @@ import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pi
 import { CarService } from './cars/car.service';
 import { CarListComponent } from './cars/car-list/car-list.component';
 import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
+import { ItemService } from './items/item.service';
 
 @NgModule({
   imports: [
@@ -73,11 +75,13 @@ import { BithdayCongratulationComponent } from './bithday-congratulation/bithday
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatSnackBarModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
           return localStorage.getItem('token');
-        }
+        },
+        whitelistedDomains: ['localhost:8080']
       }
     }),
     AppRoutingModule,
@@ -118,7 +122,8 @@ import { BithdayCongratulationComponent } from './bithday-congratulation/bithday
     CarService,
     InvoiceService,
     WaybillService,
-    ClientService
+    ClientService,
+    ItemService
   ],
   bootstrap: [AppComponent]
 })

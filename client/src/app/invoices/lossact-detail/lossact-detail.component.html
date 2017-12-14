@@ -1,4 +1,3 @@
-<!--
 <div class="card-body">
   <div class="card-header">
     <div class="header-sidebar-left">
@@ -12,15 +11,15 @@
     </div>
 
     <div class="header-sidebar-right">
-      <button mat-icon-button matTooltip="Edit act" (click)="toggleEdit()" *ngIf="!edit">
+      <button mat-icon-button matTooltip="Edit act" (click)="toggleEdit()" *ngIf="!edit && editAvailability">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
+      <!--<button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
         <button mat-menu-item (click)="deleteLossAct()">Delete act</button>
-      </mat-menu>
+      </mat-menu>-->
       <button mat-icon-button matTooltip="Close" [mat-dialog-close]>
         <mat-icon>close</mat-icon>
       </button>
@@ -30,12 +29,8 @@
   <mat-card-content>
     <form id="lForm" [formGroup]="lForm" (ngSubmit)="lForm.valid && submit()">
       <div class="row">
-        <div class="col-1">
-          <p>Lost items:</p>
-        </div>
-
         <div class="col-2">
-          <table class="consignment-table" formArrayName="consignments">
+          <table class="lossact-table" formArrayName="lossActs">
             <thead>
             <tr>
               <th>Product name</th>
@@ -44,27 +39,27 @@
             </thead>
 
             <tbody>
-            <tr *ngFor="let consignment of consignments.controls; index as i" [formGroupName]="i" [@shrinkIn]="'in'">
+            <tr *ngFor="let lossAct of lossActs.controls; index as i" [formGroupName]="i" [@shrinkIn]="'in'">
               <td>
                 <mat-form-field class="item-field">
                   <mat-select formControlName="item" [compareWith]="compareItem">
                     <mat-option *ngFor="let item of items" [value]="item">{{item.name}}</mat-option>
                   </mat-select>
-                  <mat-error *ngIf="consignment.controls['item'].hasError('required')">Field is required</mat-error>
+                  <mat-error *ngIf="lossAct.controls['item'].hasError('required')">Field is required</mat-error>
                 </mat-form-field>
               </td>
 
               <td>
                 <mat-form-field class="amount-field">
                   <input matInput type="number" min="0" formControlName="amount" required>
-                  <span matSuffix>{{consignment.controls.item.value && consignment.controls.item.value.unitCode}}</span>
-                  <mat-error *ngIf="consignment.controls['amount'].hasError('required')">Field is required</mat-error>
-                  <mat-error *ngIf="consignment.controls['amount'].hasError('min')">The amount can not be negative</mat-error>
+                  <span matSuffix>{{lossAct.controls.item.value && lossAct.controls.item.value.unitCode}}</span>
+                  <mat-error *ngIf="lossAct.controls['amount'].hasError('required')">Field is required</mat-error>
+                  <mat-error *ngIf="lossAct.controls['amount'].hasError('min')">The amount can not be negative</mat-error>
                 </mat-form-field>
               </td>
 
               <td>
-                <div class="consignment-btn-row">
+                <div class="lossact-btn-row">
                   <button class="remove-btn" mat-icon-button (click)="deleteItem(i)" *ngIf="shouldShowRemoveBtn()">
                     <mat-icon>remove_circle</mat-icon>
                   </button>
@@ -83,8 +78,7 @@
   </mat-card-content>
 </div>
 
-<mat-dialog-actions>
+<mat-dialog-actions *ngIf="editAvailability">
   <button mat-button color="primary" mat-dialog-close (click)="cancel()">CANCEL</button>
   <button mat-button color="primary" type="submit" form="lForm" [disabled]="!edit">APPLY</button>
 </mat-dialog-actions>
--->

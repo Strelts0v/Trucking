@@ -2,6 +2,7 @@ package com.itechart.trucking.dao.impl;
 
 import com.itechart.trucking.dao.WaybillDao;
 import com.itechart.trucking.domain.Waybill;
+import com.itechart.trucking.domain.Waybill_;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -14,8 +15,8 @@ import java.util.Optional;
 
 /**
  * @author blink7
- * @version 1.1
- * @since 2017-11-20
+ * @version 1.2
+ * @since 2017-12-13
  */
 @Repository
 public class JpaWaybillDao implements WaybillDao {
@@ -42,6 +43,14 @@ public class JpaWaybillDao implements WaybillDao {
         CriteriaQuery<Waybill> cq = cb.createQuery(Waybill.class);
         Root<Waybill> root = cq.from(Waybill.class);
         cq.select(root);
+
+        CriteriaBuilder.Case<Integer> orderCase = cb.selectCase();
+        orderCase
+                .when(cb.equal(root.get(Waybill_.status), Waybill.Status.STARTED), 1)
+                .when(cb.equal(root.get(Waybill_.status), Waybill.Status.COMPLETED), 2)
+                .otherwise(3);
+        cq.orderBy(cb.asc(orderCase));
+
         TypedQuery<Waybill> q = em.createQuery(cq);
         q.setFirstResult((pageNumber - 1) * pageSize);
         q.setMaxResults(pageSize);

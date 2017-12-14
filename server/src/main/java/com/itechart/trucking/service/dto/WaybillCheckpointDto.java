@@ -2,8 +2,8 @@ package com.itechart.trucking.service.dto;
 
 /**
  * @author blink7
- * @version 1.1
- * @since 2017-12-11
+ * @version 1.2
+ * @since 2017-12-13
  */
 public class WaybillCheckpointDto {
 
@@ -33,5 +33,14 @@ public class WaybillCheckpointDto {
 
     public void setChecked(Boolean checked) {
         this.checked = checked;
+    }
+
+    @Override
+    public String toString() {
+        return "WaybillCheckpointDto{" +
+                "checkpoint=" + checkpoint +
+                ", checkDate='" + checkDate + '\'' +
+                ", checked=" + checked +
+                '}';
     }
 }

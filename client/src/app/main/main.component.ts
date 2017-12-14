@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatDialog } from '@angular/material';
 import { BithdayCongratulationComponent } from '../bithday-congratulation/bithday-congratulation.component';
-import { AuthService } from '../users';
+import { AuthService, RoleGuard } from '../users';
 
 @Component({
   moduleId: module.id,
@@ -40,25 +40,26 @@ export class MainComponent implements OnInit {
   subtitle: string;
 
   matches: boolean;
-  navLinks = [
+  /*navLinks = [
     {label: 'Users', path: '/users'},
     {label: 'Clients', path: '/clients'},
     {label: 'Consignment notes', path: '/invoices'},
     {label: 'Waybills', path: '/waybills'}
-  ];
+  ];*/
 
   constructor(private titleService: Title,
               private router: Router,
               private route: ActivatedRoute,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              public roleGuard: RoleGuard) {
   }
 
   @HostListener('window:resize')
-  onResize() {
+  onResize(): void {
     this.matches = window.innerWidth <= 600;
   }
 
-  setTitle() {
+  setTitle(): void {
     this.title = this.route.snapshot.data.title;
     if (this.route.firstChild) {
       this.subtitle = this.route.firstChild.snapshot.data.title;
@@ -69,16 +70,16 @@ export class MainComponent implements OnInit {
     }
   }
 
-  openTemplate() {
+  openTemplate(): void {
     const dialogRef = this.dialog.open(BithdayCongratulationComponent);
   }
 
-  logout() {
+  logout(): void {
     AuthService.logout();
     this.router.navigate(['/auth']);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.onResize();
 
     this.setTitle();

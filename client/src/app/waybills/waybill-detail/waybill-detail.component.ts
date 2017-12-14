@@ -12,15 +12,16 @@ import PredictionSubstring = google.maps.places.PredictionSubstring;
 import PredictionTerm = google.maps.places.PredictionTerm;
 
 import { Invoice } from '../../invoices/invoice';
-import { Waybill } from '../waybill';
+import { Waybill, WaybillStatus } from '../waybill';
 import { WaybillService } from '../waybill.service';
 import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
 import { WaybillCheckpoint } from '../waybill-checkpoint';
 import { Checkpoint } from '../checkpoint';
-import { User } from '../../users';
+import { RoleGuard, User } from '../../users';
 import { Warehouse } from '../../warehouses/warehouse';
 import { Car } from '../../cars/car';
 import { CarService } from '../../cars/car.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-waybill-detail',
@@ -49,14 +50,16 @@ export class WaybillDetailComponent implements OnInit {
   @ViewChild('map') mapElement: ElementRef;
   map: google.maps.Map;
 
-  firstMapLoad: boolean;
-
   wForm: FormGroup;
 
   @Input() invoice: Invoice;
   waybill = new Waybill();
 
   edit: boolean;
+  editAvailability: boolean;
+
+  isMapLoaded: boolean;
+  isDirectionLoaded: boolean;
 
   drivers: User[] = [
     {
@@ -118,7 +121,8 @@ export class WaybillDetailComponent implements OnInit {
               private sanitizer: DomSanitizer,
               private dialog: MatDialog,
               private parentDialogRef: MatDialogRef<DocHolderComponent>,
-              private carService: CarService) {
+              private carService: CarService,
+              public roleGuard: RoleGuard) {
 
     iconRegistry.addSvgIcon(
       'routes',
@@ -142,19 +146,31 @@ export class WaybillDetailComponent implements OnInit {
     if (!this.edit) {
       this.edit = true;
 
-      this.driver.enable();
-      this.car.enable();
-      this.from.enable();
-      this.waybillCheckpoints.controls.forEach(control => {
-        if (!control.get('checked').value && control.get('checkpoint').value) {
-          control.get('checked').enable();
-        }
-        if (!control.get('checked').value) {
-          control.get('checkpoint').enable();
-        }
-      });
-      this.to.enable();
-      this.status.enable();
+      if (this.roleGuard.isOwner() || this.roleGuard.isManager()) {
+        this.driver.enable();
+        this.car.enable();
+        this.from.enable();
+        this.waybillCheckpoints.controls.forEach(control => {
+          if (!control.get('checked').value && control.get('checkpoint').value) {
+            control.get('checked').enable();
+          }
+          if (!control.get('checked').value) {
+            control.get('checkpoint').enable();
+          }
+        });
+        this.to.enable();
+        this.status.enable();
+      }
+      if (this.roleGuard.isDriver()) {
+        this.waybillCheckpoints.controls.forEach(control => {
+          if (!control.get('checked').value && control.get('checkpoint').value) {
+            control.get('checked').enable();
+          }
+          if (!control.get('checked').value) {
+            control.get('checkpoint').enable();
+          }
+        });
+      }
     }
   }
 
@@ -163,12 +179,27 @@ export class WaybillDetailComponent implements OnInit {
       return this.waybill.waybillCheckpoints[index].checkDate;
     } else {
       const now = new Date();
-      return `${now.getDay()}.${now.getMonth() + 1}.${now.getFullYear()}`;
+      return `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}`;
     }
   }
 
   submit() {
-    console.log('Waybill saved');
+    if (!this.waybill.status) {
+      this.waybill.invoiceId = this.invoice.id;
+      this.waybill.driver = this.wForm.value.driver;
+      this.waybill.car = this.wForm.value.car;
+      this.waybill.from = this.wForm.value.from;
+      this.waybill.to = this.wForm.value.to;
+      this.waybill.waybillCheckpoints = this.wForm.value.waybillCheckpoints
+        .filter(waybillCheckpoint => waybillCheckpoint.checkpoint);
+      this.waybillService.registerWaybill(this.waybill)
+        .subscribe(waybill => this.parentDialogRef.close(waybill));
+    } else if (this.waybill.status === WaybillStatus.STARTED) {
+      this.waybill.waybillCheckpoints = this.wForm.value.waybillCheckpoints
+        .filter(waybillCheckpoint => waybillCheckpoint.checkpoint);
+      this.waybillService.checkWaybill(this.waybill)
+        .subscribe(waybill => this.parentDialogRef.close(waybill));
+    }
   }
 
   cancel() {
@@ -251,11 +282,11 @@ export class WaybillDetailComponent implements OnInit {
     const service = new google.maps.places.AutocompleteService();
     service.getPlacePredictions({input: term, types: ['(cities)']}, (result, status) => {
       if (status.toString() === 'OK') {
-        this.filteredCheckpoints = result.map(prediction => {
+        this.filteredCheckpoints = result.map((prediction: AutocompletePrediction) => {
           const checkpoint = new Checkpoint();
           checkpoint.place_id = prediction.place_id;
-          checkpoint.name = (prediction as AutocompletePrediction).structured_formatting.main_text;
-          checkpoint.addition = (prediction as AutocompletePrediction).structured_formatting.secondary_text;
+          checkpoint.name = prediction.structured_formatting.main_text;
+          checkpoint.addition = prediction.structured_formatting.secondary_text;
 
           const geocoder = new google.maps.Geocoder();
           geocoder.geocode({placeId: checkpoint.place_id}, (result, status) => {
@@ -267,10 +298,21 @@ export class WaybillDetailComponent implements OnInit {
 
           return checkpoint;
         });
-
-        console.log(this.filteredCheckpoints);
       }
     });
+  }
+
+  getLocation(checkpoint: Checkpoint): Observable<Checkpoint> {
+    return Observable.create(observer => {
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({placeId: checkpoint.place_id}, (result, status) => {
+        if (status.toString() === 'OK') {
+          observer.onNext(result);
+        } else {
+          observer.onError(status);
+        }
+      });
+    }).publish().refCount();
   }
 
   getCars(): void {
@@ -283,26 +325,23 @@ export class WaybillDetailComponent implements OnInit {
       driver: [{value: '', disabled: true}, Validators.required],
       car: [{value: '', disabled: true}, Validators.required],
       from: [{value: '', disabled: true}, Validators.required],
-      waybillCheckpoints: this.fb.array([]),
       to: [{value: '', disabled: true}, Validators.required],
+      waybillCheckpoints: this.fb.array([]),
       status: [{value: '', disabled: true}]
     });
   }
 
-  loadMap() {
-    if (!this.firstMapLoad) {
-      this.firstMapLoad = true;
-
-      google.maps.event.trigger(this.map, 'resize');
-      this.loadDirection();
-    }
-  }
-
   loadDirection() {
-    const currentWaybill: Waybill = this.wForm.value;
-    if (!currentWaybill.from || !currentWaybill.to) {
+    let currentWaybill: Waybill;
+    if (this.wForm.value.from && this.wForm.value.to) {
+      currentWaybill = this.wForm.value;
+    } else if (this.waybill.from && this.waybill.to) {
+      currentWaybill = this.waybill;
+    } else {
       return;
     }
+
+    this.isDirectionLoaded = true;
 
     const directionService = new google.maps.DirectionsService();
     const directionDisplay = new google.maps.DirectionsRenderer();
@@ -330,11 +369,23 @@ export class WaybillDetailComponent implements OnInit {
 
   setMap(event) {
     this.map = event.map;
+  }
 
-    const mapOptions: MapOptions = {
-      gestureHandling: 'cooperative'
-    };
-    this.map.setOptions(mapOptions);
+  loadMap(): void {
+    if (!this.isMapLoaded) {
+      this.isMapLoaded = true;
+
+      const mapOptions: MapOptions = {
+        gestureHandling: 'cooperative',
+        center: {lat: 53.8854032, lng: 27.5518797},
+        zoom: 12
+      };
+      this.map.setOptions(mapOptions);
+    }
+
+    if (!this.isDirectionLoaded) {
+      this.loadDirection();
+    }
   }
 
   ngOnInit() {
@@ -342,16 +393,18 @@ export class WaybillDetailComponent implements OnInit {
 
     this.getCars();
 
-    if (!this.invoice.waybill) {
-      this.addCheckpoint();
-    } else {
+    if (this.invoice.waybill) {
       this.waybill = this.invoice.waybill;
       this.driver.setValue(this.waybill.driver);
       this.car.setValue(this.waybill.car);
       this.from.setValue(this.waybill.from);
-      this.waybill.waybillCheckpoints.forEach(waybillCheckpoint => this.addCheckpoint(waybillCheckpoint));
       this.to.setValue(this.waybill.to);
+      this.waybill.waybillCheckpoints.forEach(waybillCheckpoint => this.addCheckpoint(waybillCheckpoint));
+    } else {
+      this.addCheckpoint();
     }
+
+    this.editAvailability = this.waybill.status !== WaybillStatus.COMPLETED;
   }
 }
 

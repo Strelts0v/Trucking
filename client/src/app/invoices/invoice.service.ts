@@ -43,6 +43,42 @@ export class InvoiceService {
       );
   }
 
+  registerInvoice(invoice: Invoice): Observable<Invoice> {
+    const url = `${environment.apiUrl}/${this.invoiceUrl}/register`;
+    return this.http.post<Invoice>(url, invoice)
+      .pipe(
+        tap((invoice: Invoice) => this.log(`registered invoice id=${invoice.id}`)),
+        catchError(this.handleError<Invoice>('registerInvoice'))
+      );
+  }
+
+  checkInvoice(invoice: Invoice): Observable<Invoice> {
+    const url = `${environment.apiUrl}/${this.invoiceUrl}/check`;
+    return this.http.put<Invoice>(url, invoice)
+      .pipe(
+        tap((invoice: Invoice) => this.log(`checked invoice id=${invoice.id}`)),
+        catchError(this.handleError<Invoice>('checkInvoice'))
+      );
+  }
+
+  completeInvoice(invoice: Invoice): Observable<Invoice> {
+    const url = `${environment.apiUrl}/${this.invoiceUrl}/complete`;
+    return this.http.put<Invoice>(url, invoice)
+      .pipe(
+        tap((invoice: Invoice) => this.log(`completed invoice id=${invoice.id}`)),
+        catchError(this.handleError<Invoice>('completeInvoice'))
+      );
+  }
+
+  createLossAct(invoice: Invoice): Observable<Invoice> {
+    const url = `${environment.apiUrl}lossact/create`;
+    return this.http.put<Invoice>(url, invoice)
+      .pipe(
+        tap((invoice: Invoice) => this.log(`created Act of Loss size=${invoice.lossActs.length}`)),
+        catchError(this.handleError<Invoice>('createLossAct'))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

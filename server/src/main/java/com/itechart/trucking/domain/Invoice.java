@@ -11,8 +11,8 @@ import java.util.List;
  * An Invoice.
  *
  * @author blink7
- * @version 1.5
- * @since 2017-12-12
+ * @version 1.6
+ * @since 2017-12-13
  */
 @Entity
 @Table(name = "invoices")
@@ -146,7 +146,8 @@ public class Invoice extends AbstractPersistentObject {
         this.lossActs = lossActs;
     }
 
-    public void addLossAct(LossAct lossAct) {
+    public void addLossAct(Item item, Integer amount) {
+        LossAct lossAct = new LossAct(item, amount);
         lossAct.setInvoice(this);
         lossActs.add(lossAct);
     }

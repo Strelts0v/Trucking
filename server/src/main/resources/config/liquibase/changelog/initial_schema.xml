@@ -555,4 +555,29 @@
             <column name="busy" type="BOOLEAN"/>
         </addColumn>
     </changeSet>
+
+
+    <changeSet id="121220172348" author="blink7">
+        <dropForeignKeyConstraint baseTableName="act_of_loss" constraintName="fk_act_of_loss_invoices1"/>
+        <dropForeignKeyConstraint baseTableName="act_of_loss" constraintName="fk_act_of_loss_items1"/>
+        <dropIndex tableName="act_of_loss" indexName="fk_act_of_loss_invoices1_idx"/>
+        <dropIndex tableName="act_of_loss" indexName="fk_act_of_loss_items1_idx"/>
+
+        <createIndex tableName="act_of_loss" indexName="fk_act_of_loss_invoices1_idx">
+            <column name="invoices_id" type="${idType}"/>
+        </createIndex>
+        <createIndex tableName="act_of_loss" indexName="fk_act_of_loss_items1_idx">
+            <column name="items_id" type="${idType}"/>
+        </createIndex>
+        <addForeignKeyConstraint baseTableName="act_of_loss" baseColumnNames="invoices_id"
+                                 constraintName="fk_act_of_loss_invoices1"
+                                 referencedTableName="invoices"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="act_of_loss" baseColumnNames="items_id"
+                                 constraintName="fk_act_of_loss_items1"
+                                 referencedTableName="items"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
 </databaseChangeLog>

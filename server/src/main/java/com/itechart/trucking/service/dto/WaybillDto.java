@@ -2,23 +2,29 @@ package com.itechart.trucking.service.dto;
 
 import com.itechart.trucking.domain.Waybill;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
  * A DTO representing a waybill.
  *
  * @author blink7
- * @version 1.4
- * @since 2017-12-11
+ * @version 1.5
+ * @since 2017-12-13
  */
 public class WaybillDto {
 
     private Integer id;
+    @NotNull
     private Integer invoiceId;
     private String departureDate;
+    @NotNull
     private UserDto driver;
+    @NotNull
     private CarDto car;
+    @NotNull
     private WarehouseDto from;
+    @NotNull
     private WarehouseDto to;
     private List<WaybillCheckpointDto> waybillCheckpoints;
     private Waybill.Status status;
@@ -102,5 +108,21 @@ public class WaybillDto {
 
     public void setIssueDate(String issueDate) {
         this.issueDate = issueDate;
+    }
+
+    @Override
+    public String toString() {
+        return "WaybillDto{" +
+                "id=" + id +
+                ", invoiceId=" + invoiceId +
+                ", departureDate='" + departureDate + '\'' +
+                ", driver=" + driver +
+                ", car=" + car +
+                ", from=" + from +
+                ", to=" + to +
+                ", waybillCheckpoints=" + waybillCheckpoints +
+                ", status=" + status +
+                ", issueDate='" + issueDate + '\'' +
+                '}';
     }
 }
