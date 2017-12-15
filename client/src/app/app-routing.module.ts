@@ -10,7 +10,7 @@ import { WaybillListComponent } from './waybills/waybill-list/waybill-list.compo
 import { ClientListComponent } from './clients/index';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { CarListComponent } from './cars/car-list/car-list.component';
-import {BithdayCongratulationComponent} from './bithday-congratulation/bithday-congratulation.component';
+import {BirthdayCongratulationComponent} from './birthday-congratulation/birthday-congratulation.component';
 
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
@@ -25,7 +25,7 @@ const routes: Routes = [
     ]
   },
   {path: '**', redirectTo: ''},
-  {path: 'template' , component: BithdayCongratulationComponent }
+  {path: 'template' , component: BirthdayCongratulationComponent }
 ];
 
 @NgModule({

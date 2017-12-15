@@ -47,8 +47,9 @@ import { AgmCoreModule } from '@agm/core';
 import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pipe';
 import { CarService } from './cars/car.service';
 import { CarListComponent } from './cars/car-list/car-list.component';
-import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
-import { BackgroundDirective } from './bithday-congratulation/directive/directive.background';
+import { BirthdayCongratulationComponent } from './birthday-congratulation/birthday-congratulation.component';
+import { BackgroundDirective } from './birthday-congratulation/directive/directive.background';
+import { ColorsComponent } from './birthday-congratulation/colors/colors.component';
 
 @NgModule({
   imports: [
@@ -106,16 +107,18 @@ import { BackgroundDirective } from './bithday-congratulation/directive/directiv
     WelcomeComponent,
     WarehouseFullAddressPipe,
     CarListComponent,
-    BithdayCongratulationComponent,
+    BirthdayCongratulationComponent,
     UserFullNamePipe,
     ClientListComponent,
     BackgroundDirective,
-    UserDetailComponent
+    UserDetailComponent,
+    ColorsComponent
   ],
   entryComponents: [
     DocHolderComponent,
     ConfirmDialogComponent,
-    BithdayCongratulationComponent
+    BirthdayCongratulationComponent,
+    ColorsComponent
   ],
   providers: [
     AuthGuard,

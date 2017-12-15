@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BithdayCongratulationComponent } from './bithday-congratulation.component';
+import { BirthdayCongratulationComponent } from './birthday-congratulation.component';
 
 describe('BithdayCongratulationComponent', () => {
   let component: BithdayCongratulationComponent;

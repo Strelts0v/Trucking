@@ -1,13 +1,15 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource,} from '@angular/material';
+import {MatDialog, MatTableDataSource,} from '@angular/material';
+import {ColorsComponent} from './colors/colors.component';
+import {BackgroundDirective} from './directive/directive.background';
 
 @Component({
   selector: 'app-bithday-congratulation',
-  templateUrl: './bithday-congratulation.component.html',
-  styleUrls: ['./bithday-congratulation.component.sass']
+  templateUrl: './birthday-congratulation.component.html',
+  styleUrls: ['./birthday-congratulation.component.sass']
 
 })
-export class BithdayCongratulationComponent implements OnInit {
+export class BirthdayCongratulationComponent implements OnInit {
 
    nameTag :string = "$Fullname";
    ageTag :string = "$Age";
@@ -17,22 +19,33 @@ export class BithdayCongratulationComponent implements OnInit {
     ' С уважением, коллектив ООО ”Транспортные системы”';
 
 
-  headerColor: string = '#78ab46';
-
+  headerColor: string = 'MediumSpringGreen';
+  //#78ab46
   @ViewChild('myTextArea') textarea: ElementRef;
 
   fullImagePath: string = '/assets/bday.png';
 
   caretPos: number = 0;
 
-  constructor(private element: ElementRef) {
+  constructor(private element: ElementRef,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
   }
 
+  ngOnChanges(){
+    console.log("Changed value in componnt");
+    console.log(this.headerColor);
+  }
+
+  openColorsComponent(){
+    const dialogRef = this.dialog.open(ColorsComponent);
+  }
+
   changeBackgroundColor() {
     console.log('clicket o background');
+
   }
 
   changeImage(event) {
@@ -46,7 +59,7 @@ export class BithdayCongratulationComponent implements OnInit {
 
     const first = this.textarea.nativeElement.value.slice(0, this.caretPos + 1);
     const last = this.textarea.nativeElement.value.slice(this.caretPos, this.textarea.nativeElement.value.length);
-    const result = first + this.nameTag + last;
+    const result = first + " " +  this.nameTag + " " + last;
     console.log(result);
 
     this.text = result;

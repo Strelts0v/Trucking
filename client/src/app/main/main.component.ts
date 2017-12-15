@@ -3,7 +3,10 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatDialog } from '@angular/material';
-import { BithdayCongratulationComponent } from '../bithday-congratulation/bithday-congratulation.component';
+import {
+  BirthdayCongratulationComponent,
+
+} from '../birthday-congratulation/birthday-congratulation.component';
 import { AuthService } from '../users';
 
 @Component({
@@ -70,7 +73,7 @@ export class MainComponent implements OnInit {
   }
 
   openTemplate() {
-    const dialogRef = this.dialog.open(BithdayCongratulationComponent);
+    const dialogRef = this.dialog.open(BirthdayCongratulationComponent);
   }
 
   logout() {
