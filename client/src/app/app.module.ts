@@ -48,6 +48,8 @@ import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pi
 import { CarService } from './cars/car.service';
 import { CarListComponent } from './cars/car-list/car-list.component';
 import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
+import { WarehouseListComponent } from './warehouses/warehouse-list/warehouse-list.component';
+import { WarehouseService} from './warehouses/warehouse.service';
 
 @NgModule({
   imports: [
@@ -106,7 +108,8 @@ import { BithdayCongratulationComponent } from './bithday-congratulation/bithday
     BithdayCongratulationComponent,
     UserFullNamePipe,
     ClientListComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    WarehouseListComponent
   ],
   entryComponents: [
     DocHolderComponent,
@@ -121,7 +124,8 @@ import { BithdayCongratulationComponent } from './bithday-congratulation/bithday
     CarService,
     InvoiceService,
     WaybillService,
-    ClientService
+    ClientService,
+    WarehouseService
   ],
   bootstrap: [AppComponent]
 })
