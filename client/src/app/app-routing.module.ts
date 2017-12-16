@@ -25,7 +25,7 @@ const routes: Routes = [
     ]
   },
   {path: '**', redirectTo: ''},
-  {path: 'template' , component: BirthdayCongratulationComponent }
+
 ];
 
 @NgModule({

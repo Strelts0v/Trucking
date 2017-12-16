@@ -13,12 +13,16 @@ export class BackgroundDirective implements OnInit{
 
   //= '#78ab46'
 
- // @HostBinding ('style.backgroundColor') background = this.colour;
+  //@HostBinding ('style.backgroundColor') background = this.colour;
 
   constructor(private element: ElementRef, private renderer:Renderer2, ) {
   }
 
   ngOnInit()  {
+    this.renderer.setStyle(this.element.nativeElement , 'background-color', this.colour)
+  }
+
+  ngOnChange() {
     this.renderer.setStyle(this.element.nativeElement , 'background-color', this.colour)
   }
 
@@ -29,8 +33,8 @@ export class BackgroundDirective implements OnInit{
   // @HostListener('unload') loading(){
   //   this.background = this.colour
   // }
-  // @HostListener('change') changing(){
-  //   this.background = this.colour
-  // }
+  @HostListener('change') changing(){
+    this.renderer.setStyle(this.element.nativeElement , 'background-color', this.colour)
+  }
 
 }

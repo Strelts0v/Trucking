@@ -4,21 +4,33 @@
   <table class="template_letter">
 
     <tr>
-      <td id="header_with_iamge"  appBackground [colour]="[headerColor]"  (click)="openColorsComponent()"  >
-        <img [src]="fullImagePath"  (click)="changeImage($event)">
+      <td id="header_with_iamge" [ngStyle]="{ 'background-color': (letter.headerColor) } ">
+        <label for="image">
+          <img [src]="fullImagePath">
+        </label>
+        <input type="file" id="image" name="image" (click)="$event.stopPropagation()">
+
+          <mat-select id="color_selector" [ngStyle]="{'font-size': '10px'}" [(ngModel)]="letter.headerColor">
+            <mat-option *ngFor="let color of color" appBackground [colour]="color.color" [value]="color.color">
+            </mat-option>
+          </mat-select>
+
       </td>
+
     </tr>
+
     <tr id="text_congr">
       <mat-form-field>
-          <textarea #myTextArea [(ngModel)]="text" matInput matTextareaAutosize matAutosizeMinRows="9"
+          <textarea #myTextArea [(ngModel)]="letter.text" matInput matTextareaAutosize matAutosizeMinRows="9"
                     placeholder="Поздравление" (click)="getCaretPos(myTextArea)" (keyup)="getCaretPos(myTextArea)">
+
           </textarea>
       </mat-form-field>
     </tr>
   </table>
 
   <div class="tags_buttons">
-    <button mat-button (click)="insertName()" >Name</button>
+    <button mat-button (click)="insertName()">Name</button>
     <button mat-button (click)="insertAge()">Age</button>
   </div>
 

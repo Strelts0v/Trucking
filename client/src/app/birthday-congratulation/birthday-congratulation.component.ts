@@ -1,7 +1,7 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatTableDataSource,} from '@angular/material';
-import {ColorsComponent} from './colors/colors.component';
 import {BackgroundDirective} from './directive/directive.background';
+import {BirthdayCongragulation} from './birthday-congragulation';
 
 @Component({
   selector: 'app-bithday-congratulation',
@@ -11,16 +11,19 @@ import {BackgroundDirective} from './directive/directive.background';
 })
 export class BirthdayCongratulationComponent implements OnInit {
 
-   nameTag :string = "$Fullname";
-   ageTag :string = "$Age";
+  nameTag: string = '${fullname}';
+  ageTag: string = '${age}';
 
-  text: string = 'Уважаемый\n' +
+  @Input()
+  letter : BirthdayCongragulation = {
+    text: 'Уважаемый\n' +
     ' Поздравляем Вас с\n' +
-    ' С уважением, коллектив ООО ”Транспортные системы”';
+    ' С уважением, коллектив ООО ”Транспортные системы”',
+    headerColor : "MediumSpringGreen",
+  };
 
+  color = COLORS ;
 
-  headerColor: string = 'MediumSpringGreen';
-  //#78ab46
   @ViewChild('myTextArea') textarea: ElementRef;
 
   fullImagePath: string = '/assets/bday.png';
@@ -34,35 +37,23 @@ export class BirthdayCongratulationComponent implements OnInit {
   ngOnInit() {
   }
 
-  ngOnChanges(){
-    console.log("Changed value in componnt");
-    console.log(this.headerColor);
-  }
-
-  openColorsComponent(){
-    const dialogRef = this.dialog.open(ColorsComponent);
-  }
-
-  changeBackgroundColor() {
-    console.log('clicket o background');
+  ngOnChanges() {
+    console.log('Changed value in componnt');
 
   }
 
-  changeImage(event) {
-    event.stopPropagation();
-    console.log('clicked on image');
 
-  }
+
 
   insertName() {
 
 
     const first = this.textarea.nativeElement.value.slice(0, this.caretPos + 1);
     const last = this.textarea.nativeElement.value.slice(this.caretPos, this.textarea.nativeElement.value.length);
-    const result = first + " " +  this.nameTag + " " + last;
+    const result = first + ' ' + this.nameTag + ' ' + last;
     console.log(result);
 
-    this.text = result;
+    this.letter.text = result;
 
   }
 
@@ -73,7 +64,7 @@ export class BirthdayCongratulationComponent implements OnInit {
     const result = first + this.ageTag + last;
     console.log(result);
 
-    this.text = result;
+    this.letter.text = result;
   }
 
 
@@ -84,3 +75,23 @@ export class BirthdayCongratulationComponent implements OnInit {
   }
 
 }
+
+export interface Color {
+
+  color :string;
+}
+
+const COLORS: Color[] = [
+  {color:'PaleGreen'},
+  {color:'DarkOrchid'},
+  {color:'LightBlue'},
+  {color:'Thistle'},
+  {color:'PaleGoldenRod'},
+  {color:'Salmon'},
+  {color:'Tomato'},
+  {color:'DarkSeaGreen'},
+  {color:'MediumSpringGreen'},
+  {color:'DodgerBlue'},
+  {color:'MistyRose'},
+
+];

@@ -49,7 +49,7 @@ import { CarService } from './cars/car.service';
 import { CarListComponent } from './cars/car-list/car-list.component';
 import { BirthdayCongratulationComponent } from './birthday-congratulation/birthday-congratulation.component';
 import { BackgroundDirective } from './birthday-congratulation/directive/directive.background';
-import { ColorsComponent } from './birthday-congratulation/colors/colors.component';
+
 
 @NgModule({
   imports: [
@@ -111,14 +111,14 @@ import { ColorsComponent } from './birthday-congratulation/colors/colors.compone
     UserFullNamePipe,
     ClientListComponent,
     BackgroundDirective,
-    UserDetailComponent,
-    ColorsComponent
+    UserDetailComponent
+
   ],
   entryComponents: [
     DocHolderComponent,
     ConfirmDialogComponent,
-    BirthdayCongratulationComponent,
-    ColorsComponent
+    BirthdayCongratulationComponent
+
   ],
   providers: [
     AuthGuard,
