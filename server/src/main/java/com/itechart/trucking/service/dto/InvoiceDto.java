@@ -2,19 +2,24 @@ package com.itechart.trucking.service.dto;
 
 import com.itechart.trucking.domain.Invoice;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
  * A DTO representing an invoice.
  *
  * @author blink7
- * @version 1.4
- * @since 2017-12-11
+ * @version 1.5
+ * @since 2017-12-13
  */
 public class InvoiceDto extends AbstractDto {
 
+    @NotNull
     private ClientDto client;
     private String issueDate;
+    @NotNull
+    @NotEmpty
     private List<ItemConsignmentDto> consignments;
     private Invoice.Status status;
     private UserDto creator;
@@ -102,5 +107,21 @@ public class InvoiceDto extends AbstractDto {
 
     public void setLossActIssueDate(String lossActIssueDate) {
         this.lossActIssueDate = lossActIssueDate;
+    }
+
+    @Override
+    public String toString() {
+        return "InvoiceDto{" +
+                "client=" + client +
+                ", issueDate='" + issueDate + '\'' +
+                ", consignments=" + consignments +
+                ", status=" + status +
+                ", creator=" + creator +
+                ", checkDate='" + checkDate + '\'' +
+                ", inspector=" + inspector +
+                ", waybill=" + waybill +
+                ", lossActs=" + lossActs +
+                ", lossActIssueDate='" + lossActIssueDate + '\'' +
+                '}';
     }
 }

@@ -10,20 +10,20 @@
         Waybill
       </div>
       <div class="header-subtitle" *ngIf="waybill.id">
-        №{{waybill.id}}
+        №{{waybill.id}} {{waybill.status}}
       </div>
     </div>
 
     <div class="header-sidebar-right">
-      <button mat-icon-button matTooltip="Edit waybill" (click)="toggleEdit()" *ngIf="!edit">
+      <button mat-icon-button matTooltip="Edit waybill" (click)="toggleEdit()" *ngIf="!edit && editAvailability">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
+      <!--<button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
         <button mat-menu-item (click)="deleteWaybill()">Delete waybill</button>
-      </mat-menu>
+      </mat-menu>-->
       <button mat-icon-button matTooltip="Close" [mat-dialog-close]>
         <mat-icon>close</mat-icon>
       </button>
@@ -74,7 +74,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" *ngIf="wForm.controls['waybillCheckpoints'].length">
         <div class="col-1">
           Checkpoints:
         </div>
@@ -88,7 +88,7 @@
 
               <td>
                 <mat-form-field floatPlaceholder="never">
-                  <input matInput type="text" placeholder="Checkpoint" formControlName="checkpoint" [matAutocomplete]="auto">
+                  <input matInput type="text" placeholder="Checkpoint" formControlName="checkpoint" [matAutocomplete]="auto" [readonly]="!(roleGuard.isOwner() || roleGuard.isManager())">
                   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCheckpointFn">
                     <mat-option *ngFor="let checkpoint of filteredCheckpoints" [value]="checkpoint">
                       <span class="checkpoint-option-name">{{checkpoint.name}}</span> |
@@ -98,14 +98,14 @@
                 </mat-form-field>
               </td>
 
-              <td style="width: 70px">
+              <td class="col-date">
                 <div *ngIf="waybillCheckpoint.controls['checked'].value">
                   {{getCheckDate(i)}}
                 </div>
               </td>
 
-              <td style="width: 70px">
-                <div class="checkpoint-btn-row">
+              <td class="checkpoint-btn-row">
+                <div *ngIf="editAvailability && (roleGuard.isOwner() || roleGuard.isManager())">
                   <button class="remove-btn" mat-icon-button (click)="deleteCheckpoint(i)" *ngIf="shouldShowRemoveBtn()">
                     <mat-icon>remove_circle</mat-icon>
                   </button>
@@ -138,11 +138,13 @@
       </div>
     </form>
 
-    <div #map style="height: 300px" (mouseenter)="loadMap()"></div>
+    <!--<div>{{wForm.value | json}}</div>-->
+
+    <p-gmap [style]="{'width':'100%','height':'320px'}" (onMapReady)="setMap($event)" (mouseenter)="loadMap()"></p-gmap>
   </mat-card-content>
 </div>
 
 <mat-dialog-actions>
   <button mat-button color="primary" mat-dialog-close (click)="cancel()">CANCEL</button>
-  <button mat-button color="primary" type="submit" form="wForm" [disabled]="!edit">APPLY</button>
+  <button mat-button color="primary" type="submit" form="wForm" [disabled]="!edit || !editAvailability">APPLY</button>
 </mat-dialog-actions>

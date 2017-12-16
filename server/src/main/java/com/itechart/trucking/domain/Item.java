@@ -4,8 +4,8 @@ import javax.persistence.*;
 
 /**
  * @author Quontico
- * @version 1.1
- * @since 2017-12-11
+ * @version 1.2
+ * @since 2017-12-13
  */
 @Entity
 @Table(name = "items")
@@ -52,5 +52,14 @@ public class Item extends AbstractPersistentObject {
 
     public void setUnit(ItemUnit unit) {
         this.unit = unit;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", unit=" + unit +
+                '}';
     }
 }

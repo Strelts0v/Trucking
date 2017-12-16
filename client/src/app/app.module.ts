@@ -21,15 +21,26 @@ import {
   MatCheckboxModule,
   MatToolbarModule,
   MatSidenavModule,
-  MatListModule
+  MatListModule,
+  MatSnackBarModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 } from '@angular/material';
 
 import { JwtModule } from '@auth0/angular-jwt';
+import { GMapModule } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
-import { AuthComponent, UserDetailComponent, UserListComponent } from './users/index';
 import { MainComponent } from './main';
-import { AuthGuard, RoleGuard, AuthService, UserService } from './users';
+import {
+  AuthGuard,
+  RoleGuard,
+  AuthService,
+  UserService,
+  AuthComponent,
+  UserDetailComponent,
+  UserListComponent
+} from './users';
 import { AppRoutingModule } from './app-routing.module';
 import { DocHolderComponent, DocHolderPlaceholderComponent } from './doc-holder/doc-holder.component';
 import { InvoiceDetailComponent } from './invoices/invoice-detail/invoice-detail.component';
@@ -41,19 +52,20 @@ import { WaybillListComponent } from './waybills/waybill-list/waybill-list.compo
 import { WaybillService } from './waybills/waybill.service';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { UserFullNamePipe } from './users/user-full-name.pipe';
-import { ClientListComponent, ClientService } from './clients/index';
+import {
+  ClientListComponent,
+  ClientDetailComponent,
+  ClientService
+} from './clients';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AgmCoreModule } from '@agm/core';
 import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pipe';
 import { CarService } from './cars/car.service';
 import { CarListComponent } from './cars/car-list/car-list.component';
 import { BirthdayCongratulationComponent } from './birthday-congratulation/birthday-congratulation.component';
-import { BackgroundDirective } from './birthday-congratulation/directive/directive.background';
-
 
 @NgModule({
   imports: [
-
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -76,19 +88,19 @@ import { BackgroundDirective } from './birthday-congratulation/directive/directi
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
-          return localStorage.getItem('authenticationToken');
-        }
+          return localStorage.getItem('token');
+        },
+        whitelistedDomains: ['localhost:8080']
       }
     }),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCILO4xoPNpMG4_cD50p0JNjh0eMUjaXGo',
-      libraries: ['places']
-    }),
     AppRoutingModule,
-
+    GMapModule
   ],
   declarations: [
     AppComponent,
@@ -110,15 +122,15 @@ import { BackgroundDirective } from './birthday-congratulation/directive/directi
     BirthdayCongratulationComponent,
     UserFullNamePipe,
     ClientListComponent,
-    BackgroundDirective,
-    UserDetailComponent
-
+    UserDetailComponent,
+    ClientDetailComponent
   ],
   entryComponents: [
     DocHolderComponent,
     ConfirmDialogComponent,
-    BirthdayCongratulationComponent
-
+    BirthdayCongratulationComponent,
+    UserDetailComponent,
+    ClientDetailComponent
   ],
   providers: [
     AuthGuard,

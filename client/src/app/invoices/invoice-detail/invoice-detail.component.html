@@ -15,16 +15,15 @@
     </div>
 
     <div class="header-sidebar-right">
-      <button mat-icon-button matTooltip="Edit invoice" (click)="toggleEdit()" *ngIf="!edit">
+      <button mat-icon-button matTooltip="Edit invoice" (click)="toggleEdit()" *ngIf="!edit && editAvailability">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
+      <!--<button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
-        <button mat-menu-item>Create waybill</button>
         <button mat-menu-item (click)="deleteInvoice()">Delete note</button>
-      </mat-menu>
+      </mat-menu>-->
       <button mat-icon-button matTooltip="Close" [mat-dialog-close]>
         <mat-icon>close</mat-icon>
       </button>
@@ -32,7 +31,7 @@
   </div>
 
   <mat-card-content>
-    <form id="cForm" [formGroup]="cForm" (ngSubmit)="cForm.valid && submit()">
+    <form id="iForm" [formGroup]="iForm" (ngSubmit)="iForm.valid && submit()">
       <div class="row">
         <div class="col-1">
           <mat-icon class="label-icon">person</mat-icon>
@@ -40,8 +39,8 @@
 
         <div class="col-2">
           <mat-form-field floatPlaceholder="never">
-            <mat-select formControlName="client" placeholder="Client" required>
-              <mat-option *ngFor="let client of clients" [value]="client">{{client}}</mat-option>
+            <mat-select formControlName="client" placeholder="Client" [compareWith]="compareClient" required>
+              <mat-option *ngFor="let client of clients" [value]="client">{{client.name}}</mat-option>
             </mat-select>
             <mat-error *ngIf="client.hasError('required')">Field is required</mat-error>
           </mat-form-field>
@@ -85,7 +84,7 @@
                   <input matInput type="number" min="0" formControlName="amount" required>
                   <span matSuffix>{{consignment.controls.item.value && consignment.controls.item.value.unitCode}}</span>
                   <mat-error *ngIf="consignment.controls['amount'].hasError('required')">Field is required</mat-error>
-                  <mat-error *ngIf="consignment.controls['amount'].hasError('min')">The amount can not be negative</mat-error>
+                  <mat-error *ngIf="consignment.controls['amount'].hasError('min')">The amount can not be less than 1</mat-error>
                 </mat-form-field>
               </td>
 
@@ -98,8 +97,8 @@
                 </mat-form-field>
               </td>
 
-              <td>
-                <div class="consignment-btn-row">
+              <td class="consignment-btn-row">
+                <div *ngIf="roleGuard.isDispatcher()">
                   <button class="remove-btn" mat-icon-button (click)="deleteItem(i)" *ngIf="shouldShowRemoveBtn()">
                     <mat-icon>remove_circle</mat-icon>
                   </button>
@@ -140,5 +139,5 @@
 
 <mat-dialog-actions>
   <button mat-button color="primary" mat-dialog-close (click)="cancel()">CANCEL</button>
-  <button mat-button color="primary" type="submit" form="cForm" [disabled]="!edit">APPLY</button>
+  <button mat-button color="primary" type="submit" form="iForm" [disabled]="!edit || !editAvailability">{{saveBtnName | uppercase}}</button>
 </mat-dialog-actions>

@@ -64,6 +64,9 @@ public class User extends AbstractPersistentObject implements UserDetails {
     @Column(name = "user_passport")
     private String passport;
 
+    @Column(name = "busy")
+    private Boolean busy;
+
     @Transient
     private Set<SimpleGrantedAuthority> authorities;
 
@@ -233,6 +236,14 @@ public class User extends AbstractPersistentObject implements UserDetails {
 
     public void setPassport(String passport) {
         this.passport = passport;
+    }
+
+    public Boolean getBusy() {
+        return busy;
+    }
+
+    public void setBusy(Boolean busy) {
+        this.busy = busy;
     }
 
     @Override

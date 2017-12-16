@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
+import { MatDialog, MatSnackBar, MatTableDataSource, PageEvent } from '@angular/material';
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 
 import { Invoice, InvoiceStatus } from '../invoice';
 import { InvoiceService } from '../invoice.service';
 import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
+import { RoleGuard } from '../../users';
 
 @Component({
   selector: 'app-invoice-list',
@@ -30,13 +31,15 @@ export class InvoiceListComponent implements OnInit {
   displayedColumns = ['id', 'client', 'issue_date', 'check_date', 'status', 'inspector'];
   dataSource = new MatTableDataSource<Invoice>();
   pageNumber = 1;
-  pageSize = 3;
+  pageSize = 10;
   length: number;
 
   pageEvent: PageEvent;
 
   constructor(private invoiceService: InvoiceService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private snackBar: MatSnackBar,
+              public roleGuard: RoleGuard) {
   }
 
   openInvoiceDetail(id?: number) {
@@ -47,6 +50,15 @@ export class InvoiceListComponent implements OnInit {
         id: id
       }
     });
+
+    dialogRef.afterClosed()
+      .subscribe(invoice => {
+        if (invoice) {
+          this.size();
+          this.getInvoices();
+          this.snackBar.open('Consignment note saved', '', {duration: 3000});
+        }
+      });
   }
 
   getInvoices() {
@@ -62,8 +74,8 @@ export class InvoiceListComponent implements OnInit {
   loadInvoices(event?: PageEvent) {
     this.pageNumber = event.pageIndex + 1;
     this.pageSize = event.pageSize;
-    this.getInvoices();
     this.size();
+    this.getInvoices();
   }
 
   ngOnInit() {

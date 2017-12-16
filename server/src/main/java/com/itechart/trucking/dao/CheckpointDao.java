@@ -7,8 +7,8 @@ import java.util.Optional;
 
 /**
  * @author blink7
- * @version 1.1
- * @since 2017-12-11
+ * @version 1.2
+ * @since 2017-12-13
  */
 public interface CheckpointDao {
 
@@ -40,8 +40,9 @@ public interface CheckpointDao {
      * Saves a given checkpoint.
      *
      * @param checkpoint to save
+     * @return the managed checkpoint
      */
-    void save(Checkpoint checkpoint);
+    Checkpoint save(Checkpoint checkpoint);
 
     /**
      * Deletes a given checkpoint.

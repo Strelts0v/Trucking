@@ -1,6 +1,6 @@
-id;item_name;unit_id
-1;Cabbage;2
-2;Wheat vodka;4
-3;Canned fish;4
-4;Tablet computer;29
-5;Laptop;29
+id;item_name;unit_id;version
+1;Cabbage;2;0
+2;Wheat vodka;4;0
+3;Canned fish;4;0
+4;Tablet computer;29;0
+5;Laptop;29;0

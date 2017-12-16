@@ -11,8 +11,8 @@ import java.util.List;
  * An Invoice.
  *
  * @author blink7
- * @version 1.4
- * @since 2017-12-11
+ * @version 1.6
+ * @since 2017-12-13
  */
 @Entity
 @Table(name = "invoices")
@@ -26,7 +26,7 @@ public class Invoice extends AbstractPersistentObject {
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate issueDate;
 
-    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemConsignment> itemConsignments = new ArrayList<>();
 
     @Column(name = "invoice_status")
@@ -49,7 +49,7 @@ public class Invoice extends AbstractPersistentObject {
     @JoinColumn(name = "waybills_id")
     private Waybill waybill;
 
-    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<LossAct> lossActs = new ArrayList<>();
 
     @Column(name = "act_date_issue")
@@ -146,7 +146,8 @@ public class Invoice extends AbstractPersistentObject {
         this.lossActs = lossActs;
     }
 
-    public void addLossAct(LossAct lossAct) {
+    public void addLossAct(Item item, Integer amount) {
+        LossAct lossAct = new LossAct(item, amount);
         lossAct.setInvoice(this);
         lossActs.add(lossAct);
     }

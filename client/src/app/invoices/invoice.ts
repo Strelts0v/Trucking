@@ -1,6 +1,7 @@
 import { Consignment } from './consignment';
 import { User } from '../users';
 import { Waybill } from '../waybills/waybill';
+import { LossAct } from './lossact';
 
 export class Invoice {
   id: number;
@@ -12,6 +13,8 @@ export class Invoice {
   creator: User;
   inspector: User;
   waybill: Waybill;
+  lossActs: LossAct[] = [];
+  lossActIssueDate: string;
 }
 
 export enum InvoiceStatus {

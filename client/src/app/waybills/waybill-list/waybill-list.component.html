@@ -2,17 +2,17 @@
   <mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="from">
       <mat-header-cell *matHeaderCellDef>From</mat-header-cell>
-      <mat-cell *matCellDef="let waybill">{{waybill.from}}</mat-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.from.name}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="to">
       <mat-header-cell *matHeaderCellDef>To</mat-header-cell>
-      <mat-cell *matCellDef="let waybill">{{waybill.to}}</mat-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.to.name}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="car_number">
       <mat-header-cell *matHeaderCellDef>Car number</mat-header-cell>
-      <mat-cell *matCellDef="let waybill">{{waybill.car}}</mat-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.car.name}} {{waybill.car.number}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="invoice_id">
@@ -26,7 +26,7 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openWaybillDetail(row.id)"
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openWaybillDetail(row.invoiceId)"
              [ngClass]="{'mat-row--idle': !row.status, 'mat-row--started': row.status === waybillStatus.STARTED}">
     </mat-row>
   </mat-table>
@@ -34,7 +34,7 @@
   <mat-paginator class="paginator"
                  [length]="length"
                  [pageSize]="pageSize"
-                 [pageSizeOptions]="[3, 5]"
-                 (page)="pageEvent = loadInvoices($event)">
+                 [pageSizeOptions]="[10, 20]"
+                 (page)="pageEvent = loadWaybills($event)">
   </mat-paginator>
 </div>

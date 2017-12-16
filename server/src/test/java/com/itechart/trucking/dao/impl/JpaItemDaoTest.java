@@ -90,7 +90,7 @@ public class JpaItemDaoTest {
 
         final int page = 1;
         final int pageSize = 20;
-        List<Item> itemList = itemDao.findAllByPage(page, pageSize);
+        List<Item> itemList = itemDao.findAllItemsByPage(page, pageSize);
 
         final int expectedItemCount = 2;
         final String errorMessage = "Expected and actual client size are different";

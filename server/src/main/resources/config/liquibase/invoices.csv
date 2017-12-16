@@ -1,3 +1,3 @@
-id;invoice_checkdate;invoice_status;invoice_issuedate;users_id_creator;users_id_inspector;waybills_id;clients_id
-1;2017-12-4;C;2017-12-3;7;7;1;1
-2;2017-12-6;C;2017-12-6;11;7;2;2
+id;invoice_checkdate;invoice_status;invoice_issuedate;users_id_creator;users_id_inspector;waybills_id;clients_id;version
+1;2017-12-4;C;2017-12-3;7;7;1;1;0
+2;2017-12-6;C;2017-12-6;11;7;2;2;0
