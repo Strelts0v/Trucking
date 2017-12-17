@@ -13,13 +13,13 @@ import {WelcomeComponent} from './welcome/welcome.component';
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
   {
-    path: '', component: MainComponent, data: {title: 'Trucking'}, canActivate: [AuthGuard],
+    path: '', component: MainComponent, data: {title: 'Trucking'} ,
     children: [
       {path: '', component: WelcomeComponent, data: {title: 'Welcome'}},
-      {path: 'users', component: UserListComponent, data: {title: 'Users'}, canActivate: [RoleGuard]},
-      {path: 'invoices', component: InvoiceListComponent, data: {title: 'Consignment notes'}, canActivate: [RoleGuard]},
-      {path: 'waybills', component: WaybillListComponent, data: {title: 'Waybills'}, canActivate: [RoleGuard]},
-      {path: 'clients', component: ClientListComponent, data: {title: 'Clients'}, canActivate: [RoleGuard]}
+      {path: 'users', component: UserListComponent, data: {title: 'Users'}, },
+      {path: 'invoices', component: InvoiceListComponent, data: {title: 'Consignment notes'}, },
+      {path: 'waybills', component: WaybillListComponent, data: {title: 'Waybills'}, },
+      {path: 'clients', component: ClientListComponent, data: {title: 'Clients'}, }
     ]
   },
   {path: '**', redirectTo: ''}

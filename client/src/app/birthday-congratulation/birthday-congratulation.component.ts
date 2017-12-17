@@ -1,6 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatTableDataSource,} from '@angular/material';
-import {BackgroundDirective} from './directive/directive.background';
 import {BirthdayCongragulation} from './birthday-congragulation';
 
 @Component({

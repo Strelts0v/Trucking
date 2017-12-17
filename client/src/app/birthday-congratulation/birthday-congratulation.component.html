@@ -11,11 +11,11 @@
         <input type="file" id="image" name="image" (click)="$event.stopPropagation()">
 
           <mat-select id="color_selector" [ngStyle]="{'font-size': '10px'}" [(ngModel)]="letter.headerColor">
-            <mat-option *ngFor="let color of color" appBackground [colour]="color.color" [value]="color.color">
+            <mat-option *ngFor="let color of color" [ngStyle]="{ 'background-color': (color.color) } " [value]="color.color">
             </mat-option>
           </mat-select>
 
-      </td>
+      </td>`
 
     </tr>
 
