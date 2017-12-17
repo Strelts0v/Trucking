@@ -63,6 +63,7 @@ public class WaybillServiceImpl implements WaybillService {
             newWaybill.setDepartureDate(LocalDate.now());
             newWaybill.setIssueDate(LocalDate.now());
             newWaybill.setStatus(Waybill.Status.STARTED);
+            newWaybill.setDistance(waybillDto.getDistance());
 
             userDao.getUserById(waybillDto.getDriver().getId()).ifPresent(driver -> {
                 driver.setBusy(true);
@@ -75,7 +76,7 @@ public class WaybillServiceImpl implements WaybillService {
 
             waybillDto.getWaybillCheckpoints().forEach(waybillCheckpointDto -> {
                 Checkpoint checkpoint = checkpointDao.findOneByName(waybillCheckpointDto.getCheckpoint().getName())
-                        .orElse(checkpointDao.save(new Checkpoint(
+                        .orElseGet(() -> checkpointDao.save(new Checkpoint(
                                 waybillCheckpointDto.getCheckpoint().getName(),
                                 waybillCheckpointDto.getCheckpoint().getAdditionName(),
                                 waybillCheckpointDto.getCheckpoint().getPlaceId(),

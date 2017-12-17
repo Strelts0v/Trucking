@@ -2,14 +2,10 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, tap } from 'rxjs/operators';
 import { animate, group, state, style, transition, trigger } from '@angular/animations';
 
 import {} from '@types/googlemaps';
-import DirectionsWaypoint = google.maps.DirectionsWaypoint;
-import MapOptions = google.maps.MapOptions;
-import PredictionSubstring = google.maps.places.PredictionSubstring;
-import PredictionTerm = google.maps.places.PredictionTerm;
 
 import { Invoice } from '../../invoices/invoice';
 import { Waybill, WaybillStatus } from '../waybill';
@@ -21,7 +17,8 @@ import { RoleGuard, User } from '../../users';
 import { Warehouse } from '../../warehouses/warehouse';
 import { Car } from '../../cars/car';
 import { CarService } from '../../cars/car.service';
-import { Observable } from 'rxjs/Observable';
+import { ProgressDialogComponent } from './progress-dialog/progress-dialog.component';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-waybill-detail',
@@ -142,7 +139,7 @@ export class WaybillDetailComponent implements OnInit {
     return car1 && car2 && car1.id === car2.id;
   }
 
-  toggleEdit() {
+  toggleEdit(): void {
     if (!this.edit) {
       this.edit = true;
 
@@ -150,6 +147,9 @@ export class WaybillDetailComponent implements OnInit {
         this.driver.enable();
         this.car.enable();
         this.from.enable();
+        this.to.enable();
+        this.status.enable();
+
         this.waybillCheckpoints.controls.forEach(control => {
           if (!control.get('checked').value && control.get('checkpoint').value) {
             control.get('checked').enable();
@@ -158,8 +158,6 @@ export class WaybillDetailComponent implements OnInit {
             control.get('checkpoint').enable();
           }
         });
-        this.to.enable();
-        this.status.enable();
       }
       if (this.roleGuard.isDriver()) {
         this.waybillCheckpoints.controls.forEach(control => {
@@ -185,6 +183,13 @@ export class WaybillDetailComponent implements OnInit {
 
   submit() {
     if (!this.waybill.status) {
+      const dialogRef = this.dialog.open(ProgressDialogComponent, {
+        disableClose: true,
+        data: {
+          text: 'Saving waybill. Please wait...'
+        }
+      });
+
       this.waybill.invoiceId = this.invoice.id;
       this.waybill.driver = this.wForm.value.driver;
       this.waybill.car = this.wForm.value.car;
@@ -192,8 +197,32 @@ export class WaybillDetailComponent implements OnInit {
       this.waybill.to = this.wForm.value.to;
       this.waybill.waybillCheckpoints = this.wForm.value.waybillCheckpoints
         .filter(waybillCheckpoint => waybillCheckpoint.checkpoint);
-      this.waybillService.registerWaybill(this.waybill)
-        .subscribe(waybill => this.parentDialogRef.close(waybill));
+
+      this.calcDistance((response: google.maps.DistanceMatrixResponse, status: google.maps.DistanceMatrixStatus) => {
+        if (status === google.maps.DistanceMatrixStatus.OK) {
+          this.waybill.distance = response.rows[0].elements[0].distance.value;
+
+          this.waybillService.registerWaybill(this.waybill)
+            .subscribe(waybill => {
+              dialogRef.close();
+              setTimeout(() => {
+                this.parentDialogRef.close(waybill);
+              }, 300);
+            });
+        } else {
+          console.error(status);
+          dialogRef.close();
+          setTimeout(() => {
+            this.dialog.open(ConfirmDialogComponent, {
+              data: {
+                text: 'Could not save waybill. Please, try again.',
+                trueAction: 'Ok',
+                isAlert: true
+              }
+            });
+          }, 300);
+        }
+      });
     } else if (this.waybill.status === WaybillStatus.STARTED) {
       this.waybill.waybillCheckpoints = this.wForm.value.waybillCheckpoints
         .filter(waybillCheckpoint => waybillCheckpoint.checkpoint);
@@ -209,12 +238,14 @@ export class WaybillDetailComponent implements OnInit {
   shouldShowAddBtn(index: number): boolean {
     return index === (this.waybillCheckpoints.controls.length - 1)
       && this.waybillCheckpoints.controls[index].get('checkpoint').value
-      && this.edit;
+      && this.edit
+      && (this.roleGuard.isOwner() || this.roleGuard.isManager());
   }
 
   shouldShowRemoveBtn(): boolean {
     return this.waybillCheckpoints.controls.length > 1
-      && this.edit;
+      && this.edit
+      && (this.roleGuard.isOwner() || this.roleGuard.isManager());
   }
 
   compareWarehouse(warehouse1: Warehouse, warehouse2: Warehouse) {
@@ -226,6 +257,122 @@ export class WaybillDetailComponent implements OnInit {
       const valid = typeof control.value === 'object' || !control.value;
       return valid ? null : {'validCheckpoint': {value: control.value}};
     };
+  }
+
+  getCars(): void {
+    this.carService.getCars()
+      .subscribe(cars => this.cars = cars);
+  }
+
+  calcDistance(callback) {
+    const service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix({
+      origins: [{lat: this.waybill.from.lat, lng: this.waybill.from.lng}],
+      destinations: [{lat: this.waybill.to.lat, lng: this.waybill.to.lng}],
+      travelMode: google.maps.TravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.METRIC
+    }, callback);
+  }
+
+  searchPlace(term: string): void {
+    const service = new google.maps.places.AutocompleteService();
+    service.getPlacePredictions({input: term, types: ['(cities)']},
+      (result: AutocompletePrediction[], status: google.maps.places.PlacesServiceStatus) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          this.filteredCheckpoints = result.map((prediction: AutocompletePrediction) => {
+            const checkpoint = new Checkpoint();
+            checkpoint.placeId = prediction.place_id;
+            checkpoint.name = prediction.structured_formatting.main_text;
+            checkpoint.additionName = prediction.structured_formatting.secondary_text;
+            return checkpoint;
+          });
+        } else {
+          console.error(status);
+        }
+      });
+  }
+
+  loadLocation(checkpoint: Checkpoint): void {
+    if (!checkpoint.placeId) {
+      return;
+    }
+
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({placeId: checkpoint.placeId}, (result: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
+      if (status === google.maps.GeocoderStatus.OK) {
+        checkpoint.lat = result[0].geometry.location.lat();
+        checkpoint.lng = result[0].geometry.location.lng();
+      } else {
+        console.error(status);
+      }
+    });
+  }
+
+  loadDirection() {
+    let currentWaybill: Waybill;
+    /*if (this.wForm.value.from && this.wForm.value.to) {
+      currentWaybill = this.wForm.value;
+    } else */
+    if (this.waybill.from && this.waybill.to) {
+      currentWaybill = this.waybill;
+    } else {
+      return;
+    }
+
+    this.isDirectionLoaded = true;
+
+    const directionService = new google.maps.DirectionsService();
+    const directionDisplay = new google.maps.DirectionsRenderer();
+
+    const waypoints: google.maps.DirectionsWaypoint[] = [];
+    currentWaybill.waybillCheckpoints.forEach(waybillCheckpoint => {
+      if (waybillCheckpoint.checkpoint) {
+        waypoints.push({
+          location: {
+            lat: waybillCheckpoint.checkpoint.lat,
+            lng: waybillCheckpoint.checkpoint.lng
+          }, stopover: false
+        });
+      }
+    });
+
+    console.log(waypoints);
+
+    directionDisplay.setMap(this.map);
+    directionService.route({
+      origin: {lat: currentWaybill.from.lat, lng: currentWaybill.from.lng},
+      destination: {lat: currentWaybill.to.lat, lng: currentWaybill.to.lng},
+      waypoints: waypoints,
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING
+    }, (result: google.maps.DirectionsResult, status: google.maps.DirectionsStatus) => {
+      if (status === google.maps.DirectionsStatus.OK) {
+        directionDisplay.setDirections(result);
+      } else {
+        console.error(result);
+      }
+    });
+  }
+
+  setMap(event) {
+    this.map = event.map;
+  }
+
+  loadMap(): void {
+    if (!this.isMapLoaded) {
+      this.isMapLoaded = true;
+
+      const mapOptions: google.maps.MapOptions = {
+        gestureHandling: 'cooperative',
+        center: {lat: 53.8854032, lng: 27.5518797},
+        zoom: 12
+      };
+      this.map.setOptions(mapOptions);
+    }
+
+    if (!this.isDirectionLoaded) {
+      this.loadDirection();
+    }
   }
 
   get driver(): FormControl {
@@ -261,12 +408,17 @@ export class WaybillDetailComponent implements OnInit {
       checkpoint: [{
         value: waybillCheckpoint && waybillCheckpoint.checkpoint,
         disabled: !this.edit
-      }, this.validCheckpoint()]
+      }, [this.validCheckpoint(), Validators.required]]
     });
 
     group.controls['checkpoint'].valueChanges
       .pipe(
         startWith({} as Checkpoint),
+        tap(checkpoint => {
+          if (checkpoint && typeof checkpoint === 'object') {
+            this.loadLocation(checkpoint);
+          }
+        }),
         map(checkpoint => checkpoint && typeof checkpoint === 'object' ? checkpoint.name : checkpoint)
       )
       .subscribe(name => name && this.searchPlace(name as string));
@@ -278,48 +430,6 @@ export class WaybillDetailComponent implements OnInit {
     this.waybillCheckpoints.removeAt(index);
   }
 
-  searchPlace(term: string) {
-    const service = new google.maps.places.AutocompleteService();
-    service.getPlacePredictions({input: term, types: ['(cities)']}, (result, status) => {
-      if (status.toString() === 'OK') {
-        this.filteredCheckpoints = result.map((prediction: AutocompletePrediction) => {
-          const checkpoint = new Checkpoint();
-          checkpoint.place_id = prediction.place_id;
-          checkpoint.name = prediction.structured_formatting.main_text;
-          checkpoint.addition = prediction.structured_formatting.secondary_text;
-
-          const geocoder = new google.maps.Geocoder();
-          geocoder.geocode({placeId: checkpoint.place_id}, (result, status) => {
-            if (status.toString() === 'OK') {
-              checkpoint.lat = result[0].geometry.location.lat();
-              checkpoint.lng = result[0].geometry.location.lng();
-            }
-          });
-
-          return checkpoint;
-        });
-      }
-    });
-  }
-
-  getLocation(checkpoint: Checkpoint): Observable<Checkpoint> {
-    return Observable.create(observer => {
-      const geocoder = new google.maps.Geocoder();
-      geocoder.geocode({placeId: checkpoint.place_id}, (result, status) => {
-        if (status.toString() === 'OK') {
-          observer.onNext(result);
-        } else {
-          observer.onError(status);
-        }
-      });
-    }).publish().refCount();
-  }
-
-  getCars(): void {
-    this.carService.getCars()
-      .subscribe(cars => this.cars = cars);
-  }
-
   initForm() {
     this.wForm = this.fb.group({
       driver: [{value: '', disabled: true}, Validators.required],
@@ -329,63 +439,6 @@ export class WaybillDetailComponent implements OnInit {
       waybillCheckpoints: this.fb.array([]),
       status: [{value: '', disabled: true}]
     });
-  }
-
-  loadDirection() {
-    let currentWaybill: Waybill;
-    if (this.wForm.value.from && this.wForm.value.to) {
-      currentWaybill = this.wForm.value;
-    } else if (this.waybill.from && this.waybill.to) {
-      currentWaybill = this.waybill;
-    } else {
-      return;
-    }
-
-    this.isDirectionLoaded = true;
-
-    const directionService = new google.maps.DirectionsService();
-    const directionDisplay = new google.maps.DirectionsRenderer();
-
-    const waypoints: DirectionsWaypoint[] = [];
-    currentWaybill.waybillCheckpoints.forEach(waybillCheckpoint => {
-      if (waybillCheckpoint.checkpoint) {
-        waypoints.push({location: {lat: waybillCheckpoint.checkpoint.lat, lng: waybillCheckpoint.checkpoint.lng}, stopover: false});
-      }
-    });
-
-    directionDisplay.setMap(this.map);
-    directionService.route({
-      origin: {lat: currentWaybill.from.lat, lng: currentWaybill.from.lng},
-      destination: {lat: currentWaybill.to.lat, lng: currentWaybill.to.lng},
-      waypoints: [],
-      optimizeWaypoints: true,
-      travelMode: google.maps.TravelMode.DRIVING
-    }, (result, status) => {
-      if (status.toString() === 'OK') {
-        directionDisplay.setDirections(result);
-      }
-    });
-  }
-
-  setMap(event) {
-    this.map = event.map;
-  }
-
-  loadMap(): void {
-    if (!this.isMapLoaded) {
-      this.isMapLoaded = true;
-
-      const mapOptions: MapOptions = {
-        gestureHandling: 'cooperative',
-        center: {lat: 53.8854032, lng: 27.5518797},
-        zoom: 12
-      };
-      this.map.setOptions(mapOptions);
-    }
-
-    if (!this.isDirectionLoaded) {
-      this.loadDirection();
-    }
   }
 
   ngOnInit() {
@@ -410,16 +463,16 @@ export class WaybillDetailComponent implements OnInit {
 
 export interface AutocompletePrediction {
   description: string;
-  matched_substrings: PredictionSubstring[];
+  matched_substrings: google.maps.places.PredictionSubstring[];
   place_id: string;
   reference: string;
   structured_formatting: AutocompleteStructuredFormatting;
-  terms: PredictionTerm[];
+  terms: google.maps.places.PredictionTerm[];
   types: string[];
 }
 
 export interface AutocompleteStructuredFormatting {
   main_text: string;
-  main_text_matched_substrings: PredictionSubstring[];
+  main_text_matched_substrings: google.maps.places.PredictionSubstring[];
   secondary_text: string;
 }

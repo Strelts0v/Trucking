@@ -5,6 +5,7 @@ import { LossAct } from './lossact';
 
 export class Invoice {
   id: number;
+  number: string;
   client: {id: number; name: string};
   issueDate: string;
   consignments: Consignment[] = [];

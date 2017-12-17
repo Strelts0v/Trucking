@@ -9,21 +9,13 @@
         <span *ngIf="!waybill.id">New </span>
         Waybill
       </div>
-      <div class="header-subtitle" *ngIf="waybill.id">
-        №{{waybill.id}} {{waybill.status}}
-      </div>
+      <div class="header-subtitle" *ngIf="waybill.status">{{waybill.status}}</div>
     </div>
 
     <div class="header-sidebar-right">
       <button mat-icon-button matTooltip="Edit waybill" (click)="toggleEdit()" *ngIf="!edit && editAvailability">
         <mat-icon>edit</mat-icon>
       </button>
-      <!--<button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
-        <button mat-menu-item (click)="deleteWaybill()">Delete waybill</button>
-      </mat-menu>-->
       <button mat-icon-button matTooltip="Close" [mat-dialog-close]>
         <mat-icon>close</mat-icon>
       </button>
@@ -78,46 +70,38 @@
         <div class="col-1">
           Checkpoints:
         </div>
-        <div class="col-2">
-          <table formArrayName="waybillCheckpoints" class="checkpoint-table">
-            <tbody>
-            <tr *ngFor="let waybillCheckpoint of waybillCheckpoints.controls; index as i" [formGroupName]="i" [@shrinkIn]="'in'">
-              <td>
-                <mat-checkbox color="primary" formControlName="checked"></mat-checkbox>
-              </td>
-
-              <td>
-                <mat-form-field floatPlaceholder="never">
-                  <input matInput type="text" placeholder="Checkpoint" formControlName="checkpoint" [matAutocomplete]="auto" [readonly]="!(roleGuard.isOwner() || roleGuard.isManager())">
-                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCheckpointFn">
-                    <mat-option *ngFor="let checkpoint of filteredCheckpoints" [value]="checkpoint">
-                      <span class="checkpoint-option-name">{{checkpoint.name}}</span> |
-                      <small class="checkpoint-option-addition">{{checkpoint.addition}}</small>
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-              </td>
-
-              <td class="col-date">
-                <div *ngIf="waybillCheckpoint.controls['checked'].value">
-                  {{getCheckDate(i)}}
-                </div>
-              </td>
-
-              <td class="checkpoint-btn-row">
-                <div *ngIf="editAvailability && (roleGuard.isOwner() || roleGuard.isManager())">
-                  <button class="remove-btn" mat-icon-button (click)="deleteCheckpoint(i)" *ngIf="shouldShowRemoveBtn()">
-                    <mat-icon>remove_circle</mat-icon>
-                  </button>
-
-                  <button class="add-btn" mat-icon-button (click)="addCheckpoint()" *ngIf="shouldShowAddBtn(i)">
-                    <mat-icon>add_circle</mat-icon>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+        <div class="col-2" formArrayName="waybillCheckpoints">
+          <div class="container" *ngFor="let waybillCheckpoint of waybillCheckpoints.controls; index as i" [formGroupName]="i" [@shrinkIn]="'in'">
+            <div class="one">
+              <mat-checkbox color="primary" formControlName="checked"></mat-checkbox>
+            </div>
+            <div class="three">
+              <mat-form-field floatPlaceholder="never">
+                <input matInput type="text" placeholder="Checkpoint" formControlName="checkpoint" [matAutocomplete]="auto" [readonly]="!(roleGuard.isOwner() || roleGuard.isManager())">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCheckpointFn">
+                  <mat-option *ngFor="let checkpoint of filteredCheckpoints" [value]="checkpoint">
+                    <span class="checkpoint-option-name">{{checkpoint.name}}</span> |
+                    <small class="checkpoint-option-addition">{{checkpoint.additionName}}</small>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <div class="two">
+              <div *ngIf="waybillCheckpoint.controls['checked'].value">
+                {{getCheckDate(i)}}
+              </div>
+            </div>
+            <div>
+              <div class="add-remove-btn-row">
+                <button class="remove-btn" mat-icon-button (click)="deleteCheckpoint(i)" *ngIf="shouldShowRemoveBtn()">
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+                <button class="add-btn" mat-icon-button (click)="addCheckpoint()" *ngIf="shouldShowAddBtn(i)">
+                  <mat-icon>add_circle</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

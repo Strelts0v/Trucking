@@ -3,9 +3,9 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatDialog } from '@angular/material';
+
 import { BithdayCongratulationComponent } from '../bithday-congratulation/bithday-congratulation.component';
-import { AuthService, RoleGuard } from '../users';
-import { User } from '../users/index';
+import { AuthService, RoleGuard, User } from '../users';
 
 @Component({
   moduleId: module.id,
@@ -73,6 +73,10 @@ export class MainComponent implements OnInit {
     }
   }
 
+  hiMessaage(): string {
+    return `Нi, ${this.user.firstName}! You're logged in as ${this.user.roles.join(', ')}`;
+  }
+
   openTemplate(): void {
     const dialogRef = this.dialog.open(BithdayCongratulationComponent);
   }
@@ -87,32 +91,28 @@ export class MainComponent implements OnInit {
   }
 
   populateLinks(): void {
-    if (this.roleGuard.isOwner()) {
-      this.navLinks = [
-        {label: 'Users', path: '/users'},
-        {label: 'Clients', path: '/clients'},
-        {label: 'Consignment notes', path: '/invoices'},
-        {label: 'Waybills', path: '/waybills'}
-      ];
-    } else if (this.roleGuard.isSysAdmin() || this.roleGuard.isAdmin()) {
-      this.navLinks = [
-        {label: 'Users', path: '/users'},
-        {label: 'Clients', path: '/clients'}
-      ];
-    } else if (this.roleGuard.isDispatcher()) {
-      this.navLinks = [
-        {label: 'Clients', path: '/clients'},
-        {label: 'Consignment notes', path: '/invoices'}
-      ];
-    } else if (this.roleGuard.isManager()) {
-      this.navLinks = [
-        {label: 'Consignment notes', path: '/invoices'}
-      ];
-    } else if (this.roleGuard.isDriver()) {
-      this.navLinks = [
-        {label: 'Waybills', path: '/waybills'}
-      ];
-    }
+    this.navLinks = [
+      {
+        label: 'Users',
+        path: '/users',
+        availability: this.roleGuard.isOwner() || this.roleGuard.isSysAdmin() || this.roleGuard.isAdmin()
+      },
+      {
+        label: 'Clients',
+        path: '/clients',
+        availability: this.roleGuard.isOwner() || this.roleGuard.isSysAdmin() || this.roleGuard.isAdmin()
+      },
+      {
+        label: 'Consignment notes',
+        path: '/invoices',
+        availability: this.roleGuard.isOwner() || this.roleGuard.isDispatcher() || this.roleGuard.isManager()
+      },
+      {
+        label: 'Waybills',
+        path: '/waybills',
+        availability: this.roleGuard.isOwner() || this.roleGuard.isManager() || this.roleGuard.isDriver()
+      }
+    ];
   }
 
   ngOnInit(): void {

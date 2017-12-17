@@ -11,12 +11,15 @@ import java.util.List;
  * An Invoice.
  *
  * @author blink7
- * @version 1.6
- * @since 2017-12-13
+ * @version 1.8
+ * @since 2017-12-16
  */
 @Entity
 @Table(name = "invoices")
 public class Invoice extends AbstractPersistentObject {
+
+    @Column(name = "invoice_number")
+    private String number;
 
     @OneToOne
     @JoinColumn(name = "clients_id")
@@ -56,6 +59,18 @@ public class Invoice extends AbstractPersistentObject {
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate lossActIssueDate;
 
+    @Column(name = "complete_date")
+    @Convert(converter = LocalDateAttributeConverter.class)
+    private LocalDate completeDate;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -81,7 +96,7 @@ public class Invoice extends AbstractPersistentObject {
     }
 
     public void addItem(Item item, Integer amount) {
-        addItem(item, amount, null);
+        addItem(item, amount, ItemConsignment.Status.REGISTERED);
     }
 
     public void addItem(Item item, Integer amount, ItemConsignment.Status status) {
@@ -164,6 +179,14 @@ public class Invoice extends AbstractPersistentObject {
 
     public void setLossActIssueDate(LocalDate lossActIssueDate) {
         this.lossActIssueDate = lossActIssueDate;
+    }
+
+    public LocalDate getCompleteDate() {
+        return completeDate;
+    }
+
+    public void setCompleteDate(LocalDate completeDate) {
+        this.completeDate = completeDate;
     }
 
     public enum Status {

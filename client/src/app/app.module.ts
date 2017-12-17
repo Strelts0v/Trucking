@@ -25,6 +25,7 @@ import {
   MatSnackBarModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  MatProgressBarModule,
 } from '@angular/material';
 
 import { JwtModule } from '@auth0/angular-jwt';
@@ -63,6 +64,7 @@ import { CarService } from './cars/car.service';
 import { CarListComponent } from './cars/car-list/car-list.component';
 import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
 import { ItemService } from './items/item.service';
+import { ProgressDialogComponent } from './waybills/waybill-detail/progress-dialog/progress-dialog.component';
 
 @NgModule({
   imports: [
@@ -91,6 +93,7 @@ import { ItemService } from './items/item.service';
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatProgressBarModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -123,14 +126,16 @@ import { ItemService } from './items/item.service';
     UserFullNamePipe,
     ClientListComponent,
     UserDetailComponent,
-    ClientDetailComponent
+    ClientDetailComponent,
+    ProgressDialogComponent
   ],
   entryComponents: [
     DocHolderComponent,
     ConfirmDialogComponent,
     BithdayCongratulationComponent,
     UserDetailComponent,
-    ClientDetailComponent
+    ClientDetailComponent,
+    ProgressDialogComponent
   ],
   providers: [
     AuthGuard,

@@ -28,7 +28,7 @@ export class InvoiceListComponent implements OnInit {
 
   invoiceStatus = InvoiceStatus;
 
-  displayedColumns = ['id', 'client', 'issue_date', 'check_date', 'status', 'inspector'];
+  displayedColumns = ['number', 'client', 'issue_date', 'check_date', 'status', 'inspector'];
   dataSource = new MatTableDataSource<Invoice>();
   pageNumber = 1;
   pageSize = 10;

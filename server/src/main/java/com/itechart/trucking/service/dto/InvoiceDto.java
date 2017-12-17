@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class InvoiceDto extends AbstractDto {
 
+    private String number;
     @NotNull
     private ClientDto client;
     private String issueDate;
@@ -28,6 +29,14 @@ public class InvoiceDto extends AbstractDto {
     private WaybillDto waybill;
     private List<LossActDto> lossActs;
     private String lossActIssueDate;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 
     public ClientDto getClient() {
         return client;

@@ -13,8 +13,8 @@ import org.mapstruct.factory.Mappers;
  * Mapper for the entity {@link Waybill} and its DTO called {@link WaybillDto}.
  *
  * @author blink7
- * @version 1.4
- * @since 2017-12-12
+ * @version 1.5
+ * @since 2017-12-16
  */
 @Mapper(uses = {WaybillCheckpointMapper.class})
 @WaybillQualifier
@@ -30,6 +30,7 @@ public interface WaybillMapper {
 
     @Mapping(target = "issueDate", source = "issueDate", dateFormat = Constants.DATE_FORMAT)
     @Mapping(target = "invoiceId", source = "invoice.id")
+    @Mapping(target = "invoiceNumber", source = "invoice.number")
     @Mapping(target = "departureDate", ignore = true)
     @Mapping(target = "driver", ignore = true)
     @Mapping(target = "waybillCheckpoints", ignore = true)

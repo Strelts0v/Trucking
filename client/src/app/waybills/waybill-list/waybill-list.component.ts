@@ -14,7 +14,7 @@ export class WaybillListComponent implements OnInit {
 
   waybillStatus = WaybillStatus;
 
-  displayedColumns = ['from', 'to', 'car_number', 'invoice_id', 'issue_date'];
+  displayedColumns = ['from', 'to', 'car_number', 'invoice_number', 'issue_date'];
   dataSource = new MatTableDataSource<Waybill>();
   pageNumber = 1;
   pageSize = 10;
