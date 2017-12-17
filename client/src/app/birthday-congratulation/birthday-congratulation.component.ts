@@ -18,10 +18,10 @@ export class BirthdayCongratulationComponent implements OnInit {
     text: 'Уважаемый\n' +
     ' Поздравляем Вас с\n' +
     ' С уважением, коллектив ООО ”Транспортные системы”',
-    headerColor : "MediumSpringGreen",
+    color : "MediumSpringGreen",
   };
 
-  color = COLORS ;
+  colors = COLORS ;
 
   @ViewChild('myTextArea') textarea: ElementRef;
 
@@ -41,7 +41,10 @@ export class BirthdayCongratulationComponent implements OnInit {
 
   }
 
+  setData() {
 
+
+  }
 
 
   insertName() {
@@ -77,20 +80,20 @@ export class BirthdayCongratulationComponent implements OnInit {
 
 export interface Color {
 
-  color :string;
+  name :string;
 }
 
 const COLORS: Color[] = [
-  {color:'PaleGreen'},
-  {color:'DarkOrchid'},
-  {color:'LightBlue'},
-  {color:'Thistle'},
-  {color:'PaleGoldenRod'},
-  {color:'Salmon'},
-  {color:'Tomato'},
-  {color:'DarkSeaGreen'},
-  {color:'MediumSpringGreen'},
-  {color:'DodgerBlue'},
-  {color:'MistyRose'},
+  {name:'PaleGreen'},
+  {name:'DarkOrchid'},
+  {name:'LightBlue'},
+  {name:'Thistle'},
+  {name:'PaleGoldenRod'},
+  {name:'Salmon'},
+  {name:'Tomato'},
+  {name:'DarkSeaGreen'},
+  {name:'MediumSpringGreen'},
+  {name:'DodgerBlue'},
+  {name:'MistyRose'},
 
 ];

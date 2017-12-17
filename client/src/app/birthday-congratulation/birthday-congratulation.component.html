@@ -4,14 +4,14 @@
   <table class="template_letter">
 
     <tr>
-      <td id="header_with_iamge" [ngStyle]="{ 'background-color': (letter.headerColor) } ">
+      <td id="header_with_iamge" [ngStyle]="{ 'background-color': (letter.color) } ">
         <label for="image">
           <img [src]="fullImagePath">
         </label>
         <input type="file" id="image" name="image" (click)="$event.stopPropagation()">
 
-          <mat-select id="color_selector" [ngStyle]="{'font-size': '10px'}" [(ngModel)]="letter.headerColor">
-            <mat-option *ngFor="let color of color" [ngStyle]="{ 'background-color': (color.color) } " [value]="color.color">
+          <mat-select id="color_selector" [ngStyle]="{'font-size': '10px'}" [(ngModel)]="letter.color">
+            <mat-option *ngFor="let color of colors" [ngStyle]="{ 'background-color': (color.name) } " [value]="color.name">
             </mat-option>
           </mat-select>
 
@@ -39,7 +39,7 @@
 
 <mat-dialog-actions>
   <button mat-button color="warn" mat-dialog-close (click)="cancel()">CANCEL</button>
-  <button mat-button color="primary" type="submit">SAVE</button>
+  <button mat-button color="primary" type="submit" (click)="setData()" >SAVE</button>
 </mat-dialog-actions>
 
 

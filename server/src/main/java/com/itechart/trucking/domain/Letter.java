@@ -16,11 +16,30 @@ public class Letter extends AbstractPersistentObject{
     @Column(name="text")
     private String text;
 
+    @Column(name="color")
+    private String color;
+
     public String getText() {
         return text;
     }
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return "Letter{" +
+                "text='" + text + '\'' +
+                ", color='" + color + '\'' +
+                '}';
     }
 }

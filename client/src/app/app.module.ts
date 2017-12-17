@@ -63,6 +63,7 @@ import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pi
 import { CarService } from './cars/car.service';
 import { CarListComponent } from './cars/car-list/car-list.component';
 import { BirthdayCongratulationComponent } from './birthday-congratulation/birthday-congratulation.component';
+import {BirtthdayCongragulationService} from './birthday-congratulation/birtthday-congragulation.service';
 
 @NgModule({
   imports: [
@@ -140,7 +141,8 @@ import { BirthdayCongratulationComponent } from './birthday-congratulation/birth
     CarService,
     InvoiceService,
     WaybillService,
-    ClientService
+    ClientService,
+    BirtthdayCongragulationService
   ],
   bootstrap: [AppComponent]
 })

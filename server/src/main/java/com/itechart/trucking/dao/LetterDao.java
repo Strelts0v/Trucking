@@ -15,7 +15,7 @@ public interface LetterDao {
      * This method creates field text in Congragulation letter
      * @param letter
      */
-    void createLetter(Letter letter);
+    Letter createLetter(Letter letter);
     /**
      * This method updates field text in Congragulation letter
      * @param letter
@@ -26,7 +26,7 @@ public interface LetterDao {
      * This method reads field text in Congragulation letter
      * @param id
      */
-    Optional<Letter> readLetter(Integer id);
+    Object readLetter(Integer id);
 
     /**
      * This method deletes letter from dataBase

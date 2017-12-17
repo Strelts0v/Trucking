@@ -63,5 +63,6 @@
         <loadData tableName="item_consignments"
                   file="config/liquibase/item_consignments.csv"
                   separator=";"/>
+        <loadData tableName="congragulation_letter" file="config/liquibase/birthdayLetter.csv" separator=";"/>
     </changeSet>
 </databaseChangeLog>
