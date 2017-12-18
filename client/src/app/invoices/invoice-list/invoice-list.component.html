@@ -1,8 +1,8 @@
 <div class="paginated-table">
   <mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="id">
+    <ng-container matColumnDef="number">
       <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
-      <mat-cell *matCellDef="let invoice">{{invoice.id}}</mat-cell>
+      <mat-cell *matCellDef="let invoice">{{invoice.number}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="client">

@@ -10,7 +10,7 @@ package com.itechart.trucking.service.dto;
 public class ItemDto extends AbstractDto {
 
     private String name;
-    private Integer price;
+    private Float price;
     private String unitCode;
 
     public String getName() {
@@ -21,11 +21,11 @@ public class ItemDto extends AbstractDto {
         this.name = name;
     }
 
-    public Integer getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

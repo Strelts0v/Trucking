@@ -16,8 +16,8 @@ import java.util.Optional;
 
 /**
  * @author blink7
- * @version 1.2
- * @since 2017-12-13
+ * @version 1.3
+ * @since 2017-12-17
  */
 @Repository
 public class JpaCheckpointDao implements CheckpointDao {
@@ -73,7 +73,8 @@ public class JpaCheckpointDao implements CheckpointDao {
 
     @Override
     public Checkpoint save(Checkpoint checkpoint) {
-        return em.merge(checkpoint);
+        em.persist(checkpoint);
+        return checkpoint;
     }
 
     @Override

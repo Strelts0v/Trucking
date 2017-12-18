@@ -2,6 +2,7 @@ package com.itechart.trucking.dao.impl;
 
 import com.itechart.trucking.dao.InvoiceDao;
 import com.itechart.trucking.domain.Invoice;
+import com.itechart.trucking.domain.InvoiceResult;
 import com.itechart.trucking.domain.Invoice_;
 import org.springframework.stereotype.Repository;
 
@@ -15,8 +16,8 @@ import java.util.Optional;
 
 /**
  * @author blink7
- * @version 1.2
- * @since 2017-12-13
+ * @version 1.3
+ * @since 2017-12-16
  */
 @Repository
 public class JpaInvoiceDao implements InvoiceDao {
@@ -79,6 +80,12 @@ public class JpaInvoiceDao implements InvoiceDao {
         Root<Invoice> root = cq.from(Invoice.class);
         cq.select(cb.count(root));
         return em.createQuery(cq).getSingleResult().intValue();
+    }
+
+    @Override
+    public InvoiceResult saveResult(InvoiceResult result) {
+        em.persist(result);
+        return result;
     }
 
     public EntityManager getEntityManager() {

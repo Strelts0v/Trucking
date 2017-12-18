@@ -1,14 +1,15 @@
 package com.itechart.trucking.dao;
 
 import com.itechart.trucking.domain.Invoice;
+import com.itechart.trucking.domain.InvoiceResult;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
  * @author blink7
- * @version 1.0
- * @since 2017-11-18
+ * @version 1.1
+ * @since 2017-12-16
  */
 public interface InvoiceDao {
 
@@ -54,4 +55,6 @@ public interface InvoiceDao {
      * @return the number of invoices in the DB
      */
     int size();
+
+    InvoiceResult saveResult(InvoiceResult result);
 }

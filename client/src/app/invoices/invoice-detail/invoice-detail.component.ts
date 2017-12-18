@@ -16,6 +16,7 @@ import { ItemService } from '../../items/item.service';
 
 const BUTTON_SAVE = 'Save';
 const BUTTON_CHECK = 'Check';
+const BUTTON_COMPLETE = 'Complete';
 
 @Component({
   selector: 'app-invoice-detail',
@@ -58,15 +59,17 @@ export class InvoiceDetailComponent implements OnInit {
 
   saveBtnName: string;
 
+  consignmentStatus = ConsignmentStatus;
+
   constructor(private fb: FormBuilder,
               private invoiceService: InvoiceService,
               private iconRegistry: MatIconRegistry,
               private sanitizer: DomSanitizer,
-              private dialog: MatDialog,
               private parentDialogRef: MatDialogRef<DocHolderComponent>,
               private clientService: ClientService,
               private itemService: ItemService,
-              public roleGuard: RoleGuard) {
+              public roleGuard: RoleGuard,
+              private dialog: MatDialog) {
 
     iconRegistry.addSvgIcon(
       'package_variant',
@@ -85,9 +88,6 @@ export class InvoiceDetailComponent implements OnInit {
       if (this.edit && (this.roleGuard.isOwner() || this.roleGuard.isDispatcher() || this.roleGuard.isManager())) {
         control.enable();
       }
-      if (this.edit && this.roleGuard.isDriver()) {
-        control.get('status').enable();
-      }
     });
 
     if (this.edit && (this.roleGuard.isOwner() || this.roleGuard.isDispatcher())) {
@@ -95,19 +95,7 @@ export class InvoiceDetailComponent implements OnInit {
     }
   }
 
-  deleteInvoice(): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        text: 'Delete this consignment note?',
-        trueAction: 'Delete',
-        falseAction: 'Cancel'
-      }
-    });
-  }
-
   submit(): void {
-    console.log('Invoice saved');
-
     if (!this.invoice.status) {
       this.invoice.client = this.iForm.value.client;
       this.invoice.consignments = this.iForm.value.consignments;
@@ -118,11 +106,22 @@ export class InvoiceDetailComponent implements OnInit {
       this.invoiceService.checkInvoice(this.invoice)
         .subscribe(invoice => this.parentDialogRef.close(invoice));
     } else if (this.invoice.status === InvoiceStatus.CHECKED) {
-      this.iForm.value.consignments.forEach((consignment, index) =>
-        this.invoice.consignments[index].status = consignment.status);
-      console.log(this.invoice.consignments);
-      this.invoiceService.completeInvoice(this.invoice)
-        .subscribe(invoice => this.parentDialogRef.close(invoice));
+      const isValid = this.invoice.waybill.waybillCheckpoints.every(waybillCheckpoint => {
+        return waybillCheckpoint.checked === true;
+      });
+
+      if (isValid) {
+        this.invoiceService.completeInvoice(this.invoice)
+          .subscribe(invoice => this.parentDialogRef.close(invoice));
+      } else {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+          data: {
+            text: 'You must check all checkpoints before completing the transportation',
+            trueAction: 'Ok',
+            isAlert: true
+          }
+        });
+      }
     }
   }
 
@@ -130,28 +129,25 @@ export class InvoiceDetailComponent implements OnInit {
     console.log('Invoice canceled');
   }
 
-  getConsignmentStatuses(): ConsignmentStatus[] {
-    return Object.keys(ConsignmentStatus)
-      .map(key => ConsignmentStatus[key]);
-  }
-
-  compareClient(client1: Client, client2: Client) {
+  compareClient(client1: Client, client2: Client): boolean {
     return client1 && client2 && client1.id === client2.id;
   }
 
-  compareItem(item1: Item, item2: Item) {
+  compareItem(item1: Item, item2: Item): boolean {
     return item1 && item2 && item1.id === item2.id;
   }
 
   shouldShowAddBtn(index: number): boolean {
     return index === (this.consignments.controls.length - 1)
       && this.consignments.controls[index].get('item').value
-      && this.edit;
+      && this.edit
+      && !this.invoice.status;
   }
 
   shouldShowRemoveBtn(): boolean {
     return this.consignments.controls.length > 1
-      && this.edit;
+      && this.edit
+      && !this.invoice.status;
   }
 
   getClients(): void {
@@ -164,11 +160,22 @@ export class InvoiceDetailComponent implements OnInit {
       .subscribe(items => this.items = items);
   }
 
+  getStatus(index: number): string {
+    const consignments = this.invoice.consignments;
+    if (consignments.length > index) {
+      return consignments[index].status;
+    } else {
+      return '';
+    }
+  }
+
   setUpSaveBtn(): void {
     if (!this.invoice.status) {
       this.saveBtnName = BUTTON_SAVE;
     } else if (this.invoice.status === InvoiceStatus.ISSUED) {
       this.saveBtnName = BUTTON_CHECK;
+    } else if (this.invoice.status === InvoiceStatus.CHECKED) {
+      this.saveBtnName = BUTTON_COMPLETE;
     } else {
       this.saveBtnName = BUTTON_SAVE;
     }
@@ -187,7 +194,7 @@ export class InvoiceDetailComponent implements OnInit {
       this.fb.group({
         item: [{value: consignment && consignment.item, disabled: !this.edit}, Validators.required],
         amount: [{value: consignment && consignment.amount, disabled: !this.edit}, [Validators.required, Validators.min(1)]],
-        status: [{value: consignment && consignment.status, disabled: !this.edit}, Validators.required]
+        status: [{value: consignment && consignment.status, disabled: !this.edit}]
       })
     );
   }
@@ -201,12 +208,6 @@ export class InvoiceDetailComponent implements OnInit {
       client: [{value: '', disabled: true}, Validators.required],
       consignments: this.fb.array([])
     });
-  }
-
-  updateFormState(): void {
-    this.setUpSaveBtn();
-    this.edit = false;
-    this.toggleForm();
   }
 
   ngOnInit(): void {

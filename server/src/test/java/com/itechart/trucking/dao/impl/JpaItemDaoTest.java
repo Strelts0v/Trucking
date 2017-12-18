@@ -36,7 +36,7 @@ public class JpaItemDaoTest {
 
     private static final String NAME="item_name";
 
-    private static final Integer PRICE= 15;
+    private static final Float PRICE= 15f;
 
     private static final ItemUnit UNIT = new ItemUnit("PCS");
 
