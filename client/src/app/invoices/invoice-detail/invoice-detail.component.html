@@ -57,8 +57,7 @@
             </div>
           </div>
 
-          <div class="container" *ngFor="let consignment of consignments.controls; index as i" [formGroupName]="i"
-               [@shrinkIn]="'in'">
+          <div class="container" *ngFor="let consignment of consignments.controls; index as i" [formGroupName]="i" [@shrinkIn]>
             <div class="one">
               {{consignment.controls.item.value && consignment.controls.item.value.id}}
             </div>

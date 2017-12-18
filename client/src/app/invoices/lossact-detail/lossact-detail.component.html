@@ -14,12 +14,6 @@
       <button mat-icon-button matTooltip="Edit act" (click)="toggleEdit()" *ngIf="!edit && editAvailability">
         <mat-icon>edit</mat-icon>
       </button>
-      <!--<button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
-        <button mat-menu-item (click)="deleteLossAct()">Delete act</button>
-      </mat-menu>-->
       <button mat-icon-button matTooltip="Close" [mat-dialog-close]>
         <mat-icon>close</mat-icon>
       </button>
@@ -38,7 +32,7 @@
             </div>
           </div>
 
-          <div class="container" *ngFor="let lossAct of lossActs.controls; index as i" [formGroupName]="i" [@shrinkIn]="'in'">
+          <div class="container" *ngFor="let lossAct of lossActs.controls; index as i" [formGroupName]="i" [@shrinkIn]>
             <div class="three">
               <mat-form-field class="item-field">
                 <mat-select formControlName="item" [compareWith]="compareItem">

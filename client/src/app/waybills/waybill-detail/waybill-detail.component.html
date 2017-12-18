@@ -71,7 +71,7 @@
           Checkpoints:
         </div>
         <div class="col-2" formArrayName="waybillCheckpoints">
-          <div class="container" *ngFor="let waybillCheckpoint of waybillCheckpoints.controls; index as i" [formGroupName]="i" [@shrinkIn]="'in'">
+          <div class="container" *ngFor="let waybillCheckpoint of waybillCheckpoints.controls; index as i" [formGroupName]="i" [@shrinkIn]>
             <div class="one">
               <mat-checkbox color="primary" formControlName="checked"></mat-checkbox>
             </div>

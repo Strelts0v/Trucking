@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { animate, group, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Invoice, InvoiceStatus } from '../invoice';
@@ -16,18 +16,18 @@ import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.comp
   styleUrls: ['./lossact-detail.component.sass'],
   animations: [
     trigger('shrinkIn', [
-      state('in', style({height: 'auto', transform: 'translateY(0)', opacity: 1})),
       transition('void => *', [
-        style({height: 10, transform: 'translateY(-50px)', opacity: 0}),
-        group([
-          animate('0.3s ease', style({
-            transform: 'translateY(0)',
-            height: 'auto'
-          })),
-          animate('0.3s ease', style({
-            opacity: 1
-          }))
-        ])
+        style({
+          height: '0',
+          opacity: 0
+        }),
+        animate('0.35s ease-out')
+      ]),
+      transition('* => void', [
+        animate('0.25s ease-in', style({
+          height: '0',
+          opacity: 0
+        }))
       ])
     ])
   ]
@@ -108,6 +108,10 @@ export class LossActDetailComponent implements OnInit {
         amount: [{value: lossAct && lossAct.amount, disabled: !this.edit}, [Validators.required, Validators.min(1)]]
       })
     );
+  }
+
+  deleteItem(index: number) {
+    this.lossActs.removeAt(index);
   }
 
   initForm(): void {
