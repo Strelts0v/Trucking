@@ -26,7 +26,7 @@ public interface LetterDao {
      * This method reads field text in Congragulation letter
      * @param id
      */
-    Object readLetter(Integer id);
+    Optional<Letter> readLetter(Integer id);
 
     /**
      * This method deletes letter from dataBase

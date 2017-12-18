@@ -1,27 +1,26 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatTableDataSource,} from '@angular/material';
-import {BirthdayCongragulation} from './birthday-congragulation';
+import {LetterService} from './letter.service';
+import {Letter} from './letter';
+
 
 @Component({
   selector: 'app-bithday-congratulation',
   templateUrl: './birthday-congratulation.component.html',
-  styleUrls: ['./birthday-congratulation.component.sass']
+  styleUrls: ['./birthday-congratulation.component.sass'],
+
 
 })
 export class BirthdayCongratulationComponent implements OnInit {
 
   nameTag: string = '${fullname}';
   ageTag: string = '${age}';
+  colors = COLORS ;
+  currentText :string;
+  currentColor : string;
 
   @Input()
-  letter : BirthdayCongragulation = {
-    text: 'Уважаемый\n' +
-    ' Поздравляем Вас с\n' +
-    ' С уважением, коллектив ООО ”Транспортные системы”',
-    color : "MediumSpringGreen",
-  };
-
-  colors = COLORS ;
+  letter : Letter;
 
   @ViewChild('myTextArea') textarea: ElementRef;
 
@@ -30,19 +29,39 @@ export class BirthdayCongratulationComponent implements OnInit {
   caretPos: number = 0;
 
   constructor(private element: ElementRef,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private letterService : LetterService) {
   }
 
   ngOnInit() {
+    //this.letter = this.birthday_service.getLetter();
+    this.letter = new Letter();
+    this.getData();
+    console.log(this.letter);
+
+   // this.letter.text = "Поздравляем с ДР";
+   // this.letter.color = "MediumSpringGreen";
+    this.currentColor = this.letter.color;
+    this.currentText = this.letter.text;
+
   }
 
   ngOnChanges() {
     console.log('Changed value in componnt');
 
   }
+  getData() {
+
+    this.letterService.getLetter().subscribe(data => this.letter = data);
+    console.log(this.letter.color);
+    console.log(this.letter.text);
+  }
 
   setData() {
 
+    this.letterService.updateLetter(this.letter).subscribe(data => this.letter = data);
+    this.letter.text =  this.currentText;
+    this.letter.color = this.currentColor;
 
   }
 
@@ -54,8 +73,7 @@ export class BirthdayCongratulationComponent implements OnInit {
     const last = this.textarea.nativeElement.value.slice(this.caretPos, this.textarea.nativeElement.value.length);
     const result = first + ' ' + this.nameTag + ' ' + last;
     console.log(result);
-
-    this.letter.text = result;
+    this.currentText = result;
 
   }
 
@@ -65,8 +83,7 @@ export class BirthdayCongratulationComponent implements OnInit {
     const last = this.textarea.nativeElement.value.slice(this.caretPos, this.textarea.nativeElement.value.length);
     const result = first + this.ageTag + last;
     console.log(result);
-
-    this.letter.text = result;
+    this.currentText = result;
   }
 
 

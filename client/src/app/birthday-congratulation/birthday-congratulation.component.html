@@ -4,13 +4,13 @@
   <table class="template_letter">
 
     <tr>
-      <td id="header_with_iamge" [ngStyle]="{ 'background-color': (letter.color) } ">
+      <td id="header_with_iamge" [ngStyle]="{ 'background-color': [currentColor] } ">
         <label for="image">
           <img [src]="fullImagePath">
         </label>
         <input type="file" id="image" name="image" (click)="$event.stopPropagation()">
 
-          <mat-select id="color_selector" [ngStyle]="{'font-size': '10px'}" [(ngModel)]="letter.color">
+          <mat-select id="color_selector" [ngStyle]="{'font-size': '10px'}" [(ngModel)]="currentColor">
             <mat-option *ngFor="let color of colors" [ngStyle]="{ 'background-color': (color.name) } " [value]="color.name">
             </mat-option>
           </mat-select>
@@ -21,7 +21,7 @@
 
     <tr id="text_congr">
       <mat-form-field>
-          <textarea #myTextArea [(ngModel)]="letter.text" matInput matTextareaAutosize matAutosizeMinRows="9"
+          <textarea #myTextArea [(ngModel)]="currentText" matInput matTextareaAutosize matAutosizeMinRows="8"
                     placeholder="Поздравление" (click)="getCaretPos(myTextArea)" (keyup)="getCaretPos(myTextArea)">
 
           </textarea>
