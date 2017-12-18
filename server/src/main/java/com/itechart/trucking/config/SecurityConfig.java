@@ -58,15 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
 
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/*").hasAnyRole(
-                    AUTHORIZED_ROLE_SYSADMIN,
-                    AUTHORIZED_ROLE_ADMIN,
-                    AUTHORIZED_ROLE_MANAGER,
-                    AUTHORIZED_ROLE_DISPATCHER,
-                    AUTHORIZED_ROLE_DRIVER,
-                    AUTHORIZED_ROLE_OWNER
-                )
-                // TODO test and enable .anyRequest().fullyAuthenticated()
+                .antMatchers("/api/*").fullyAuthenticated()
+                .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(new Http401AuthenticationEntryPoint("'Bearer token_type=\"JWT\"'"));
