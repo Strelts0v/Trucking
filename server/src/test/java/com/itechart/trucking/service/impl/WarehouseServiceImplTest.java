@@ -3,6 +3,7 @@ package com.itechart.trucking.service.impl;
 import com.itechart.trucking.Application;
 import com.itechart.trucking.domain.Warehouse;
 import com.itechart.trucking.service.WarehouseService;
+import com.itechart.trucking.service.dto.WarehouseDto;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +46,7 @@ public class WarehouseServiceImplTest {
     @Test
     public void getWarehouseyNotExistedIdShouldReturnNoWarehouseTest() throws Exception {
         final int invalidWarehouseId = 5;
-        Optional<Warehouse> warehouse = service.getWarehouse(invalidWarehouseId);
+        Optional<WarehouseDto> warehouse = service.getWarehouse(invalidWarehouseId);
 
         final String errorMessage = "Expected empty optional warehouse object";
         Assert.assertFalse(errorMessage, warehouse.isPresent());
@@ -55,10 +56,10 @@ public class WarehouseServiceImplTest {
     public void getWarehouseByIdShouldReturnCorrespondWarehouse() throws Exception {
         Warehouse expectedWarehouse = service.addWarehouse(warehouse);
         final int addedWarehouseId = expectedWarehouse.getId();
-        Optional<Warehouse> actualWarehouse = service.getWarehouse(addedWarehouseId);
+        Optional<WarehouseDto> actualWarehouse = service.getWarehouse(addedWarehouseId);
 
         final String errorMessage = "Expected and actual warehouses are different";
-        assertEquals(errorMessage, expectedWarehouse, actualWarehouse.orElse(new Warehouse()));
+        assertEquals(errorMessage, expectedWarehouse, actualWarehouse.orElse(new WarehouseDto()));
     }
 
     @Test
@@ -74,7 +75,7 @@ public class WarehouseServiceImplTest {
         service.addWarehouse(warehouse2);
 
         final String searchNamePattern = "name";
-        List<Warehouse> warehouseList = service.getWarehousesByName(searchNamePattern);
+        List<WarehouseDto> warehouseList = service.getWarehousesByName(searchNamePattern);
 
         final int expectedWarehouseCount = 2;
         final String errorMessage = "Expected and actual warehouse size are different";
@@ -87,7 +88,7 @@ public class WarehouseServiceImplTest {
 
         final int page = 1;
         final int pageSize = 20;
-        List<Warehouse> warehouseList = service.getWarehousesByPage(page, pageSize);
+        List<WarehouseDto> warehouseList = service.getWarehousesByPage(page, pageSize);
 
         final int expectedWarehouseCount = 1;
         final String errorMessage = "Expected and actual warehouse size are different";
@@ -115,10 +116,10 @@ public class WarehouseServiceImplTest {
         warehouse.setName("new test name");
         service.updateWarehouse(warehouse);
 
-        Optional<Warehouse> actualWarehouse = service.getWarehouse(warehouse.getId());
+        Optional<WarehouseDto> actualWarehouse = service.getWarehouse(warehouse.getId());
 
         final String errorMessage = "Expected and actual warehouse are different";
-        assertEquals(errorMessage, warehouse, actualWarehouse.orElse(new Warehouse()));
+        assertEquals(errorMessage, warehouse, actualWarehouse.orElse(new WarehouseDto()));
     }
 
     @Test

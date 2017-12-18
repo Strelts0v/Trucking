@@ -1,5 +1,7 @@
 package com.itechart.trucking.service.dto;
 
+import com.itechart.trucking.domain.Warehouse;
+
 /**
  * A DTO representing a warehouse.
  *

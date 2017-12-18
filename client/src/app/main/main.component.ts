@@ -42,7 +42,13 @@ export class MainComponent implements OnInit {
   user: User;
 
   matches: boolean;
-  navLinks = [];
+  navLinks = [
+    {label: 'Users', path: '/users'},
+    {label: 'Consignment notes', path: '/invoices'},
+    {label: 'Waybills', path: '/waybills'},
+    {label: 'Clients', path: '/clients'},
+    {label: 'Warehouses', path: '/warehouses'}
+  ];
 
   constructor(private titleService: Title,
               private router: Router,
@@ -58,11 +64,11 @@ export class MainComponent implements OnInit {
   }
 
   @HostListener('window:resize')
-  onResize(): void {
+  onResize() {
     this.matches = window.innerWidth <= 600;
   }
 
-  setTitle(): void {
+  setTitle() {
     this.title = this.route.snapshot.data.title;
     if (this.route.firstChild) {
       this.subtitle = this.route.firstChild.snapshot.data.title;
@@ -81,7 +87,7 @@ export class MainComponent implements OnInit {
     const dialogRef = this.dialog.open(BithdayCongratulationComponent);
   }
 
-  logout(): void {
+  logout() {
     AuthService.logout();
     this.router.navigate(['/auth']);
   }
