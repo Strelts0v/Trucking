@@ -14,7 +14,7 @@
                   tableName="users"/>
     </changeSet>
 
-    <changeSet id="181220172224" author="Gleb Streltsov">
+    <changeSet id="181220172225" author="Gleb Streltsov">
         <loadData file="config/liquibase/users_has_roles.csv"
                   separator=";"
                   tableName="users_has_roles"/>
