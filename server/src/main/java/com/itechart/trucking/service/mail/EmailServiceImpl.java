@@ -1,6 +1,9 @@
 package com.itechart.trucking.service.mail;
 
 
+import com.itechart.trucking.dao.LetterDao;
+import com.itechart.trucking.domain.Letter;
+import com.sun.xml.internal.bind.v2.TODO;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -19,6 +22,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -29,13 +33,21 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private Configuration freemarkerConfig;
 
+    @Autowired
+    private LetterDao letterDao;
+
     private static final String FILE_PATH = "picture/bday.png";
 
     public void sendSimpleMessage(String to, String subject, String text) throws MessagingException, IOException, TemplateException {
         Map<String, Object> model = new HashMap();
-        model.put("fullname", "fName");
-        model.put("age", "25");
-        model.put("congragulation", "Happy B DAy");
+
+         Optional<Letter> letter = letterDao.readLetter(1);
+        //TODO: convert optional to normal Object
+        //TODO Get DAO method , which will get USERNAME and User Age;
+
+       // model.put("fullname", "fName");
+      //  model.put("age", "25");
+     //   model.put("congragulation", "Happy B DAy");
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,

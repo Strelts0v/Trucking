@@ -36,7 +36,7 @@ export class RoleGuard implements CanActivate {
   }
 
   private checkPermissions(user: User, state: RouterStateSnapshot): boolean {
-    let hasPermissions = false;
+    let hasPermissions = this.checkRole(user.roles, RoleGuard.OWNER_ROLE, RoleGuard.SYSADMIN_ROLE);
 
     this.log(`Routing state snapshot: ${state.url}`);
     switch (state.url) {

@@ -662,4 +662,6 @@
         <modifyDataType tableName="items" columnName="item_price" newDataType="FLOAT"/>
         <modifyDataType tableName="car_park" columnName="car_consumption" newDataType="FLOAT"/>
     </changeSet>
+
+
 </databaseChangeLog>
