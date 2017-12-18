@@ -2,14 +2,18 @@ import {Component, Inject} from '@angular/core';
 import {MatDatepickerModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {User} from './../user';
+import {UserService} from './../user.service';
 
 @Component({
   selector: 'app-user-detail',
   templateUrl: 'user-detail.component.html',
+  styleUrls: ['./user-detail.component.sass'],
 })
 
 export class UserDetailComponent {
 
+  user: User;
   roles = new FormControl();
 
   roleList = ['SYSADMIN', 'ADMIN', 'MANAGER', 'DISPATCHER', 'DRIVER', 'OWNER'];
@@ -23,10 +27,22 @@ export class UserDetailComponent {
 
   constructor(
     public dialogRef: MatDialogRef<UserDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private userService: UserService) {
+      this.user = <User> data.user;
+    }
 
-  onNoClick(): void {
+  cancelUserDetail(): void {
     this.dialogRef.close();
+  }
+
+  deleteUser() {
+    this.log(`Deleting user ${JSON.stringify(this.user)}`);
+    this.userService.deleteUser(this.user);
+  }
+
+  private log(message: string) {
+    console.log('UserDetailComponent: ' + message);
   }
 }
 

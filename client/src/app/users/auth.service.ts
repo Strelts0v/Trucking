@@ -60,7 +60,7 @@ export class AuthService {
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
-      this.logError(error); // log to console instead
+      this.logError(JSON.stringify(error)); // log to console instead
       this.log(`${operation} failed: ${error.message}`);
       // Let the app keep running by returning an empty result.
       return of(result as T);
