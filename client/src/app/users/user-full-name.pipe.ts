@@ -8,7 +8,7 @@ import { User } from './user';
 export class UserFullNamePipe implements PipeTransform {
 
   transform(user: User): string {
-    return user && `${user.firstName} ${user.middleName} ${user.lastName}`;
+    return user && `${user.firstName} ${user.lastName} ${user.middleName}`;
   }
 
 }

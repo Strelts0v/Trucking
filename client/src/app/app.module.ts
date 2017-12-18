@@ -65,6 +65,10 @@ import { CarListComponent } from './cars/car-list/car-list.component';
 import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
 import { ItemService } from './items/item.service';
 import { ProgressDialogComponent } from './waybills/waybill-detail/progress-dialog/progress-dialog.component';
+import { SearchBarComponent } from './main/search-bar/search-bar.component';
+import { SearchService } from './main/search-bar/search.service';
+import { InvoiceSearchComponent } from './invoices/invoice-search/invoice-search.component';
+import { WaybillSearchComponent } from './waybills/waybill-search/waybill-search.component';
 
 @NgModule({
   imports: [
@@ -127,7 +131,10 @@ import { ProgressDialogComponent } from './waybills/waybill-detail/progress-dial
     ClientListComponent,
     UserDetailComponent,
     ClientDetailComponent,
-    ProgressDialogComponent
+    ProgressDialogComponent,
+    SearchBarComponent,
+    InvoiceSearchComponent,
+    WaybillSearchComponent
   ],
   entryComponents: [
     DocHolderComponent,
@@ -146,7 +153,8 @@ import { ProgressDialogComponent } from './waybills/waybill-detail/progress-dial
     InvoiceService,
     WaybillService,
     ClientService,
-    ItemService
+    ItemService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })

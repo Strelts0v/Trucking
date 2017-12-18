@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 import { Waybill } from './waybill';
-import { Invoice } from '../invoices/invoice';
+import { WaybillSearchCriteria } from './waybill-search/waybill-search-criteria';
 
 @Injectable()
 export class WaybillService {
@@ -59,6 +59,24 @@ export class WaybillService {
       .pipe(
         tap((waybill: Waybill) => this.log(`check waybill id=${waybill.id}`)),
         catchError(this.handleError<Waybill>('checkWaybill'))
+      );
+  }
+
+  searchWaybills(criteria: WaybillSearchCriteria, pageNumber: number, pageSize: number): Observable<Waybill[]> {
+    const url = `${environment.apiUrl}/${this.waybillsUrl}/search/${pageNumber}/${pageSize}`;
+    return this.http.put<Waybill[]>(url, criteria)
+      .pipe(
+        tap(invoices => this.log('fetched waybills')),
+        catchError(this.handleError('searchWaybills', []))
+      );
+  }
+
+  searchSize(criteria: WaybillSearchCriteria): Observable<number> {
+    const url = `${environment.apiUrl}/${this.waybillsUrl}/search/size`;
+    return this.http.put<number>(url, criteria)
+      .pipe(
+        tap(size => this.log(`fetched waybills size=${size}`)),
+        catchError(this.handleError('waybills size', 0))
       );
   }
 

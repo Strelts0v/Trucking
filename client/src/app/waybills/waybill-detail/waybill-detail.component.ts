@@ -19,6 +19,7 @@ import { Car } from '../../cars/car';
 import { CarService } from '../../cars/car.service';
 import { ProgressDialogComponent } from './progress-dialog/progress-dialog.component';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { Utils } from '../../utils';
 
 @Component({
   selector: 'app-waybill-detail',
@@ -176,8 +177,7 @@ export class WaybillDetailComponent implements OnInit {
     if (this.waybill.waybillCheckpoints && this.waybill.waybillCheckpoints[index] && this.waybill.waybillCheckpoints[index].checkDate) {
       return this.waybill.waybillCheckpoints[index].checkDate;
     } else {
-      const now = new Date();
-      return `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}`;
+      return Utils.dateToString(new Date());
     }
   }
 

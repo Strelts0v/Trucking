@@ -40,10 +40,10 @@
     <mat-icon>add</mat-icon>
   </button>
 
-  <mat-paginator class="paginator"
+  <mat-paginator #paginator class="paginator"
                  [length]="length"
                  [pageSize]="pageSize"
                  [pageSizeOptions]="[10, 20]"
-                 (page)="pageEvent = loadInvoices($event)">
+                 (page)="loadInvoices($event)">
   </mat-paginator>
 </div>

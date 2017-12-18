@@ -5,10 +5,11 @@
       <span>{{title}}<span class="title-separator" *ngIf="subtitle">&#x2500;</span>{{subtitle}}</span>
     </h1>
     <span class="toolbar-spacer"></span>
-    <div class="logged-in-message">{{hiMessaage()}}</div>
-    <button mat-icon-button matTooltip="Search">
+    <span class="logged-in-message" *ngIf="showHiMsg">{{hiMessage()}}</span>
+    <button mat-icon-button matTooltip="Search" (click)="openCloseSearch()" *ngIf="path === 'invoices' || path === 'waybills'">
       <mat-icon>search</mat-icon>
     </button>
+    <app-search-bar [path]="path" *ngIf="isSearchOpen" [@slideOut]></app-search-bar>
     <button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
     </button>

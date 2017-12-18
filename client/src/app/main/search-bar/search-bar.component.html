@@ -1,0 +1,4 @@
+<div [ngSwitch]="path">
+  <app-invoice-search *ngSwitchCase="'invoices'" [@opacityOut]></app-invoice-search>
+  <app-waybill-search *ngSwitchCase="'waybills'" [@opacityOut]></app-waybill-search>
+</div>
