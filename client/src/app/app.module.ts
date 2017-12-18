@@ -64,6 +64,7 @@ import { CarListComponent } from './cars/car-list/car-list.component';
 
 import { ItemService } from './items/item.service';
 import { ProgressDialogComponent } from './waybills/waybill-detail/progress-dialog/progress-dialog.component';
+import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService } from './warehouses/index';
 import { SearchBarComponent } from './main/search-bar/search-bar.component';
 import { SearchService } from './main/search-bar/search.service';
 import { InvoiceSearchComponent } from './invoices/invoice-search/invoice-search.component';
@@ -139,7 +140,9 @@ import {LetterService} from './birthday-congratulation/letter.service';
     SearchBarComponent,
     InvoiceSearchComponent,
     WaybillSearchComponent,
-    WarehouseListComponent
+    WarehouseListComponent,
+    WarehouseListComponent,
+    WarehouseDetailComponent,
   ],
   entryComponents: [
     DocHolderComponent,
@@ -147,7 +150,8 @@ import {LetterService} from './birthday-congratulation/letter.service';
     BirthdayCongratulationComponent,
     UserDetailComponent,
     ClientDetailComponent,
-    ProgressDialogComponent
+    ProgressDialogComponent,
+    WarehouseDetailComponent,
   ],
   providers: [
     AuthGuard,

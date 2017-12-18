@@ -42,6 +42,36 @@ export class WarehouseService {
       );
   }
 
+  addWarehouse(warehouse: Warehouse): Observable<Warehouse> {
+    const url = `${this.apiUrl}${this.addWarehouseUrl}`;
+    this.log(url);
+    return this.http.post<Warehouse>(url, warehouse)
+    .pipe(
+      tap((warehouse: Warehouse) => this.log(`added warehouse id=${warehouse.id}`)),
+      catchError(this.handleError<Warehouse>('addWarehouse'))
+    );
+  }
+
+  updateWarehouse(warehouse: Warehouse): Observable<Warehouse> {
+    const url = `${this.apiUrl}${this.updateWarehouseUrl}`;
+    this.log(url);
+    return this.http.put<Warehouse>(url, warehouse)
+      .pipe(
+        tap((warehouse: Warehouse) => this.log(`warehouse was successfully updated: ${JSON.stringify(warehouse)}`)),
+        catchError(this.handleError<Warehouse>('updateWarehouse'))
+      );
+  }
+
+  deleteWarehouse(warehouse: Warehouse) {
+    const url = `${this.apiUrl}${this.deleteWarehouseUrl}`;
+    this.log(url);
+    return this.http.post(url, warehouse)
+      .pipe(
+        tap(count => this.log(`deleting of warehouse ${JSON.stringify(warehouse)}`)),
+        catchError(this.handleError('deleteWarehouse'))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
