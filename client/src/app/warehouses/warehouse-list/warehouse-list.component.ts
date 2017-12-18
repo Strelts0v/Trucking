@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
-
-import { Warehouse } from '../warehouse'
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
+import { Warehouse } from '../warehouse';
 import { WarehouseService } from '../warehouse.service';
+import { WarehouseDetailComponent} from '../warehouse-detail/warehouse-detail.component';
 
 @Component({
   selector: 'app-warehouse-list',
@@ -19,17 +19,16 @@ export class WarehouseListComponent implements OnInit {
 
   pageEvent: PageEvent;
 
-  constructor(private warehouseService: WarehouseService,
-              private dialog: MatDialog) {
+  constructor(
+    private warehouseService: WarehouseService,
+    private dialog: MatDialog) {
   }
 
-  openWarehouseDetail(){
-
-  }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   getWarehouses() {
     this.warehouseService.getWarehouses(this.pageNumber, this.pageSize)
-      .subscribe(warehouses => this.dataSource.data = warehouses)
+      .subscribe(warehouses => this.dataSource.data = warehouses);
   }
 
   size() {
@@ -49,4 +48,41 @@ export class WarehouseListComponent implements OnInit {
     this.size();
   }
 
+  openWarehouseDetail(id?: number, warehouse?: Warehouse) {
+    let isEditable = false;
+    warehouse == null ? warehouse = new Warehouse() : isEditable = true;
+
+    const dialogRef = this.dialog.open(WarehouseDetailComponent, {
+      width: '500px',
+      data: { warehouse: warehouse }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      warehouse = <Warehouse> result.warehouse;
+
+      if (isEditable) {
+        this.log(`EDIT ${JSON.stringify(warehouse)}`);
+        this.warehouseService.updateWarehouse(warehouse);
+      } else {
+        this.log(`ADD ${JSON.stringify(warehouse)}`);
+        this.warehouseService.addWarehouse(warehouse)
+          .subscribe(client => {
+            const warehouses = this.dataSource.data;
+            this.log(`ADD ${JSON.stringify(warehouse)}`);
+            warehouses.push(warehouse);
+            this.dataSource.data = warehouses;
+          });
+      }
+    });
+  }
+
+  private getWarehouseById(id: number): Warehouse {
+    const warehouses = this.dataSource.data;
+    return warehouses.filter(warehouse => warehouse.id === id)[0];
+  }
+
+  private log(message: string) {
+    console.log('WarehouseListComponent: ' + message);
+  }
 }

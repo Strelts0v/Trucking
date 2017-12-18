@@ -65,8 +65,7 @@ import { CarListComponent } from './cars/car-list/car-list.component';
 import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
 import { ItemService } from './items/item.service';
 import { ProgressDialogComponent } from './waybills/waybill-detail/progress-dialog/progress-dialog.component';
-import { WarehouseListComponent } from './warehouses/warehouse-list/warehouse-list.component';
-import { WarehouseService} from './warehouses/warehouse.service';
+import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService } from './warehouses/index';
 
 @NgModule({
   imports: [
@@ -131,6 +130,7 @@ import { WarehouseService} from './warehouses/warehouse.service';
     ClientDetailComponent,
     ProgressDialogComponent,
     WarehouseListComponent,
+    WarehouseDetailComponent,
   ],
   entryComponents: [
     DocHolderComponent,
@@ -138,7 +138,8 @@ import { WarehouseService} from './warehouses/warehouse.service';
     BithdayCongratulationComponent,
     UserDetailComponent,
     ClientDetailComponent,
-    ProgressDialogComponent
+    ProgressDialogComponent,
+    WarehouseDetailComponent,
   ],
   providers: [
     AuthGuard,
