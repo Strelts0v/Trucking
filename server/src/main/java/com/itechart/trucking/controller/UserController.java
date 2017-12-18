@@ -81,4 +81,11 @@ public class UserController {
         log.info("return users by role " + role + ": " + users);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+    @GetMapping("/get_all_users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        log.debug("REST request for getting all users");
+        List<User> users = service.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 }
