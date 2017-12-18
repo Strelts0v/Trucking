@@ -6,6 +6,7 @@ import { Warehouse } from '../warehouses/warehouse';
 export class Waybill {
   id: number;
   invoiceId: number;
+  invoiceNumber: string;
   departureDate: string;
   driver: User;
   car: Car;
@@ -14,6 +15,7 @@ export class Waybill {
   waybillCheckpoints: WaybillCheckpoint[] = [];
   status: WaybillStatus;
   issueDate: string;
+  distance: number;
 }
 
 export enum WaybillStatus {

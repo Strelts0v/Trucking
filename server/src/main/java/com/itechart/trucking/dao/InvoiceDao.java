@@ -1,14 +1,16 @@
 package com.itechart.trucking.dao;
 
 import com.itechart.trucking.domain.Invoice;
+import com.itechart.trucking.domain.InvoiceResult;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 /**
  * @author blink7
- * @version 1.0
- * @since 2017-11-18
+ * @version 1.2
+ * @since 2017-12-17
  */
 public interface InvoiceDao {
 
@@ -54,4 +56,11 @@ public interface InvoiceDao {
      * @return the number of invoices in the DB
      */
     int size();
+
+    InvoiceResult saveResult(InvoiceResult result);
+
+    List<Invoice> searchInvoices(LocalDate issueDate, LocalDate checkDate, Invoice.Status status, String inspector,
+                                 int pageNumber, int pageSize);
+
+    int searchSize(LocalDate issueDate, LocalDate checkDate, Invoice.Status status, String inspector);
 }

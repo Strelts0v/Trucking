@@ -46,50 +46,6 @@ $line-color: rgba(0,0,0,.12)
   .col-2
     flex: 1
 
-.consignment-table
-  border-collapse: collapse
-  font-size: 13px
-  color: $text-color--gray-600
-
-  td
-    border-top: 1px solid $line-color
-    box-sizing: border-box
-
-  th, td
-    text-align: left
-    padding: 0 8px 12px 8px
-
-  th:first-child, td:first-child
-    text-align: right
-
-  tbody
-    tr:hover
-      background-color: $background-color--gray
-      transition-duration: .28s
-      transition-timing-function: cubic-bezier(.4,0,.2,1)
-      transition-property: background-color
-
-.id-field
-  width: 20px
-
-.item-field
-  width: 120px
-
-.status-field
-  width: 104px
-
-.amount-field
-  width: 68px
-
-.consignment-btn-row
-  display: flex
-  align-items: center
-  align-content: flex-start
-  width: 100px
-
-  .mat-icon
-    font-size: 20px
-
 hr
   margin: 6px 0
   border-top: 1px solid $line-color
@@ -116,3 +72,72 @@ hr
   margin-bottom: 0
   padding-right: 24px
   justify-content: flex-end
+
+.container
+  display: flex
+  padding: 6px 0
+  max-width: 500px
+  font-size: 13px
+
+  ::ng-deep .mat-form-field-infix
+    width: 100%
+
+  .add-remove-btn-row
+    display: flex
+    align-items: center
+    width: 80px
+
+    .mat-icon
+      font-size: 20px
+
+    .remove-btn
+      .mat-icon
+        color: #EF9A9A
+
+    .add-btn
+      .mat-icon
+        color: #7E57C2
+
+.container:nth-child(1)
+  border-bottom: 1px solid $line-color
+  margin-bottom: 1px
+
+.container:nth-child(n + 2):hover
+  background-color: $background-color--gray
+  transition-duration: .28s
+  transition-timing-function: cubic-bezier(.4,0,.2,1)
+  transition-property: background-color
+
+.container > div
+  flex: 1 1 5em
+  margin-left: 10px
+  height: 40px
+  display: flex
+  align-items: center
+  justify-content: center
+
+.container > :first-child
+  margin-left: 0
+
+.container > .one
+  flex: 0 0 4em
+
+.container > .two
+  flex: 2 2 calc(10em + 10px)
+
+.container > .three
+  flex: 3 3 calc(15em + 20px)
+
+.status
+  padding: 4px
+  border-radius: 4px
+  color: white
+
+.registered
+  background: #AB47BC
+
+.checked
+  background: #7E57C2
+
+.delivered
+  background: #5C6BC0

@@ -58,10 +58,18 @@ import {
   ClientService
 } from './clients';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { AgmCoreModule } from '@agm/core';
 import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pipe';
 import { CarService } from './cars/car.service';
 import { CarListComponent } from './cars/car-list/car-list.component';
+
+import { ItemService } from './items/item.service';
+import { ProgressDialogComponent } from './waybills/waybill-detail/progress-dialog/progress-dialog.component';
+import { SearchBarComponent } from './main/search-bar/search-bar.component';
+import { SearchService } from './main/search-bar/search.service';
+import { InvoiceSearchComponent } from './invoices/invoice-search/invoice-search.component';
+import { WaybillSearchComponent } from './waybills/waybill-search/waybill-search.component';
+import { WarehouseListComponent } from './warehouses/warehouse-list/warehouse-list.component';
+import { WarehouseService} from './warehouses/warehouse.service';
 import { BirthdayCongratulationComponent } from './birthday-congratulation/birthday-congratulation.component';
 import {LetterService} from './birthday-congratulation/letter.service';
 
@@ -93,6 +101,7 @@ import {LetterService} from './birthday-congratulation/letter.service';
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatProgressBarModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -125,14 +134,20 @@ import {LetterService} from './birthday-congratulation/letter.service';
     UserFullNamePipe,
     ClientListComponent,
     UserDetailComponent,
-    ClientDetailComponent
+    ClientDetailComponent,
+    ProgressDialogComponent,
+    SearchBarComponent,
+    InvoiceSearchComponent,
+    WaybillSearchComponent,
+    WarehouseListComponent
   ],
   entryComponents: [
     DocHolderComponent,
     ConfirmDialogComponent,
     BirthdayCongratulationComponent,
     UserDetailComponent,
-    ClientDetailComponent
+    ClientDetailComponent,
+    ProgressDialogComponent
   ],
   providers: [
     AuthGuard,
@@ -143,7 +158,10 @@ import {LetterService} from './birthday-congratulation/letter.service';
     InvoiceService,
     WaybillService,
     ClientService,
-    LetterService
+    LetterService,
+    ItemService,
+    SearchService,
+    WarehouseService
   ],
   bootstrap: [AppComponent]
 })

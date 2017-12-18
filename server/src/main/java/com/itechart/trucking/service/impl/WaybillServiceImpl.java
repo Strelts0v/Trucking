@@ -4,8 +4,8 @@ import com.itechart.trucking.dao.*;
 import com.itechart.trucking.domain.Checkpoint;
 import com.itechart.trucking.domain.Waybill;
 import com.itechart.trucking.service.WaybillService;
-import com.itechart.trucking.service.dto.WaybillCheckpointDto;
 import com.itechart.trucking.service.dto.WaybillDto;
+import com.itechart.trucking.service.dto.WaybillSearchCriteriaDto;
 import com.itechart.trucking.service.mapper.WaybillMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.itechart.trucking.util.Utils.*;
 
 /**
  * Service class for managing waybills.
@@ -63,6 +65,7 @@ public class WaybillServiceImpl implements WaybillService {
             newWaybill.setDepartureDate(LocalDate.now());
             newWaybill.setIssueDate(LocalDate.now());
             newWaybill.setStatus(Waybill.Status.STARTED);
+            newWaybill.setDistance(waybillDto.getDistance());
 
             userDao.getUserById(waybillDto.getDriver().getId()).ifPresent(driver -> {
                 driver.setBusy(true);
@@ -75,7 +78,7 @@ public class WaybillServiceImpl implements WaybillService {
 
             waybillDto.getWaybillCheckpoints().forEach(waybillCheckpointDto -> {
                 Checkpoint checkpoint = checkpointDao.findOneByName(waybillCheckpointDto.getCheckpoint().getName())
-                        .orElse(checkpointDao.save(new Checkpoint(
+                        .orElseGet(() -> checkpointDao.save(new Checkpoint(
                                 waybillCheckpointDto.getCheckpoint().getName(),
                                 waybillCheckpointDto.getCheckpoint().getAdditionName(),
                                 waybillCheckpointDto.getCheckpoint().getPlaceId(),
@@ -126,5 +129,29 @@ public class WaybillServiceImpl implements WaybillService {
     @Transactional(readOnly = true)
     public Optional<WaybillDto> getWaybillById(Integer id) {
         return waybillDao.findOne(id).map(waybillMapper::waybillToWaybillDto);
+    }
+
+    @Override
+    public List<WaybillDto> getInvoicesBySearch(WaybillSearchCriteriaDto criteria, int pageNumber, int pageSize) {
+        return waybillDao
+                .searchWaybills(
+                        criteria.getFrom(),
+                        criteria.getTo(),
+                        criteria.getInvoiceNumber(),
+                        jsonToLocalDate(criteria.getIssueDate()),
+                        pageNumber, pageSize)
+                .stream()
+                .map(waybillMapper::waybillToWaybillDtoForList)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public int getSearchSize(WaybillSearchCriteriaDto criteria) {
+        return waybillDao
+                .searchSize(
+                        criteria.getFrom(),
+                        criteria.getTo(),
+                        criteria.getInvoiceNumber(),
+                        jsonToLocalDate(criteria.getIssueDate()));
     }
 }

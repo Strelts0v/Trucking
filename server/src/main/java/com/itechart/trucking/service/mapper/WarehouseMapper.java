@@ -15,7 +15,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface WarehouseMapper {
 
-    WaybillMapper INSTANCE = Mappers.getMapper(WaybillMapper.class);
+    WarehouseMapper INSTANCE = Mappers.getMapper(WarehouseMapper.class);
 
     WarehouseDto warehouseToWarehouseDto(Warehouse warehouse);
 }

@@ -3,9 +3,9 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatDialog } from '@angular/material';
-import {BirthdayCongratulationComponent,} from '../birthday-congratulation/birthday-congratulation.component';
-import { AuthService, RoleGuard } from '../users';
-import { User } from '../users/index';
+
+import { BithdayCongratulationComponent } from '../bithday-congratulation/bithday-congratulation.component';
+import { AuthService, RoleGuard, User } from '../users';
 
 @Component({
   moduleId: module.id,
@@ -32,6 +32,29 @@ import { User } from '../users/index';
         }),
         animate('0.3s ease-in')
       ])
+    ]),
+    trigger('slideOut', [
+      transition('void => *', [
+        style({
+          width: '0',
+          opacity: 0
+        }),
+        animate('0.35s ease-out')
+      ]),
+      transition('* => void', [
+        animate('0.25s ease-in', style({
+          width: '0',
+          opacity: 0
+        }))
+      ])
+    ]),
+    trigger('opacityIn', [
+      transition('void => *', [
+        style({
+          opacity: 0
+        }),
+        animate('0.3s 0.4s ease')
+      ])
     ])
   ]
 })
@@ -43,6 +66,11 @@ export class MainComponent implements OnInit {
 
   matches: boolean;
   navLinks = [];
+
+  isSearchOpen: boolean;
+  showHiMsg = true;
+
+  path: string;
 
   constructor(private titleService: Title,
               private router: Router,
@@ -58,26 +86,51 @@ export class MainComponent implements OnInit {
   }
 
   @HostListener('window:resize')
-  onResize(): void {
+  onResize() {
     this.matches = window.innerWidth <= 600;
   }
 
-  setTitle(): void {
+  setTitle() {
     this.title = this.route.snapshot.data.title;
     if (this.route.firstChild) {
       this.subtitle = this.route.firstChild.snapshot.data.title;
       this.titleService.setTitle(`${this.subtitle} - ${this.title}`);
+
+      this.setSearchPath();
     } else {
       this.titleService.setTitle(this.title);
       this.subtitle = '';
     }
   }
 
-  openTemplate(): void {
-    const dialogRef = this.dialog.open(BirthdayCongratulationComponent);
+  hiMessage(): string {
+    return `Нi, ${this.user.firstName}! You're logged in as ${this.user.roles.join(', ')}`;
   }
 
-  logout(): void {
+  openCloseSearch(): void {
+    if (this.isSearchOpen) {
+      this.isSearchOpen = false;
+      setTimeout(() => {
+        this.showHiMsg = true;
+      }, 400);
+    } else {
+      this.isSearchOpen = true;
+      this.showHiMsg = false;
+    }
+  }
+
+  setSearchPath(): void {
+    this.path = this.route.firstChild.snapshot.routeConfig.path;
+    if (this.isSearchOpen) {
+      this.openCloseSearch();
+    }
+  }
+
+  openTemplate(): void {
+    const dialogRef = this.dialog.open(BithdayCongratulationComponent);
+  }
+
+  logout() {
     AuthService.logout();
     this.router.navigate(['/auth']);
   }
@@ -87,32 +140,33 @@ export class MainComponent implements OnInit {
   }
 
   populateLinks(): void {
-    if (this.roleGuard.isOwner()) {
-      this.navLinks = [
-        {label: 'Users', path: '/users'},
-        {label: 'Clients', path: '/clients'},
-        {label: 'Consignment notes', path: '/invoices'},
-        {label: 'Waybills', path: '/waybills'}
-      ];
-    } else if (this.roleGuard.isSysAdmin() || this.roleGuard.isAdmin()) {
-      this.navLinks = [
-        {label: 'Users', path: '/users'},
-        {label: 'Clients', path: '/clients'}
-      ];
-    } else if (this.roleGuard.isDispatcher()) {
-      this.navLinks = [
-        {label: 'Clients', path: '/clients'},
-        {label: 'Consignment notes', path: '/invoices'}
-      ];
-    } else if (this.roleGuard.isManager()) {
-      this.navLinks = [
-        {label: 'Consignment notes', path: '/invoices'}
-      ];
-    } else if (this.roleGuard.isDriver()) {
-      this.navLinks = [
-        {label: 'Waybills', path: '/waybills'}
-      ];
-    }
+    this.navLinks = [
+      {
+        label: 'Users',
+        path: '/users',
+        availability: this.roleGuard.isOwner() || this.roleGuard.isSysAdmin() || this.roleGuard.isAdmin()
+      },
+      {
+        label: 'Clients',
+        path: '/clients',
+        availability: this.roleGuard.isOwner() || this.roleGuard.isSysAdmin() || this.roleGuard.isAdmin()
+      },
+      {
+        label: 'Consignment notes',
+        path: '/invoices',
+        availability: this.roleGuard.isOwner() || this.roleGuard.isDispatcher() || this.roleGuard.isManager()
+      },
+      {
+        label: 'Waybills',
+        path: '/waybills',
+        availability: this.roleGuard.isOwner() || this.roleGuard.isManager() || this.roleGuard.isDriver()
+      },
+      {
+        label: 'Warehouses',
+        path: '/warehouses',
+        availability: this.roleGuard.isOwner() || this.roleGuard.isSysAdmin() || this.roleGuard.isAdmin()
+      }
+    ];
   }
 
   ngOnInit(): void {

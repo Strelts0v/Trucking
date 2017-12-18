@@ -71,4 +71,9 @@ public interface UserService extends UserDetailsService {
      * gets users by specified role
      */
     List<User> getUsersByRole(User.Role role);
+
+    /**
+     * gets not busy users by specified role
+     */
+    List<User> getNotBusyUsersByRole(User.Role role);
 }

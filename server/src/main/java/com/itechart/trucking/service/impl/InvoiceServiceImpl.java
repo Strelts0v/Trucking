@@ -6,6 +6,7 @@ import com.itechart.trucking.dao.ItemDao;
 import com.itechart.trucking.domain.*;
 import com.itechart.trucking.service.InvoiceService;
 import com.itechart.trucking.service.dto.InvoiceDto;
+import com.itechart.trucking.service.dto.InvoiceSearchCriteriaDto;
 import com.itechart.trucking.service.mapper.InvoiceMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,17 +15,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.itechart.trucking.util.Utils.*;
+
 /**
  * Service class for managing invoices.
  *
  * @author blink7
- * @version 1.4
- * @since 2017-12-13
+ * @version 1.6
+ * @since 2017-12-17
  */
 @Service
 @Transactional
@@ -61,6 +66,9 @@ public class InvoiceServiceImpl implements InvoiceService {
         newInvoice.setIssueDate(LocalDate.now());
         newInvoice.setCreator(currentUser);
 
+        String uniqueNumber = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMddhhmmss"));
+        newInvoice.setNumber(uniqueNumber);
+
         clientDao.getClientById(invoiceDto.getClient().getId())
                 .ifPresent(newInvoice::setClient);
 
@@ -92,13 +100,11 @@ public class InvoiceServiceImpl implements InvoiceService {
                             invoiceDto.getConsignments()
                                     .stream()
                                     .filter(it ->
-                                            Objects.equals(
-                                                    it.getItem().getId(),
-                                                    itemConsignment.getItem().getId())
+                                            Objects.equals(it.getItem().getId(), itemConsignment.getItem().getId())
                                     ).findFirst()
                                     .ifPresent(itemConsignmentDto -> {
                                         itemConsignment.setAmount(itemConsignmentDto.getAmount());
-                                        itemConsignment.setStatus(itemConsignmentDto.getStatus());
+                                        itemConsignment.setStatus(ItemConsignment.Status.CHECKED);
                                     }));
 
                     log.debug("Checked the Invoice: {}", invoice);
@@ -164,23 +170,46 @@ public class InvoiceServiceImpl implements InvoiceService {
             invoice.setStatus(Invoice.Status.DELIVERED);
             invoice.getWaybill().setStatus(Waybill.Status.COMPLETED);
             invoice.getWaybill().getDriver().setBusy(false);
+            invoice.setCompleteDate(LocalDate.now());
 
             invoice.getItemConsignments().forEach(itemConsignment ->
                     invoiceDto.getConsignments()
                             .stream()
                             .filter(ic ->
-                                    Objects.equals(
-                                            ic.getItem().getId(),
-                                            itemConsignment.getItem().getId())
+                                    Objects.equals(ic.getItem().getId(), itemConsignment.getItem().getId())
                             ).findFirst()
                             .ifPresent(itemConsignmentDto -> {
                                 itemConsignment.setAmount(itemConsignmentDto.getAmount());
-                                itemConsignment.setStatus(itemConsignmentDto.getStatus());
+                                itemConsignment.setStatus(ItemConsignment.Status.DELIVERED);
                             }));
+
+            // Calculating income and consumption
+            float distance = invoice.getWaybill().getDistance() / 1000;
+            float transportConsumption = invoice.getWaybill().getCar().getConsumption() * distance / 100;
+
+            float losses = (float) invoice.getLossActs()
+                    .stream()
+                    .mapToDouble(lossAct -> lossAct.getAmount() * lossAct.getItem().getPrice())
+                    .sum();
+
+            float consumption = transportConsumption + losses;
+
+            float income = (0.5f * transportConsumption) + transportConsumption;
+
+            InvoiceResult result = new InvoiceResult(invoice, round(income, 2), round(consumption, 2));
+            invoiceDao.saveResult(result);
 
             log.debug("Completed Invoice: {}", invoice);
             return invoice;
         }).map(invoiceMapper::invoiceToInvoiceDto);
+    }
+
+    private static float round(float number, int scale) {
+        int pow = 10;
+        for (int i = 1; i < scale; i++)
+            pow *= 10;
+        float tmp = number * pow;
+        return (float) (int) ((tmp - (int) tmp) >= 0.5f ? tmp + 1 : tmp) / pow;
     }
 
     @Override
@@ -208,5 +237,27 @@ public class InvoiceServiceImpl implements InvoiceService {
             log.debug("Created Act of Loss: {}", invoice.getLossActs());
             return invoice;
         }).map(invoiceMapper::invoiceToInvoiceDto);
+    }
+
+    @Override
+    public List<InvoiceDto> getInvoicesBySearch(InvoiceSearchCriteriaDto criteria, int pageNumber, int pageSize) {
+        return invoiceDao
+                .searchInvoices(
+                        jsonToLocalDate(criteria.getIssueDate()),
+                        jsonToLocalDate(criteria.getCheckDate()),
+                        criteria.getStatus(), criteria.getInspector(),
+                        pageNumber, pageSize)
+                .stream()
+                .map(invoiceMapper::invoiceToInvoiceDtoForList)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public int getSearchSize(InvoiceSearchCriteriaDto criteria) {
+        return invoiceDao
+                .searchSize(
+                        jsonToLocalDate(criteria.getIssueDate()),
+                        jsonToLocalDate(criteria.getCheckDate()),
+                        criteria.getStatus(), criteria.getInspector());
     }
 }

@@ -1,0 +1,33 @@
+<form [formGroup]="iForm">
+  <div class="container">
+    <div>
+      <mat-form-field floatPlaceholder="never">
+        <input matInput [matDatepicker]="issueDatePicker" placeholder="Issue date" formControlName="issueDate">
+        <mat-datepicker-toggle matSuffix [for]="issueDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #issueDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field floatPlaceholder="never">
+        <input matInput [matDatepicker]="checkDatePicker" placeholder="Check date" formControlName="checkDate">
+        <mat-datepicker-toggle matSuffix [for]="checkDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #checkDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field floatPlaceholder="never">
+        <mat-select formControlName="status" placeholder="Status">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let status of invoiceStatuses" [value]="status">
+            {{ status }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="two">
+      <mat-form-field floatPlaceholder="never">
+        <input matInput formControlName="inspector" type="text" placeholder="Inspector">
+      </mat-form-field>
+    </div>
+  </div>
+</form>

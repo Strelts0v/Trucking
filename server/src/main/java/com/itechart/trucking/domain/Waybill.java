@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author blink7
- * @version 1.4
- * @since 2017-12-13
+ * @version 1.5
+ * @since 2017-12-16
  */
 @Entity
 @Table(name = "waybills")
@@ -49,6 +49,9 @@ public class Waybill extends AbstractPersistentObject {
     @Column(name = "waybills_issuedate")
     @Convert(converter = LocalDateAttributeConverter.class)
     private LocalDate issueDate;
+
+    @Column(name = "waybill_distance")
+    private Integer distance;
 
     public Invoice getInvoice() {
         return invoice;
@@ -139,6 +142,14 @@ public class Waybill extends AbstractPersistentObject {
 
     public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
+    }
+
+    public Integer getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Integer distance) {
+        this.distance = distance;
     }
 
     @Override

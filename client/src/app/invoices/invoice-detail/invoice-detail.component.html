@@ -10,7 +10,7 @@
         Consignment Note
       </div>
       <div class="header-subtitle" *ngIf="invoice.id">
-        №{{invoice.id}}&emsp;{{invoice.status}}
+        №{{invoice.number}}&emsp;{{invoice.status}}
       </div>
     </div>
 
@@ -18,12 +18,6 @@
       <button mat-icon-button matTooltip="Edit invoice" (click)="toggleEdit()" *ngIf="!edit && editAvailability">
         <mat-icon>edit</mat-icon>
       </button>
-      <!--<button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
-        <button mat-menu-item (click)="deleteInvoice()">Delete note</button>
-      </mat-menu>-->
       <button mat-icon-button matTooltip="Close" [mat-dialog-close]>
         <mat-icon>close</mat-icon>
       </button>
@@ -31,7 +25,7 @@
   </div>
 
   <mat-card-content>
-    <form id="iForm" [formGroup]="iForm" (ngSubmit)="iForm.valid && submit()">
+    <form id="iForm" [formGroup]="iForm" (ngSubmit)="(iForm.valid || roleGuard.isDriver()) && submit()">
       <div class="row">
         <div class="col-1">
           <mat-icon class="label-icon">person</mat-icon>
@@ -49,73 +43,66 @@
 
       <div class="row">
         <div class="col-1">
-          <!--<mat-icon class="label-icon" svgIcon="package_variant"></mat-icon>-->
           <p>Consignment:</p>
         </div>
 
-        <div class="col-2">
-          <table class="consignment-table" formArrayName="consignments">
-            <thead>
-            <tr>
-              <th class="id-field">Product code</th>
-              <th>Product name</th>
-              <th>Amount</th>
-              <th>Status</th>
-            </tr>
-            </thead>
+        <div class="col-2" formArrayName="consignments">
+          <div class="container">
+            <div class="one">Code</div>
+            <div class="three">Product name</div>
+            <div class="two">Amount</div>
+            <div class="two">Status</div>
+            <div>
+              <div class="add-remove-btn-row"></div>
+            </div>
+          </div>
 
-            <tbody>
-            <tr *ngFor="let consignment of consignments.controls; index as i" [formGroupName]="i" [@shrinkIn]="'in'">
-              <td>
-                {{consignment.controls.item.value && consignment.controls.item.value.id}}
-              </td>
-
-              <td>
-                <mat-form-field class="item-field">
-                  <mat-select formControlName="item" [compareWith]="compareItem">
-                    <mat-option *ngFor="let item of items" [value]="item">{{item.name}}</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="consignment.controls['item'].hasError('required')">Field is required</mat-error>
-                </mat-form-field>
-              </td>
-
-              <td>
-                <mat-form-field class="amount-field">
-                  <input matInput type="number" min="0" formControlName="amount" required>
-                  <span matSuffix>{{consignment.controls.item.value && consignment.controls.item.value.unitCode}}</span>
-                  <mat-error *ngIf="consignment.controls['amount'].hasError('required')">Field is required</mat-error>
-                  <mat-error *ngIf="consignment.controls['amount'].hasError('min')">The amount can not be less than 1</mat-error>
-                </mat-form-field>
-              </td>
-
-              <td>
-                <mat-form-field class="status-field">
-                  <mat-select formControlName="status">
-                    <mat-option *ngFor="let status of getConsignmentStatuses()" [value]="status">{{status}}</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="consignment.controls['status'].hasError('required')">Field is required</mat-error>
-                </mat-form-field>
-              </td>
-
-              <td class="consignment-btn-row">
-                <div *ngIf="roleGuard.isDispatcher()">
-                  <button class="remove-btn" mat-icon-button (click)="deleteItem(i)" *ngIf="shouldShowRemoveBtn()">
-                    <mat-icon>remove_circle</mat-icon>
-                  </button>
-
-                  <button class="add-btn" mat-icon-button (click)="addItem()" *ngIf="shouldShowAddBtn(i)">
-                    <mat-icon>add_circle</mat-icon>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+          <div class="container" *ngFor="let consignment of consignments.controls; index as i" [formGroupName]="i" [@shrinkIn]>
+            <div class="one">
+              {{consignment.controls.item.value && consignment.controls.item.value.id}}
+            </div>
+            <div class="three">
+              <mat-form-field>
+                <mat-select formControlName="item" [compareWith]="compareItem">
+                  <mat-option *ngFor="let item of items" [value]="item">{{item.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="consignment.controls['item'].hasError('required')">Field is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="two">
+              <mat-form-field>
+                <input matInput type="number" min="1" formControlName="amount" required>
+                <span matSuffix>{{consignment.controls.item.value && consignment.controls.item.value.unitCode}}</span>
+                <mat-error *ngIf="consignment.controls['amount'].hasError('required')">Field is required</mat-error>
+                <mat-error *ngIf="consignment.controls['amount'].hasError('min')">The amount can not be less than 1</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="two">
+              <div>
+                <span class="status"
+                      [ngClass]="{registered: consignment.value.status === consignmentStatus.REGISTERED,
+                      checked: consignment.value.status === consignmentStatus.CHECKED,
+                      delivered: consignment.value.status === consignmentStatus.DELIVERED}">
+                  {{consignment.value.status}}
+                </span>
+              </div>
+            </div>
+            <div>
+              <div class="add-remove-btn-row">
+                <button class="remove-btn" mat-icon-button (click)="deleteItem(i)" *ngIf="shouldShowRemoveBtn()">
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+                <button class="add-btn" mat-icon-button (click)="addItem()" *ngIf="shouldShowAddBtn(i)">
+                  <mat-icon>add_circle</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </form>
 
-    <hr>
+    <hr *ngIf="invoice.creator">
 
     <table class="signs-table">
       <tbody>
@@ -139,5 +126,6 @@
 
 <mat-dialog-actions>
   <button mat-button color="primary" mat-dialog-close (click)="cancel()">CANCEL</button>
-  <button mat-button color="primary" type="submit" form="iForm" [disabled]="!edit || !editAvailability">{{saveBtnName | uppercase}}</button>
+  <button mat-button color="primary" type="submit" form="iForm" [disabled]="!edit || !editAvailability">{{saveBtnName | uppercase}}
+  </button>
 </mat-dialog-actions>

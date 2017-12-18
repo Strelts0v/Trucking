@@ -74,4 +74,12 @@ public interface UserDao {
      * @return list of user instances
      */
     List<User> getUsersByRole(User.Role role);
+
+    /**
+     * get all not busy users by specified role
+     *
+     * @param role - role of user
+     * @return list of user instances
+     */
+    List<User> getNotBusyUsersByRole(User.Role role);
 }

@@ -12,12 +12,12 @@
 
     <ng-container matColumnDef="car_number">
       <mat-header-cell *matHeaderCellDef>Car number</mat-header-cell>
-      <mat-cell *matCellDef="let waybill">{{waybill.car.name}} {{waybill.car.number}}</mat-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.car.number}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="invoice_id">
+    <ng-container matColumnDef="invoice_number">
       <mat-header-cell *matHeaderCellDef>Invoice number</mat-header-cell>
-      <mat-cell *matCellDef="let waybill">{{waybill.invoiceId}}</mat-cell>
+      <mat-cell *matCellDef="let waybill">{{waybill.invoiceNumber}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="issue_date">
@@ -31,10 +31,10 @@
     </mat-row>
   </mat-table>
 
-  <mat-paginator class="paginator"
+  <mat-paginator #paginator class="paginator"
                  [length]="length"
                  [pageSize]="pageSize"
                  [pageSizeOptions]="[10, 20]"
-                 (page)="pageEvent = loadWaybills($event)">
+                 (page)="loadWaybills($event)">
   </mat-paginator>
 </div>

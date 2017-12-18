@@ -4,8 +4,8 @@ import javax.persistence.*;
 
 /**
  * @author Quontico
- * @version 1.2
- * @since 2017-12-13
+ * @version 1.3
+ * @since 2017-12-16
  */
 @Entity
 @Table(name = "items")
@@ -15,7 +15,7 @@ public class Item extends AbstractPersistentObject {
     private String name;
 
     @Column(name = "item_price")
-    private Integer price;
+    private Float price;
 
     @OneToOne
     @JoinColumn(name = "unit_id", nullable = false)
@@ -24,7 +24,7 @@ public class Item extends AbstractPersistentObject {
     public Item() {
     }
 
-    public Item(String name, Integer price, ItemUnit unit) {
+    public Item(String name, Float price, ItemUnit unit) {
         this.name = name;
         this.price = price;
         this.unit = unit;
@@ -38,11 +38,11 @@ public class Item extends AbstractPersistentObject {
         this.name = name;
     }
 
-    public Integer getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

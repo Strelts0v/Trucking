@@ -14,7 +14,7 @@ public class CarDto extends AbstractDto {
     private String name;
     private String number;
     private Car.Type type;
-    private Integer consumption;
+    private Float consumption;
 
     public String getName() {
         return name;
@@ -40,11 +40,11 @@ public class CarDto extends AbstractDto {
         this.type = type;
     }
 
-    public Integer getConsumption() {
+    public Float getConsumption() {
         return consumption;
     }
 
-    public void setConsumption(Integer consumption) {
+    public void setConsumption(Float consumption) {
         this.consumption = consumption;
     }
 }

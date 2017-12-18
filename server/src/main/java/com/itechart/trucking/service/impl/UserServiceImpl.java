@@ -85,4 +85,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsersByRole(User.Role role) {
         return userDao.getUsersByRole(role);
     }
+
+    @Override
+    public List<User> getNotBusyUsersByRole(User.Role role) {
+        return userDao.getNotBusyUsersByRole(role);
+    }
 }

@@ -6,3 +6,5 @@ id;user_firstname;user_lastname;user_middlename;user_birthday;user_email;user_ci
 9;Avraam;Lincoln;John;1995-04-07;driver@gmail.com;test city;;;9;test login driver;9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08;MP3333339;0
 10;John;Due;Frank;1995-04-07;owner@gmail.com;test city;;;10;test login owner;9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08;MP3333310;0
 11;Jack;Nickson;Daniel;1995-04-07;all@gmail.com;test city;;;11;test login all;9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08;MP3333311;0
+12;Martin;Gore;Lee;1961-07-23;driver@gmail.com;Dagenham;;;11;test login driver;9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08;MP3333311;0
+13;Andrew;Fletcher;Leonard;1961-07-08;driver@gmail.com;Nottingham;;;11;test login driver;9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08;MP3333311;0

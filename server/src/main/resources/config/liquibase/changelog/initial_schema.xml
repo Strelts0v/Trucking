@@ -599,4 +599,67 @@
     <changeSet id="101220172120" author="Vlad Sytyi">
         <addAutoIncrement tableName="congragulation_letter" columnName="id" columnDataType="${idType}"/>
     </changeSet>
+
+
+    <changeSet id="161220171110" author="blink7">
+        <createTable tableName="invoices_result">
+            <column name="invoice_id" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id_driver" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="complete_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="income" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="consumption" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+
+    <changeSet id="161220171121" author="blink7">
+        <createIndex tableName="invoices_result" indexName="fk_invoices_result_invoices1_idx" unique="true">
+            <column name="invoice_id" type="${idType}"/>
+        </createIndex>
+        <createIndex tableName="invoices_result" indexName="fk_invoices_result_users1_idx">
+            <column name="user_id_driver" type="${idType}"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="invoices_result" baseColumnNames="invoice_id"
+                                 constraintName="fk_invoices_result_invoices1"
+                                 referencedTableName="invoices"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="invoices_result" baseColumnNames="user_id_driver"
+                                 constraintName="fk_invoices_result_users1"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
+
+    <changeSet id="131220171142" author="blink7">
+        <addColumn tableName="invoices">
+            <column name="invoice_number" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="complete_date" type="DATE"/>
+        </addColumn>
+
+        <addColumn tableName="waybills">
+            <column name="waybill_distance" type="INT"/>
+        </addColumn>
+
+        <modifyDataType tableName="items" columnName="item_price" newDataType="FLOAT"/>
+        <modifyDataType tableName="car_park" columnName="car_consumption" newDataType="FLOAT"/>
+    </changeSet>
 </databaseChangeLog>

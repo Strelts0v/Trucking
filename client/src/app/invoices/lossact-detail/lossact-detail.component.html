@@ -14,12 +14,6 @@
       <button mat-icon-button matTooltip="Edit act" (click)="toggleEdit()" *ngIf="!edit && editAvailability">
         <mat-icon>edit</mat-icon>
       </button>
-      <!--<button mat-icon-button matTooltip="More actions" [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
-        <button mat-menu-item (click)="deleteLossAct()">Delete act</button>
-      </mat-menu>-->
       <button mat-icon-button matTooltip="Close" [mat-dialog-close]>
         <mat-icon>close</mat-icon>
       </button>
@@ -29,49 +23,44 @@
   <mat-card-content>
     <form id="lForm" [formGroup]="lForm" (ngSubmit)="lForm.valid && submit()">
       <div class="row">
-        <div class="col-2">
-          <table class="lossact-table" formArrayName="lossActs">
-            <thead>
-            <tr>
-              <th>Product name</th>
-              <th>Amount</th>
-            </tr>
-            </thead>
+        <div class="col-2" formArrayName="lossActs">
+          <div class="container">
+            <div class="three">Product name</div>
+            <div class="two">Amount</div>
+            <div>
+              <div class="add-remove-btn-row"></div>
+            </div>
+          </div>
 
-            <tbody>
-            <tr *ngFor="let lossAct of lossActs.controls; index as i" [formGroupName]="i" [@shrinkIn]="'in'">
-              <td>
-                <mat-form-field class="item-field">
-                  <mat-select formControlName="item" [compareWith]="compareItem">
-                    <mat-option *ngFor="let item of items" [value]="item">{{item.name}}</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="lossAct.controls['item'].hasError('required')">Field is required</mat-error>
-                </mat-form-field>
-              </td>
+          <div class="container" *ngFor="let lossAct of lossActs.controls; index as i" [formGroupName]="i" [@shrinkIn]>
+            <div class="three">
+              <mat-form-field class="item-field">
+                <mat-select formControlName="item" [compareWith]="compareItem">
+                  <mat-option *ngFor="let item of items" [value]="item">{{item.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="lossAct.controls['item'].hasError('required')">Field is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="two">
+              <mat-form-field class="amount-field">
+                <input matInput type="number" min="0" formControlName="amount" required>
+                <span matSuffix>{{lossAct.controls.item.value && lossAct.controls.item.value.unitCode}}</span>
+                <mat-error *ngIf="lossAct.controls['amount'].hasError('required')">Field is required</mat-error>
+                <mat-error *ngIf="lossAct.controls['amount'].hasError('min')">The amount can not be less than 1</mat-error>
+              </mat-form-field>
+            </div>
+            <div>
+              <div class="add-remove-btn-row">
+                <button class="remove-btn" mat-icon-button (click)="deleteItem(i)" *ngIf="shouldShowRemoveBtn()">
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
 
-              <td>
-                <mat-form-field class="amount-field">
-                  <input matInput type="number" min="0" formControlName="amount" required>
-                  <span matSuffix>{{lossAct.controls.item.value && lossAct.controls.item.value.unitCode}}</span>
-                  <mat-error *ngIf="lossAct.controls['amount'].hasError('required')">Field is required</mat-error>
-                  <mat-error *ngIf="lossAct.controls['amount'].hasError('min')">The amount can not be negative</mat-error>
-                </mat-form-field>
-              </td>
-
-              <td>
-                <div class="lossact-btn-row">
-                  <button class="remove-btn" mat-icon-button (click)="deleteItem(i)" *ngIf="shouldShowRemoveBtn()">
-                    <mat-icon>remove_circle</mat-icon>
-                  </button>
-
-                  <button class="add-btn" mat-icon-button (click)="addItem()" *ngIf="shouldShowAddBtn(i)">
-                    <mat-icon>add_circle</mat-icon>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+                <button class="add-btn" mat-icon-button (click)="addItem()" *ngIf="shouldShowAddBtn(i)">
+                  <mat-icon>add_circle</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </form>
@@ -79,6 +68,6 @@
 </div>
 
 <mat-dialog-actions>
-  <button mat-button color="primary" mat-dialog-close (click)="cancel()">CANCEL</button>
+  <button mat-button color="primary" mat-dialog-close>CANCEL</button>
   <button mat-button color="primary" type="submit" form="lForm" [disabled]="!edit || !editAvailability">APPLY</button>
 </mat-dialog-actions>

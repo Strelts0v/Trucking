@@ -46,30 +46,6 @@ $line-color: rgba(0,0,0,.12)
   .col-2
     flex: 1
 
-.checkpoint-table
-  border-collapse: collapse
-  font-size: 13px
-  color: $text-color--gray-600
-  width: 100%
-
-  tr:nth-child(n + 2)
-    border-top: 1px solid $line-color
-    box-sizing: border-box
-
-  th, td
-    text-align: left
-    padding: 0 8px 12px 8px
-
-  th:first-child, td:first-child
-    text-align: right
-
-  tbody
-    tr:hover
-      background-color: $background-color--gray
-      transition-duration: .28s
-      transition-timing-function: cubic-bezier(.4,0,.2,1)
-      transition-property: background-color
-
 .checkpoint-option-name
   color: black
 
@@ -77,19 +53,58 @@ $line-color: rgba(0,0,0,.12)
   color: #666
   font-weight: lighter
 
-.col-date
-  width: 70px
-
-.checkpoint-btn-row
-  display: flex
-  align-items: center
-  align-content: flex-start
-  width: 84px
-
-  .mat-icon
-    font-size: 20px
-
 .mat-dialog-actions
   margin-bottom: 0
   padding-right: 24px
   justify-content: flex-end
+
+.container
+  display: flex
+  padding: 6px 0
+  max-width: 500px
+  font-size: 13px
+
+  ::ng-deep .mat-form-field-infix
+    width: 100%
+
+  .add-remove-btn-row
+    display: flex
+    align-items: center
+    width: 80px
+
+    .mat-icon
+      font-size: 20px
+
+    .remove-btn
+      .mat-icon
+        color: #EF9A9A
+
+    .add-btn
+      .mat-icon
+        color: #7E57C2
+
+.container:hover
+  background-color: $background-color--gray
+  transition-duration: .28s
+  transition-timing-function: cubic-bezier(.4,0,.2,1)
+  transition-property: background-color
+
+.container > div
+  flex: 1 1 5em
+  margin-left: 10px
+  height: 40px
+  display: flex
+  align-items: center
+  justify-content: center
+
+.container > :first-child
+  margin-left: 0
+
+.container > .one
+  flex: 0 0 4em
+
+.container > .two
+  flex: 2 2 calc(10em + 10px)
+
+.container > .three
+  flex: 3 3 calc(15em + 20px)

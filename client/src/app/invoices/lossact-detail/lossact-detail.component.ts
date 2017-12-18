@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { animate, group, state, style, transition, trigger } from '@angular/animations';
-import { FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Invoice, InvoiceStatus } from '../invoice';
 import { Item } from '../../items/item';
 import { InvoiceService } from '../invoice.service';
 import { LossAct } from '../lossact';
 import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
-import { MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-lossact',
@@ -15,18 +16,18 @@ import { MatDialogRef } from '@angular/material';
   styleUrls: ['./lossact-detail.component.sass'],
   animations: [
     trigger('shrinkIn', [
-      state('in', style({height: 'auto', transform: 'translateY(0)', opacity: 1})),
       transition('void => *', [
-        style({height: 10, transform: 'translateY(-50px)', opacity: 0}),
-        group([
-          animate('0.3s ease', style({
-            transform: 'translateY(0)',
-            height: 'auto'
-          })),
-          animate('0.3s ease', style({
-            opacity: 1
-          }))
-        ])
+        style({
+          height: '0',
+          opacity: 0
+        }),
+        animate('0.35s ease-out')
+      ]),
+      transition('* => void', [
+        animate('0.25s ease-in', style({
+          height: '0',
+          opacity: 0
+        }))
       ])
     ])
   ]
@@ -44,7 +45,8 @@ export class LossActDetailComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private invoiceService: InvoiceService,
-              private parentDialogRef: MatDialogRef<DocHolderComponent>) {
+              private parentDialogRef: MatDialogRef<DocHolderComponent>,
+              private dialog: MatDialog) {
   }
 
   toggleEdit(): void {
@@ -56,9 +58,24 @@ export class LossActDetailComponent implements OnInit {
   }
 
   submit(): void {
-    this.invoice.lossActs = this.lForm.value.lossActs;
-    this.invoiceService.createLossAct(this.invoice)
-      .subscribe(invoice => this.parentDialogRef.close(invoice));
+    const isValid = this.invoice.waybill.waybillCheckpoints.every(waybillCheckpoint => {
+      return waybillCheckpoint.checked === true;
+    });
+
+    if (isValid) {
+      this.invoice.lossActs = this.lForm.value.lossActs;
+      this.invoiceService.createLossAct(this.invoice)
+        .subscribe(invoice => this.parentDialogRef.close(invoice));
+    } else {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        panelClass: 'app-doc-holder',
+        data: {
+          text: 'You must check all checkpoints before completing the transportation',
+          trueAction: 'Ok',
+          isAlert: true
+        }
+      });
+    }
   }
 
   compareItem(item1: Item, item2: Item): boolean {
@@ -88,9 +105,13 @@ export class LossActDetailComponent implements OnInit {
     this.lossActs.push(
       this.fb.group({
         item: [{value: lossAct && lossAct.item, disabled: !this.edit}, Validators.required],
-        amount: [{value: lossAct && lossAct.amount, disabled: !this.edit}, [Validators.required, Validators.min(0)]]
+        amount: [{value: lossAct && lossAct.amount, disabled: !this.edit}, [Validators.required, Validators.min(1)]]
       })
     );
+  }
+
+  deleteItem(index: number) {
+    this.lossActs.removeAt(index);
   }
 
   initForm(): void {
@@ -110,6 +131,6 @@ export class LossActDetailComponent implements OnInit {
       this.addItem();
     }
 
-    this.editAvailability = this.invoice.lossActs.length === 0;
+    this.editAvailability = !(this.invoice.status === InvoiceStatus.DELIVERED || this.invoice.lossActs.length);
   }
 }

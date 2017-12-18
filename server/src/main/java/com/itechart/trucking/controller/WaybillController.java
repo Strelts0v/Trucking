@@ -3,6 +3,7 @@ package com.itechart.trucking.controller;
 import com.itechart.trucking.dao.WaybillDao;
 import com.itechart.trucking.service.WaybillService;
 import com.itechart.trucking.service.dto.WaybillDto;
+import com.itechart.trucking.service.dto.WaybillSearchCriteriaDto;
 import com.itechart.trucking.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +22,8 @@ import static com.itechart.trucking.util.Constants.NUMBER_REGEX;
  * REST controller for managing waybills.
  *
  * @author blink7
- * @version 1.1
- * @since 2017-12-13
+ * @version 1.2
+ * @since 2017-12-18
  */
 @RestController
 @RequestMapping("/api")
@@ -75,5 +76,21 @@ public class WaybillController {
         return waybillService.checkWaybill(waybillDto)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE));
+    }
+
+    @PutMapping("/waybills/search/{page:" + NUMBER_REGEX + "}/{size:" + NUMBER_REGEX + "}")
+    public ResponseEntity<List<WaybillDto>> searchInvoices(@RequestBody WaybillSearchCriteriaDto criteria,
+                                                           @PathVariable int page, @PathVariable int size) {
+
+        log.debug("REST request to search Waybills for criteria: {}, page: {}, size: {}", criteria, page, size);
+        final List<WaybillDto> waybills = waybillService.getInvoicesBySearch(criteria, page, size);
+        return ResponseEntity.ok(waybills);
+    }
+
+    @PutMapping("/waybills/search/size")
+    public ResponseEntity<Integer> getSearchInvoicesSize(@RequestBody WaybillSearchCriteriaDto criteria) {
+        final int size = waybillService.getSearchSize(criteria);
+        log.debug("REST request to get total Waybills size for search result: {}", size);
+        return ResponseEntity.ok(size);
     }
 }

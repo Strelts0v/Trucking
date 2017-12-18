@@ -4,8 +4,8 @@ import javax.persistence.*;
 
 /**
  * @author blink7
- * @version 1.3
- * @since 2017-12-13
+ * @version 1.4
+ * @since 2017-12-17
  */
 @Entity
 @Table(name = "checkpoints")
@@ -81,5 +81,16 @@ public class Checkpoint extends AbstractPersistentObject {
 
     public void setLng(Double lng) {
         this.lng = lng;
+    }
+
+    @Override
+    public String toString() {
+        return "Checkpoint{" +
+                "name='" + name + '\'' +
+                ", additionName='" + additionName + '\'' +
+                ", placeId='" + placeId + '\'' +
+                ", lat=" + lat +
+                ", lng=" + lng +
+                '}';
     }
 }

@@ -2,7 +2,6 @@ package com.itechart.trucking.domain;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "car_park")
 public class Car extends AbstractPersistentObject {
@@ -18,7 +17,7 @@ public class Car extends AbstractPersistentObject {
     private Type type;
 
     @Column(name = "car_consumption")
-    private Integer consumption;
+    private Float consumption;
 
     public enum Type {
         CARCASE,
@@ -29,7 +28,7 @@ public class Car extends AbstractPersistentObject {
     public Car() {
     }
 
-    public Car(String name, String number, Type type, Integer consumption) {
+    public Car(String name, String number, Type type, Float consumption) {
         this.name = name;
         this.number = number;
         this.type = type;
@@ -60,11 +59,11 @@ public class Car extends AbstractPersistentObject {
         this.type = type;
     }
 
-    public Integer getConsumption() {
+    public Float getConsumption() {
         return consumption;
     }
 
-    public void setConsumption(Integer consumption) {
+    public void setConsumption(Float consumption) {
         this.consumption = consumption;
     }
 
