@@ -68,7 +68,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
       this.log(JSON.stringify(user));
     }
     const dialogRef = this.dialog.open(UserDetailComponent, {
-      width: '620px',
+      width: '625px',
       data: { user: user }
     });
 

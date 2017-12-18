@@ -76,7 +76,7 @@ export class ClientListComponent implements OnInit, AfterViewInit {
         this.clientService.addClient(client)
           .subscribe(client => {
             const clients = this.dataSource.data;
-            this.log(`ADD ${JSON.stringify(client)}`;
+            this.log(`ADD ${JSON.stringify(client)}`);
             clients.push(client);
             this.dataSource.data = clients;
           });
