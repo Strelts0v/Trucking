@@ -22,7 +22,6 @@ import static com.itechart.trucking.util.Constants.NUMBER_REGEX;
 
 @RestController
 @RequestMapping("/api/users")
-//@Secured({AUTHORIZED_ROLE_SYSADMIN, AUTHORIZED_ROLE_OWNER})
 public class UserController {
 
     private final Logger log = LoggerFactory.getLogger(UserController.class);

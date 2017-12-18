@@ -89,9 +89,9 @@ export class UserService {
   }
 
   private fixDateFormat(user: User): User {
-    let date = user.birthday;
+    /*let date = user.birthday;
     date = date.substr(0, 10);
-    user.birthday = date;
+    user.birthday = date;*/
     return user;
   }
 }

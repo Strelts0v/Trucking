@@ -21,8 +21,6 @@ import static com.itechart.trucking.util.Constants.NUMBER_REGEX;
 
 @RestController
 @RequestMapping("/api/clients")
-//@Secured({AUTHORIZED_ROLE_SYSADMIN, AUTHORIZED_ROLE_ADMIN,
-//          AUTHORIZED_ROLE_DISPATCHER, AUTHORIZED_ROLE_OWNER})
 public class ClientController {
 
     private final Logger log = LoggerFactory.getLogger(ClientController.class);
@@ -45,8 +43,7 @@ public class ClientController {
     }
 
     @PostMapping("/add_client")
-    public ResponseEntity<Client> addClient (/*@RequestBody Client client*/){
-        Client client = new Client();
+    public ResponseEntity<Client> addClient (@RequestBody Client client){
         log.debug("REST request for adding a new Client: {}", client);
         Client clientWithId = service.addClient(client);
         log.debug("Added client: " + clientWithId);
