@@ -69,6 +69,8 @@ import { SearchBarComponent } from './main/search-bar/search-bar.component';
 import { SearchService } from './main/search-bar/search.service';
 import { InvoiceSearchComponent } from './invoices/invoice-search/invoice-search.component';
 import { WaybillSearchComponent } from './waybills/waybill-search/waybill-search.component';
+import { WarehouseListComponent } from './warehouses/warehouse-list/warehouse-list.component';
+import { WarehouseService} from './warehouses/warehouse.service';
 
 @NgModule({
   imports: [
@@ -134,7 +136,8 @@ import { WaybillSearchComponent } from './waybills/waybill-search/waybill-search
     ProgressDialogComponent,
     SearchBarComponent,
     InvoiceSearchComponent,
-    WaybillSearchComponent
+    WaybillSearchComponent,
+    WarehouseListComponent
   ],
   entryComponents: [
     DocHolderComponent,
@@ -154,7 +157,8 @@ import { WaybillSearchComponent } from './waybills/waybill-search/waybill-search
     WaybillService,
     ClientService,
     ItemService,
-    SearchService
+    SearchService,
+    WarehouseService
   ],
   bootstrap: [AppComponent]
 })
