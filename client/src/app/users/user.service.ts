@@ -76,6 +76,16 @@ export class UserService {
       );
   }
 
+  getAvailableDrivers(): Observable<User[]> {
+    const url = `${this.apiUrl}/get_available_drivers`;
+    this.log(url);
+    return this.http.get<User[]>(url)
+      .pipe(
+        tap(data => this.log(`fetched available drivers: ${JSON.stringify(data)}`)),
+        catchError(this.handleError<User[]>(`getAvailableDrivers`))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

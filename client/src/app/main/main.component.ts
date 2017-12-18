@@ -164,7 +164,7 @@ export class MainComponent implements OnInit {
       {
         label: 'Warehouses',
         path: '/warehouses',
-        availability: this.roleGuard.isOwner() || this.roleGuard.isManager() || this.roleGuard.isDispatcher()
+        availability: this.roleGuard.isOwner() || this.roleGuard.isSysAdmin() || this.roleGuard.isAdmin()
       }
     ];
   }

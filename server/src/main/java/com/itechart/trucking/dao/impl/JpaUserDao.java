@@ -98,7 +98,7 @@ public class JpaUserDao implements UserDao{
     public List<User> getNotBusyUsersByRole(User.Role role) {
         final String sqlQuery =
                 "SELECT * FROM users u RIGHT JOIN users_has_roles ur" +
-                        " ON u.id = ur.users_id WHERE ur.user_role = 'DR' and u.busy != true";
+                        " ON u.id = ur.users_id WHERE ur.user_role = 'DR' and u.busy is not true";
 
         Query query = em.createNativeQuery(sqlQuery, User.class);
         return query.getResultList();

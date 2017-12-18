@@ -1,14 +1,14 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import {MainComponent} from './main';
-import {AuthGuard} from './users';
-import {RoleGuard} from './users';
-import {AuthComponent, UserListComponent} from './users';
-import {InvoiceListComponent} from './invoices/invoice-list/invoice-list.component';
-import {WaybillListComponent} from './waybills/waybill-list/waybill-list.component';
-import {ClientListComponent} from './clients';
-import {WelcomeComponent} from './welcome/welcome.component';
+import { MainComponent } from './main';
+import { AuthGuard } from './users';
+import { RoleGuard } from './users';
+import { AuthComponent, UserListComponent } from './users';
+import { InvoiceListComponent } from './invoices/invoice-list/invoice-list.component';
+import { WaybillListComponent } from './waybills/waybill-list/waybill-list.component';
+import { ClientListComponent } from './clients';
+import { WelcomeComponent } from './welcome/welcome.component';
 import { WarehouseListComponent } from './warehouses/warehouse-list/warehouse-list.component';
 
 const routes: Routes = [

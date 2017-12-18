@@ -51,7 +51,6 @@ export class InvoiceDetailComponent implements OnInit {
   editAvailability: boolean;
 
   items: Item[];
-
   clients: Client[];
 
   saveBtnName: string;
@@ -147,8 +146,9 @@ export class InvoiceDetailComponent implements OnInit {
       && !this.invoice.status;
   }
 
+  // TODO: Change call to get all clients.
   getClients(): void {
-    this.clientService.getClients(1, 20)
+    this.clientService.getClients(1, 100)
       .subscribe(clients => this.clients = clients);
   }
 
