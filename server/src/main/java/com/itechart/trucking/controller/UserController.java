@@ -88,4 +88,12 @@ public class UserController {
         List<User> users = service.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+    @GetMapping("/get_available_drivers")
+    public ResponseEntity<List<User>> getAvailableDrivers () {
+        User.Role roleEnum = User.Role.DRIVER;
+        List<User> users = service.getNotBusyUsersByRole(roleEnum);
+        log.info("return available drivers: " + users);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 }

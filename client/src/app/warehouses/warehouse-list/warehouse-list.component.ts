@@ -33,7 +33,7 @@ export class WarehouseListComponent implements OnInit {
   }
 
   size() {
-    this.warehouseService.size()
+    this.warehouseService.getWarehouseCount()
     .subscribe(length => this.length = length);
   }
 

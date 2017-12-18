@@ -29,9 +29,10 @@ public class ClientController {
     private ClientService service;
 
     @GetMapping("/count")
-    public int getClientCount() {
+    public ResponseEntity<Integer> getClientCount() {
         log.debug("REST request to get client count");
-        return service.getClientCount();
+        Integer count = service.getClientCount();
+        return new ResponseEntity<>(count, HttpStatus.OK);
     }
 
     @GetMapping("/get_clients/{page:" + NUMBER_REGEX + "}/{size:" + NUMBER_REGEX + "}" )

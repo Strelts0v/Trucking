@@ -42,13 +42,7 @@ export class MainComponent implements OnInit {
   user: User;
 
   matches: boolean;
-  navLinks = [
-    {label: 'Users', path: '/users'},
-    {label: 'Consignment notes', path: '/invoices'},
-    {label: 'Waybills', path: '/waybills'},
-    {label: 'Clients', path: '/clients'},
-    {label: 'Warehouses', path: '/warehouses'}
-  ];
+  navLinks = [];
 
   constructor(private titleService: Title,
               private router: Router,
@@ -117,6 +111,11 @@ export class MainComponent implements OnInit {
         label: 'Waybills',
         path: '/waybills',
         availability: this.roleGuard.isOwner() || this.roleGuard.isManager() || this.roleGuard.isDriver()
+      },
+      {
+        label: 'Warehouses',
+        path: '/warehouses',
+        availability: this.roleGuard.isOwner() || this.roleGuard.isManager() || this.roleGuard.isDispatcher()
       }
     ];
   }

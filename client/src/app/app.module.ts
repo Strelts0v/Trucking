@@ -129,7 +129,8 @@ import { WarehouseService} from './warehouses/warehouse.service';
     ClientListComponent,
     UserDetailComponent,
     ClientDetailComponent,
-    ProgressDialogComponent
+    ProgressDialogComponent,
+    WarehouseListComponent,
   ],
   entryComponents: [
     DocHolderComponent,
@@ -148,7 +149,8 @@ import { WarehouseService} from './warehouses/warehouse.service';
     InvoiceService,
     WaybillService,
     ClientService,
-    ItemService
+    ItemService,
+    WarehouseService
   ],
   bootstrap: [AppComponent]
 })

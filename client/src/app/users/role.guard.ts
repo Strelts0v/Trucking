@@ -57,6 +57,10 @@ export class RoleGuard implements CanActivate {
           RoleGuard.ADMIN_ROLE, RoleGuard.SYSADMIN_ROLE, RoleGuard.DISPATCHER_ROLE);
         break;
       }
+      case '/warehouses': {
+        hasPermissions = this.checkRole(user.roles, RoleGuard.OWNER_ROLE, RoleGuard.MANAGER_ROLE, RoleGuard.DISPATCHER_ROLE);
+        break;
+      }
     }
     return hasPermissions;
   }
