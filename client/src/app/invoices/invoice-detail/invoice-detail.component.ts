@@ -151,7 +151,7 @@ export class InvoiceDetailComponent implements OnInit {
   }
 
   getClients(): void {
-    this.clientService.getClients(1)
+    this.clientService.getClients(1, 20)
       .subscribe(clients => this.clients = clients);
   }
 
