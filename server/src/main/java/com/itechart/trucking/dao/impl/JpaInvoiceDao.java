@@ -2,6 +2,7 @@ package com.itechart.trucking.dao.impl;
 
 import com.itechart.trucking.dao.InvoiceDao;
 import com.itechart.trucking.domain.Invoice;
+import com.itechart.trucking.domain.Invoice_;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -14,8 +15,8 @@ import java.util.Optional;
 
 /**
  * @author blink7
- * @version 1.1
- * @since 2017-11-20
+ * @version 1.2
+ * @since 2017-12-13
  */
 @Repository
 public class JpaInvoiceDao implements InvoiceDao {
@@ -42,6 +43,14 @@ public class JpaInvoiceDao implements InvoiceDao {
         CriteriaQuery<Invoice> cq = cb.createQuery(Invoice.class);
         Root<Invoice> root = cq.from(Invoice.class);
         cq.select(root);
+
+        CriteriaBuilder.Case<Integer> orderCase = cb.selectCase();
+        orderCase
+                .when(cb.equal(root.get(Invoice_.status), Invoice.Status.ISSUED), 1)
+                .when(cb.equal(root.get(Invoice_.status), Invoice.Status.CHECKED), 2)
+                .otherwise(3);
+        cq.orderBy(cb.asc(orderCase));
+
         TypedQuery<Invoice> q = em.createQuery(cq);
         q.setFirstResult((pageNumber - 1) * pageSize);
         q.setMaxResults(pageSize);

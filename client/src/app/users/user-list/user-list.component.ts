@@ -3,7 +3,7 @@ import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import { UserService } from './../user.service';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { User } from './../index';
+import { User } from './../user';
 
 @Component({
   moduleId: module.id,
@@ -39,11 +39,12 @@ export class UserListComponent implements OnInit, AfterViewInit {
   }
 
   size() {
-    this.userService.size()
+    this.userService.getUserCount()
       .subscribe(length => this.length = length);
   }
 
   loadUsers(event?: PageEvent) {
+    this.log(JSON.stringify(event));
     this.pageNumber = event.pageIndex + 1;
     this.paginator.nextPage();
     this.pageSize = event.pageSize;
@@ -51,10 +52,6 @@ export class UserListComponent implements OnInit, AfterViewInit {
     this.size();
   }
 
-  /**
-   * Set the paginator after the view init since this component will
-   * be able to query its view for the initialized paginator.
-   */
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
@@ -71,30 +68,25 @@ export class UserListComponent implements OnInit, AfterViewInit {
       this.log(JSON.stringify(user));
     }
     const dialogRef = this.dialog.open(UserDetailComponent, {
-      width: '600px',
+      width: '620px',
       data: { user: user }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       user = <User> result.user;
-      this.log(JSON.stringify(user));
 
-      let originalUser;
       if (isEditable) {
         this.log(`EDIT ${JSON.stringify(user)}`);
-        originalUser = this.getUserById(id);
-        let users = this.dataSource.data;
-        users = users.filter(user => user !== originalUser);
-        user.id = originalUser.id;
-        users.push(user);
+        this.userService.updateUser(user);
       } else {
-        const users = this.dataSource.data;
         this.log(`ADD ${JSON.stringify(user)}`);
-        users.push(user);
-        this.dataSource.data = users;
-        // this.userService.addUser(user)
-        //   .subscribe(user => this.dataSource.data.push(user));
+        this.userService.addUser(user)
+          .subscribe(user => {
+            const users = this.dataSource.data;
+            users.push(user);
+            this.dataSource.data = users;
+          });
       }
     });
   }

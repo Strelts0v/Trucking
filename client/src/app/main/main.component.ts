@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatDialog } from '@angular/material';
 import { BithdayCongratulationComponent } from '../bithday-congratulation/bithday-congratulation.component';
-import { AuthService } from '../users';
+import { AuthService, RoleGuard } from '../users';
 import { User } from '../users/index';
 
 @Component({
@@ -42,17 +42,14 @@ export class MainComponent implements OnInit {
   user: User;
 
   matches: boolean;
-  navLinks = [
-    {label: 'Users', path: '/users'},
-    {label: 'Consignment notes', path: '/invoices'},
-    {label: 'Waybills', path: '/waybills'},
-    {label: 'Clients', path: '/clients'},
-  ];
+  navLinks = [];
 
   constructor(private titleService: Title,
               private router: Router,
               private route: ActivatedRoute,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private roleGuard: RoleGuard) {
+
     if (localStorage.getItem('currentUser')) {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
     } else {
@@ -61,11 +58,11 @@ export class MainComponent implements OnInit {
   }
 
   @HostListener('window:resize')
-  onResize() {
+  onResize(): void {
     this.matches = window.innerWidth <= 600;
   }
 
-  setTitle() {
+  setTitle(): void {
     this.title = this.route.snapshot.data.title;
     if (this.route.firstChild) {
       this.subtitle = this.route.firstChild.snapshot.data.title;
@@ -76,16 +73,49 @@ export class MainComponent implements OnInit {
     }
   }
 
-  openTemplate() {
+  openTemplate(): void {
     const dialogRef = this.dialog.open(BithdayCongratulationComponent);
   }
 
-  logout() {
+  logout(): void {
     AuthService.logout();
     this.router.navigate(['/auth']);
   }
 
-  ngOnInit() {
+  templateAvailability(): boolean {
+    return this.roleGuard.isOwner() || this.roleGuard.isSysAdmin() || this.roleGuard.isAdmin();
+  }
+
+  populateLinks(): void {
+    if (this.roleGuard.isOwner()) {
+      this.navLinks = [
+        {label: 'Users', path: '/users'},
+        {label: 'Clients', path: '/clients'},
+        {label: 'Consignment notes', path: '/invoices'},
+        {label: 'Waybills', path: '/waybills'}
+      ];
+    } else if (this.roleGuard.isSysAdmin() || this.roleGuard.isAdmin()) {
+      this.navLinks = [
+        {label: 'Users', path: '/users'},
+        {label: 'Clients', path: '/clients'}
+      ];
+    } else if (this.roleGuard.isDispatcher()) {
+      this.navLinks = [
+        {label: 'Clients', path: '/clients'},
+        {label: 'Consignment notes', path: '/invoices'}
+      ];
+    } else if (this.roleGuard.isManager()) {
+      this.navLinks = [
+        {label: 'Consignment notes', path: '/invoices'}
+      ];
+    } else if (this.roleGuard.isDriver()) {
+      this.navLinks = [
+        {label: 'Waybills', path: '/waybills'}
+      ];
+    }
+  }
+
+  ngOnInit(): void {
     this.onResize();
 
     this.setTitle();
@@ -94,5 +124,7 @@ export class MainComponent implements OnInit {
         this.setTitle();
       }
     });
+
+    this.populateLinks();
   }
 }

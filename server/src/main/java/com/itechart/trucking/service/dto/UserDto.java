@@ -8,8 +8,8 @@ import java.util.Set;
  * A DTO representing a user.
  *
  * @author blink7
- * @version 1.2
- * @since 2017-12-11
+ * @version 1.3
+ * @since 2017-12-13
  */
 public class UserDto extends AbstractDto {
 
@@ -26,6 +26,7 @@ public class UserDto extends AbstractDto {
     private String login;
     private String password;
     private String passport;
+    private Boolean busy;
 
     public String getFirstName() {
         return firstName;
@@ -129,5 +130,33 @@ public class UserDto extends AbstractDto {
 
     public void setPassport(String passport) {
         this.passport = passport;
+    }
+
+    public Boolean getBusy() {
+        return busy;
+    }
+
+    public void setBusy(Boolean busy) {
+        this.busy = busy;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", email='" + email + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", house='" + house + '\'' +
+                ", apartment=" + apartment +
+                ", roles=" + roles +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", passport='" + passport + '\'' +
+                ", busy=" + busy +
+                '}';
     }
 }

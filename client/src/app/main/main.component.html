@@ -13,7 +13,7 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
-      <button mat-menu-item (click)="openTemplate()">Template</button>
+      <button mat-menu-item (click)="openTemplate()" *ngIf="templateAvailability()">Template</button>
       <button mat-menu-item (click)="logout()">Logout</button>
     </mat-menu>
   </mat-toolbar>

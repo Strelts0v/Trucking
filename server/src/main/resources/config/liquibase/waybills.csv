@@ -1,3 +1,3 @@
-id;waybill_departure_date;waybill_status;warehouses_id_from;warehouses_id_to;car_park_id;users_id_driver;waybills_issuedate
-1;2017-12-8;S;1;2;1;9;2017-12-4
-2;2017-12-10;S;1;3;2;11;2017-12-6
+id;waybill_departure_date;waybill_status;warehouses_id_from;warehouses_id_to;car_park_id;users_id_driver;waybills_issuedate;version
+1;2017-12-8;S;1;2;1;9;2017-12-4;0
+2;2017-12-10;S;1;3;2;11;2017-12-6;0

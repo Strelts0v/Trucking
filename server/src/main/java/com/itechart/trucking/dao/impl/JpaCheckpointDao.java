@@ -16,8 +16,8 @@ import java.util.Optional;
 
 /**
  * @author blink7
- * @version 1.1
- * @since 2017-12-11
+ * @version 1.2
+ * @since 2017-12-13
  */
 @Repository
 public class JpaCheckpointDao implements CheckpointDao {
@@ -48,7 +48,7 @@ public class JpaCheckpointDao implements CheckpointDao {
         Optional<Checkpoint> result;
         try {
             result = Optional.of(q.getSingleResult());
-        } catch (NoResultException e) {
+        } catch (NoResultException | NullPointerException e) {
             result = Optional.empty();
         }
         return result;
@@ -65,15 +65,15 @@ public class JpaCheckpointDao implements CheckpointDao {
         Optional<Checkpoint> result;
         try {
             result = Optional.of(q.getSingleResult());
-        } catch (NoResultException e) {
+        } catch (NoResultException | NullPointerException e) {
             result = Optional.empty();
         }
         return result;
     }
 
     @Override
-    public void save(Checkpoint checkpoint) {
-        em.persist(checkpoint);
+    public Checkpoint save(Checkpoint checkpoint) {
+        return em.merge(checkpoint);
     }
 
     @Override

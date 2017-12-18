@@ -20,22 +20,15 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 import static java.util.Arrays.asList;
+import static com.itechart.trucking.auth.SecurityConstants.*;
 
 @Configuration
 @EnableWebSecurity
 @Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private static final String AUTHORIZED_ROLE_SYSADMIN = "SYSADMIN";
-    private static final String AUTHORIZED_ROLE_ADMIN = "ADMIN";
-    private static final String AUTHORIZED_ROLE_MANAGER = "MANAGER";
-    private static final String AUTHORIZED_ROLE_DISPATCHER = "DISPATCHER";
-    private static final String AUTHORIZED_ROLE_DRIVER = "DRIVER";
-    private static final String AUTHORIZED_ROLE_OWNER = "OWNER";
 
     private final UserDetailsService userService;
     private final StatelessAuthenticationFilter statelessAuthenticationFilter;
@@ -65,15 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
 
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/*").hasAnyRole(
-                    AUTHORIZED_ROLE_SYSADMIN,
-                    AUTHORIZED_ROLE_ADMIN,
-                    AUTHORIZED_ROLE_MANAGER,
-                    AUTHORIZED_ROLE_DISPATCHER,
-                    AUTHORIZED_ROLE_DRIVER,
-                    AUTHORIZED_ROLE_OWNER
-                )
-                // TODO test and enable .anyRequest().fullyAuthenticated()
+                .antMatchers("/api/*").fullyAuthenticated()
+                .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(new Http401AuthenticationEntryPoint("'Bearer token_type=\"JWT\"'"));

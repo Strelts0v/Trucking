@@ -36,14 +36,14 @@
     </mat-row>
   </mat-table>
 
-  <button mat-fab color="accent" matTooltip="Add new note" class="add-fab-btn" (click)="openInvoiceDetail()" [@flyInFromBottom]="'in'">
+  <button mat-fab color="accent" matTooltip="Add new note" class="add-fab-btn" (click)="openInvoiceDetail()" [@flyInFromBottom]="'in'" *ngIf="roleGuard.isOwner() || roleGuard.isDispatcher()">
     <mat-icon>add</mat-icon>
   </button>
 
   <mat-paginator class="paginator"
                  [length]="length"
                  [pageSize]="pageSize"
-                 [pageSizeOptions]="[3, 5]"
+                 [pageSizeOptions]="[10, 20]"
                  (page)="pageEvent = loadInvoices($event)">
   </mat-paginator>
 </div>

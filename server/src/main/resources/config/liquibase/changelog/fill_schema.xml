@@ -20,7 +20,7 @@
                   tableName="users_has_roles"/>
     </changeSet>
 
-    <changeSet id="101220171035" author="blink7">
+    <changeSet id="131220171817" author="blink7">
         <loadData tableName="checkpoints"
                   file="config/liquibase/checkpoints.csv"
                   separator=";"/>

@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 
 import { Invoice, InvoiceStatus } from '../invoices/invoice';
 import { InvoiceService } from '../invoices/invoice.service';
+import { RoleGuard } from '../users';
 
 @Component({
   selector: 'app-doc-holder',
@@ -12,13 +13,15 @@ import { InvoiceService } from '../invoices/invoice.service';
 export class DocHolderComponent implements OnInit {
 
   selectedTab: number;
-  isLoaded: boolean;
-  isTabDisabled = true;
+  isInvoiceLoaded: boolean;
+  isWaybillLoaded: boolean;
+  isLossActLoaded: boolean;
 
   invoice: Invoice;
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
-              private invoiceService: InvoiceService) {
+              private invoiceService: InvoiceService,
+              public roleGuard: RoleGuard) {
   }
 
   selectTab() {
@@ -34,15 +37,23 @@ export class DocHolderComponent implements OnInit {
 
   loadData() {
     if (this.data.id) {
-      this.invoiceService.getInvoice(this.data.id)
-        .subscribe(invoice => {
-          this.invoice = invoice;
-          this.isLoaded = true;
-          this.isTabDisabled = this.invoice.status !== (InvoiceStatus.CHECKED || InvoiceStatus.DELIVERED);
-        });
+      setTimeout(() => {
+        this.invoiceService.getInvoice(this.data.id)
+          .subscribe(invoice => {
+            this.invoice = invoice;
+
+            this.isInvoiceLoaded = true;
+            if ((this.invoice.status === InvoiceStatus.CHECKED || this.invoice.status === InvoiceStatus.DELIVERED)
+              && (this.roleGuard.isOwner() || this.roleGuard.isManager() || this.roleGuard.isDriver())) {
+
+              this.isWaybillLoaded = true;
+              this.isLossActLoaded = true;
+            }
+          });
+      }, 300);
     } else {
       this.invoice = new Invoice();
-      this.isLoaded = true;
+      this.isInvoiceLoaded = true;
     }
   }
 

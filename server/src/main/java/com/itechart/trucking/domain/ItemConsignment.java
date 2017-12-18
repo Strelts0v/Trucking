@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 /**
  * @author Quontico
- * @version 1.1
- * @since 2017-12-07
+ * @version 1.2
+ * @since 2017-12-13
  */
 
 @Entity
@@ -69,6 +69,15 @@ public class ItemConsignment implements Serializable {
         this.item = item;
     }
 
+    @Override
+    public String toString() {
+        return "ItemConsignment{" +
+                "amount=" + amount +
+                ", status=" + status +
+                ", item=" + item +
+                '}';
+    }
+
     @Convert
     public static class TypeConverter implements AttributeConverter<Status, String> {
 
@@ -76,9 +85,9 @@ public class ItemConsignment implements Serializable {
         public String convertToDatabaseColumn(Status attribute) {
             switch (attribute) {
                 case REGISTERED:
-                    return "C";
+                    return "R";
                 case CHECKED:
-                    return "V";
+                    return "C";
                 case DELIVERED:
                     return "D";
                 case LOST:

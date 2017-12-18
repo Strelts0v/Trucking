@@ -7,16 +7,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.itechart.trucking.util.Constants.NUMBER_REGEX;
+
 @RestController
 @RequestMapping("/api/clients")
-@PreAuthorize("isFullyAuthenticated()")
+//@Secured({AUTHORIZED_ROLE_SYSADMIN, AUTHORIZED_ROLE_ADMIN,
+//          AUTHORIZED_ROLE_DISPATCHER, AUTHORIZED_ROLE_OWNER})
 public class ClientController {
 
     private final Logger log = LoggerFactory.getLogger(ClientController.class);
@@ -24,40 +30,40 @@ public class ClientController {
     @Autowired
     private ClientService service;
 
-    @RequestMapping("/count")
+    @GetMapping("/count")
     public int getClientCount() {
+        log.debug("REST request to get client count");
         return service.getClientCount();
     }
 
-    @RequestMapping("/get_clients")
-    public ResponseEntity<List<Client>> getClients(
-            @RequestParam(value="page", defaultValue="1") String page,
-            @RequestParam(value="pageSize", defaultValue = "20") String pageSize){
-        int pageNumber = Integer.parseInt(page);
-        int clientCount = Integer.parseInt(pageSize);
-        List<Client> clients = service.getClientsByPage(pageNumber, clientCount);
-        log.info("return clients by page " + page + " pageSize " + pageSize + ": " + clients);
+    @GetMapping("/get_clients/{page:" + NUMBER_REGEX + "}/{size:" + NUMBER_REGEX + "}" )
+    public ResponseEntity<List<Client>> getClients(@PathVariable int page, @PathVariable int size){
+        log.debug("REST request for clients by page {0} size {1}", page, size);
+        List<Client> clients = service.getClientsByPage(page, size);
+        log.debug("Returning clients by page {0} size {1}: {2}", page, size, clients);
         return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
-    @RequestMapping("/add_client")
-    public ResponseEntity<Client> addClient (@RequestParam(value="client") Client client){
+    @PostMapping("/add_client")
+    public ResponseEntity<Client> addClient (/*@RequestBody Client client*/){
+        Client client = new Client();
+        log.debug("REST request for adding a new Client: {}", client);
         Client clientWithId = service.addClient(client);
-        log.info("added client: " + clientWithId);
-        return new ResponseEntity<>(clientWithId, HttpStatus.OK);
+        log.debug("Added client: " + clientWithId);
+        return new ResponseEntity<>(clientWithId, HttpStatus.CREATED);
     }
 
-    @RequestMapping("/update_client")
-    public ResponseEntity<Void> updateClient (@RequestParam(value="client") Client client){
+    @PutMapping("/update_client")
+    public ResponseEntity<Client> updateClient (@RequestBody Client client){
+        log.debug("REST request for updating client: {}", client);
         service.updateClient(client);
-        log.info("updated client: " + client);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
-    @RequestMapping("/delete_client")
-    public ResponseEntity<Void> deleteClient (@RequestParam(value="client") Client client){
+    @PostMapping("/delete_client")
+    public ResponseEntity<Void> deleteClient (@RequestBody Client client){
+        log.debug("REST request for deleting client: {}", client);
         service.deleteClient(client);
-        log.info("deleted client: " + client);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -24,8 +24,8 @@ import static org.junit.Assert.*;
  * Test class for {@link InvoiceMapper}
  *
  * @author blink7
- * @version 1.1
- * @since 2017-11-23
+ * @version 1.2
+ * @since 2017-12-13
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -57,10 +57,7 @@ public class InvoiceMapperTest {
         Waybill waybill = new Waybill();
         invoice.setWaybill(waybill);
 
-        LossAct lossAct = new LossAct();
-        lossAct.setItem(item);
-        lossAct.setAmount(ITEM_AMOUNT);
-        invoice.addLossAct(lossAct);
+        invoice.addLossAct(item, ITEM_AMOUNT);
 
         invoice.setLossActIssueDate(LOSS_ACT_DATE);
 

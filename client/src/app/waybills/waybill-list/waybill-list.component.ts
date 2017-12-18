@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
+import { MatDialog, MatSnackBar, MatTableDataSource, PageEvent } from '@angular/material';
 
 import { Waybill, WaybillStatus } from '../waybill';
 import { WaybillService } from '../waybill.service';
+import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
 
 @Component({
   selector: 'app-waybill-list',
@@ -16,16 +17,32 @@ export class WaybillListComponent implements OnInit {
   displayedColumns = ['from', 'to', 'car_number', 'invoice_id', 'issue_date'];
   dataSource = new MatTableDataSource<Waybill>();
   pageNumber = 1;
-  pageSize = 3;
+  pageSize = 10;
   length: number;
 
   pageEvent: PageEvent;
 
   constructor(private waybillService: WaybillService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private snackBar: MatSnackBar) {
   }
 
   openWaybillDetail(id: number) {
+    const dialogRef = this.dialog.open(DocHolderComponent, {
+      panelClass: 'app-doc-holder',
+      data: {
+        type: 'waybill',
+        id: id
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(waybill => {
+      if (waybill) {
+        this.size();
+        this.getWaybills();
+        this.snackBar.open('Waybill saved', '', {duration: 3000});
+      }
+    });
   }
 
   getWaybills() {
@@ -41,13 +58,13 @@ export class WaybillListComponent implements OnInit {
   loadWaybills(event?: PageEvent) {
     this.pageNumber = event.pageIndex + 1;
     this.pageSize = event.pageSize;
-    this.getWaybills();
     this.size();
+    this.getWaybills();
   }
 
   ngOnInit() {
-    this.getWaybills();
     this.size();
+    this.getWaybills();
   }
 
 }
