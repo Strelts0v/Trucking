@@ -3,7 +3,6 @@ package com.itechart.trucking.service.mail;
 
 import com.itechart.trucking.dao.LetterDao;
 import com.itechart.trucking.domain.Letter;
-import com.sun.xml.internal.bind.v2.TODO;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
