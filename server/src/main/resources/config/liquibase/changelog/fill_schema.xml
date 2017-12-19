@@ -8,7 +8,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <changeSet id="181220172224" author="Gleb Streltsov">
+    <changeSet id="191220171647" author="Gleb Streltsov">
         <loadData file="config/liquibase/users.csv"
                   separator=";"
                   tableName="users"/>
@@ -20,7 +20,7 @@
                   tableName="users_has_roles"/>
     </changeSet>
 
-    <changeSet id="171220171004" author="blink7">
+    <changeSet id="191220171011" author="blink7">
         <loadData tableName="checkpoints"
                   file="config/liquibase/checkpoints.csv"
                   separator=";"/>
@@ -62,6 +62,17 @@
 
         <loadData tableName="item_consignments"
                   file="config/liquibase/item_consignments.csv"
+                  separator=";"/>
+    </changeSet>
+
+
+    <changeSet id="191220171012" author="blink7">
+        <loadData tableName="act_of_loss"
+                  file="config/liquibase/act_of_loss.csv"
+                  separator=";"/>
+
+        <loadData tableName="invoices_result"
+                  file="config/liquibase/invoices_result.csv"
                   separator=";"/>
     </changeSet>
 </databaseChangeLog>

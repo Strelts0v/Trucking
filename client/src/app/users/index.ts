@@ -6,3 +6,4 @@ export * from './role.guard';
 export * from './auth/auth.component';
 export * from './user-detail/user-detail.component';
 export * from './user-list/user-list.component';
+export * from './user-full-name.pipe';

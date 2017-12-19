@@ -28,8 +28,8 @@ import static com.itechart.trucking.util.Utils.*;
  * Service class for managing invoices.
  *
  * @author blink7
- * @version 1.6
- * @since 2017-12-17
+ * @version 1.7
+ * @since 2017-12-19
  */
 @Service
 @Transactional
@@ -196,20 +196,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 
             float income = (0.5f * transportConsumption) + transportConsumption;
 
-            InvoiceResult result = new InvoiceResult(invoice, round(income, 2), round(consumption, 2));
+            InvoiceResult result = new InvoiceResult(invoice, income, consumption);
             invoiceDao.saveResult(result);
 
             log.debug("Completed Invoice: {}", invoice);
             return invoice;
         }).map(invoiceMapper::invoiceToInvoiceDto);
-    }
-
-    private static float round(float number, int scale) {
-        int pow = 10;
-        for (int i = 1; i < scale; i++)
-            pow *= 10;
-        float tmp = number * pow;
-        return (float) (int) ((tmp - (int) tmp) >= 0.5f ? tmp + 1 : tmp) / pow;
     }
 
     @Override
@@ -228,9 +220,10 @@ public class InvoiceServiceImpl implements InvoiceService {
                                                         ic.getItem().getId(),
                                                         lossActDto.getItem().getId())
                                         ).findFirst()
-                                        .ifPresent(itemConsignment ->
-                                                itemConsignment.setAmount(
-                                                        itemConsignment.getAmount() - lossActDto.getAmount()));
+                                        .ifPresent(itemConsignment -> {
+                                            int amount = itemConsignment.getAmount() - lossActDto.getAmount();
+                                            itemConsignment.setAmount(amount >= 0 ? amount : 0);
+                                        });
                             })
                     );
 

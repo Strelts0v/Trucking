@@ -87,7 +87,7 @@ export class WaybillListComponent implements OnInit {
     this.paginator.previousPage();
     if (criteria.from || criteria.to || criteria.invoiceNumber || criteria.issueDate) {
       this.searchCriteria = criteria;
-      this.searchCriteria.issueDate = Utils.dateToString(criteria.issueDate as Date);
+      this.searchCriteria.issueDate = criteria.issueDate && Utils.dateToString(criteria.issueDate as Date);
       this.searchSize();
       this.getSearchWaybills();
     } else if (this.searchCriteria) {

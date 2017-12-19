@@ -26,13 +26,15 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatProgressBarModule,
+  MAT_DATE_LOCALE,
+  MatRadioModule
 } from '@angular/material';
 
 import { JwtModule } from '@auth0/angular-jwt';
-import { GMapModule } from 'primeng/primeng';
+import { ChartModule, GMapModule } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
-import { MainComponent } from './main';
+import { MainComponent, SearchBarComponent, SearchService } from './main';
 import {
   AuthGuard,
   RoleGuard,
@@ -40,36 +42,22 @@ import {
   UserService,
   AuthComponent,
   UserDetailComponent,
-  UserListComponent
+  UserListComponent,
+  UserFullNamePipe
 } from './users';
 import { AppRoutingModule } from './app-routing.module';
 import { DocHolderComponent, DocHolderPlaceholderComponent } from './doc-holder/doc-holder.component';
-import { InvoiceDetailComponent } from './invoices/invoice-detail/invoice-detail.component';
-import { InvoiceListComponent } from './invoices/invoice-list/invoice-list.component';
-import { InvoiceService } from './invoices/invoice.service';
-import { WaybillDetailComponent } from './waybills/waybill-detail/waybill-detail.component';
-import { LossActDetailComponent } from './invoices/lossact-detail/lossact-detail.component';
-import { WaybillListComponent } from './waybills/waybill-list/waybill-list.component';
-import { WaybillService } from './waybills/waybill.service';
+import { InvoiceDetailComponent, InvoiceListComponent, InvoiceService, InvoiceSearchComponent, LossActDetailComponent } from './invoices';
+import { WaybillDetailComponent, WaybillListComponent, WaybillService, WaybillSearchComponent } from './waybills';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { UserFullNamePipe } from './users/user-full-name.pipe';
-import {
-  ClientListComponent,
-  ClientDetailComponent,
-  ClientService
-} from './clients';
+import { ClientListComponent, ClientDetailComponent, ClientService } from './clients';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { WarehouseFullAddressPipe } from './warehouses/warehouse-full-address.pipe';
 import { CarService } from './cars/car.service';
-import { CarListComponent } from './cars/car-list/car-list.component';
 import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
 import { ItemService } from './items/item.service';
-import { ProgressDialogComponent } from './waybills/waybill-detail/progress-dialog/progress-dialog.component';
-import { SearchBarComponent } from './main/search-bar/search-bar.component';
-import { SearchService } from './main/search-bar/search.service';
-import { InvoiceSearchComponent } from './invoices/invoice-search/invoice-search.component';
-import { WaybillSearchComponent } from './waybills/waybill-search/waybill-search.component';
-import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService } from './warehouses';
+import { ProgressDialogComponent } from './progress-dialog/progress-dialog.component';
+import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService, WarehouseFullAddressPipe } from './warehouses';
+import { ProfitLossStatementComponent, ReportService } from './report';
 
 @NgModule({
   imports: [
@@ -99,6 +87,7 @@ import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService } fr
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressBarModule,
+    MatRadioModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -108,7 +97,8 @@ import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService } fr
       }
     }),
     AppRoutingModule,
-    GMapModule
+    GMapModule,
+    ChartModule
   ],
   declarations: [
     AppComponent,
@@ -126,7 +116,6 @@ import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService } fr
     UserFullNamePipe,
     WelcomeComponent,
     WarehouseFullAddressPipe,
-    CarListComponent,
     BithdayCongratulationComponent,
     UserFullNamePipe,
     ClientListComponent,
@@ -137,7 +126,8 @@ import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService } fr
     InvoiceSearchComponent,
     WaybillSearchComponent,
     WarehouseListComponent,
-    WarehouseDetailComponent
+    WarehouseDetailComponent,
+    ProfitLossStatementComponent
   ],
   entryComponents: [
     DocHolderComponent,
@@ -159,7 +149,9 @@ import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService } fr
     ClientService,
     ItemService,
     SearchService,
-    WarehouseService
+    WarehouseService,
+    ReportService,
+    {provide: MAT_DATE_LOCALE, useValue: 'ru-RU'}
   ],
   bootstrap: [AppComponent]
 })

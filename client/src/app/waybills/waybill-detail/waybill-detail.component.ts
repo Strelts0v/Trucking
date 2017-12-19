@@ -17,7 +17,7 @@ import { RoleGuard, User, UserService } from '../../users';
 import { Warehouse } from '../../warehouses/warehouse';
 import { Car } from '../../cars/car';
 import { CarService } from '../../cars/car.service';
-import { ProgressDialogComponent } from './progress-dialog/progress-dialog.component';
+import { ProgressDialogComponent } from '../../progress-dialog/progress-dialog.component';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { Utils } from '../../utils';
 import { WarehouseService } from '../../warehouses/warehouse.service';

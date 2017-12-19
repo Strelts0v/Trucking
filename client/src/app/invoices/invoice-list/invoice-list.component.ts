@@ -105,8 +105,8 @@ export class InvoiceListComponent implements OnInit {
     this.paginator.previousPage();
     if (criteria.checkDate || criteria.inspector || criteria.issueDate || criteria.status) {
       this.searchCriteria = criteria;
-      this.searchCriteria.issueDate = Utils.dateToString(criteria.issueDate as Date);
-      this.searchCriteria.checkDate = Utils.dateToString(criteria.checkDate as Date);
+      this.searchCriteria.issueDate = criteria.issueDate && Utils.dateToString(criteria.issueDate as Date);
+      this.searchCriteria.checkDate = criteria.checkDate && Utils.dateToString(criteria.checkDate as Date);
       this.searchSize();
       this.getSearchInvoices();
     } else if (this.searchCriteria) {
