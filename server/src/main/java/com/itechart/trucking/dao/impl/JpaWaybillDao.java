@@ -113,17 +113,17 @@ public class JpaWaybillDao implements WaybillDao {
 
         List<Predicate> predicates = new ArrayList<>();
 
-        if (!from.isEmpty()) {
+        if (from != null && !from.isEmpty()) {
             Join<Waybill, Warehouse> warehouse = root.join(Waybill_.from);
             predicates.add(cb.like(warehouse.get(Warehouse_.name), from + "%"));
         }
 
-        if (!to.isEmpty()) {
+        if (to != null && !to.isEmpty()) {
             Join<Waybill, Warehouse> warehouse = root.join(Waybill_.to);
             predicates.add(cb.like(warehouse.get(Warehouse_.name), to + "%"));
         }
 
-        if (!invoiceNumber.isEmpty()) {
+        if (invoiceNumber != null && !invoiceNumber.isEmpty()) {
             Join<Waybill, Invoice> invoice = root.join(Waybill_.invoice);
             predicates.add(cb.like(invoice.get(Invoice_.number), invoiceNumber + "%"));
         }
