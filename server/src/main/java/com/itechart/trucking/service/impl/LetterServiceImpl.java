@@ -33,7 +33,10 @@ public class LetterServiceImpl implements LetterService {
 
     @Override
     public void updateLetter(Letter letter) {
-        letterDao.updateLetter(letter);
+        letterDao.readLetter(1).ifPresent(letter1 -> {
+            letter1.setText(letter.getText());
+            letter1.setColor(letter.getColor());
+        });
     }
 
     @Override

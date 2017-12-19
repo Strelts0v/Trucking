@@ -1,7 +1,5 @@
-
-
 export class Letter {
 
-  text:string;
-  color:string;
+  text: string;
+  color: string;
 }

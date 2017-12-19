@@ -1,83 +1,70 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatTableDataSource,} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {LetterService} from './letter.service';
 import {Letter} from './letter';
+import {Image} from './image';
+import {ImageService} from './image.service';
 
 
 @Component({
   selector: 'app-bithday-congratulation',
   templateUrl: './birthday-congratulation.component.html',
   styleUrls: ['./birthday-congratulation.component.sass'],
+  providers: [ImageService]
 
 
 })
 export class BirthdayCongratulationComponent implements OnInit {
 
-  nameTag: string = '${fullname}';
-  ageTag: string = '${age}';
-  colors = COLORS ;
-  // currentText :string;
-  // currentColor : string;
+  nameTag = '${fullname}';
+  ageTag = '${age}';
+  colors = COLORS;
 
-  //@Input()
-  letter : Letter;
+  letter: Letter;
+  image: string;
 
   @ViewChild('myTextArea') textarea: ElementRef;
 
-  fullImagePath: string = '/assets/bday.png';
+  fullImagePath = '/assets/bday.png';
 
-  caretPos: number = 0;
+  caretPos = 0;
 
   constructor(private element: ElementRef,
               private dialog: MatDialog,
-              private letterService : LetterService) {
+              private letterService: LetterService,
+              private imageService: ImageService) {
   }
 
   ngOnInit() {
-    //this.letter = this.birthday_service.getLetter();
+
     this.letter = new Letter();
     this.getData();
-    console.log(this.letter);
-
-    this.letter.text = "Поздравляем с ДР";
-    this.letter.color = "MediumSpringGreen";
-    // this.currentColor = this.letter.color;
-    // this.currentText = this.letter.text;
-
   }
 
-  ngOnChanges() {
-    console.log('Changed value in componnt');
-
-  }
   getData() {
 
     this.letterService.getLetter()
       .subscribe(data => {
-        console.log(JSON.stringify(data));
         this.letter = <Letter> data;
       });
-    // console.log(this.letter.color);
-    // console.log(this.letter.text);
+    this.imageService.getImgage()
+      .subscribe(data => {
+        this.image = <string> data;
+      });
+
   }
 
   setData() {
-
-    this.letterService.updateLetter(this.letter);
-    // this.letter.text =  this.currentText;
-    // this.letter.color = this.currentColor;
-
+    this.letterService.updateLetter(this.letter).subscribe();
   }
 
 
   insertName() {
-
-
     const first = this.textarea.nativeElement.value.slice(0, this.caretPos + 1);
     const last = this.textarea.nativeElement.value.slice(this.caretPos, this.textarea.nativeElement.value.length);
     const result = first + ' ' + this.nameTag + ' ' + last;
     console.log(result);
-    //this.currentText = result;
+    this.letter.text = result;
 
   }
 
@@ -87,12 +74,12 @@ export class BirthdayCongratulationComponent implements OnInit {
     const last = this.textarea.nativeElement.value.slice(this.caretPos, this.textarea.nativeElement.value.length);
     const result = first + this.ageTag + last;
     console.log(result);
-    //this.currentText = result;
+    this.letter.text = result;
   }
 
 
   getCaretPos(oField) {
-    if (oField.selectionStart || oField.selectionStart == '0') {
+    if (oField.selectionStart || oField.selectionStart === '0') {
       this.caretPos = oField.selectionStart;
     }
   }
@@ -101,20 +88,20 @@ export class BirthdayCongratulationComponent implements OnInit {
 
 export interface Color {
 
-  name :string;
+  name: string;
 }
 
 const COLORS: Color[] = [
-  {name:'PaleGreen'},
-  {name:'DarkOrchid'},
-  {name:'LightBlue'},
-  {name:'Thistle'},
-  {name:'PaleGoldenRod'},
-  {name:'Salmon'},
-  {name:'Tomato'},
-  {name:'DarkSeaGreen'},
-  {name:'MediumSpringGreen'},
-  {name:'DodgerBlue'},
-  {name:'MistyRose'},
+  {name: 'PaleGreen'},
+  {name: 'DarkOrchid'},
+  {name: 'LightBlue'},
+  {name: 'Thistle'},
+  {name: 'PaleGoldenRod'},
+  {name: 'Salmon'},
+  {name: 'Tomato'},
+  {name: 'DarkSeaGreen'},
+  {name: 'MediumSpringGreen'},
+  {name: 'DodgerBlue'},
+  {name: 'MistyRose'},
 
 ];

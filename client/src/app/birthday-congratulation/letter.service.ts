@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs/observable/of';
 import {Observable} from 'rxjs/Observable';
@@ -9,21 +9,22 @@ import {catchError, tap} from 'rxjs/operators';
 @Injectable()
 export class LetterService {
 
-  constructor(private http: HttpClient) { }
-
-
-  updateLetter(letter: Letter) {
-    const url = `${environment.apiUrl}letter/update`;
-    console.log(url);
-    this.http.post<Letter>(url,letter)
-      .pipe(
-      tap((_ => this.log(`updated letter`)),
-      catchError(this.handleError<Letter>('updateLetter'))
-    ));
+  constructor(private http: HttpClient) {
   }
 
 
-  getLetter(): Observable<Letter>{
+  updateLetter(letter: Letter): Observable<void> {
+    const url = `${environment.apiUrl}letter/update`;
+    console.log(url);
+    return this.http.post<void>(url, letter)
+      .pipe(
+        tap((_ => this.log(`updated letter`)),
+          catchError(this.handleError<void>('updateLetter'))
+        ));
+  }
+
+
+  getLetter(): Observable<Letter> {
     const url = `${environment.apiUrl}letter/read`;
     return this.http.get<Letter>(url)
       .pipe(
@@ -31,8 +32,6 @@ export class LetterService {
         catchError(this.handleError<Letter>(`get letter from back}`))
       );
   }
-
-
 
 
   private handleError<T>(operation = 'operation', result?: T) {

@@ -1,5 +1,7 @@
 package com.itechart.trucking.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -62,19 +64,21 @@ public class FileUploadController  {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<String> readLetter(){
+    public ResponseEntity<String> readLetter() throws JsonProcessingException {
 
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(FILE_PATH_DOWN);
         byte[] imgBytes = new byte[0];
         try {
             imgBytes = IOUtils.toByteArray(inputStream);
         } catch (IOException e) {
-            log.debug("error while was reading file from resources" , e);;
+            log.debug("error while was reading file from resources" , e);
         }
         byte[] imgBytesAsBase64 = Base64.encodeBase64(imgBytes);
         String imgDataAsBase64 = new String(imgBytesAsBase64);
         String imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
         log.info("readed image ");
-        return new ResponseEntity<>(imgAsBase64, HttpStatus.OK);
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonInString = mapper.writeValueAsString(imgAsBase64);
+        return new ResponseEntity<>(jsonInString, HttpStatus.OK);
     }
 }
