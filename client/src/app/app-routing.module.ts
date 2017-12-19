@@ -14,14 +14,14 @@ import { WarehouseListComponent } from './warehouses/warehouse-list/warehouse-li
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
   {
-    path: '', component: MainComponent, data: {title: 'Trucking'},
+    path: '', component: MainComponent, data: {title: 'Trucking'}, canActivate: [AuthGuard],
     children: [
-      {path: '', component: WelcomeComponent, data: {title: 'Welcome'}},
-      {path: 'users', component: UserListComponent, data: {title: 'Users'} },
-      {path: 'invoices', component: InvoiceListComponent, data: {title: 'Consignment notes'}},
-      {path: 'waybills', component: WaybillListComponent, data: {title: 'Waybills'}},
-      {path: 'clients', component: ClientListComponent, data: {title: 'Clients'}},
-      {path: 'warehouses', component: WarehouseListComponent, data: {title: 'Warehouses'}}
+      {path: '', component: WelcomeComponent, data: {title: 'Welcome'}, canActivate: [AuthGuard]},
+      {path: 'users', component: UserListComponent, data: {title: 'Users'}, canActivate: [RoleGuard]},
+      {path: 'invoices', component: InvoiceListComponent, data: {title: 'Consignment notes'}, canActivate: [RoleGuard]},
+      {path: 'waybills', component: WaybillListComponent, data: {title: 'Waybills'}, canActivate: [RoleGuard]},
+      {path: 'clients', component: ClientListComponent, data: {title: 'Clients'}, canActivate: [RoleGuard]},
+      {path: 'warehouses', component: WarehouseListComponent, data: {title: 'Warehouses'}, canActivate: [RoleGuard]}
     ]
   },
   {path: '**', redirectTo: ''}

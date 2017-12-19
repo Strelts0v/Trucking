@@ -7,9 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -25,8 +23,8 @@ public class LetterController {
     }
 
 
-    @RequestMapping("/update")
-    public ResponseEntity<Void> updateLetter (@RequestParam(value="letter") Letter letter){
+    @PostMapping("/update")
+    public ResponseEntity<Void> updateLetter (@RequestBody Letter letter){
         letterService.updateLetter(letter);
         log.info("updated letter: " + letter);
         return new ResponseEntity<>(HttpStatus.OK);

@@ -16,10 +16,10 @@ export class BirthdayCongratulationComponent implements OnInit {
   nameTag: string = '${fullname}';
   ageTag: string = '${age}';
   colors = COLORS ;
-  currentText :string;
-  currentColor : string;
+  // currentText :string;
+  // currentColor : string;
 
-  @Input()
+  //@Input()
   letter : Letter;
 
   @ViewChild('myTextArea') textarea: ElementRef;
@@ -39,10 +39,10 @@ export class BirthdayCongratulationComponent implements OnInit {
     this.getData();
     console.log(this.letter);
 
-   // this.letter.text = "Поздравляем с ДР";
-   // this.letter.color = "MediumSpringGreen";
-    this.currentColor = this.letter.color;
-    this.currentText = this.letter.text;
+    this.letter.text = "Поздравляем с ДР";
+    this.letter.color = "MediumSpringGreen";
+    // this.currentColor = this.letter.color;
+    // this.currentText = this.letter.text;
 
   }
 
@@ -52,16 +52,20 @@ export class BirthdayCongratulationComponent implements OnInit {
   }
   getData() {
 
-    this.letterService.getLetter().subscribe(data => this.letter = data);
-    console.log(this.letter.color);
-    console.log(this.letter.text);
+    this.letterService.getLetter()
+      .subscribe(data => {
+        console.log(JSON.stringify(data));
+        this.letter = <Letter> data;
+      });
+    // console.log(this.letter.color);
+    // console.log(this.letter.text);
   }
 
   setData() {
 
-    this.letterService.updateLetter(this.letter).subscribe(data => this.letter = data);
-    this.letter.text =  this.currentText;
-    this.letter.color = this.currentColor;
+    this.letterService.updateLetter(this.letter);
+    // this.letter.text =  this.currentText;
+    // this.letter.color = this.currentColor;
 
   }
 
@@ -73,7 +77,7 @@ export class BirthdayCongratulationComponent implements OnInit {
     const last = this.textarea.nativeElement.value.slice(this.caretPos, this.textarea.nativeElement.value.length);
     const result = first + ' ' + this.nameTag + ' ' + last;
     console.log(result);
-    this.currentText = result;
+    //this.currentText = result;
 
   }
 
@@ -83,7 +87,7 @@ export class BirthdayCongratulationComponent implements OnInit {
     const last = this.textarea.nativeElement.value.slice(this.caretPos, this.textarea.nativeElement.value.length);
     const result = first + this.ageTag + last;
     console.log(result);
-    this.currentText = result;
+    //this.currentText = result;
   }
 
 

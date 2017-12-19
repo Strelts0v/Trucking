@@ -12,21 +12,22 @@ export class LetterService {
   constructor(private http: HttpClient) { }
 
 
-  updateLetter(letter: Letter): Observable<Letter>{
+  updateLetter(letter: Letter) {
     const url = `${environment.apiUrl}letter/update`;
-    return this.http.post<Letter>(url,letter)
+    console.log(url);
+    this.http.post<Letter>(url,letter)
       .pipe(
-      tap((letter: Letter) => this.log(`updated letter`)),
+      tap((_ => this.log(`updated letter`)),
       catchError(this.handleError<Letter>('updateLetter'))
-    );
+    ));
   }
 
 
-  getLetter() :Observable<Letter>{
+  getLetter(): Observable<Letter>{
     const url = `${environment.apiUrl}letter/read`;
     return this.http.get<Letter>(url)
       .pipe(
-        tap(_ => this.log(`fetched letter`)),
+        tap((letter: Letter) => this.log(`fetched letter ${JSON.stringify(letter)}`)),
         catchError(this.handleError<Letter>(`get letter from back}`))
       );
   }
