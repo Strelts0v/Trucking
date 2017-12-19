@@ -66,7 +66,7 @@ public class WarehouseController {
     }
 
     @PostMapping("/add_warehouse")
-    public ResponseEntity<Warehouse> addClient (@RequestBody Warehouse warehouse){
+    public ResponseEntity<Warehouse> addWarehouse (@RequestBody Warehouse warehouse){
         log.debug("REST request for adding new Warehouse: {}", warehouse);
         Warehouse warehouseWithId = warehouseService.addWarehouse(warehouse);
         log.debug("Added Warehouse: " + warehouseWithId);
@@ -74,15 +74,15 @@ public class WarehouseController {
     }
 
     @PutMapping("/update_warehouse")
-    public ResponseEntity<Warehouse> updateClient (@RequestBody Warehouse warehouse){
-        log.debug("REST request for updating client: {}", warehouse);
+    public ResponseEntity<Warehouse> updateWarehouse (@RequestBody Warehouse warehouse){
+        log.debug("REST request for updating Warehouse: {}", warehouse);
         warehouseService.updateWarehouse(warehouse);
         return new ResponseEntity<>(warehouse, HttpStatus.OK);
     }
 
     @PostMapping("/delete_warehouse")
-    public ResponseEntity<Void> deleteClient (@RequestBody Warehouse warehouse){
-        log.debug("REST request for deleting client: {}", warehouse);
+    public ResponseEntity<Void> deleteWarehouse (@RequestBody Warehouse warehouse){
+        log.debug("REST request for deleting Warehouse: {}", warehouse);
         warehouseService.deleteWarehouse(warehouse);
         return new ResponseEntity<>(HttpStatus.OK);
     }
