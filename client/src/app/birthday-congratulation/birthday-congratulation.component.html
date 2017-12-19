@@ -8,7 +8,7 @@
         <label for="image">
           <img [src]="[image]">
         </label>
-        <input type="file" id="image" name="image" (click)="$event.stopPropagation()">
+        <input type="file" (change)="selectFile($event)" id="image" name="image" (click)="$event.stopPropagation()">
 
         <mat-select id="color_selector" [ngStyle]="{'font-size': '10px'}" [(ngModel)]="letter.color">
           <mat-option *ngFor="let color of colors" [ngStyle]="{ 'background-color': (color.name) } "
@@ -41,7 +41,7 @@
 
 <mat-dialog-actions>
   <button mat-button color="warn" mat-dialog-close>CANCEL</button>
-  <button mat-button color="primary" mat-dialog-close type="submit" (click)="setData()">SAVE</button>
+  <button mat-button color="primary" mat-dialog-close type="submit" (click)="setData()" >SAVE</button>
 </mat-dialog-actions>
 
 

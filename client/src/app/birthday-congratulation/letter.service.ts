@@ -15,7 +15,6 @@ export class LetterService {
 
   updateLetter(letter: Letter): Observable<void> {
     const url = `${environment.apiUrl}letter/update`;
-    console.log(url);
     return this.http.post<void>(url, letter)
       .pipe(
         tap((_ => this.log(`updated letter`)),

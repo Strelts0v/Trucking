@@ -4,6 +4,7 @@ import {LetterService} from './letter.service';
 import {Letter} from './letter';
 import {Image} from './image';
 import {ImageService} from './image.service';
+import {HttpEventType, HttpResponse} from '@angular/common/http';
 
 
 @Component({
@@ -23,9 +24,14 @@ export class BirthdayCongratulationComponent implements OnInit {
   letter: Letter;
   image: string;
 
-  @ViewChild('myTextArea') textarea: ElementRef;
+  @Input() fileUpload: string;
 
-  fullImagePath = '/assets/bday.png';
+
+  selectedFiles: FileList;
+  currentFileUpload: File;
+  progress: { percentage: number } = {percentage: 0};
+
+  @ViewChild('myTextArea') textarea: ElementRef;
 
   caretPos = 0;
 
@@ -56,14 +62,46 @@ export class BirthdayCongratulationComponent implements OnInit {
 
   setData() {
     this.letterService.updateLetter(this.letter).subscribe();
+    this.upload();
   }
 
+
+  selectFile(event) {
+    const file = event.target.files.item(0);
+
+    if (file.type.match('image.*')) {
+      // this.selectedFiles = event.target.files;
+      let reader = new FileReader();
+
+      reader.onload = (event: any) => {
+        this.image = event.target.result;
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+    } else {
+      alert('invalid format!');
+    }
+  }
+
+  upload() {
+    this.progress.percentage = 0;
+
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.imageService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress.percentage = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        console.log('File is completely uploaded!');
+      }
+    });
+
+    this.selectedFiles = undefined;
+  }
 
   insertName() {
     const first = this.textarea.nativeElement.value.slice(0, this.caretPos + 1);
     const last = this.textarea.nativeElement.value.slice(this.caretPos, this.textarea.nativeElement.value.length);
     const result = first + ' ' + this.nameTag + ' ' + last;
-    console.log(result);
     this.letter.text = result;
 
   }
@@ -73,7 +111,6 @@ export class BirthdayCongratulationComponent implements OnInit {
     const first = this.textarea.nativeElement.value.slice(0, this.caretPos + 1);
     const last = this.textarea.nativeElement.value.slice(this.caretPos, this.textarea.nativeElement.value.length);
     const result = first + this.ageTag + last;
-    console.log(result);
     this.letter.text = result;
   }
 

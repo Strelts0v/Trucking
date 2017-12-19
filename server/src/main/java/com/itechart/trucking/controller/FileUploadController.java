@@ -11,8 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,7 +31,8 @@ import java.nio.file.Paths;
 public class FileUploadController  {
 
     private static final String FILE_PATH_DOWN = "picture/bday.png";
-    private static final String FILE_PATH_UP= "picture";
+    private static final String FILE_NAME= "bbday.png";
+    String path = "D:\\WorkspaceIDEA\\Trucking\\server\\src\\main\\resources\\picture";
     private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
 
 
@@ -43,9 +49,14 @@ public class FileUploadController  {
         try {
 
             // Get the file and save it somewhere
-            log.debug("Started file uploading");
+            log.info("Started file uploading");
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(FILE_PATH_UP + "bday.png");
+
+//            URL url = this.getClass().getResource("/pictures");
+//            File parentDirectory = new File(new URI(url.toString()));
+//            //new File(parentDirectory, "newProperties.properties");
+
+            Path path = Paths.get("/server/src/main/resources/picture/" +FILE_NAME);
             Files.write(path, bytes);
 
             redirectAttributes.addFlashAttribute("message",
