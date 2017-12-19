@@ -1,6 +1,7 @@
 package com.itechart.trucking.controller;
 
 //import com.itechart.trucking.domain.Warehouse;
+import com.itechart.trucking.domain.Warehouse;
 import com.itechart.trucking.service.WarehouseService;
 import com.itechart.trucking.service.dto.WarehouseDto;
 import com.itechart.trucking.util.ResponseUtil;
@@ -9,10 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -65,5 +63,27 @@ public class WarehouseController {
         log.debug("REST request to get warehouse count");
         final int size = warehouseService.getWarehouseCount();
         return new ResponseEntity<>(size, HttpStatus.OK);
+    }
+
+    @PostMapping("/add_warehouse")
+    public ResponseEntity<Warehouse> addClient (@RequestBody Warehouse warehouse){
+        log.debug("REST request for adding new Warehouse: {}", warehouse);
+        Warehouse warehouseWithId = warehouseService.addWarehouse(warehouse);
+        log.debug("Added Warehouse: " + warehouseWithId);
+        return new ResponseEntity<>(warehouseWithId, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update_warehouse")
+    public ResponseEntity<Warehouse> updateClient (@RequestBody Warehouse warehouse){
+        log.debug("REST request for updating client: {}", warehouse);
+        warehouseService.updateWarehouse(warehouse);
+        return new ResponseEntity<>(warehouse, HttpStatus.OK);
+    }
+
+    @PostMapping("/delete_warehouse")
+    public ResponseEntity<Void> deleteClient (@RequestBody Warehouse warehouse){
+        log.debug("REST request for deleting client: {}", warehouse);
+        warehouseService.deleteWarehouse(warehouse);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
