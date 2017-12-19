@@ -69,8 +69,7 @@ import { SearchBarComponent } from './main/search-bar/search-bar.component';
 import { SearchService } from './main/search-bar/search.service';
 import { InvoiceSearchComponent } from './invoices/invoice-search/invoice-search.component';
 import { WaybillSearchComponent } from './waybills/waybill-search/waybill-search.component';
-import { WarehouseListComponent } from './warehouses/warehouse-list/warehouse-list.component';
-import { WarehouseService} from './warehouses/warehouse.service';
+import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService } from './warehouses';
 
 @NgModule({
   imports: [
@@ -137,7 +136,8 @@ import { WarehouseService} from './warehouses/warehouse.service';
     SearchBarComponent,
     InvoiceSearchComponent,
     WaybillSearchComponent,
-    WarehouseListComponent
+    WarehouseListComponent,
+    WarehouseDetailComponent
   ],
   entryComponents: [
     DocHolderComponent,
@@ -145,7 +145,8 @@ import { WarehouseService} from './warehouses/warehouse.service';
     BithdayCongratulationComponent,
     UserDetailComponent,
     ClientDetailComponent,
-    ProgressDialogComponent
+    ProgressDialogComponent,
+    WarehouseDetailComponent
   ],
   providers: [
     AuthGuard,

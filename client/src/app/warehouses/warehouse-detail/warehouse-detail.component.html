@@ -1,3 +1,36 @@
-<p>
-  warehouse-detail works!
-</p>
+<div class="dialog-box">
+  
+    <div class="card-header">
+      <div class="header-sidebar-left">
+        <mat-icon mat-card-avatar class="card-header-icon">account_balance
+        </mat-icon>
+      </div>
+      <div class="header-middle">
+        <span *ngIf="!warehouse.id">New </span>
+        Warehouse
+        <div class="header-subtitle" *ngIf="warehouse.id">
+          №{{warehouse.id}}
+        </div>
+      </div>
+      
+      <div class="header-sidebar-right">
+        <button mat-icon-button matTooltip="Delete" (click)="deleteWarehouse()" [mat-dialog-close]>
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Close" [mat-dialog-close]>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+      <div mat-dialog-content>
+        <form>
+          <mat-form-field>
+            <input matInput placeholder="Warehouse name" [(ngModel)]="data.warehouse.name" name="name">
+          </mat-form-field>
+        </form>  
+      </div>  
+      <div mat-dialog-actions>
+          <button mat-button color="primary" type="submit" (click)="cancelWarehouseDetail()">CANCEL</button>
+          <button mat-button color="primary" [mat-dialog-close]="data">APPLY</button>
+      </div>
+  </div>
