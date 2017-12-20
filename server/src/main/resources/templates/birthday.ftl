@@ -20,24 +20,18 @@
 
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
     <tr>
-        <td align="center" bgcolor="#78ab46" style="padding: 40px 0 30px 0;">
-            <img src='${imagehp}' alt="My image"  style="display: block;" />
+        <td align="center" bgcolor="${color}" style="padding: 40px 0 30px 0;">
+            <img src='${imagehp}' alt="My image"  style="display: block; height: 150px ;width: 250px"/>
         </td>
     </tr>
     <tr>
         <td bgcolor="#eaeaea" style="padding: 40px 30px 40px 30px;">
-            <p>Уважаемый ${fullname},</p>
+            <p>Dear ${fullname},</p>
             <p>Поздравляем Вас с ${age}</p>
             <p>${congragulation}</b></p>
             <p>С уважением, коллектив ООО ”Транспортные системы”</p>
         </td>
     </tr>
-    <#--<tr>-->
-        <#--<td bgcolor="#777777" style="padding: 30px 30px 30px 30px;">-->
-            <#--<p>${signature}</p>-->
-            <#--<p>${location}</p>-->
-        <#--</td>-->
-    <#--</tr>-->
 </table>
 
 </body>

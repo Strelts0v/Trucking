@@ -13,17 +13,13 @@ export class ImageService {
   }
 
 
-  // getImgage(): Observable<string> {
-  //   const url = `${environment.apiUrl}image/get`;
-  //   return this.http.get<string>(url)
-  //     .pipe(
-  //       tap((image: string) => this.log(`fetched imagr ${JSON.stringify(image)}`)),
-  //       catchError(this.handleError<string>(`get letter from back}`))
-  //     );
-  // }
+  getImgage(): Observable<Blob> {
+    const url = `${environment.apiUrl}image/get`;
+    return this.http.get(url, {responseType: 'blob'});
+  }
 
   pushFileToStorage(file: File): Observable<HttpEvent<{}>> {
-    let formdata: FormData = new FormData();
+    const formdata: FormData = new FormData();
     const url = `${environment.apiUrl}image/upload`;
     formdata.append('file', file);
     const req = new HttpRequest('POST', url, formdata, {

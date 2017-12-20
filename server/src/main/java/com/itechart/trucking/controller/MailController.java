@@ -2,6 +2,7 @@ package com.itechart.trucking.controller;
 
 
 import com.itechart.trucking.service.mail.EmailService;
+import com.itechart.trucking.service.mail.Mail;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,14 @@ public class MailController {
         String to = "pulohelec@p33.org";
         String subject = "test";
         String text = "Test Text";
-        emailService.sendSimpleMessage(to,subject,text);
+        //emailService.sendSimpleMessage(to,subject,text);
+    }
+
+    @RequestMapping("/test")
+    public void test(){
+
+        emailService.sendSimpleMessage(new Mail());
+
     }
 
 

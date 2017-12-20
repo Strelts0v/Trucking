@@ -589,7 +589,7 @@
             <column name="version" type="BIGINT"/>
             <column name="text" type="TEXT"/>
             <column name="color" type="VARCHAR(45)"/>
-            <column name="image" type="TEXT"/>
+            <column name="image" type="LONGBLOB"/>
 
         </createTable>
         <modifySql dbms="mysql">

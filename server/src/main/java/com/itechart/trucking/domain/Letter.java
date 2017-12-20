@@ -4,6 +4,7 @@ package com.itechart.trucking.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Arrays;
 
 /**
  * @author Vlad_Sytyi
@@ -20,7 +21,7 @@ public class Letter extends AbstractPersistentObject{
     private String color;
 
     @Column(name="image")
-    private String image;
+    private byte[] image;
 
     public String getText() {
         return text;
@@ -38,11 +39,11 @@ public class Letter extends AbstractPersistentObject{
         this.color = color;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -51,7 +52,7 @@ public class Letter extends AbstractPersistentObject{
         return "Letter{" +
                 "text='" + text + '\'' +
                 ", color='" + color + '\'' +
-                ", image='" + image + '\'' +
+                ", image=" + Arrays.toString(image) +
                 '}';
     }
 }

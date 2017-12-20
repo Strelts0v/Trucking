@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class JpaUserDao implements UserDao{
+public class JpaUserDao implements UserDao {
 
     @Autowired
     private EntityManager em;
@@ -88,7 +88,7 @@ public class JpaUserDao implements UserDao{
     public List<User> getUsersByRole(User.Role role) {
         final String sqlQuery =
                 "SELECT * FROM users u RIGHT JOIN users_has_roles ur" +
-                " ON u.id = ur.users_id WHERE ur.user_role = 'DR'";
+                        " ON u.id = ur.users_id WHERE ur.user_role = 'DR'";
 
         Query query = em.createNativeQuery(sqlQuery, User.class);
         return query.getResultList();
@@ -100,6 +100,16 @@ public class JpaUserDao implements UserDao{
                 "SELECT * FROM users u RIGHT JOIN users_has_roles ur" +
                         " ON u.id = ur.users_id WHERE ur.user_role = 'DR' and u.busy is not true";
 
+        Query query = em.createNativeQuery(sqlQuery, User.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<User> getUserWithBirthday() {
+
+        final String sqlQuery = "SELECT * FROM users u WHERE " +
+                "MONTH(user_birthday) = MONTH(NOW())" +
+                " AND DAY(user_birthday) = DAY(NOW())";
         Query query = em.createNativeQuery(sqlQuery, User.class);
         return query.getResultList();
     }

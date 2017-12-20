@@ -36,9 +36,13 @@ public class LetterController {
     public ResponseEntity<Letter> readLetter(){
 
         Optional<Letter> letter = letterService.getLetter(1);
-       // Letter json = letter.get();
         log.info("readed letter with id: " + 1);
-        return new ResponseEntity<>(letter.orElse(new Letter()), HttpStatus.OK);
+        return new ResponseEntity<>(letter.map(letter1 -> {
+            Letter letterDto = new Letter();
+            letterDto.setText(letter1.getText());
+            letterDto.setColor(letter1.getColor());
+            return letterDto;
+        }).orElse(new Letter()), HttpStatus.OK);
     }
 
 

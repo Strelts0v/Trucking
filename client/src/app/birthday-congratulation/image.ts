@@ -1,5 +1,5 @@
 
 export class Image {
 
-  value: string;
+  value: Blob;
 }

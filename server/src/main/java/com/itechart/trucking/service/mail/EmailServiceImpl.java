@@ -2,10 +2,11 @@ package com.itechart.trucking.service.mail;
 
 
 import com.itechart.trucking.dao.LetterDao;
+import com.itechart.trucking.dao.UserDao;
 import com.itechart.trucking.domain.Letter;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
+import com.itechart.trucking.domain.User;
+import freemarker.core.ParseException;
+import freemarker.template.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -35,39 +36,87 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private LetterDao letterDao;
 
-    private static final String FILE_PATH = "picture/bday.png";
+    @Autowired
+    private UserDao userDao;
 
-    public void sendSimpleMessage(String to, String subject, String text) throws MessagingException, IOException, TemplateException {
+
+    public void sendSimpleMessage(Mail mail) {
+
+        Optional<Letter> letterOptional = letterDao.readLetter(1);
+
+        Letter letter = letterOptional.get();
+
+
         Map<String, Object> model = new HashMap();
 
-         Optional<Letter> letter = letterDao.readLetter(1);
-        //TODO: convert optional to normal Object
-        //TODO Get DAO method , which will get USERNAME and User Age;
 
-       // model.put("fullname", "fName");
-      //  model.put("age", "25");
-     //   model.put("congragulation", "Happy B DAy");
+        // model.put("fullname", mail.getFullname());
+        // model.put("age", mail.getAge());
+        model.put("congragulation", letter.getText());
+        model.put("color", letter.getColor());
+        model.put("fullname", "Sergey Aleksandrovich");
+        model.put("age", "50");
 
         MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message,
-                MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-                StandardCharsets.UTF_8.name());
+        MimeMessageHelper helper = null;
+        try {
+            helper = new MimeMessageHelper(message,
+                    MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+                    StandardCharsets.UTF_8.name());
 
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(FILE_PATH);
+            byte[] imgBytes = letter.getImage();
+            byte[] imgBytesAsBase64 = Base64.encodeBase64(imgBytes);
+            String imgDataAsBase64 = new String(imgBytesAsBase64);
+            String imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
+            model.put("imagehp", imgAsBase64);
+            ;
 
-        byte[] imgBytes = IOUtils.toByteArray(inputStream);
-        byte[] imgBytesAsBase64 = Base64.encodeBase64(imgBytes);
-        String imgDataAsBase64 = new String(imgBytesAsBase64);
-        String imgAsBase64 = "data:image/png;base64," + imgDataAsBase64;
-        model.put("imagehp", imgAsBase64);
-;
+            Template template = freemarkerConfig.getTemplate("birthday.ftl");
+            String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
 
-        Template template = freemarkerConfig.getTemplate("birthday.ftl");
-        String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+            //helper.setTo(mail.getTo());
+            helper.setTo("sipivacepo@p33.org");
+            helper.setSubject("Happy Birthday");
+            helper.setText(html, true);
+            mailSender.send(message);
 
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(html, true);
-        mailSender.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (TemplateNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TemplateException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void checkForDay() {
+
+        List<User> usersBirthDayList = userDao.getUserWithBirthday();
+
+        if (!usersBirthDayList.isEmpty()) {
+
+            for (User user : usersBirthDayList) {
+                Mail mail = new Mail();
+                String fullName = user.getFirstName() + " " + user.getMiddleName() + " " + user.getLastName();
+                String years = user.getBirthday().toString();
+                String year = years.substring(0, 4);
+                String month = years.substring(5, 7);
+                String day = years.substring(8, 10);
+                LocalDate start = LocalDate.of(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
+                LocalDate end = LocalDate.now();
+                long ageL = ChronoUnit.YEARS.between(start, end);
+                String age = Long.toString(ageL);
+                String email = user.getEmail();
+                mail.setTo(email);
+                mail.setFullname(fullName);
+                mail.setAge(age);
+                sendSimpleMessage(mail);
+            }
+        }
+
+
     }
 }

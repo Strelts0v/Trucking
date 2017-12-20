@@ -2,7 +2,6 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {LetterService} from './letter.service';
 import {Letter} from './letter';
-import {Image} from './image';
 import {ImageService} from './image.service';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 
@@ -12,8 +11,6 @@ import {HttpEventType, HttpResponse} from '@angular/common/http';
   templateUrl: './birthday-congratulation.component.html',
   styleUrls: ['./birthday-congratulation.component.sass'],
   providers: [ImageService]
-
-
 })
 export class BirthdayCongratulationComponent implements OnInit {
 
@@ -21,12 +18,15 @@ export class BirthdayCongratulationComponent implements OnInit {
   ageTag = '${age}';
   colors = COLORS;
   letter: Letter;
-  image: string;
+  image = 'localhost:8080/api/image/get';
+
   selectedFiles: FileList;
   currentFileUpload: File;
   progress: { percentage: number } = {percentage: 0};
   @ViewChild('myTextArea') textarea: ElementRef;
   caretPos = 0;
+
+  @ViewChild('templateImage') templateImage: ElementRef;
 
   constructor(private element: ElementRef,
               private dialog: MatDialog,
@@ -46,47 +46,55 @@ export class BirthdayCongratulationComponent implements OnInit {
       .subscribe(data => {
         this.letter = <Letter> data;
       });
-    this.letter.image = atob(this.letter.image);
+    this.imageService.getImgage()
+      .subscribe(image => {
+        this.templateImage.nativeElement.src = window.URL.createObjectURL(image);
+      });
   }
 
   setData() {
-    this.letter.image = btoa(this.letter.image);
     this.letterService.updateLetter(this.letter).subscribe();
-    //this.upload();
+    this.upload();
   }
 
 
   selectFile(event) {
     const file = event.target.files.item(0);
+    if (file.size < 500000) {
+      if (file.type.match('image.*')) {
+        this.selectedFiles = event.target.files;
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.templateImage.nativeElement.src = event.target.result;
+        };
 
-    if (file.type.match('image.*')) {
-      this.selectedFiles = event.target.files;
-      const reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.letter.image = event.target.result;
-      };
+        reader.readAsDataURL(event.target.files[0]);
+      } else {
+        alert('invalid format! Please choose files only (image.*)');
+      }
 
-      reader.readAsDataURL(event.target.files[0]);
     } else {
-      alert('invalid format!');
+      alert('This file is too large. max size is 500kb');
     }
-  }
 
+
+  }
 
 
   upload() {
     this.progress.percentage = 0;
 
-    this.currentFileUpload = this.selectedFiles.item(0);
-    this.imageService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress.percentage = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        console.log('File is completely uploaded!');
-      }
-    });
-
-    this.selectedFiles = undefined;
+    if (this.selectedFiles.item(0)) {
+      this.currentFileUpload = this.selectedFiles.item(0);
+      this.imageService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress.percentage = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          console.log('File is completely uploaded!');
+        }
+      });
+      this.selectedFiles = null;
+    }
   }
 
   insertName() {
