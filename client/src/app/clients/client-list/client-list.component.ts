@@ -70,7 +70,8 @@ export class ClientListComponent implements OnInit, AfterViewInit {
 
       if (isEditable) {
         this.log(`EDIT ${JSON.stringify(client)}`);
-        this.clientService.updateClient(client);
+        this.clientService.updateClient(client)
+          .subscribe();
       } else {
         this.log(`ADD ${JSON.stringify(client)}`);
         this.clientService.addClient(client)

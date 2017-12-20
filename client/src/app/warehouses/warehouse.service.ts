@@ -5,6 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Warehouse } from './warehouse';
 import { environment } from '../../environments/environment';
+import { WarehouseSearchCriteria } from './warehouse-search/warehouse-search-criteria';
 
 @Injectable()
 export class WarehouseService {
@@ -15,6 +16,7 @@ export class WarehouseService {
   private addWarehouseUrl = 'add_warehouse';
   private updateWarehouseUrl = 'update_warehouse';
   private deleteWarehouseUrl = 'delete_warehouse';
+  private findWarehousesUrl = 'search_warehouses';
 
   private apiUrl: string;
 
@@ -69,6 +71,16 @@ export class WarehouseService {
       .pipe(
         tap(count => this.log(`deleting of warehouse ${JSON.stringify(warehouse)}`)),
         catchError(this.handleError('deleteWarehouse'))
+      );
+  }
+
+  findWarehouses(criteria: WarehouseSearchCriteria): Observable<Warehouse[]> {
+    const url = `${this.apiUrl}${this.findWarehousesUrl}`;
+    this.log(url);
+    return this.http.put<Warehouse[]>(url, criteria)
+      .pipe(
+        tap(warehouses => this.log(`found warehouse: ${JSON.stringify(warehouses)}`)),
+        catchError(this.handleError('findWarehouse', []))
       );
   }
 
