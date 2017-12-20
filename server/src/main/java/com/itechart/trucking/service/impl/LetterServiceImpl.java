@@ -36,6 +36,7 @@ public class LetterServiceImpl implements LetterService {
         letterDao.readLetter(1).ifPresent(letter1 -> {
             letter1.setText(letter.getText());
             letter1.setColor(letter.getColor());
+            letter1.setImage("data:image/png;base64," + letter.getImage());
         });
     }
 

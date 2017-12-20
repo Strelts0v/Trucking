@@ -582,13 +582,14 @@
     </changeSet>
 
     <changeSet id="101220172119" author="Vlad Sytyi">
-        <createTable tableName="congragulation_letter">
+        <createTable tableName="letter">
             <column name="id" type="${idType}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="version" type="BIGINT"/>
             <column name="text" type="TEXT"/>
             <column name="color" type="VARCHAR(45)"/>
+            <column name="image" type="TEXT"/>
 
         </createTable>
         <modifySql dbms="mysql">
@@ -597,7 +598,7 @@
     </changeSet>
 
     <changeSet id="101220172120" author="Vlad Sytyi">
-        <addAutoIncrement tableName="congragulation_letter" columnName="id" columnDataType="${idType}"/>
+        <addAutoIncrement tableName="letter" columnName="id" columnDataType="${idType}"/>
     </changeSet>
 
 

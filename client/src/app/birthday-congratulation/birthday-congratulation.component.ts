@@ -27,6 +27,7 @@ export class BirthdayCongratulationComponent implements OnInit {
   progress: { percentage: number } = {percentage: 0};
   @ViewChild('myTextArea') textarea: ElementRef;
   caretPos = 0;
+
   constructor(private element: ElementRef,
               private dialog: MatDialog,
               private letterService: LetterService,
@@ -45,16 +46,13 @@ export class BirthdayCongratulationComponent implements OnInit {
       .subscribe(data => {
         this.letter = <Letter> data;
       });
-    this.imageService.getImgage()
-      .subscribe(data => {
-        this.image = <string> data;
-      });
-
+    this.letter.image = atob(this.letter.image);
   }
 
   setData() {
+    this.letter.image = btoa(this.letter.image);
     this.letterService.updateLetter(this.letter).subscribe();
-    this.upload();
+    //this.upload();
   }
 
 
@@ -62,11 +60,10 @@ export class BirthdayCongratulationComponent implements OnInit {
     const file = event.target.files.item(0);
 
     if (file.type.match('image.*')) {
-      // this.selectedFiles = event.target.files;
+      this.selectedFiles = event.target.files;
       const reader = new FileReader();
-
       reader.onload = (event: any) => {
-        this.image = event.target.result;
+        this.letter.image = event.target.result;
       };
 
       reader.readAsDataURL(event.target.files[0]);
@@ -74,6 +71,8 @@ export class BirthdayCongratulationComponent implements OnInit {
       alert('invalid format!');
     }
   }
+
+
 
   upload() {
     this.progress.percentage = 0;

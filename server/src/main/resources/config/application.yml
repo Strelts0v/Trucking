@@ -26,6 +26,7 @@ spring:
               auth: true
               starttls:
                 enable: true
+
 liquibase:
   enabled: true
   change-log: classpath:/config/liquibase/master.xml

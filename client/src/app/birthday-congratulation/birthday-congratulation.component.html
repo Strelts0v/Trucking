@@ -6,7 +6,7 @@
     <tr>
       <td id="header_with_iamge" [ngStyle]="{ 'background-color': letter.color } ">
         <label for="image">
-          <img [src]="[image]">
+          <img [src]="[letter.image]">
         </label>
         <input type="file" (change)="selectFile($event)" id="image" name="image" (click)="$event.stopPropagation()">
 

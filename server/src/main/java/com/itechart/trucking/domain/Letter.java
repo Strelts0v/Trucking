@@ -10,7 +10,7 @@ import javax.persistence.Table;
  * @since 10.12.2017
  */
 @Entity
-@Table(name="congragulation_letter")
+@Table(name="letter")
 public class Letter extends AbstractPersistentObject{
 
     @Column(name="text")
@@ -18,6 +18,9 @@ public class Letter extends AbstractPersistentObject{
 
     @Column(name="color")
     private String color;
+
+    @Column(name="image")
+    private String image;
 
     public String getText() {
         return text;
@@ -35,11 +38,20 @@ public class Letter extends AbstractPersistentObject{
         this.color = color;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "Letter{" +
                 "text='" + text + '\'' +
                 ", color='" + color + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

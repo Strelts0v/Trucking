@@ -13,14 +13,14 @@ export class ImageService {
   }
 
 
-  getImgage(): Observable<string> {
-    const url = `${environment.apiUrl}image/get`;
-    return this.http.get<string>(url)
-      .pipe(
-        tap((image: string) => this.log(`fetched imagr ${JSON.stringify(image)}`)),
-        catchError(this.handleError<string>(`get letter from back}`))
-      );
-  }
+  // getImgage(): Observable<string> {
+  //   const url = `${environment.apiUrl}image/get`;
+  //   return this.http.get<string>(url)
+  //     .pipe(
+  //       tap((image: string) => this.log(`fetched imagr ${JSON.stringify(image)}`)),
+  //       catchError(this.handleError<string>(`get letter from back}`))
+  //     );
+  // }
 
   pushFileToStorage(file: File): Observable<HttpEvent<{}>> {
     let formdata: FormData = new FormData();
