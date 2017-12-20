@@ -25,7 +25,7 @@ public class SolrWarehouseService{
 
     public void updateWarehouse(Warehouse warehouse) {
         SolrWarehouseDocument warehouseDocument = solrWarehouseRepository
-                .findOne(String.valueOf(warehouse.getId()));
+                .findOne(warehouse.getId());
         warehouseDocument.setName(warehouse.getName());
         warehouseDocument.setCountry(warehouse.getCountry());
         warehouseDocument.setCity(warehouse.getCity());
@@ -36,7 +36,7 @@ public class SolrWarehouseService{
 
     public void deleteWarehouse(Warehouse warehouse) {
         SolrWarehouseDocument warehouseDocument = solrWarehouseRepository
-                .findOne(String.valueOf(warehouse.getId()));
+                .findOne(warehouse.getId());
         solrWarehouseRepository.delete(warehouseDocument);
     }
 

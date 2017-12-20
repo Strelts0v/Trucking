@@ -26,6 +26,9 @@ spring:
               auth: true
               starttls:
                 enable: true
+  data:
+    solr:
+      host: http://localhost:8983/solr
 liquibase:
   enabled: true
   change-log: classpath:/config/liquibase/master.xml
