@@ -1,9 +1,9 @@
 package com.itechart.trucking.controller;
 
-//import com.itechart.trucking.domain.Warehouse;
 import com.itechart.trucking.domain.Warehouse;
 import com.itechart.trucking.service.WarehouseService;
 import com.itechart.trucking.service.dto.WarehouseDto;
+import com.itechart.trucking.service.dto.WarehouseSearchCriteriaDto;
 import com.itechart.trucking.util.ResponseUtil;
 import com.itechart.trucking.util.solr.service.SolrWarehouseService;
 import org.slf4j.Logger;
@@ -96,11 +96,10 @@ public class WarehouseController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/search_warehouses")
-    public  ResponseEntity<List<Warehouse>> searchWarehouses (@PathVariable String name, @PathVariable String country,
-                                      @PathVariable String city, @PathVariable String street, @PathVariable String house) {
-        log.debug("REST request to search Warehouses by its parameters: {}", name, country, city, street, house);
-        final List<Warehouse> warehouseList = solrWarehouseService.searchWarehouses(name, country, city, street, house);
+    @PutMapping("/search_warehouses")
+    public  ResponseEntity<List<Warehouse>> searchWarehouses (@RequestBody WarehouseSearchCriteriaDto searchDto) {
+        log.debug("REST request to search Warehouses by its parameters: {}", searchDto);
+        final List<Warehouse> warehouseList = solrWarehouseService.searchWarehouses(searchDto);
         return new ResponseEntity<>(warehouseList, HttpStatus.OK);
     }
 }

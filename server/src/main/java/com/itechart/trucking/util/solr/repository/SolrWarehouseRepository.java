@@ -10,6 +10,6 @@ import java.util.List;
 public interface SolrWarehouseRepository extends SolrCrudRepository<SolrWarehouseDocument, String> {
 
     @Query("name:*?0* OR country:*?0* OR city:*?0* OR street:*?0* OR house:*?0*")
-    List<Warehouse> searchWarehouses(String name, String country, String city, String street,
-                           String house);
+    List<Warehouse> searchWarehouses(String name, String country, String city,
+                                     String street, String house);
 }

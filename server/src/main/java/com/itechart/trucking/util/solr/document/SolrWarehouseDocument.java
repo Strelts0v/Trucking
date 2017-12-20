@@ -106,4 +106,19 @@ public class SolrWarehouseDocument {
         this.lat = lat;
         this.lng = lng;
     }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("SolrWarehouseDocument{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", country='").append(country).append('\'');
+        sb.append(", city='").append(city).append('\'');
+        sb.append(", street='").append(street).append('\'');
+        sb.append(", house='").append(house).append('\'');
+        sb.append(", lat=").append(lat);
+        sb.append(", lng=").append(lng);
+        sb.append('}');
+        return sb.toString();
+    }
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.itechart.trucking.util.Constants.NUMBER_REGEX;
 
@@ -54,8 +55,14 @@ public class ClientController {
     @PutMapping("/update_client")
     public ResponseEntity<Client> updateClient (@RequestBody Client client){
         log.debug("REST request for updating client: {}", client);
-        service.updateClient(client);
-        return new ResponseEntity<>(client, HttpStatus.OK);
+        Optional<Client> origin = service.getClient(client.getId());
+        if(origin.isPresent()){
+            Client originClient = origin.orElse(new Client());
+            originClient.setName(client.getName());
+            service.updateClient(originClient);
+            return new ResponseEntity<>(originClient, HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/delete_client")
