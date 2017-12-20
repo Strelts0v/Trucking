@@ -20,21 +20,13 @@ export class BirthdayCongratulationComponent implements OnInit {
   nameTag = '${fullname}';
   ageTag = '${age}';
   colors = COLORS;
-
   letter: Letter;
   image: string;
-
-  @Input() fileUpload: string;
-
-
   selectedFiles: FileList;
   currentFileUpload: File;
   progress: { percentage: number } = {percentage: 0};
-
   @ViewChild('myTextArea') textarea: ElementRef;
-
   caretPos = 0;
-
   constructor(private element: ElementRef,
               private dialog: MatDialog,
               private letterService: LetterService,
@@ -71,7 +63,7 @@ export class BirthdayCongratulationComponent implements OnInit {
 
     if (file.type.match('image.*')) {
       // this.selectedFiles = event.target.files;
-      let reader = new FileReader();
+      const reader = new FileReader();
 
       reader.onload = (event: any) => {
         this.image = event.target.result;
@@ -99,19 +91,17 @@ export class BirthdayCongratulationComponent implements OnInit {
   }
 
   insertName() {
-    const first = this.textarea.nativeElement.value.slice(0, this.caretPos + 1);
+    const first = this.textarea.nativeElement.value.slice(0, this.caretPos);
     const last = this.textarea.nativeElement.value.slice(this.caretPos, this.textarea.nativeElement.value.length);
-    const result = first + ' ' + this.nameTag + ' ' + last;
-    this.letter.text = result;
+    this.letter.text = first + ' ' + this.nameTag + ' ' + last;
 
   }
 
   insertAge() {
 
-    const first = this.textarea.nativeElement.value.slice(0, this.caretPos + 1);
+    const first = this.textarea.nativeElement.value.slice(0, this.caretPos);
     const last = this.textarea.nativeElement.value.slice(this.caretPos, this.textarea.nativeElement.value.length);
-    const result = first + this.ageTag + last;
-    this.letter.text = result;
+    this.letter.text = first + ' ' + this.ageTag + ' ' + last;
   }
 
 
@@ -140,5 +130,14 @@ const COLORS: Color[] = [
   {name: 'MediumSpringGreen'},
   {name: 'DodgerBlue'},
   {name: 'MistyRose'},
+  {name: 'DeepSkyBlue'},
+  {name: '#228B22'},
+  {name: '#F08080'},
+  {name: '#E0FFFF'},
+  {name: '#B0C4DE'},
+  {name: '#32CD32'},
+  {name: '#FFE4E1'},
+  {name: '#FFA500'},
+  {name: '#DA70D6'},
 
 ];
