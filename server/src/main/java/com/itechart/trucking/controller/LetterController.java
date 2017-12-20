@@ -2,7 +2,6 @@ package com.itechart.trucking.controller;
 
 import com.itechart.trucking.domain.Letter;
 import com.itechart.trucking.service.LetterService;
-import com.itechart.trucking.service.impl.LetterServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -11,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+/**
+ * author: Vlad Sytyi
+ * 20.12.2017
+ */
 @RestController
 @RequestMapping("/api/letter")
 public class LetterController {

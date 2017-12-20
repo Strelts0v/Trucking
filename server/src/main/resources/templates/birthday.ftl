@@ -26,10 +26,11 @@
     </tr>
     <tr>
         <td bgcolor="#eaeaea" style="padding: 40px 30px 40px 30px;">
-            <p>Dear ${fullname},</p>
-            <p>Поздравляем Вас с ${age}</p>
+            <p>Dear ${fullname}!</p>
+            <p>Today you are ${age}!!!</p>
             <p>${congragulation}</b></p>
-            <p>С уважением, коллектив ООО ”Транспортные системы”</p>
+            <p>Yours truly!</p>
+            <p>Transport system corp.</p>
         </td>
     </tr>
 </table>
