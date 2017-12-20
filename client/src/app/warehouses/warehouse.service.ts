@@ -75,7 +75,8 @@ export class WarehouseService {
   }
 
   findWarehouses(criteria: WarehouseSearchCriteria): Observable<Warehouse[]> {
-    const url = `http://localhost:8983/solr/warehouse/select?indent=on&q=city:${criteria.city}*&wt=json`;
+    // const url = `http://localhost:8983/solr/warehouse/select?indent=on&q=city:${criteria.city}*&wt=json`;
+    const url = `${this.apiUrl}${this.findWarehousesUrl}`;
     this.log(url);
     return this.http.put<Warehouse[]>(url, criteria)
       .pipe(

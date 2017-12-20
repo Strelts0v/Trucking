@@ -26,9 +26,9 @@ public class Application implements CommandLineRunner {
 
         // Store customers
         repository.save(Arrays.asList(
-                new SolrWarehouseDocument(1, "Warehouse #1", "Belarus", "Minsk", "Jasienina","25", 53.8393172, 27.4090443),
-                new SolrWarehouseDocument(2, "Warehouse #2", "Russia", "Dmitrovskoye Shosse", "Jasienina","22", 55.9413068, 37.5442847),
-                new SolrWarehouseDocument(3, "Warehouse #1", "Russia", "Moges", "Jasienina","12", 54.627735, 39.7195548)));
+                new SolrWarehouseDocument(1, "Warehouse #1", "Belarus", "Minsk", "Jasienina",25, 53.8393172, 27.4090443),
+                new SolrWarehouseDocument(2, "Warehouse #2", "Russia", "Dmitrovskoye Shosse", "Jasienina", 22, 55.9413068, 37.5442847),
+                new SolrWarehouseDocument(3, "Warehouse #1", "Russia", "Moges", "Jasienina",12, 54.627735, 39.7195548)));
     }
 
     public static void main(String[] args) {

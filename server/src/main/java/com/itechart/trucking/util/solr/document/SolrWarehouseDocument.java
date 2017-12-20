@@ -23,8 +23,8 @@ public class SolrWarehouseDocument {
     @Indexed (name = "street", type = "string")
     private String street;
 
-    @Indexed (name = "house", type = "string")
-    private String house;
+    @Indexed (name = "house", type = "integer")
+    private Integer house;
 
     @Indexed (name = "lat", type = "double")
     private Double lat;
@@ -72,11 +72,11 @@ public class SolrWarehouseDocument {
         this.street = street;
     }
 
-    public String getHouse() {
+    public Integer getHouse() {
         return house;
     }
 
-    public void setHouse(String house) {
+    public void setHouse(Integer house) {
         this.house = house;
     }
 
@@ -96,7 +96,7 @@ public class SolrWarehouseDocument {
         this.lng = lng;
     }
 
-    public SolrWarehouseDocument(Integer id, String name, String country, String city, String street, String house, Double lat, Double lng) {
+    public SolrWarehouseDocument(Integer id, String name, String country, String city, String street, Integer house, Double lat, Double lng) {
         this.id = id;
         this.name = name;
         this.country = country;
