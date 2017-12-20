@@ -2,13 +2,14 @@ package com.itechart.trucking.dao;
 
 import com.itechart.trucking.domain.Waybill;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 /**
  * @author blink7
- * @version 1.0
- * @since 2017-11-18
+ * @version 1.1
+ * @since 2017-12-18
  */
 public interface WaybillDao {
 
@@ -54,4 +55,9 @@ public interface WaybillDao {
      * @return the number of waybills in the DB
      */
     int size();
+
+    List<Waybill> searchWaybills(String from, String to, String invoiceNumber, LocalDate issueDate,
+                                 int pageNumber, int pageSize);
+
+    int searchSize(String from, String to, String invoiceNumber, LocalDate issueDate);
 }

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
-import { animate, group, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 import { Item } from '../../items/item';
 import { Consignment, ConsignmentStatus } from '../consignment';
@@ -24,18 +24,18 @@ const BUTTON_COMPLETE = 'Complete';
   styleUrls: ['./invoice-detail.component.sass'],
   animations: [
     trigger('shrinkIn', [
-      state('in', style({height: 'auto', transform: 'translateY(0)', opacity: 1})),
       transition('void => *', [
-        style({height: 10, transform: 'translateY(-50px)', opacity: 0}),
-        group([
-          animate('0.3s ease', style({
-            transform: 'translateY(0)',
-            height: 'auto'
-          })),
-          animate('0.3s ease', style({
-            opacity: 1
-          }))
-        ])
+        style({
+          height: '0',
+          opacity: 0
+        }),
+        animate('0.35s ease-out')
+      ]),
+      transition('* => void', [
+        animate('0.25s ease-in', style({
+          height: '0',
+          opacity: 0
+        }))
       ])
     ])
   ]
@@ -51,11 +51,7 @@ export class InvoiceDetailComponent implements OnInit {
   editAvailability: boolean;
 
   items: Item[];
-
-  clients: Client[] = [
-    {id: 1, name: 'Торговая сила'},
-    {id: 2, name: 'IBM'}
-  ];
+  clients: Client[];
 
   saveBtnName: string;
 
@@ -150,8 +146,9 @@ export class InvoiceDetailComponent implements OnInit {
       && !this.invoice.status;
   }
 
+  // TODO: Change call to get all clients.
   getClients(): void {
-    this.clientService.getClients(1, 20)
+    this.clientService.getClients(1, 100)
       .subscribe(clients => this.clients = clients);
   }
 
@@ -213,7 +210,7 @@ export class InvoiceDetailComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
 
-    // this.getClients();
+    this.getClients();
     this.getItems();
 
     if (this.invoice.id) {

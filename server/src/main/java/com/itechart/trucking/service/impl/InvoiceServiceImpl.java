@@ -6,6 +6,7 @@ import com.itechart.trucking.dao.ItemDao;
 import com.itechart.trucking.domain.*;
 import com.itechart.trucking.service.InvoiceService;
 import com.itechart.trucking.service.dto.InvoiceDto;
+import com.itechart.trucking.service.dto.InvoiceSearchCriteriaDto;
 import com.itechart.trucking.service.mapper.InvoiceMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,12 +22,14 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.itechart.trucking.util.Utils.*;
+
 /**
  * Service class for managing invoices.
  *
  * @author blink7
- * @version 1.5
- * @since 2017-12-15
+ * @version 1.6
+ * @since 2017-12-17
  */
 @Service
 @Transactional
@@ -234,5 +237,27 @@ public class InvoiceServiceImpl implements InvoiceService {
             log.debug("Created Act of Loss: {}", invoice.getLossActs());
             return invoice;
         }).map(invoiceMapper::invoiceToInvoiceDto);
+    }
+
+    @Override
+    public List<InvoiceDto> getInvoicesBySearch(InvoiceSearchCriteriaDto criteria, int pageNumber, int pageSize) {
+        return invoiceDao
+                .searchInvoices(
+                        jsonToLocalDate(criteria.getIssueDate()),
+                        jsonToLocalDate(criteria.getCheckDate()),
+                        criteria.getStatus(), criteria.getInspector(),
+                        pageNumber, pageSize)
+                .stream()
+                .map(invoiceMapper::invoiceToInvoiceDtoForList)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public int getSearchSize(InvoiceSearchCriteriaDto criteria) {
+        return invoiceDao
+                .searchSize(
+                        jsonToLocalDate(criteria.getIssueDate()),
+                        jsonToLocalDate(criteria.getCheckDate()),
+                        criteria.getStatus(), criteria.getInspector());
     }
 }

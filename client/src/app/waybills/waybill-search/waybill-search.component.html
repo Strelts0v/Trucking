@@ -1,0 +1,26 @@
+<form [formGroup]="wForm">
+  <div class="container">
+    <div class="two">
+      <mat-form-field floatPlaceholder="never">
+        <input matInput formControlName="from" placeholder="Departure">
+      </mat-form-field>
+    </div>
+    <div class="two">
+      <mat-form-field floatPlaceholder="never">
+        <input matInput formControlName="to" placeholder="Destination">
+      </mat-form-field>
+    </div>
+    <div class="two">
+      <mat-form-field floatPlaceholder="never">
+        <input matInput formControlName="invoiceNumber" type="number" placeholder="Invoice number">
+      </mat-form-field>
+    </div>
+    <div class="two">
+      <mat-form-field floatPlaceholder="never">
+        <input matInput [matDatepicker]="issueDatePicker" placeholder="Issue date" formControlName="issueDate">
+        <mat-datepicker-toggle matSuffix [for]="issueDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #issueDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+</form>

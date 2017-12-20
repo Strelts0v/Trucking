@@ -1,18 +1,17 @@
 package com.itechart.trucking.controller;
 
 //import com.itechart.trucking.domain.Warehouse;
+import com.itechart.trucking.domain.Warehouse;
 import com.itechart.trucking.service.WarehouseService;
 import com.itechart.trucking.service.dto.WarehouseDto;
 import com.itechart.trucking.util.ResponseUtil;
+import com.itechart.trucking.util.solr.service.SolrWarehouseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,9 +32,12 @@ public class WarehouseController {
 
     private final WarehouseService warehouseService;
 
+    private final SolrWarehouseService solrWarehouseService;
+
     @Autowired
-    public WarehouseController (WarehouseService warehouseService) {
+    public WarehouseController (WarehouseService warehouseService, SolrWarehouseService solrWarehouseService) {
         this.warehouseService = warehouseService;
+        this.solrWarehouseService = solrWarehouseService;
     }
 
     @GetMapping("/get_warehouse/{id: " + NUMBER_REGEX + "}")
@@ -65,5 +67,40 @@ public class WarehouseController {
         log.debug("REST request to get warehouse count");
         final int size = warehouseService.getWarehouseCount();
         return new ResponseEntity<>(size, HttpStatus.OK);
+    }
+
+    @PostMapping("/add_warehouse")
+    public ResponseEntity<Warehouse> addWarehouse (@RequestBody Warehouse warehouse){
+        log.debug("REST request for adding new Warehouse: {}", warehouse);
+        Warehouse warehouseWithId = warehouseService.addWarehouse(warehouse);
+        log.debug("Added Warehouse: " + warehouseWithId);
+        solrWarehouseService.addWarehouse(warehouse);
+        return new ResponseEntity<>(warehouseWithId, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update_warehouse")
+    public ResponseEntity<Warehouse> updateWarehouse (@RequestBody Warehouse warehouse){
+        log.debug("REST request for updating Warehouse: {}", warehouse);
+        warehouseService.updateWarehouse(warehouse);
+        log.debug("Updated Warehouse: " + warehouse);
+        solrWarehouseService.updateWarehouse(warehouse);
+        return new ResponseEntity<>(warehouse, HttpStatus.OK);
+    }
+
+    @PostMapping("/delete_warehouse")
+    public ResponseEntity<Void> deleteWarehouse (@RequestBody Warehouse warehouse){
+        log.debug("REST request for deleting Warehouse: {}", warehouse);
+        warehouseService.deleteWarehouse(warehouse);
+        log.debug("Deleted Warehouse: " + warehouse);
+        solrWarehouseService.deleteWarehouse(warehouse);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/search_warehouses")
+    public  ResponseEntity<List<Warehouse>> searchWarehouses (@PathVariable String name, @PathVariable String country,
+                                      @PathVariable String city, @PathVariable String street, @PathVariable String house) {
+        log.debug("REST request to search Warehouses by its parameters: {}", name, country, city, street, house);
+        final List<Warehouse> warehouseList = solrWarehouseService.searchWarehouses(name, country, city, street, house);
+        return new ResponseEntity<>(warehouseList, HttpStatus.OK);
     }
 }

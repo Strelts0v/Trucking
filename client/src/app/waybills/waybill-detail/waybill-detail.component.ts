@@ -3,7 +3,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { MatDialog, MatDialogRef, MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { map, startWith, tap } from 'rxjs/operators';
-import { animate, group, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 import {} from '@types/googlemaps';
 
@@ -13,12 +13,14 @@ import { WaybillService } from '../waybill.service';
 import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
 import { WaybillCheckpoint } from '../waybill-checkpoint';
 import { Checkpoint } from '../checkpoint';
-import { RoleGuard, User } from '../../users';
+import { RoleGuard, User, UserService } from '../../users';
 import { Warehouse } from '../../warehouses/warehouse';
 import { Car } from '../../cars/car';
 import { CarService } from '../../cars/car.service';
 import { ProgressDialogComponent } from './progress-dialog/progress-dialog.component';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { Utils } from '../../utils';
+import { WarehouseService } from '../../warehouses/warehouse.service';
 
 @Component({
   selector: 'app-waybill-detail',
@@ -26,18 +28,18 @@ import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.comp
   styleUrls: ['./waybill-detail.component.sass'],
   animations: [
     trigger('shrinkIn', [
-      state('in', style({height: 'auto', transform: 'translateY(0)', opacity: 1})),
       transition('void => *', [
-        style({height: 10, transform: 'translateY(-50px)', opacity: 0}),
-        group([
-          animate('0.3s ease', style({
-            transform: 'translateY(0)',
-            height: 'auto'
-          })),
-          animate('0.3s ease', style({
-            opacity: 1
-          }))
-        ])
+        style({
+          height: '0',
+          opacity: 0
+        }),
+        animate('0.35s ease-out')
+      ]),
+      transition('* => void', [
+        animate('0.25s ease-in', style({
+          height: '0',
+          opacity: 0
+        }))
       ])
     ])
   ]
@@ -58,57 +60,9 @@ export class WaybillDetailComponent implements OnInit {
   isMapLoaded: boolean;
   isDirectionLoaded: boolean;
 
-  drivers: User[] = [
-    {
-      id: 9,
-      firstName: 'first name 9',
-      lastName: 'last name 9',
-      middleName: 'middle name 9',
-      birthday: '',
-      email: '',
-      city: '',
-      street: '',
-      house: '',
-      apartment: '',
-      roles: [],
-      login: '',
-      password: '',
-      passport: ''
-    },
-    {
-      id: 11,
-      firstName: 'first name 11',
-      lastName: 'last name 11',
-      middleName: 'middle name 11',
-      birthday: '',
-      email: '',
-      city: '',
-      street: '',
-      house: '',
-      apartment: '',
-      roles: [],
-      login: '',
-      password: '',
-      passport: ''
-    }
-  ];
-
+  drivers: User[];
   cars: Car[];
-
-  warehouses: Warehouse[] = [
-    {id: 1, name: 'Warehouse #1', country: 'Belarus', city: 'Minsk', street: 'Jasienina', house: 25, lat: 53.8393172, lng: 27.4090443},
-    {
-      id: 2,
-      name: 'Warehouse #2',
-      country: 'Russia',
-      city: 'Moscow',
-      street: 'Dmitrovskoye Shosse',
-      house: 22,
-      lat: 55.9413068,
-      lng: 37.5442847
-    },
-    {id: 3, name: 'Warehouse #3', country: 'Russia', city: 'Ryazan', street: 'Moges', house: 12, lat: 54.627735, lng: 39.7195548}
-  ];
+  warehouses: Warehouse[];
 
   filteredCheckpoints: Checkpoint[];
 
@@ -119,7 +73,9 @@ export class WaybillDetailComponent implements OnInit {
               private dialog: MatDialog,
               private parentDialogRef: MatDialogRef<DocHolderComponent>,
               private carService: CarService,
-              public roleGuard: RoleGuard) {
+              public roleGuard: RoleGuard,
+              private userService: UserService,
+              private warehouseService: WarehouseService) {
 
     iconRegistry.addSvgIcon(
       'routes',
@@ -176,8 +132,7 @@ export class WaybillDetailComponent implements OnInit {
     if (this.waybill.waybillCheckpoints && this.waybill.waybillCheckpoints[index] && this.waybill.waybillCheckpoints[index].checkDate) {
       return this.waybill.waybillCheckpoints[index].checkDate;
     } else {
-      const now = new Date();
-      return `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}`;
+      return Utils.dateToString(new Date());
     }
   }
 
@@ -259,9 +214,26 @@ export class WaybillDetailComponent implements OnInit {
     };
   }
 
+  getDrivers(): void {
+    this.userService.getAvailableDrivers()
+      .subscribe(drivers => {
+        this.drivers = drivers;
+
+        if (this.waybill.driver) {
+          this.drivers.push(this.waybill.driver);
+        }
+      });
+  }
+
   getCars(): void {
     this.carService.getCars()
       .subscribe(cars => this.cars = cars);
+  }
+
+  // TODO: Change call to get all warehouses.
+  getWarehouses(): void {
+    this.warehouseService.getWarehouses(1, 100)
+      .subscribe(warehouses => this.warehouses = warehouses);
   }
 
   calcDistance(callback) {
@@ -444,7 +416,9 @@ export class WaybillDetailComponent implements OnInit {
   ngOnInit() {
     this.initForm();
 
+    this.getDrivers();
     this.getCars();
+    this.getWarehouses();
 
     if (this.invoice.waybill) {
       this.waybill = this.invoice.waybill;

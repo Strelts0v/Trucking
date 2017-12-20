@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 import { Invoice } from './invoice';
+import { InvoiceSearchCriteria } from './invoice-search/invoice-search-criteria';
 
 @Injectable()
 export class InvoiceService {
@@ -76,6 +77,24 @@ export class InvoiceService {
       .pipe(
         tap((invoice: Invoice) => this.log(`created Act of Loss size=${invoice.lossActs.length}`)),
         catchError(this.handleError<Invoice>('createLossAct'))
+      );
+  }
+
+  searchInvoices(criteria: InvoiceSearchCriteria, pageNumber: number, pageSize: number): Observable<Invoice[]> {
+    const url = `${environment.apiUrl}/${this.invoicesUrl}/search/${pageNumber}/${pageSize}`;
+    return this.http.put<Invoice[]>(url, criteria)
+      .pipe(
+        tap(invoices => this.log('fetched invoices')),
+        catchError(this.handleError('searchInvoices', []))
+      );
+  }
+
+  searchSize(criteria: InvoiceSearchCriteria): Observable<number> {
+    const url = `${environment.apiUrl}/${this.invoicesUrl}/search/size`;
+    return this.http.put<number>(url, criteria)
+      .pipe(
+        tap(size => this.log(`fetched invoices size=${size}`)),
+        catchError(this.handleError('invoices size', 0))
       );
   }
 

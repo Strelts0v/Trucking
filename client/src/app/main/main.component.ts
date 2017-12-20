@@ -32,6 +32,29 @@ import { AuthService, RoleGuard, User } from '../users';
         }),
         animate('0.3s ease-in')
       ])
+    ]),
+    trigger('slideOut', [
+      transition('void => *', [
+        style({
+          width: '0',
+          opacity: 0
+        }),
+        animate('0.35s ease-out')
+      ]),
+      transition('* => void', [
+        animate('0.25s ease-in', style({
+          width: '0',
+          opacity: 0
+        }))
+      ])
+    ]),
+    trigger('opacityIn', [
+      transition('void => *', [
+        style({
+          opacity: 0
+        }),
+        animate('0.3s 0.4s ease')
+      ])
     ])
   ]
 })
@@ -43,6 +66,11 @@ export class MainComponent implements OnInit {
 
   matches: boolean;
   navLinks = [];
+
+  isSearchOpen: boolean;
+  showHiMsg = true;
+
+  path: string;
 
   constructor(private titleService: Title,
               private router: Router,
@@ -67,14 +95,35 @@ export class MainComponent implements OnInit {
     if (this.route.firstChild) {
       this.subtitle = this.route.firstChild.snapshot.data.title;
       this.titleService.setTitle(`${this.subtitle} - ${this.title}`);
+
+      this.setSearchPath();
     } else {
       this.titleService.setTitle(this.title);
       this.subtitle = '';
     }
   }
 
-  hiMessaage(): string {
+  hiMessage(): string {
     return `Нi, ${this.user.firstName}! You're logged in as ${this.user.roles.join(', ')}`;
+  }
+
+  openCloseSearch(): void {
+    if (this.isSearchOpen) {
+      this.isSearchOpen = false;
+      setTimeout(() => {
+        this.showHiMsg = true;
+      }, 400);
+    } else {
+      this.isSearchOpen = true;
+      this.showHiMsg = false;
+    }
+  }
+
+  setSearchPath(): void {
+    this.path = this.route.firstChild.snapshot.routeConfig.path;
+    if (this.isSearchOpen) {
+      this.openCloseSearch();
+    }
   }
 
   openTemplate(): void {
@@ -115,7 +164,7 @@ export class MainComponent implements OnInit {
       {
         label: 'Warehouses',
         path: '/warehouses',
-        availability: this.roleGuard.isOwner() || this.roleGuard.isManager() || this.roleGuard.isDispatcher()
+        availability: this.roleGuard.isOwner() || this.roleGuard.isSysAdmin() || this.roleGuard.isAdmin()
       }
     ];
   }

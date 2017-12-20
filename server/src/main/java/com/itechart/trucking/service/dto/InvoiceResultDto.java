@@ -1,5 +1,12 @@
 package com.itechart.trucking.service.dto;
 
+/**
+ * A DTO representing an InvoiceResult.
+ *
+ * @author blink7
+ * @version 1.0
+ * @since 2017-12-17
+ */
 public class InvoiceResultDto {
 
     private UserDto driver;

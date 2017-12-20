@@ -8,13 +8,13 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <changeSet id="141220170930" author="Gleb Streltsov">
+    <changeSet id="181220172224" author="Gleb Streltsov">
         <loadData file="config/liquibase/users.csv"
                   separator=";"
                   tableName="users"/>
     </changeSet>
 
-    <changeSet id="141220170110" author="Gleb Streltsov">
+    <changeSet id="181220172225" author="Gleb Streltsov">
         <loadData file="config/liquibase/users_has_roles.csv"
                   separator=";"
                   tableName="users_has_roles"/>

@@ -4,6 +4,7 @@ import com.itechart.trucking.dao.InvoiceDao;
 import com.itechart.trucking.service.InvoiceService;
 import com.itechart.trucking.service.SecurityContextService;
 import com.itechart.trucking.service.dto.InvoiceDto;
+import com.itechart.trucking.service.dto.InvoiceSearchCriteriaDto;
 import com.itechart.trucking.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +23,8 @@ import static com.itechart.trucking.auth.SecurityConstants.*;
  * REST controller for managing invoices.
  *
  * @author blink7
- * @version 1.2
- * @since 2017-12-13
+ * @version 1.3
+ * @since 2017-12-17
  */
 @RestController
 @RequestMapping("/api")
@@ -101,5 +102,21 @@ public class InvoiceController {
                 .flatMap(user -> invoiceService.createLossAct(invoiceDto))
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE));
+    }
+
+    @PutMapping("/invoices/search/{page:" + NUMBER_REGEX + "}/{size:" + NUMBER_REGEX + "}")
+    public ResponseEntity<List<InvoiceDto>> searchInvoices(@RequestBody InvoiceSearchCriteriaDto criteria,
+                                                           @PathVariable int page, @PathVariable int size) {
+
+        log.debug("REST request to search Invoices for criteria: {}, page: {}, size: {}", criteria, page, size);
+        final List<InvoiceDto> invoices = invoiceService.getInvoicesBySearch(criteria, page, size);
+        return ResponseEntity.ok(invoices);
+    }
+
+    @PutMapping("/invoices/search/size")
+    public ResponseEntity<Integer> getSearchInvoicesSize(@RequestBody InvoiceSearchCriteriaDto criteria) {
+        final int size = invoiceService.getSearchSize(criteria);
+        log.debug("REST request to get total Invoices size for search result: {}", size);
+        return ResponseEntity.ok(size);
     }
 }

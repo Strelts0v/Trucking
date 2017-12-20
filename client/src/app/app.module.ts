@@ -66,6 +66,12 @@ import { BithdayCongratulationComponent } from './bithday-congratulation/bithday
 import { ItemService } from './items/item.service';
 import { ProgressDialogComponent } from './waybills/waybill-detail/progress-dialog/progress-dialog.component';
 import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService } from './warehouses/index';
+import { SearchBarComponent } from './main/search-bar/search-bar.component';
+import { SearchService } from './main/search-bar/search.service';
+import { InvoiceSearchComponent } from './invoices/invoice-search/invoice-search.component';
+import { WaybillSearchComponent } from './waybills/waybill-search/waybill-search.component';
+import { WarehouseListComponent } from './warehouses/warehouse-list/warehouse-list.component';
+import { WarehouseService} from './warehouses/warehouse.service';
 
 @NgModule({
   imports: [
@@ -131,6 +137,10 @@ import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService } fr
     ProgressDialogComponent,
     WarehouseListComponent,
     WarehouseDetailComponent,
+    SearchBarComponent,
+    InvoiceSearchComponent,
+    WaybillSearchComponent,
+    WarehouseListComponent
   ],
   entryComponents: [
     DocHolderComponent,
@@ -151,6 +161,7 @@ import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService } fr
     WaybillService,
     ClientService,
     ItemService,
+    SearchService,
     WarehouseService
   ],
   bootstrap: [AppComponent]
