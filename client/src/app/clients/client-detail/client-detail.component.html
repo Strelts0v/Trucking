@@ -14,7 +14,7 @@
     </div>
     
     <div class="header-sidebar-right">
-      <button mat-icon-button matTooltip="Delete" (click)="deleteClient()" [mat-dialog-close]>
+      <button mat-icon-button matTooltip="Delete" (click)="deleteClient()" [mat-dialog-close]="deletedClientId">
         <mat-icon>delete</mat-icon>
       </button>
       <button mat-icon-button matTooltip="Close" [mat-dialog-close]>

@@ -18,7 +18,7 @@ export class CarService {
   getCars(): Observable<Car[]> {
     return this.http.get<Car[]>(this.carUrl + `/get_cars`)
       .pipe(
-        tap(cars => this.log(`fetched users`)),
+        tap(cars => this.log(`fetched cars`)),
         catchError(this.handleError('getCars', []))
       );
   }
@@ -32,6 +32,6 @@ export class CarService {
   }
 
   private log(message: string) {
-    console.log('UserService: ' + message);
+    console.log('CarService: ' + message);
   }
 }

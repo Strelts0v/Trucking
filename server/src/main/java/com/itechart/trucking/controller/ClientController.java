@@ -68,7 +68,8 @@ public class ClientController {
     @PostMapping("/delete_client")
     public ResponseEntity<Void> deleteClient (@RequestBody Client client){
         log.debug("REST request for deleting client: {}", client);
-        service.deleteClient(client);
+        Optional<Client> origin = service.getClient(client.getId());
+        service.deleteClient(origin.orElse(new Client()));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

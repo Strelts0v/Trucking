@@ -15,6 +15,8 @@ export class ClientDetailComponent {
 
   client: Client;
 
+  deletedClientId: number;
+
   constructor(
     public dialogRef: MatDialogRef<ClientDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -28,7 +30,9 @@ export class ClientDetailComponent {
 
   deleteClient() {
     this.log(`Deleting client ${JSON.stringify(this.client)}`);
-    this.clientService.deleteClient(this.client);
+    this.deletedClientId = this.client.id;
+    this.clientService.deleteClient(this.client)
+      .subscribe();
   }
 
   private log(message: string) {

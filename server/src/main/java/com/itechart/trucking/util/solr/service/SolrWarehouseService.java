@@ -3,11 +3,12 @@ package com.itechart.trucking.util.solr.service;
 import com.itechart.trucking.domain.Warehouse;
 import com.itechart.trucking.service.dto.WarehouseSearchCriteriaDto;
 import com.itechart.trucking.util.Utils;
-import com.itechart.trucking.util.solr.document.SolrWarehouseDocument;
+import com.itechart.trucking.util.solr.document.SolrWarehouseDocumentDto;
 import com.itechart.trucking.util.solr.repository.SolrWarehouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,32 +18,45 @@ public class SolrWarehouseService{
     private SolrWarehouseRepository solrWarehouseRepository;
 
     public void addWarehouse(Warehouse warehouse) {
-        SolrWarehouseDocument warehouseDocument = new SolrWarehouseDocument(
-                warehouse.getId(), warehouse.getName(), warehouse.getCountry(),
-                warehouse.getCity(), warehouse.getStreet(), Integer.parseInt(warehouse.getHouse()),
-                warehouse.getLat(), warehouse.getLng());
+        ArrayList<String> name = new ArrayList<>(); name.add(warehouse.getName());
+        ArrayList<String> country = new ArrayList<>(); name.add(warehouse.getCountry());
+        ArrayList<String> city = new ArrayList<>(); name.add(warehouse.getCity());
+        ArrayList<String> street = new ArrayList<>(); name.add(warehouse.getStreet());
+        ArrayList<String> house = new ArrayList<>(); name.add(warehouse.getHouse());
+        ArrayList<String> lat = new ArrayList<>(); name.add(warehouse.getLat().toString());
+        ArrayList<String> lng = new ArrayList<>(); name.add(warehouse.getLng().toString());
+
+        SolrWarehouseDocumentDto warehouseDocument = new SolrWarehouseDocumentDto(
+                warehouse.getId().toString(), name, country, city, street, house, lat, lng);
         solrWarehouseRepository.save(warehouseDocument);
     }
 
     public void updateWarehouse(Warehouse warehouse) {
-        SolrWarehouseDocument warehouseDocument = solrWarehouseRepository
-                .findOne(warehouse.getId());
-        warehouseDocument.setName(warehouse.getName());
-        warehouseDocument.setCountry(warehouse.getCountry());
-        warehouseDocument.setCity(warehouse.getCity());
-        warehouseDocument.setStreet(warehouse.getStreet());
-        warehouseDocument.setHouse(Integer.parseInt(warehouse.getHouse()));
+        SolrWarehouseDocumentDto warehouseDocument = solrWarehouseRepository
+                .findOne(warehouse.getId().toString());
+
+        ArrayList<String> name = new ArrayList<>(); name.add(warehouse.getName());
+        ArrayList<String> country = new ArrayList<>(); name.add(warehouse.getCountry());
+        ArrayList<String> city = new ArrayList<>(); name.add(warehouse.getCity());
+        ArrayList<String> street = new ArrayList<>(); name.add(warehouse.getStreet());
+        ArrayList<String> house = new ArrayList<>(); name.add(warehouse.getHouse());
+
+        warehouseDocument.setName(name);
+        warehouseDocument.setCountry(country);
+        warehouseDocument.setCity(city);
+        warehouseDocument.setStreet(street);
+        warehouseDocument.setHouse(house);
         solrWarehouseRepository.save(warehouseDocument);
     }
 
     public void deleteWarehouse(Warehouse warehouse) {
-        SolrWarehouseDocument warehouseDocument = solrWarehouseRepository
-                .findOne(warehouse.getId());
+        SolrWarehouseDocumentDto warehouseDocument = solrWarehouseRepository
+                .findOne(warehouse.getId().toString());
         solrWarehouseRepository.delete(warehouseDocument);
     }
 
     public List<Warehouse> searchWarehouses(WarehouseSearchCriteriaDto dto) {
-        List<SolrWarehouseDocument> docList = solrWarehouseRepository.searchWarehouses(
+        List<SolrWarehouseDocumentDto> docList = solrWarehouseRepository.searchWarehouses(
 //                Utils.castToSearchPattern(dto.getName()),
 //                Utils.castToSearchPattern(dto.getCountry()),
 //                Utils.castToSearchPattern(dto.getCity()),
