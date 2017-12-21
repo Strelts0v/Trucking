@@ -33,6 +33,7 @@
             <mat-select formControlName="driver" placeholder="Driver" [compareWith]="compareUser" required>
               <mat-option *ngFor="let driver of drivers" [value]="driver">{{driver | userFullName}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="driver.hasError('required')">Field is required</mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -46,6 +47,7 @@
             <mat-select formControlName="car" placeholder="Car" [compareWith]="compareCar" required>
               <mat-option *ngFor="let car of cars" [value]="car">{{car.name}} {{car.number}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="car.hasError('required')">Field is required</mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -62,6 +64,7 @@
                 <small>{{warehouse | warehouseFullAddress}}</small>
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="from.hasError('required')">Field is required</mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -84,6 +87,7 @@
                     <small class="checkpoint-option-addition">{{checkpoint.additionName}}</small>
                   </mat-option>
                 </mat-autocomplete>
+                <mat-error *ngIf="waybillCheckpoint.controls['checkpoint'].hasError('required')">Field is required</mat-error>
               </mat-form-field>
             </div>
             <div class="two">
@@ -117,6 +121,7 @@
                 <small>{{warehouse | warehouseFullAddress}}</small>
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="to.hasError('required')">Field is required</mat-error>
           </mat-form-field>
         </div>
       </div>
