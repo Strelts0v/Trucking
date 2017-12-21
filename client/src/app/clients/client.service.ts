@@ -63,13 +63,13 @@ export class ClientService {
       );
   }
 
-  deleteClient(client: Client) {
+  deleteClient(client: Client): Observable<void> {
     const url = `${this.apiUrl}${this.deleteClientUrl}`;
     this.log(url);
-    this.http.post(url, client)
+    return this.http.post<void>(url, client)
       .pipe(
         tap(_ => this.log(`client with id ${client.id} was successfully deleted.`)),
-        catchError(this.handleError('deleteClient'))
+        catchError(this.handleError<void>('deleteClient'))
       );
   }
 

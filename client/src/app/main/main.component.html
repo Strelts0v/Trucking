@@ -6,7 +6,8 @@
     </h1>
     <span class="toolbar-spacer"></span>
     <span class="logged-in-message" *ngIf="showHiMsg">{{hiMessage()}}</span>
-    <button mat-icon-button matTooltip="Search" (click)="openCloseSearch()" *ngIf="path === 'invoices' || path === 'waybills'">
+    <button mat-icon-button matTooltip="Search" (click)="openCloseSearch()"
+     *ngIf="path === 'invoices' || path === 'waybills' || path === 'warehouses'">
       <mat-icon>search</mat-icon>
     </button>
     <app-search-bar [path]="path" *ngIf="isSearchOpen" [@slideOut]></app-search-bar>

@@ -14,23 +14,42 @@
       </div>
       
       <div class="header-sidebar-right">
-        <button mat-icon-button matTooltip="Delete" (click)="deleteWarehouse()" [mat-dialog-close]>
+        <button mat-icon-button matTooltip="Delete" (click)="deleteWarehouse()" [mat-dialog-close] tabindex="-1">
           <mat-icon>delete</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Close" [mat-dialog-close]>
+        <button mat-icon-button matTooltip="Close" [mat-dialog-close] tabindex="-1">
           <mat-icon>close</mat-icon>
         </button>
       </div>
     </div>
       <div mat-dialog-content>
         <form>
-          <mat-form-field>
-            <input matInput placeholder="Warehouse name" [(ngModel)]="data.warehouse.name" name="name">
-          </mat-form-field>
+            <table cellspacing="0"><tr>
+              <td><mat-form-field>
+                <input matInput placeholder="Warehouse name" [(ngModel)]="data.warehouse.name" name="name">
+              </mat-form-field></td>
+              <td><mat-form-field>
+                <input matInput placeholder="Country" [(ngModel)]="data.warehouse.country" name="country">
+              </mat-form-field></td>
+            </tr></table>
+          
+            <table cellspacing="0"><tr>
+                <td><mat-form-field>
+                  <input matInput placeholder="City" [(ngModel)]="data.warehouse.city" name="city">
+                </mat-form-field></td>
+                <td><mat-form-field>
+                  <input matInput placeholder="Street" [(ngModel)]="data.warehouse.street" name="street">
+                </mat-form-field></td>
+            </tr></table>
+
+            <td><mat-form-field>
+                <input matInput placeholder="House" [(ngModel)]="data.warehouse.house" name="house">
+            </mat-form-field></td>
+
         </form>  
       </div>  
       <div mat-dialog-actions>
-          <button mat-button color="primary" type="submit" (click)="cancelWarehouseDetail()">CANCEL</button>
-          <button mat-button color="primary" [mat-dialog-close]="data">APPLY</button>
+          <button mat-button color="primary" type="submit" [mat-dialog-close]>CANCEL</button>
+          <button mat-button color="primary" (click)="saveWarehouseDetail()">APPLY</button>
       </div>
   </div>

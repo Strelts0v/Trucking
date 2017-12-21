@@ -56,7 +56,13 @@ import { CarService } from './cars/car.service';
 import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
 import { ItemService } from './items/item.service';
 import { ProgressDialogComponent } from './progress-dialog/progress-dialog.component';
-import { WarehouseListComponent, WarehouseDetailComponent, WarehouseService, WarehouseFullAddressPipe } from './warehouses';
+import {
+  WarehouseListComponent,
+  WarehouseDetailComponent,
+  WarehouseService,
+  WarehouseFullAddressPipe,
+  WarehouseSearchComponent
+} from './warehouses';
 import { ProfitLossStatementComponent, ReportService } from './report';
 
 @NgModule({
@@ -127,7 +133,8 @@ import { ProfitLossStatementComponent, ReportService } from './report';
     WaybillSearchComponent,
     WarehouseListComponent,
     WarehouseDetailComponent,
-    ProfitLossStatementComponent
+    ProfitLossStatementComponent,
+    WarehouseSearchComponent
   ],
   entryComponents: [
     DocHolderComponent,

@@ -38,8 +38,7 @@ export class UserService {
   addUser(user: User): Observable<User> {
     const url = `${this.apiUrl}${this.addUserUrl}`;
     this.log(url);
-    user = this.fixDateFormat(user);
-    this.log(`User after updating date: ${JSON.stringify(user)}`);
+    this.log(JSON.stringify(user));
     return this.http.post<User>(url, user)
       .pipe(
         tap(data => this.log(`added user: ${data}`)),
@@ -57,13 +56,13 @@ export class UserService {
       );
   }
 
-  deleteUser(user: User): Observable<User> {
+  deleteUser(user: User): Observable<void> {
     const url = `${this.apiUrl}${this.deleteUserUrl}`;
     this.log(url);
-    return this.http.post<User>(url, user)
+    return this.http.post<void>(url, user)
       .pipe(
-        tap((user: User) => this.log(`user was successfully deleted: ${JSON.stringify(user)}`)),
-        catchError(this.handleError<User>(`deleteUser`, new User()))
+        tap(_ => this.log(`user with id ${user.id} was successfully deleted`)),
+        catchError(this.handleError<void>(`deleteUser`))
       );
   }
 
@@ -96,12 +95,5 @@ export class UserService {
 
   private log(message: string) {
     console.log('UserService: ' + message);
-  }
-
-  private fixDateFormat(user: User): User {
-    /*let date = user.birthday;
-    date = date.substr(0, 10);
-    user.birthday = date;*/
-    return user;
   }
 }

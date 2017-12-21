@@ -33,8 +33,35 @@ public class Warehouse extends AbstractPersistentObject {
     }
 
     public Warehouse(
+            int id, String name, String country, String city, String street,
+            String house, Double lat, Double lng, int version) {
+        this.setId(id);
+        this.name = name;
+        this.country = country;
+        this.city = city;
+        this.street = street;
+        this.house = house;
+        this.lat = lat;
+        this.lng = lng;
+        this.setVersion(version);
+    }
+
+    public Warehouse(
             String name, String country, String city, String street,
             String house, Double lat, Double lng) {
+        this.name = name;
+        this.country = country;
+        this.city = city;
+        this.street = street;
+        this.house = house;
+        this.lat = lat;
+        this.lng = lng;
+    }
+
+    public Warehouse(
+            int id, String name, String country, String city,
+            String street, String house, Double lat, Double lng) {
+        this.setId(id);
         this.name = name;
         this.country = country;
         this.city = city;
@@ -98,5 +125,21 @@ public class Warehouse extends AbstractPersistentObject {
 
     public void setLng(Double lng) {
         this.lng = lng;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Warehouse{");
+        sb.append("id='").append(getId()).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", country='").append(country).append('\'');
+        sb.append(", city='").append(city).append('\'');
+        sb.append(", street='").append(street).append('\'');
+        sb.append(", house='").append(house).append('\'');
+        sb.append(", lat=").append(lat);
+        sb.append(", lng=").append(lng);
+        sb.append(", version='").append(getVersion()).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
