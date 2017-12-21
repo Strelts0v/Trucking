@@ -69,16 +69,20 @@ export class WarehouseListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      warehouse = <Warehouse> result.warehouse;
+      if (dialogRef.componentInstance.deletedWarehouseId > 0) {
+        this.log(`${result}`);
+        this.getWarehouses();
+        return;
+      }
 
+      warehouse = <Warehouse> result.warehouse;
       if (isEditable) {
         this.log(`EDIT ${JSON.stringify(warehouse)}`);
         this.warehouseService.updateWarehouse(warehouse);
       } else {
         this.log(`ADD ${JSON.stringify(warehouse)}`);
         this.warehouseService.addWarehouse(warehouse)
-          .subscribe(client => {
+          .subscribe(ware => {
             const warehouses = this.dataSource.data;
             this.log(`ADD ${JSON.stringify(warehouse)}`);
             warehouses.push(warehouse);

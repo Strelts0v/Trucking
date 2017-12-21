@@ -64,18 +64,17 @@ export class WarehouseService {
       );
   }
 
-  deleteWarehouse(warehouse: Warehouse) {
+  deleteWarehouse(warehouse: Warehouse): Observable<void> {
     const url = `${this.apiUrl}${this.deleteWarehouseUrl}`;
     this.log(url);
-    return this.http.post(url, warehouse)
+    return this.http.post<void>(url, warehouse)
       .pipe(
-        tap(count => this.log(`deleting of warehouse ${JSON.stringify(warehouse)}`)),
-        catchError(this.handleError('deleteWarehouse'))
+        tap(_ => this.log(`deleting of warehouse ${JSON.stringify(warehouse)}`)),
+        catchError(this.handleError<void>('deleteWarehouse'))
       );
   }
 
   findWarehouses(criteria: WarehouseSearchCriteria): Observable<Warehouse[]> {
-    // const url = `http://localhost:8983/solr/warehouse/select?indent=on&q=city:${criteria.city}*&wt=json`;
     const url = `${this.apiUrl}${this.findWarehousesUrl}`;
     this.log(url);
     return this.http.put<Warehouse[]>(url, criteria)

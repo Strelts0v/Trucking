@@ -73,20 +73,35 @@ export class UserListComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      user = <User> result.user;
+      if (dialogRef.componentInstance.deletedUserId > 0) {
+        this.log(`${result}`);
+        //this.getUsers();
+        this.getUsers();
+        return;
+      }
 
+      //user = <User> result.user;
+      let origin = new User();
       if (isEditable) {
         this.log(`EDIT ${JSON.stringify(user)}`);
-        this.userService.updateUser(user);
+        origin = this.getUserById(id);
+        let users = this.dataSource.data;
+        users = users.filter(user => user !== origin);
+        user.id = origin.id;
+        users.push(user);
+
       } else {
         this.log(`ADD ${JSON.stringify(user)}`);
-        this.userService.addUser(user)
-          .subscribe(user => {
-            const users = this.dataSource.data;
-            users.push(user);
-            this.dataSource.data = users;
-          });
+        const users = this.dataSource.data;
+        user.id = 47;
+        users.push(user);
+        this.dataSource.data = users;
+        // this.userService.addUser(user)
+        //   .subscribe(user => {
+        //     const users = this.dataSource.data;
+        //     users.push(user);
+        //     this.dataSource.data = users;
+        //   });
       }
     });
   }

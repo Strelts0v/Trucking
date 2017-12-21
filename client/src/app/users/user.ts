@@ -1,5 +1,5 @@
 export class User {
-  id: number;
+  id = 0;
   firstName: string;
   lastName: string;
   middleName: string;
@@ -13,4 +13,5 @@ export class User {
   login: string;
   password: string;
   passport: string;
+  busy: string;
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.itechart.trucking.util.Constants.NUMBER_REGEX;
 
@@ -62,7 +63,8 @@ public class UserController {
     @PostMapping("/delete_user")
     public ResponseEntity<Void> deleteUser (@RequestParam(value="user") User user){
         log.debug("REST request for deleting user: {}", user);
-        service.deleteUser(user);
+        Optional<User> origin = service.getUserById(user.getId());
+        service.deleteUser(origin.orElse(new User()));
         log.info("deleted user: " + user);
         return new ResponseEntity<>(HttpStatus.OK);
     }

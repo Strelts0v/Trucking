@@ -32,7 +32,9 @@ export class ClientDetailComponent {
     this.log(`Deleting client ${JSON.stringify(this.client)}`);
     this.deletedClientId = this.client.id;
     this.clientService.deleteClient(this.client)
-      .subscribe();
+      .subscribe(_ => {
+        this.dialogRef.close();
+      });
   }
 
   private log(message: string) {

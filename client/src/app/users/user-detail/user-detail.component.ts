@@ -16,6 +16,8 @@ export class UserDetailComponent {
   user: User;
   roles = new FormControl();
 
+  deletedUserId: number;
+
   roleList = ['SYSADMIN', 'ADMIN', 'MANAGER', 'DISPATCHER', 'DRIVER', 'OWNER'];
 
   emailFormControl = new FormControl('', [
@@ -38,7 +40,12 @@ export class UserDetailComponent {
 
   deleteUser() {
     this.log(`Deleting user ${JSON.stringify(this.user)}`);
-    this.userService.deleteUser(this.user);
+    this.deletedUserId = this.user.id;
+    //this.userService.deleteUser(this.user);
+    this.dialogRef.close();
+      // .subscribe(_ => {
+      //   this.dialogRef.close();
+      // });
   }
 
   private log(message: string) {

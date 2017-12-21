@@ -65,13 +65,13 @@ export class ClientListComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result >= 0) {
+      if (dialogRef.componentInstance.deletedClientId > 0) {
+        this.log(`${result}`);
         this.getClients();
         return;
       }
-      console.log('The dialog was closed');
-      client = <Client> result.client;
 
+      client = <Client> result.client;
       if (isEditable) {
         this.log(`EDIT ${JSON.stringify(client)}`);
         this.clientService.updateClient(client)
