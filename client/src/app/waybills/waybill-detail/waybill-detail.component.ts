@@ -14,13 +14,12 @@ import { DocHolderComponent } from '../../doc-holder/doc-holder.component';
 import { WaybillCheckpoint } from '../waybill-checkpoint';
 import { Checkpoint } from '../checkpoint';
 import { RoleGuard, User, UserService } from '../../users';
-import { Warehouse } from '../../warehouses/warehouse';
+import { Warehouse, WarehouseService } from '../../warehouses';
 import { Car } from '../../cars/car';
 import { CarService } from '../../cars/car.service';
 import { ProgressDialogComponent } from '../../progress-dialog/progress-dialog.component';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { Utils } from '../../utils';
-import { WarehouseService } from '../../warehouses/warehouse.service';
 
 @Component({
   selector: 'app-waybill-detail',
@@ -249,9 +248,9 @@ export class WaybillDetailComponent implements OnInit {
   searchPlace(term: string): void {
     const service = new google.maps.places.AutocompleteService();
     service.getPlacePredictions({input: term, types: ['(cities)']},
-      (result: AutocompletePrediction[], status: google.maps.places.PlacesServiceStatus) => {
+      (result: google.maps.places.AutocompletePrediction[], status: google.maps.places.PlacesServiceStatus) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          this.filteredCheckpoints = result.map((prediction: AutocompletePrediction) => {
+          this.filteredCheckpoints = result.map(prediction => {
             const checkpoint = new Checkpoint();
             checkpoint.placeId = prediction.place_id;
             checkpoint.name = prediction.structured_formatting.main_text;
@@ -433,20 +432,4 @@ export class WaybillDetailComponent implements OnInit {
 
     this.editAvailability = this.waybill.status !== WaybillStatus.COMPLETED;
   }
-}
-
-export interface AutocompletePrediction {
-  description: string;
-  matched_substrings: google.maps.places.PredictionSubstring[];
-  place_id: string;
-  reference: string;
-  structured_formatting: AutocompleteStructuredFormatting;
-  terms: google.maps.places.PredictionTerm[];
-  types: string[];
-}
-
-export interface AutocompleteStructuredFormatting {
-  main_text: string;
-  main_text_matched_substrings: google.maps.places.PredictionSubstring[];
-  secondary_text: string;
 }
