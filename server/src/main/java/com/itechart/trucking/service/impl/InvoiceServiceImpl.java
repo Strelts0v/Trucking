@@ -212,7 +212,6 @@ public class InvoiceServiceImpl implements InvoiceService {
             invoiceDto.getLossActs()
                     .forEach(lossActDto -> itemDao.findItemById(lossActDto.getItem().getId())
                             .ifPresent(item -> {
-                                invoice.addLossAct(item, lossActDto.getAmount());
                                 invoice.getItemConsignments()
                                         .stream()
                                         .filter(ic ->
@@ -221,6 +220,10 @@ public class InvoiceServiceImpl implements InvoiceService {
                                                         lossActDto.getItem().getId())
                                         ).findFirst()
                                         .ifPresent(itemConsignment -> {
+                                            invoice.addLossAct(item,
+                                                    lossActDto.getAmount() > itemConsignment.getAmount()
+                                                            ? itemConsignment.getAmount() : lossActDto.getAmount());
+
                                             int amount = itemConsignment.getAmount() - lossActDto.getAmount();
                                             itemConsignment.setAmount(amount >= 0 ? amount : 0);
                                         });
