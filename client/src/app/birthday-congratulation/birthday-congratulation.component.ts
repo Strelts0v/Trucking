@@ -81,6 +81,7 @@ export class BirthdayCongratulationComponent implements OnInit {
   }
 
 
+
   upload() {
     this.progress.percentage = 0;
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.itechart.trucking.domain.Letter;
 import com.itechart.trucking.service.ImageService;
 import com.itechart.trucking.service.LetterService;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Optional;
 
 /**
@@ -23,7 +28,7 @@ import java.util.Optional;
 @RequestMapping("/api/image")
 public class FileUploadController {
 
-
+    private final static String FILE_PATH = "picture/bday.png";
     private static Logger log = LoggerFactory.getLogger(FileUploadController.class);
 
     @Autowired
@@ -58,15 +63,26 @@ public class FileUploadController {
     }
 
 
-
     @GetMapping("/get")
     public ResponseEntity<byte[]> readImage() throws JsonProcessingException {
         log.info("Sended image to another source");
         Optional<Letter> image = letterService.getLetter(1);
         Letter letter = image.get();
-        byte[] bytes = letter.getImage();
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "image/png");
+        byte[] bytes = null;
+        if (letter.getImage() == null) {
+
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream(FILE_PATH);
+            try {
+                bytes = IOUtils.toByteArray(inputStream);
+                headers.set("Content-Type", "image/png");
+            } catch (IOException e) {
+                log.debug("Exception while was reading image from file system", e);
+            }
+        } else {
+            bytes = letter.getImage();
+            headers.set("Content-Type", "image/png");
+        }
         return new ResponseEntity<>(bytes, headers, HttpStatus.OK);
     }
 

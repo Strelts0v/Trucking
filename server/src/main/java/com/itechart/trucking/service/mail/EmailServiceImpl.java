@@ -58,7 +58,7 @@ public class EmailServiceImpl implements EmailService {
                     MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                     StandardCharsets.UTF_8.name());
 
-            if(letter.getImage().length == 0){
+            if(letter.getImage() == null){
                 InputStream inputStream = getClass().getClassLoader().getResourceAsStream(FILE_PATH);
                 byte[] imgBytes = IOUtils.toByteArray(inputStream);
                 byte[] imgBytesAsBase64 = Base64.encodeBase64(imgBytes);
@@ -97,6 +97,7 @@ public class EmailServiceImpl implements EmailService {
 
     /**
      * runs every day at 10 o'clock
+     * "0 0 10 * * *"
      */
 
     //"*/10 * * * * *" = every ten seconds.
