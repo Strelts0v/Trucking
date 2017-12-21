@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface ReportService {
 
     Optional<ReportDto> getReportByDate(String startDate, String endDate);
+    Optional<byte[]> getExcelReport(String startDate, String endDate);
 }

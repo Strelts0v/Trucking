@@ -24,6 +24,15 @@ export class ReportService {
       );
   }
 
+  downloadExcelReport(startDate: string, endDate: string): Observable<Blob> {
+    const url = `${environment.apiUrl}/${this.reportUrl}/xls`;
+    return this.http.put(url, {startDate: startDate, endDate: endDate}, {responseType: 'blob'})
+      .pipe(
+        tap(_ => this.log(`fetched xls report start date = ${startDate}, end date = ${endDate}`)),
+        catchError(this.handleError<Blob>(`download xls report start date = ${startDate}, end date = ${endDate}`))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

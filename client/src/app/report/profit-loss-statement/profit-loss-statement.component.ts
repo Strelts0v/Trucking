@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ReportService } from '../report.service';
 import { Utils } from '../../utils';
 import { Report } from '../report';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-profit-loss-statement',
@@ -97,6 +98,19 @@ export class ProfitLossStatementComponent implements OnInit {
         }
       ]
     };
+  }
+
+  downloadReport(): void {
+    if (this.currentStartDate && this.currentEndDate) {
+      const startDate = Utils.dateToString(this.currentStartDate);
+      const endDate = Utils.dateToString(this.currentEndDate);
+
+      this.reportService
+        .downloadExcelReport(startDate, endDate)
+        .subscribe(data => {
+          FileSaver.saveAs(data, `report-${startDate}-${endDate}.xlsx`);
+        });
+    }
   }
 
   get startDate(): FormControl {
