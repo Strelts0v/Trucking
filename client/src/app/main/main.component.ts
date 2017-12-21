@@ -4,8 +4,9 @@ import { Title } from '@angular/platform-browser';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatDialog } from '@angular/material';
 
-import { BithdayCongratulationComponent } from '../bithday-congratulation/bithday-congratulation.component';
+
 import { AuthService, RoleGuard, User } from '../users';
+import {BirthdayCongratulationComponent} from '../birthday-congratulation/birthday-congratulation.component';
 
 @Component({
   moduleId: module.id,
@@ -127,7 +128,7 @@ export class MainComponent implements OnInit {
   }
 
   openTemplate(): void {
-    const dialogRef = this.dialog.open(BithdayCongratulationComponent);
+    const dialogRef = this.dialog.open(BirthdayCongratulationComponent);
   }
 
   logout() {

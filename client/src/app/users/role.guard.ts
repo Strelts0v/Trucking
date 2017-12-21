@@ -36,7 +36,7 @@ export class RoleGuard implements CanActivate {
   }
 
   private checkPermissions(user: User, state: RouterStateSnapshot): boolean {
-    let hasPermissions = false;
+    let hasPermissions;
 
     this.log(`Routing state snapshot: ${state.url}`);
     switch (state.url) {
@@ -66,7 +66,7 @@ export class RoleGuard implements CanActivate {
         break;
       }
     }
-    return hasPermissions;
+    return hasPermissions ;
   }
 
   private checkRole(userRoles: string[], ...checkingRoles: string[]): boolean {

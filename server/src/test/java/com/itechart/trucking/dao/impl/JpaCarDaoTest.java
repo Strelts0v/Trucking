@@ -57,6 +57,7 @@ public class JpaCarDaoTest {
     public void findOneShouldReturnCorrespondObject() throws Exception{
         int testId = 5;
         Optional<Car> testCar = carDao.findOne(testId);
+        System.out.println(testCar.toString());
         assertTrue("Expected an object", testCar.isPresent());
         assertEquals("Expected equals objects", car, testCar.orElse(new Car()));
     }

@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
 
-    <changeSet id="2" author="Vlad Sytyi">
+    <changeSet id="101220172000" author="Vlad Sytyi">
         <loadData file="config/liquibase/cars.csv"
                   separator=";"
                   tableName="car_park">
@@ -19,15 +19,16 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="version" type="BIGINT"/>
-            <column name="text" type="TEXT">
-            </column>
+            <column name="text" type="TEXT"/>
+            <column name="color" type="VARCHAR(45)"/>
+
         </createTable>
         <modifySql dbms="mysql">
             <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
         </modifySql>
     </changeSet>
 
-    <changeSet id="10" author="Vlad Sytyi">
+    <changeSet id="101220172120" author="Vlad Sytyi">
         <addAutoIncrement tableName="congragulation_letter" columnName="id" columnDataType="${idType}"/>
     </changeSet>
 

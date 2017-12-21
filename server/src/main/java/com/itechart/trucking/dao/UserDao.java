@@ -82,4 +82,6 @@ public interface UserDao {
      * @return list of user instances
      */
     List<User> getNotBusyUsersByRole(User.Role role);
+
+    List<User> getUserWithBirthday();
 }

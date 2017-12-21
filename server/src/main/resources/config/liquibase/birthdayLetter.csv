@@ -1,5 +1,2 @@
-id;text
-1; Уважаемый <fullName>! Поздравляем Вас с <age>-и летием. Желаем... (далее идет текст поздравления) С уважением, коллектив ООО ”Транспортные системы”
-
-
-
+id;version;text;color
+1;0;We wish you sound health - gain your vital energy from the life itself! Have good spirits and eternal youth of your heart! Happy birthday!;PaleGreen

@@ -53,7 +53,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { ClientListComponent, ClientDetailComponent, ClientService } from './clients';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { CarService } from './cars/car.service';
-import { BithdayCongratulationComponent } from './bithday-congratulation/bithday-congratulation.component';
+import { BirthdayCongratulationComponent } from './birthday-congratulation/birthday-congratulation.component';
 import { ItemService } from './items/item.service';
 import { ProgressDialogComponent } from './progress-dialog/progress-dialog.component';
 import {
@@ -64,6 +64,7 @@ import {
   WarehouseSearchComponent
 } from './warehouses';
 import { ProfitLossStatementComponent, ReportService } from './report';
+import { LetterService } from './birthday-congratulation/letter.service';
 
 @NgModule({
   imports: [
@@ -122,7 +123,7 @@ import { ProfitLossStatementComponent, ReportService } from './report';
     UserFullNamePipe,
     WelcomeComponent,
     WarehouseFullAddressPipe,
-    BithdayCongratulationComponent,
+    BirthdayCongratulationComponent,
     UserFullNamePipe,
     ClientListComponent,
     UserDetailComponent,
@@ -139,7 +140,7 @@ import { ProfitLossStatementComponent, ReportService } from './report';
   entryComponents: [
     DocHolderComponent,
     ConfirmDialogComponent,
-    BithdayCongratulationComponent,
+    BirthdayCongratulationComponent,
     UserDetailComponent,
     ClientDetailComponent,
     ProgressDialogComponent,
@@ -154,6 +155,7 @@ import { ProfitLossStatementComponent, ReportService } from './report';
     InvoiceService,
     WaybillService,
     ClientService,
+    LetterService,
     ItemService,
     SearchService,
     WarehouseService,

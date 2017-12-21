@@ -15,7 +15,7 @@ public interface LetterDao {
      * This method creates field text in Congragulation letter
      * @param letter
      */
-    void createLetter(Letter letter);
+    Letter createLetter(Letter letter);
     /**
      * This method updates field text in Congragulation letter
      * @param letter

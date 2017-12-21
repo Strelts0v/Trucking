@@ -581,6 +581,26 @@
                                  onDelete="NO ACTION" onUpdate="NO ACTION"/>
     </changeSet>
 
+    <changeSet id="101220172119" author="Vlad Sytyi">
+        <createTable tableName="letter">
+            <column name="id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="text" type="TEXT"/>
+            <column name="color" type="VARCHAR(45)"/>
+            <column name="image" type="LONGBLOB"/>
+
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="101220172120" author="Vlad Sytyi">
+        <addAutoIncrement tableName="letter" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
+
 
     <changeSet id="161220171110" author="blink7">
         <createTable tableName="invoices_result">
