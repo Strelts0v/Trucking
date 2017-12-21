@@ -15,6 +15,7 @@
     </button>
     <mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
       <button mat-menu-item (click)="openTemplate()" *ngIf="templateAvailability()">Template</button>
+      <a type="button" mat-menu-item href="http://localhost:8983/" *ngIf="roleGuard.isSysAdmin() || roleGuard.isAdmin()">Solr Admin</a>
       <button mat-menu-item (click)="logout()">Logout</button>
     </mat-menu>
   </mat-toolbar>
