@@ -5,11 +5,12 @@ import { MainComponent } from './main';
 import { AuthGuard } from './users';
 import { RoleGuard } from './users';
 import { AuthComponent, UserListComponent } from './users';
-import { InvoiceListComponent } from './invoices/invoice-list/invoice-list.component';
-import { WaybillListComponent } from './waybills/waybill-list/waybill-list.component';
+import { InvoiceListComponent } from './invoices';
+import { WaybillListComponent } from './waybills';
 import { ClientListComponent } from './clients';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { WarehouseListComponent } from './warehouses/warehouse-list/warehouse-list.component';
+import { WarehouseListComponent } from './warehouses';
+import { ProfitLossStatementComponent } from './report';
 
 const routes: Routes = [
   {path: 'auth', component: AuthComponent},
@@ -21,7 +22,8 @@ const routes: Routes = [
       {path: 'invoices', component: InvoiceListComponent, data: {title: 'Consignment notes'}, canActivate: [RoleGuard]},
       {path: 'waybills', component: WaybillListComponent, data: {title: 'Waybills'}, canActivate: [RoleGuard]},
       {path: 'clients', component: ClientListComponent, data: {title: 'Clients'}, canActivate: [RoleGuard]},
-      {path: 'warehouses', component: WarehouseListComponent, data: {title: 'Warehouses'}, canActivate: [RoleGuard]}
+      {path: 'warehouses', component: WarehouseListComponent, data: {title: 'Warehouses'}, canActivate: [RoleGuard]},
+      {path: 'report', component: ProfitLossStatementComponent, data: {title: 'P&L'}, canActivate: [RoleGuard]}
     ]
   },
   {path: '**', redirectTo: ''}

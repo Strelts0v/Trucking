@@ -643,4 +643,10 @@
         <modifyDataType tableName="items" columnName="item_price" newDataType="FLOAT"/>
         <modifyDataType tableName="car_park" columnName="car_consumption" newDataType="FLOAT"/>
     </changeSet>
+
+
+    <changeSet id="191220172303" author="blink7">
+        <modifyDataType tableName="invoices_result" columnName="income" newDataType="DECIMAL(10,2)"/>
+        <modifyDataType tableName="invoices_result" columnName="consumption" newDataType="DECIMAL(10,2)"/>
+    </changeSet>
 </databaseChangeLog>

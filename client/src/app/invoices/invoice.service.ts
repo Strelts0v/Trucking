@@ -18,7 +18,7 @@ export class InvoiceService {
   }
 
   getInvoice(id: number): Observable<Invoice> {
-    const url = `${environment.apiUrl}/${this.invoiceUrl}/${id}`;
+    const url = `${environment.apiUrl}${this.invoiceUrl}/${id}`;
     return this.http.get<Invoice>(url)
       .pipe(
         tap(_ => this.log(`fetched invoice id=${id}`)),
@@ -27,7 +27,7 @@ export class InvoiceService {
   }
 
   getInvoices(pageNumber: number, pageSize: number): Observable<Invoice[]> {
-    const url = `${environment.apiUrl}/${this.invoicesUrl}/${pageNumber}/${pageSize}`;
+    const url = `${environment.apiUrl}${this.invoicesUrl}/${pageNumber}/${pageSize}`;
     return this.http.get<Invoice[]>(url)
       .pipe(
         tap(invoices => this.log('fetched invoices')),
@@ -36,7 +36,7 @@ export class InvoiceService {
   }
 
   size(): Observable<number> {
-    const url = `${environment.apiUrl}/${this.invoicesUrl}/size`;
+    const url = `${environment.apiUrl}${this.invoicesUrl}/size`;
     return this.http.get<number>(url)
       .pipe(
         tap(size => this.log(`fetched invoices size=${size}`)),
@@ -45,7 +45,7 @@ export class InvoiceService {
   }
 
   registerInvoice(invoice: Invoice): Observable<Invoice> {
-    const url = `${environment.apiUrl}/${this.invoiceUrl}/register`;
+    const url = `${environment.apiUrl}${this.invoiceUrl}/register`;
     return this.http.post<Invoice>(url, invoice)
       .pipe(
         tap((invoice: Invoice) => this.log(`registered invoice id=${invoice.id}`)),
@@ -54,7 +54,7 @@ export class InvoiceService {
   }
 
   checkInvoice(invoice: Invoice): Observable<Invoice> {
-    const url = `${environment.apiUrl}/${this.invoiceUrl}/check`;
+    const url = `${environment.apiUrl}${this.invoiceUrl}/check`;
     return this.http.put<Invoice>(url, invoice)
       .pipe(
         tap((invoice: Invoice) => this.log(`checked invoice id=${invoice.id}`)),
@@ -63,7 +63,7 @@ export class InvoiceService {
   }
 
   completeInvoice(invoice: Invoice): Observable<Invoice> {
-    const url = `${environment.apiUrl}/${this.invoiceUrl}/complete`;
+    const url = `${environment.apiUrl}${this.invoiceUrl}/complete`;
     return this.http.put<Invoice>(url, invoice)
       .pipe(
         tap((invoice: Invoice) => this.log(`completed invoice id=${invoice.id}`)),
@@ -81,7 +81,7 @@ export class InvoiceService {
   }
 
   searchInvoices(criteria: InvoiceSearchCriteria, pageNumber: number, pageSize: number): Observable<Invoice[]> {
-    const url = `${environment.apiUrl}/${this.invoicesUrl}/search/${pageNumber}/${pageSize}`;
+    const url = `${environment.apiUrl}${this.invoicesUrl}/search/${pageNumber}/${pageSize}`;
     return this.http.put<Invoice[]>(url, criteria)
       .pipe(
         tap(invoices => this.log('fetched invoices')),
@@ -90,7 +90,7 @@ export class InvoiceService {
   }
 
   searchSize(criteria: InvoiceSearchCriteria): Observable<number> {
-    const url = `${environment.apiUrl}/${this.invoicesUrl}/search/size`;
+    const url = `${environment.apiUrl}${this.invoicesUrl}/search/size`;
     return this.http.put<number>(url, criteria)
       .pipe(
         tap(size => this.log(`fetched invoices size=${size}`)),

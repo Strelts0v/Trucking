@@ -134,7 +134,7 @@ public class JpaInvoiceDao implements InvoiceDao {
             predicates.add(cb.equal(root.get(Invoice_.status), status));
         }
 
-        if (!inspector.isEmpty()) {
+        if (inspector != null && !inspector.isEmpty()) {
             String[] nameParts = inspector.split(" ");
             Join<Invoice, User> user = root.join(Invoice_.inspector);
 
