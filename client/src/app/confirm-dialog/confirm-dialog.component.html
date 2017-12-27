@@ -1,0 +1,5 @@
+<mat-dialog-content>{{data.text}}</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="primary" [mat-dialog-close]="true" tabindex="-1">{{data.trueAction | uppercase}}</button>
+  <button mat-button mat-dialog-close tabindex="-1" *ngIf="!data.isAlert">{{data.falseAction | uppercase}}</button>
+</mat-dialog-actions>

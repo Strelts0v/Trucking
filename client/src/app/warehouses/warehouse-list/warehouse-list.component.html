@@ -1,0 +1,38 @@
+<div class="paginated-table">
+  <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let warehouse">{{warehouse.name}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="country">
+      <mat-header-cell *matHeaderCellDef>Country</mat-header-cell>
+      <mat-cell *matCellDef="let warehouse">{{warehouse.country}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="city">
+      <mat-header-cell *matHeaderCellDef>City</mat-header-cell>
+      <mat-cell *matCellDef="let warehouse">{{warehouse.city}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="street">
+      <mat-header-cell *matHeaderCellDef>Street</mat-header-cell>
+      <mat-cell *matCellDef="let warehouse">{{warehouse.street}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="house">
+      <mat-header-cell *matHeaderCellDef>House</mat-header-cell>
+      <mat-cell *matCellDef="let warehouse">{{warehouse.house}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openWarehouseDetail(row.name, row)"></mat-row>
+  </mat-table>
+
+  <button mat-fab color="accent" matTooltip="Add new note" class="add-fab-btn" (click)="openWarehouseDetail()">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <mat-paginator class="paginator"
+                 [length]="length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[10, 20]"
+                 (page)="pageEvent = loadWarehouses($event)">
+  </mat-paginator>
+</div>

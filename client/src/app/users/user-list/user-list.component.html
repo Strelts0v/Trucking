@@ -1,0 +1,37 @@
+<div class="paginated-table">
+    <mat-table #table [dataSource]="dataSource">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let user">{{user.firstName}} {{user.middleName}} {{user.lastName}}</mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="login">
+            <mat-header-cell *matHeaderCellDef> Login </mat-header-cell>
+            <mat-cell *matCellDef="let user"> {{user.login}} </mat-cell>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="available_roles">
+            <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
+            <mat-cell *matCellDef="let user"> {{user.roles}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openUserDetail(row.id, row)"></mat-row>
+    </mat-table>
+
+    <button mat-fab color="accent" matTooltip="Add new note" class="add-fab-btn"
+     (click)="openUserDetail()">
+        <mat-icon>add</mat-icon>
+    </button>
+
+    <mat-paginator class="paginator" #paginator
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 20]"
+        (page)="pageEvent = loadUsers($event)">
+        
+    </mat-paginator>
+</div>

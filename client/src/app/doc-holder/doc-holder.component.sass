@@ -1,0 +1,22 @@
+.mat-card
+  width: 700px
+  margin: -24px
+  transition: height 1.3s ease-out
+
+.mat-card--no-margin
+  padding: 0
+
+::ng-deep .card-body
+  max-height: 400px
+  overflow: auto
+
+@media all and (min-width: 408px)
+  /deep/ .mat-tab-label
+    flex: 30%
+
+::ng-deep .spinner-container
+  height: 390px
+  display: flex
+  justify-content: center
+  align-items: center
+

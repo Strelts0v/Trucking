@@ -1,0 +1,143 @@
+$primary-text-color: rgba(0,0,0,.87)
+$secondary-text-color: #666
+$text-color--gray-600: #757575
+$text-color--gray: rgba(0,0,0,.54)
+$background-color--gray: #f7f7f7
+$line-color: rgba(0,0,0,.12)
+
+=mat-icon-size($size: 24px)
+  font-size: $size
+  width: $size
+  height: $size
+  line-height: $size
+
+
+.label-icon
+  +mat-icon-size(28px)
+
+.mat-icon
+  color: $text-color--gray-600
+
+.mat-form-field
+  width: 100%
+
+.row
+  display: flex
+  flex-flow: row wrap
+  align-items: center
+  margin: 10px 0
+
+.col-1
+  padding: 0 16px
+  text-align: right
+
+.col-2
+  padding: 0 16px
+
+.col--flex-start
+  align-self: flex-start
+
+@media all
+  .col-2
+    flex: 1 100%
+@media all and (min-width: 390px)
+  .col-1
+    flex: 0 16%
+  .col-2
+    flex: 1
+
+hr
+  margin: 6px 0
+  border-top: 1px solid $line-color
+
+.signs-table
+  width: 100%
+  padding: 0 40px 0
+
+  tr
+    td
+      padding: 6px 0
+
+    td:first-child
+      width: 24%
+
+    td:nth-child(n+3)
+      text-align: right
+      width: 16%
+
+    td:nth-child(odd)
+      color: $text-color--gray
+
+.mat-dialog-actions
+  margin-bottom: 0
+  padding-right: 24px
+  justify-content: flex-end
+
+.container
+  display: flex
+  padding: 6px 0
+  max-width: 500px
+  font-size: 13px
+
+  ::ng-deep .mat-form-field-infix
+    width: 100%
+
+  .add-remove-btn-row
+    display: flex
+    align-items: center
+    width: 80px
+
+    .mat-icon
+      font-size: 20px
+
+    .remove-btn
+      .mat-icon
+        color: #EF9A9A
+
+    .add-btn
+      .mat-icon
+        color: #7E57C2
+
+.container:nth-child(1)
+  border-bottom: 1px solid $line-color
+  margin-bottom: 1px
+
+.container:nth-child(n + 2):hover
+  background-color: $background-color--gray
+  transition-duration: .28s
+  transition-timing-function: cubic-bezier(.4,0,.2,1)
+  transition-property: background-color
+
+.container > div
+  flex: 1 1 5em
+  margin-left: 10px
+  height: 40px
+  display: flex
+  align-items: center
+  justify-content: center
+
+.container > :first-child
+  margin-left: 0
+
+.container > .one
+  flex: 0 0 4em
+
+.container > .two
+  flex: 2 2 calc(10em + 10px)
+
+.container > .three
+  flex: 3 3 calc(15em + 20px)
+
+.status
+  padding: 4px
+  border-radius: 4px
+  color: white
+
+.registered
+  background: #AB47BC
+
+.checked
+  background: #7E57C2
+
+.delivered
+  background: #5C6BC0

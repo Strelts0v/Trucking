@@ -1,0 +1,49 @@
+<mat-dialog-content>
+
+
+  <table class="template_letter">
+
+    <tr>
+      <td id="header_with_iamge" [ngStyle]="{ 'background-color': letter.color } ">
+        <label for="image">
+          <img #templateImage >
+        </label>
+        <input type="file" (change)="selectFile($event)"
+               id="image" name="image" (click)="$event.stopPropagation()">
+
+        <mat-select id="color_selector" [ngStyle]="{'font-size': '10px'}" [(ngModel)]="letter.color">
+          <mat-option *ngFor="let color of colors" [ngStyle]="{ 'background-color': (color.name) } "
+                      [value]="color.name">
+          </mat-option>
+        </mat-select>
+
+      </td>
+      `
+
+    </tr>
+
+    <tr id="text_congr">
+      <mat-form-field>
+          <textarea #myTextArea [(ngModel)]="letter.text" matInput matTextareaAutosize matAutosizeMinRows="8"
+                    placeholder="Поздравление" (click)="getCaretPos(myTextArea)" (keyup)="getCaretPos(myTextArea)">
+
+          </textarea>
+      </mat-form-field>
+    </tr>
+  </table>
+
+  <!--<div class="tags_buttons">-->
+  <!--<button mat-button (click)="insertName()">Name</button>-->
+  <!--<button mat-button (click)="insertAge()">Age</button>-->
+  <!--</div>-->
+
+</mat-dialog-content>
+
+
+<mat-dialog-actions>
+  <button mat-button color="warn" mat-dialog-close>CANCEL</button>
+  <button mat-button color="primary" mat-dialog-close type="submit" (click)="setData()">SAVE</button>
+</mat-dialog-actions>
+
+
+

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- format for new changeSet id (data + time): ddmmgggghhmm-->
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="191220171647" author="Gleb Streltsov">
+        <loadData file="config/liquibase/users.csv"
+                  separator=";"
+                  tableName="users"/>
+    </changeSet>
+
+    <changeSet id="181220172225" author="Gleb Streltsov">
+        <loadData file="config/liquibase/users_has_roles.csv"
+                  separator=";"
+                  tableName="users_has_roles"/>
+    </changeSet>
+
+    <changeSet id="191220171011" author="blink7">
+        <loadData tableName="checkpoints"
+                  file="config/liquibase/checkpoints.csv"
+                  separator=";"/>
+
+        <loadData tableName="warehouses"
+                  file="config/liquibase/warehouses.csv"
+                  separator=";"/>
+
+        <loadData tableName="item_unit_codes"
+                  file="config/liquibase/item_unit_codes.csv"
+                  separator=";"/>
+
+        <loadData tableName="items"
+                  file="config/liquibase/items.csv"
+                  separator=";"/>
+
+        <loadData tableName="car_park"
+                  file="config/liquibase/cars.csv"
+                  separator=";"/>
+
+        <loadData tableName="clients"
+                  file="config/liquibase/clients.csv"
+                  separator=";"/>
+
+        <loadData tableName="waybills"
+                  file="config/liquibase/waybills.csv"
+                  separator=";"/>
+
+        <loadData tableName="waybills_has_checkpoints"
+                  file="config/liquibase/waybills_has_checkpoints.csv"
+                  separator=";">
+
+            <column name="checkpoint_checked" type="BOOLEAN"/>
+        </loadData>
+
+        <loadData tableName="invoices"
+                  file="config/liquibase/invoices.csv"
+                  separator=";"/>
+
+        <loadData tableName="item_consignments"
+                  file="config/liquibase/item_consignments.csv"
+                  separator=";"/>
+        <loadData tableName="letter" file="config/liquibase/birthdayLetter.csv" separator=";"/>
+    </changeSet>
+
+
+    <changeSet id="191220171012" author="blink7">
+        <loadData tableName="act_of_loss"
+                  file="config/liquibase/act_of_loss.csv"
+                  separator=";"/>
+
+        <loadData tableName="invoices_result"
+                  file="config/liquibase/invoices_result.csv"
+                  separator=";"/>
+    </changeSet>
+</databaseChangeLog>

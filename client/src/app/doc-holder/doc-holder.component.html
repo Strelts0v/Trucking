@@ -1,0 +1,16 @@
+<mat-card class="mat-card--no-margin mat-elevation-z8">
+  <mat-tab-group #tabs [selectedIndex]="selectedTab">
+    <mat-tab label="Consignment Note" [ngSwitch]="isInvoiceLoaded">
+      <app-invoice-detail [invoice]="invoice" *ngSwitchCase="true"></app-invoice-detail>
+      <app-doc-holder-placeholder *ngSwitchDefault></app-doc-holder-placeholder>
+    </mat-tab>
+    <mat-tab label="Waybill" [ngSwitch]="isWaybillLoaded" [disabled]="!isWaybillLoaded">
+      <app-waybill-detail [invoice]="invoice" *ngSwitchCase="true"></app-waybill-detail>
+      <app-doc-holder-placeholder *ngSwitchDefault></app-doc-holder-placeholder>
+    </mat-tab>
+    <mat-tab label="Act of Loss" [ngSwitch]="isLossActLoaded" [disabled]="!isLossActLoaded">
+      <app-lossact [invoice]="invoice" *ngSwitchCase="true"></app-lossact>
+      <app-doc-holder-placeholder *ngSwitchDefault></app-doc-holder-placeholder>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

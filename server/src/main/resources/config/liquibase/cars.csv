@@ -1,0 +1,19 @@
+id;car_name;car_number;car_type;car_consumption;version
+1;Daf 968;1234 AE-7;C;25.4;0
+2;Scania;1235 AK-5;F;24.7;0
+3;Maz;1236 AE-5;T;22.8;0
+4;Kamaz;1122 BE-6;C;21.4;0
+5;Renault;2244 KE-7;F;21.2;0
+6;Mercedes-Benz;1117 BM-5;T;21.0;0
+7;Daf 968;1334 AE-7;C;20.9;0
+8;Scania;2235 AK-5;F;19.7;0
+9;Maz;2236 AE-5;T;19.5;0
+10;Kamaz;2122 BE-6;C;21.4;0
+11;Renault;3244 KE-7;F;20.7;0
+12;Mercedes-Benz;1167 BM-5;T;22.8;0
+13;Daf 968;1294 AE-7;C;23.3;0
+14;Scania;1035 AK-5;F;23.8;0
+15;Maz;1233 AE-5;T;24.7;0
+16;Kamaz;1882 BE-6;C;20.9;0
+17;Renault;2114 KE-7;F;21.2;0
+18;Mercedes-Benz;1777 BM-5;T;21.4;0

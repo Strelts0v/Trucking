@@ -1,0 +1,4 @@
+id;warehouse_name;warehouse_country;warehouse_city;warehouse_street;warehouse_house;warehouse_lat;warehouse_lng;version
+1;Warehouse #1;Belarus;Minsk;Jasienina;25;53.8393172;27.4090443;0
+2;Warehouse #2;Russia;Moscow;Dmitrovskoye Shosse;22;55.9413068;37.5442847;0
+3;Warehouse #3;Russia;Ryazan;Moges;12;54.627735;39.7195548;0

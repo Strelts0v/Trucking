@@ -1,0 +1,92 @@
+<div class="card-body">
+  <div class="card-header">
+    <div class="header-sidebar-left">
+      <mat-icon mat-card-avatar class="card-header-icon">perm_contact_calendar
+      </mat-icon>
+    </div>
+    <div class="header-middle">
+      <span *ngIf="!user.id">New </span>
+      User
+      <div class="header-subtitle" *ngIf="user.id">
+        №{{user.id}}
+      </div>
+    </div>
+    
+    <div class="header-sidebar-right">
+      <button mat-icon-button matTooltip="Delete" (click)="deleteUser()" [mat-dialog-close] tabindex="-1">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Close" [mat-dialog-close] tabindex="-1">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <form>
+    <table cellspacing="0"><tr>
+      <td><mat-form-field>
+        <input matInput placeholder="First name" [(ngModel)]="data.user.firstName" name="firstName">
+      </mat-form-field></td>
+      <td><mat-form-field>
+        <input matInput placeholder="Middle name" [(ngModel)]="data.user.middleName" name="middleName">
+      </mat-form-field></td>
+      <td><mat-form-field>
+        <input matInput placeholder="Last name" [(ngModel)]="data.user.lastName" name="lastName">
+      </mat-form-field></td>
+      </tr></table>
+
+      <table cellspacing="0"><tr>
+        <td><mat-form-field>
+        <input matInput placeholder="Email" [formControl]="emailFormControl"
+            [errorStateMatcher]="matcher" [(ngModel)]="data.user.email" name="email">
+        </mat-form-field></td>
+        <td><mat-form-field>
+          <input matInput placeholder="Login" [(ngModel)]="data.user.login" name="login">
+        </mat-form-field></td>
+      </tr></table>
+        
+      <table cellspacing="0"><tr>
+        <td><mat-form-field>
+          <textarea matInput placeholder="Street" [(ngModel)]="data.user.street" name="street"></textarea>
+        </mat-form-field></td>
+        <td><mat-form-field>
+          <textarea matInput placeholder="House" [(ngModel)]="data.user.house" name="house"></textarea>
+        </mat-form-field></td>
+        <td><mat-form-field>
+          <textarea matInput placeholder="Apartment" [(ngModel)]="data.user.apartment" name="apartment"></textarea>
+        </mat-form-field></td>
+      </tr></table>
+
+      <table cellspacing="0"><tr>
+        <td><mat-form-field>
+          <input matInput placeholder="City" [(ngModel)]="data.user.city" name="city">
+        </mat-form-field></td>
+        <td><mat-form-field>
+          <mat-select placeholder="Roles" [formControl]="roles" [(ngModel)]="data.user.roles" multiple>
+            <mat-option *ngFor="let roles of roleList" [value]="roles">{{roles}}</mat-option>
+          </mat-select>
+        </mat-form-field></td>
+        <td><mat-form-field>
+          <input matInput placeholder="Passport" [(ngModel)]="data.user.passport" name="passport">
+        </mat-form-field></td>
+      </tr></table>
+
+      <table cellspacing="0"><tr></tr>
+        <td><mat-form-field>
+          <input matInput type="password" placeholder="Password" [(ngModel)]="data.user.password" name="password">
+          <button mat-button *ngIf="data.user.password" matSuffix mat-icon-button aria-label="Clear" (click)="data.user.password=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field></td>
+        <td><mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Birthday" [(ngModel)]="data.user.birthday" name="birthday">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field></td>
+      </table>
+
+    </form>  
+  <div mat-dialog-actions>
+    <button mat-button color="primary" type="submit" [mat-dialog-close]>CANCEL</button>
+    <button mat-button color="primary" [mat-dialog-close]="data">APPLY</button>
+  </div>
+</div>

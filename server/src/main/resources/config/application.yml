@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/itechart_group_db?autoReconnect=true&useSSL=false
+    username: root
+    password:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+        use_sql_comments: true
+        format_sql: true
+  freemarker:
+    suffix: .ftl
+    template-loader-path: classpath:/templates
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: projectjavalab2017@gmail.com
+    password: 123456789ewqdsacxz
+    protocol: smtp
+    default-encoding: UTF-8
+    test-connection: false
+    properties:
+          mail:
+            smtp:
+              auth: true
+              starttls:
+                enable: true
+  data:
+    solr:
+      host: http://localhost:8983/solr
+liquibase:
+  enabled: true
+  change-log: classpath:/config/liquibase/master.xml
+app:
+  jwt:
+    secret: qwerty
+logging:
+  level:
+    com.itechart.trucking: DEBUG
+#  pattern:
+#    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+#  file: ${catalina.home}/logs/trucking.log

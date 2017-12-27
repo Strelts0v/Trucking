@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- format for new changeSet id (data + time): ddmmgggghhmm-->
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <property name="idType" value="INT UNSIGNED" dbms="mysql"/>
+
+
+    <!--Car park table-->
+    <changeSet id="1" author="blink7">
+        <createTable tableName="car_park">
+            <column name="id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="car_name" type="VARCHAR(45)"/>
+            <column name="car_number" type="VARCHAR(45)"/>
+            <column name="car_type" type="ENUM('C', 'F', 'T')"/>
+            <column name="car_consumption" type="INT"/>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="2" author="blink7">
+        <addAutoIncrement tableName="car_park" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
+
+
+    <!--Items table-->
+    <changeSet id="3" author="blink7">
+        <createTable tableName="items">
+            <column name="id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="item_name" type="VARCHAR(45)"/>
+            <column name="item_price" type="INT"/>
+            <column name="item_type" type="ENUM('C', 'V')"/>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="4" author="blink7">
+        <addAutoIncrement tableName="items" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
+
+
+    <!--Users table-->
+    <changeSet id="5" author="blink7">
+        <createTable tableName="users">
+            <column name="id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="user_firstname" type="VARCHAR(50)"/>
+            <column name="user_lastname" type="VARCHAR(50)"/>
+            <column name="user_middlename" type="VARCHAR(50)"/>
+            <column name="user_birthday" type="DATE"/>
+            <column name="user_email" type="VARCHAR(45)"/>
+            <column name="user_city" type="VARCHAR(45)"/>
+            <column name="user_street" type="VARCHAR(45)"/>
+            <column name="user_house" type="VARCHAR(45)"/>
+            <column name="user_apartment" type="INT"/>
+            <column name="user_role" type="ENUM('S', 'A', 'M', 'D', 'DR', 'O')"/>
+            <column name="user_login" type="VARCHAR(50)"/>
+            <column name="user_password" type="VARCHAR(70)"/>
+            <column name="user_passport" type="VARCHAR(45)"/>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="6" author="blink7">
+        <addAutoIncrement tableName="users" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
+
+
+    <!--Warehouse table-->
+    <changeSet id="7" author="blink7">
+        <createTable tableName="warehouses">
+            <column name="id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="warehouse_name" type="VARCHAR(45)"/>
+            <column name="warehouse_country" type="VARCHAR(45)"/>
+            <column name="warehouse_city" type="VARCHAR(45)"/>
+            <column name="warehouse_street" type="VARCHAR(45)"/>
+            <column name="warehouse_house" type="VARCHAR(45)"/>
+            <column name="warehouse_lat" type="VARCHAR(45)"/>
+            <column name="warehouse_lng" type="VARCHAR(45)"/>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="8" author="blink7">
+        <addAutoIncrement tableName="warehouses" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
+
+
+    <!--Clients table-->
+    <changeSet id="9" author="blink7">
+        <createTable tableName="clients">
+            <column name="id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="client_name" type="VARCHAR(255)"/>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="10" author="blink7">
+        <addAutoIncrement tableName="clients" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
+
+
+    <!--Waybills table-->
+    <changeSet id="11" author="blink7">
+        <createTable tableName="waybills">
+            <column name="id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="waybill_departure_date" type="DATE"/>
+            <column name="waybill_status" type="ENUM('S', 'C')" defaultValue="S">
+                <constraints nullable="false"/>
+            </column>
+            <column name="warehouses_id_from" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="warehouses_id_to" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="car_park_id" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="clients_id" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="users_id_driver" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="waybills_issuedate" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="12" author="blink7">
+        <addAutoIncrement tableName="waybills" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
+
+    <changeSet id="13" author="blink7">
+        <createIndex tableName="waybills" indexName="fk_waybills_departure_date1_idx">
+            <column name="waybill_departure_date" type="DATE"/>
+        </createIndex>
+        <createIndex tableName="waybills" indexName="fk_waybills_status1_idx">
+            <column name="waybill_status" type="ENUM('S', 'C')"/>
+        </createIndex>
+        <createIndex tableName="waybills" indexName="fk_waybills_warehouses1_idx">
+            <column name="warehouses_id_from" type="${idType}"/>
+        </createIndex>
+        <createIndex tableName="waybills" indexName="fk_waybills_warehouses2_idx">
+            <column name="warehouses_id_to" type="${idType}"/>
+        </createIndex>
+        <createIndex tableName="waybills" indexName="fk_waybills_driver1_idx">
+            <column name="users_id_driver" type="${idType}"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="waybills" baseColumnNames="car_park_id"
+                                 constraintName="fk_waybills_car_park1"
+                                 referencedTableName="car_park"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="waybills" baseColumnNames="clients_id"
+                                 constraintName="fk_waybills_clients1"
+                                 referencedTableName="clients"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="waybills" baseColumnNames="warehouses_id_from"
+                                 constraintName="fk_waybills_warehouses1"
+                                 referencedTableName="warehouses"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="waybills" baseColumnNames="warehouses_id_to"
+                                 constraintName="fk_waybills_warehouses2"
+                                 referencedTableName="warehouses"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
+
+    <!--Invoice table-->
+    <changeSet id="14" author="blink7">
+        <createTable tableName="invoices">
+            <column name="id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="invoice_checkdate" type="DATE"/>
+            <column name="invoice_status" type="ENUM('I', 'C', 'D')" defaultValue="I">
+                <constraints nullable="false"/>
+            </column>
+            <column name="invoice_issuedate" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="users_id_creator" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="users_id_inspector" type="${idType}"/>
+            <column name="waybills_id" type="${idType}"/>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="15" author="blink7">
+        <addAutoIncrement tableName="invoices" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
+
+    <changeSet id="16" author="blink7">
+        <createIndex tableName="invoices" indexName="fk_invoices_checkdate1_idx">
+            <column name="invoice_checkdate" type="DATE"/>
+        </createIndex>
+        <createIndex tableName="invoices" indexName="fk_invoices_status1_idx">
+            <column name="invoice_status" type="ENUM('I', 'C', 'D')"/>
+        </createIndex>
+        <createIndex tableName="invoices" indexName="fk_invoices_issuedate1_idx">
+            <column name="invoice_issuedate" type="DATE"/>
+        </createIndex>
+        <createIndex tableName="invoices" indexName="fk_invoices_inspector1_idx">
+            <column name="users_id_inspector" type="${idType}"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="invoices" baseColumnNames="users_id_creator"
+                                 constraintName="fk_invoices_users_creator1"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="invoices" baseColumnNames="users_id_inspector"
+                                 constraintName="fk_invoices_users_inspector1"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="invoices" baseColumnNames="waybills_id"
+                                 constraintName="fk_invoices_waybills1"
+                                 referencedTableName="waybills"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
+
+    <changeSet id="17" author="blink7">
+        <createTable tableName="item_consignments">
+            <column name="invoices_id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="items_id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="item_amount" type="INT"/>
+            <column name="item_status" type="ENUM('R', 'C', 'D')"/>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="18" author="blink7">
+        <createIndex tableName="item_consignments" indexName="fk_item_consignments_items1_idx">
+            <column name="invoices_id" type="${idType}"/>
+        </createIndex>
+        <createIndex tableName="item_consignments" indexName="fk_item_consignments_invoices1_idx">
+            <column name="items_id" type="${idType}"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="item_consignments" baseColumnNames="invoices_id"
+                                 constraintName="fk_item_consignments_invoices1"
+                                 referencedTableName="invoices"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="item_consignments" baseColumnNames="items_id"
+                                 constraintName="fk_item_consignments_items1"
+                                 referencedTableName="items"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
+
+    <!--Checkpoints table-->
+    <changeSet id="19" author="blink7">
+        <createTable tableName="checkpoints">
+            <column name="id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="checkpoint_name" type="VARCHAR(45)"/>
+            <column name="checkpoint_lat" type="VARCHAR(45)"/>
+            <column name="checkpoint_lng" type="VARCHAR(45)"/>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="20" author="blink7">
+        <addAutoIncrement tableName="checkpoints" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
+
+
+    <changeSet id="21" author="blink7">
+        <createTable tableName="waybills_has_checkpoints">
+            <column name="waybills_id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="checkpoints_id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="checkpoint_datetime" type="DATE"/>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="22" author="blink7">
+        <createIndex tableName="waybills_has_checkpoints" indexName="fk_waybills_has_checkpoints_waybills1_idx"
+                     unique="true">
+            <column name="waybills_id" type="${idType}"/>
+        </createIndex>
+        <createIndex tableName="waybills_has_checkpoints" indexName="fk_waybills_has_checkpoints_checkpoints1"
+                     unique="true">
+            <column name="checkpoints_id" type="${idType}"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="waybills_has_checkpoints" baseColumnNames="waybills_id"
+                                 constraintName="fk_waybills_has_checkpoints_waybills1"
+                                 referencedTableName="waybills"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="waybills_has_checkpoints" baseColumnNames="checkpoints_id"
+                                 constraintName="fk_waybills_has_checkpoints_checkpoints1"
+                                 referencedTableName="checkpoints"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
+
+    <!--Act of loss table-->
+    <changeSet id="23" author="blink7">
+        <createTable tableName="act_of_loss">
+            <column name="invoices_id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="items_id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="item_amount" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="act_date_issue" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="24" author="blink7">
+        <createIndex tableName="act_of_loss" indexName="fk_act_of_loss_invoices1_idx"
+                     unique="true">
+            <column name="invoices_id" type="${idType}"/>
+        </createIndex>
+        <createIndex tableName="act_of_loss" indexName="fk_act_of_loss_items1_idx"
+                     unique="true">
+            <column name="items_id" type="${idType}"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="act_of_loss" baseColumnNames="invoices_id"
+                                 constraintName="fk_act_of_loss_invoices1"
+                                 referencedTableName="invoices"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="act_of_loss" baseColumnNames="items_id"
+                                 constraintName="fk_act_of_loss_items1"
+                                 referencedTableName="items"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+    
+    
+    <changeSet id="25" author="blink7">
+        <createTable tableName="users_has_roles">
+            <column name="users_id" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_role" type="ENUM('S', 'A', 'M', 'D', 'DR', 'O')"/>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+
+    <changeSet id="26" author="blink7">
+        <createIndex tableName="users_has_roles" indexName="fk_users_has_roles_user1_idx">
+            <column name="users_id" type="${idType}"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="users_has_roles" baseColumnNames="users_id"
+                                 constraintName="fk_users_has_roles_users1"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
+
+    <changeSet id="27" author="blink7">
+        <addUniqueConstraint tableName="checkpoints"
+                             columnNames="checkpoint_name"
+                             constraintName="checkpoint_name_UNIQUE"/>
+        <addUniqueConstraint tableName="checkpoints"
+                             columnNames="checkpoint_lat, checkpoint_lng"
+                             constraintName="checkpoint_location_UNIQUE"/>
+    </changeSet>
+
+
+    <changeSet id="28" author="blink7">
+        <dropColumn tableName="act_of_loss" columnName="act_date_issue"/>
+
+        <addColumn tableName="invoices">
+            <column name="act_date_issue" type="DATE"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="29" author="blink7">
+        <modifyDataType tableName="users" columnName="user_password" newDataType="VARCHAR(64)"/>
+    </changeSet>
+
+
+    <changeSet id="101220171026" author="blink7">
+        <createTable tableName="item_unit_codes">
+            <column name="id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="unit_code" type="VARCHAR(8)"/>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+
+    <changeSet id="111220171026" author="blink7">
+        <dropForeignKeyConstraint baseTableName="waybills_has_checkpoints" constraintName="fk_waybills_has_checkpoints_waybills1"/>
+        <dropForeignKeyConstraint baseTableName="waybills_has_checkpoints" constraintName="fk_waybills_has_checkpoints_checkpoints1"/>
+        <dropIndex tableName="waybills_has_checkpoints" indexName="fk_waybills_has_checkpoints_waybills1_idx"/>
+        <dropIndex tableName="waybills_has_checkpoints" indexName="fk_waybills_has_checkpoints_checkpoints1"/>
+
+        <createIndex tableName="waybills_has_checkpoints" indexName="fk_waybills_has_checkpoints_waybills1_idx">
+            <column name="waybills_id" type="${idType}"/>
+        </createIndex>
+        <createIndex tableName="waybills_has_checkpoints" indexName="fk_waybills_has_checkpoints_checkpoints1_idx">
+            <column name="checkpoints_id" type="${idType}"/>
+        </createIndex>
+        <addForeignKeyConstraint baseTableName="waybills_has_checkpoints" baseColumnNames="waybills_id"
+                                 constraintName="fk_waybills_has_checkpoints_waybills1"
+                                 referencedTableName="waybills"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="waybills_has_checkpoints" baseColumnNames="checkpoints_id"
+                                 constraintName="fk_waybills_has_checkpoints_checkpoints1"
+                                 referencedTableName="checkpoints"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+
+        <modifyDataType tableName="warehouses" columnName="warehouse_lat" newDataType="DOUBLE"/>
+        <modifyDataType tableName="warehouses" columnName="warehouse_lng" newDataType="DOUBLE"/>
+
+        <dropColumn tableName="items" columnName="item_type"/>
+        <addColumn tableName="items">
+            <column name="unit_id" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="items" baseColumnNames="unit_id"
+                                 constraintName="fk_items_units1"
+                                 referencedTableName="item_unit_codes"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+
+        <modifyDataType tableName="checkpoints" columnName="checkpoint_lat" newDataType="DOUBLE"/>
+        <modifyDataType tableName="checkpoints" columnName="checkpoint_lng" newDataType="DOUBLE"/>
+        <addColumn tableName="checkpoints">
+            <column name="checkpoint_addition_name" type="VARCHAR(45)"/>
+            <column name="checkpoint_place_id" type="VARCHAR(45)"/>
+        </addColumn>
+
+        <addColumn tableName="waybills_has_checkpoints">
+            <column name="checkpoint_checked" type="BOOLEAN"/>
+        </addColumn>
+
+        <dropForeignKeyConstraint baseTableName="waybills" constraintName="fk_waybills_clients1"/>
+        <dropColumn tableName="waybills" columnName="clients_id"/>
+
+        <addColumn tableName="invoices">
+            <column name="clients_id" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="invoices" baseColumnNames="clients_id"
+                                 constraintName="fk_invoices_clients1"
+                                 referencedTableName="clients"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
+    
+    <changeSet id="121220171545" author="blink7">
+        <addColumn tableName="users">
+            <column name="busy" type="BOOLEAN"/>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet id="121220172348" author="blink7">
+        <dropForeignKeyConstraint baseTableName="act_of_loss" constraintName="fk_act_of_loss_invoices1"/>
+        <dropForeignKeyConstraint baseTableName="act_of_loss" constraintName="fk_act_of_loss_items1"/>
+        <dropIndex tableName="act_of_loss" indexName="fk_act_of_loss_invoices1_idx"/>
+        <dropIndex tableName="act_of_loss" indexName="fk_act_of_loss_items1_idx"/>
+
+        <createIndex tableName="act_of_loss" indexName="fk_act_of_loss_invoices1_idx">
+            <column name="invoices_id" type="${idType}"/>
+        </createIndex>
+        <createIndex tableName="act_of_loss" indexName="fk_act_of_loss_items1_idx">
+            <column name="items_id" type="${idType}"/>
+        </createIndex>
+        <addForeignKeyConstraint baseTableName="act_of_loss" baseColumnNames="invoices_id"
+                                 constraintName="fk_act_of_loss_invoices1"
+                                 referencedTableName="invoices"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="act_of_loss" baseColumnNames="items_id"
+                                 constraintName="fk_act_of_loss_items1"
+                                 referencedTableName="items"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
+    <changeSet id="101220172119" author="Vlad Sytyi">
+        <createTable tableName="letter">
+            <column name="id" type="${idType}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT"/>
+            <column name="text" type="TEXT"/>
+            <column name="color" type="VARCHAR(45)"/>
+            <column name="image" type="LONGBLOB"/>
+
+        </createTable>
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="101220172120" author="Vlad Sytyi">
+        <addAutoIncrement tableName="letter" columnName="id" columnDataType="${idType}"/>
+    </changeSet>
+
+
+    <changeSet id="161220171110" author="blink7">
+        <createTable tableName="invoices_result">
+            <column name="invoice_id" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id_driver" type="${idType}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="complete_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="income" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="consumption" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <modifySql dbms="mysql">
+            <append value=" ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"/>
+        </modifySql>
+    </changeSet>
+
+
+    <changeSet id="161220171121" author="blink7">
+        <createIndex tableName="invoices_result" indexName="fk_invoices_result_invoices1_idx" unique="true">
+            <column name="invoice_id" type="${idType}"/>
+        </createIndex>
+        <createIndex tableName="invoices_result" indexName="fk_invoices_result_users1_idx">
+            <column name="user_id_driver" type="${idType}"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="invoices_result" baseColumnNames="invoice_id"
+                                 constraintName="fk_invoices_result_invoices1"
+                                 referencedTableName="invoices"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+        <addForeignKeyConstraint baseTableName="invoices_result" baseColumnNames="user_id_driver"
+                                 constraintName="fk_invoices_result_users1"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
+
+    <changeSet id="131220171142" author="blink7">
+        <addColumn tableName="invoices">
+            <column name="invoice_number" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="complete_date" type="DATE"/>
+        </addColumn>
+
+        <addColumn tableName="waybills">
+            <column name="waybill_distance" type="INT"/>
+        </addColumn>
+
+        <modifyDataType tableName="items" columnName="item_price" newDataType="FLOAT"/>
+        <modifyDataType tableName="car_park" columnName="car_consumption" newDataType="FLOAT"/>
+    </changeSet>
+
+
+    <changeSet id="191220172303" author="blink7">
+        <modifyDataType tableName="invoices_result" columnName="income" newDataType="DECIMAL(10,2)"/>
+        <modifyDataType tableName="invoices_result" columnName="consumption" newDataType="DECIMAL(10,2)"/>
+    </changeSet>
+</databaseChangeLog>
